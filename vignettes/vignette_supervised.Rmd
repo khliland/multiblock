@@ -1,0 +1,193 @@
+---
+title: "Vignette, supervised multiblock"
+output: 
+  rmarkdown::html_vignette:
+    toc: true
+vignette: >
+  %\VignetteIndexEntry{Vignette, supervised multiblock}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.width=6, 
+  fig.height=4
+)
+# Legge denne i YAML på toppen for å skrive ut til tex
+#output: 
+#  pdf_document: 
+#    keep_tex: yes
+```
+
+```{r setup}
+library(multiblock)
+```
+
+# Formatting data for multiblock analyses
+
+Data blocks are best stored as named lists for use with the formula interface of R. The following is an example with sample data in one data block and one response block.
+
+```{r}
+# Random data
+n <- 30; p <- 90
+X <- matrix(rnorm(n*p), nrow=n)
+y <- X %*% rnorm(p) + 10
+
+# Split X into three blocks in a named list
+ABC <- list(A = X[,1:20], B = X[,21:50], C = X[,51:90], y = y)
+
+# Model using names of blocks (see below for full SO-PLS example)
+mod <- sopls(y ~ A + B + C, data = ABC, ncomp = c(4,3,4))
+```
+
+
+# SO-PLS
+
+The following example uses the _potato_ data to showcase some of the functions available for SO-PLS analyses
+
+## Modelling
+
+A multi-response two-block SO-PLS model with up to 10 components in total is cross-validated with 10 random segments.
+
+```{r}
+data(potato)
+so <- sopls(Sensory ~ Chemical + Compression, data=potato, 
+            ncomp=c(10,10), max_comps=10, validation="CV", segments=10)
+print(so)
+summary(so)
+```
+
+## Loadings
+
+One set of loadings is printed and two sets are plotted to show how to select specific components from specific blocks.
+
+```{r}
+loadings(so, ncomp = c(4,0), block = 1)
+```
+```{r}
+old.par <- par("mfrow"); on.exit(par(old.par)); par(mfrow=c(1,2))
+loadingplot(so, ncomp = c(4,3), comps = c(2,3), block = 1, scatter = TRUE, main = "Block 1")
+loadingplot(so, ncomp = c(4,3), block = 2, scatter = TRUE, main = "Block 2")
+par(old.par)
+```
+
+## Scores
+
+One set of scores is printed and two sets are plotted to show how to select specific components from specific blocks.
+
+```{r}
+scores(so, ncomp = c(4,0), block = 1)
+```
+```{r}
+old.par <- par("mfrow"); on.exit(par(old.par)); par(mfrow=c(1,2))
+scoreplot(so, ncomp = c(4,3), comps = c(2,3), block = 1, main = "Block 1")
+scoreplot(so, ncomp = c(4,3), block = 2, main = "Block 2")
+par(old.par)
+```
+
+## Prediction
+
+A three block model is fitted using a single response, 5 components and a subset of the data. The remaining data are used as test set for prediction.
+
+```{r}
+potato1 <- potato; potato1$Sensory <- potato1$Sensory[,1]
+mod <- sopls(Sensory ~ ., data = potato1[c(1:3,9)], ncomp = 5, subset = 1:20)
+testset <- potato1[-(1:20),]; # testset$Sensory <- NULL
+predict(mod, testset, comps=c(2,1,2))
+
+```
+
+## Validation
+
+Compute validation statistics; explained variance - R$^2$ and Root Mean Squared Error - RMSE(P/CV).
+
+```{r}
+# Cross-validation
+R2(so, ncomp = c(5,5))
+R2(so, ncomp = c(5,5), individual = TRUE)
+# Training
+R2(so, 'train', ncomp = c(5,5))
+
+# Test data
+R2(mod, newdata = testset, ncomp = c(2,1,2))
+```
+
+```{r}
+# Cross-validation
+RMSEP(so, ncomp = c(5,5))
+RMSEP(so, ncomp = c(5,5), individual = TRUE)
+# Training
+RMSEP(so, 'train', ncomp = c(5,5))
+
+# Test data
+RMSEP(mod, newdata = testset, ncomp = c(2,1,2))
+```
+
+# ROSA
+
+The following example uses the _potato_ data to showcase some of the functions available for ROSA analyses
+
+## Modelling
+
+A multi-response two-block ROSA model with up to 10 components in total is cross-validated with 10 random segments.
+
+```{r}
+ros <- rosa(Sensory ~ ., data = potato1, ncomp = 10, validation = "CV", segments = 5)
+print(ros)
+summary(ros)
+```
+
+## Loadings
+
+Extract loadings (not used further) and plot two first vectors of loadings.
+
+```{r}
+loads <- loadings(ros)
+loadingplot(ros, comps = 1:2)
+```
+
+## Scores
+
+Extract scores (not used further) and plot two first vectors of scores.
+
+```{r}
+sco <- scores(ros)
+scoreplot(ros, comps = 1:2)
+```
+
+## Prediction
+
+A three block model is fitted using a single response, 5 components and a subset of the data. The remaining data are used as test set for prediction.
+
+```{r}
+rosT <- rosa(Sensory ~ ., data = potato1[c(1:3,9)], ncomp = 5, subset = 1:20)
+testset <- potato1[-(1:20),]; # testset$Sensory <- NULL
+predict(rosT, testset, comps=2)
+```
+
+## Validation
+
+Compute validation statistics; explained variance - R$^2$ and Root Mean Squared Error - RMSE(P/CV).
+
+```{r}
+# Cross-validation
+R2(ros)
+# Training
+R2(ros, 'train')
+
+# Test data
+R2(rosT, 'test', newdata = testset)
+```
+
+```{r}
+# Cross-validation
+RMSEP(ros)
+# Training
+RMSEP(ros, 'train')
+
+# Test data
+RMSEP(rosT, newdata = testset)
+```

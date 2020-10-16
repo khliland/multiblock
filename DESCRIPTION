@@ -1,0 +1,29 @@
+Encoding: UTF-8
+Package: multiblock
+Type: Package
+Title: Multiblock data analysis
+Version: 0.5.0
+Date: 2020-10-16
+Author: Kristian Hovde Liland
+Maintainer: Kristian Hovde Liland <kristian.liland@nmbu.no>
+Description: Analysis of multiple blocks of data, e.g. where the same samples have been measured using various instruments or conditions.
+License: GPL (>= 2)
+Depends: R (>= 3.5.0)
+Imports: Rcpp (>= 1.0.0), RcppEigen (>= 0.3.3.5.0),
+  MFAg,
+  RGCCA,
+  RegularizedSCA,
+  SSBtools,
+  ade4,
+  pls,
+  progress,
+  MASS,
+  RSpectra,
+  plotrix,
+  pracma
+LinkingTo: Rcpp, RcppEigen
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
+Suggests: 
+    knitr
+VignetteBuilder: knitr
