@@ -33,9 +33,9 @@
 #' @export
 image.rosa <- function(x, type = c("correlation","residual","order"), ncomp = x$ncomp,
                        col = mcolors(128), legend = TRUE, mar = c(5,6,4,7), las = 1, ...){
+  mf <- match.call(expand.dots = FALSE)
   if(type[1] == "correlation"){
     im <- t(x$candidate.correlation)[1:ncomp,,drop=FALSE]
-    mf <- match.call(expand.dots = FALSE)
     if(is.na(match("zlim", names(mf))))
       zlim <- c(-1,1)
     leg <- seq(-1,1,length.out = length(col))

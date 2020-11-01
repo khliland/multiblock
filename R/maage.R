@@ -2,9 +2,9 @@
 #' @title Måge plot
 #'
 #' @param object An SO-PLS model (\code{sopls} object)
+#' @param compSeq Integer vector giving the sequence of previous components chosen for \code{maageSeq} (see example).
 #' @param expl_var Logical indicating if explained variance (default) or RMSECV should be displayed.
 #' @param pure.trace Logical indicating if single block solutions should be traced in the plot.
-#' @param compSeq Integer vector giving the sequence of previous components chosen for \code{maageSeq} (see example).
 #' @param pch Scalar or symbol giving plot symbol.
 #' @param xlab Label for x-axis.
 #' @param ylab Label for y-axis.
@@ -15,10 +15,21 @@
 #' @param col.block Line colours for blocks (default = c('red','blue','darkgreen','purple','black'))
 #' @param ... Additional arguments to \code{plot}.
 #'
-#' @return
-#' @export
-#'
 #' @examples
+#' data(wine)
+#' ncomp <- unlist(lapply(wine, ncol))[-5]
+#' so.wine <- sopls(`Global quality` ~ ., data=wine, ncomp=ncomp, 
+#'             max_comps=10, validation="CV", segments=10)
+#' maage(so.wine)
+#' 
+#' # Sequential search for optimal number of components per block
+#' old.par <- par(mfrow=c(2,2), mar=c(3,3,0.5,1), mgp=c(2,0.7,0))
+#' maageSeq(so.wine)
+#' maageSeq(so.wine, 2)
+#' maageSeq(so.wine, c(2,1))
+#' maageSeq(so.wine, c(2,1,1))
+#' par(old.par)
+#' @export
 maage <- function(object, expl_var=TRUE, pure.trace=FALSE, pch=20, xlab='# components', 
                   ylab=ifelse(expl_var,'Explained variance (%)','RMSECV'), 
                   xlim=NULL, ylim=NULL, cex.text=0.8, ...){
@@ -67,7 +78,7 @@ maageSeq <- function(object, compSeq=TRUE, expl_var=TRUE, pch=20, xlab='# compon
   }
   if(!is.logical(compSeq) && sum(compSeq)>object$max_comps)
     stop('Selected components outside of component range')
-  if(length(compSeq)>length(so$ncomp))
+  if(length(compSeq)>length(object$ncomp))
     stop('Too many blocks specified')
   nblock <- dim(object$decomp$compList)[2]
   if(expl_var){ # Explained variance

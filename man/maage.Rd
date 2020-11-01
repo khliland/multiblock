@@ -61,9 +61,21 @@ maageSeq(
 
 \item{col.block}{Line colours for blocks (default = c('red','blue','darkgreen','purple','black'))}
 }
-\value{
-
-}
 \description{
 Måge plot
+}
+\examples{
+data(wine)
+ncomp <- unlist(lapply(wine, ncol))[-5]
+so.wine <- sopls(`Global quality` ~ ., data=wine, ncomp=ncomp, 
+            max_comps=10, validation="CV", segments=10)
+maage(so.wine)
+
+# Sequential search for optimal number of components per block
+old.par <- par(mfrow=c(2,2), mar=c(3,3,0.5,1), mgp=c(2,0.7,0))
+maageSeq(so.wine)
+maageSeq(so.wine, 2)
+maageSeq(so.wine, c(2,1))
+maageSeq(so.wine, c(2,1,1))
+par(old.par)
 }

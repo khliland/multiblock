@@ -19,3 +19,9 @@ Collection of supervised multiblock methods:
 \item Multiblock Redundancy Analysis (\code{mbra})
 }
 }
+\examples{
+data(potato)
+mb <- mbpls(potato[c('Chemical','Compression')], potato[['Sensory']], ncomp = 5)
+print(mb)
+
+}

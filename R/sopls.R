@@ -179,7 +179,7 @@ sopls_prediction <- function(SO, Xval, comps, scores){
   Y_pred <- array(0, c(nval, nresp, tot_comp))  
   Cr <- Crval <- 0
   for(i in 1:nblock){
-    if(comps[i]>0){
+    if(is.character(comps) || comps[i]>0){
       Xval[[i]] <- as.matrix(Xval[[i]])
       X[[i]]    <- as.matrix(X[[i]])
       Xval[[i]] <- Xval[[i]] - rep(SO$Xmeans[[i]], each = nval)
@@ -412,6 +412,15 @@ component_combos <- function(comps, max_comps){
 #####################
 # Path through compList
 pathComp <- function(comps, compList){
+  if(length(comps)==1 && comps=="all"){
+    nb <- ncol(compList)
+    ord <- order(as.numeric(apply(compList[,nb:1],1,paste, collapse="")))[-1]
+    return(list(path = compList[ord,,drop=FALSE], hits = ord))
+  }
+  if(length(comps)==1 && comps=="raw"){
+    ord <- 2:nrow(compList)
+    return(list(path = compList[ord,,drop=FALSE], hits = ord))
+  }
   nblocks <- length(comps)
   mat <- matrix(0, 0, nblocks)
   for(b in 1:nblocks){

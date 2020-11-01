@@ -1,0 +1,81 @@
+---
+title: "Vignette, ASCA"
+output: 
+  rmarkdown::html_vignette:
+    toc: true
+vignette: >
+  %\VignetteIndexEntry{Vignette, ASCA}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.width=6, 
+  fig.height=4
+)
+# Legge denne i YAML på toppen for å skrive ut til tex
+#output: 
+#  pdf_document: 
+#    keep_tex: true
+# Original:
+#  rmarkdown::html_vignette:
+#    toc: true
+```
+
+```{r setup}
+library(multiblock)
+```
+
+## Random data generation
+
+```{r cars}
+set.seed(1)
+dataset   <- data.frame(y=I(matrix(rnorm(24*10),ncol=10)), 
+                        x=factor(c(rep(2,8),rep(1,8),rep(0,8))), 
+                        z=factor(rep(c(1,0),12)), w=rnorm(24))
+colnames(dataset$y) <- paste('Var', 1:10, sep=" ")
+rownames(dataset)   <- paste('Obj', 1:24, sep=" ")
+str(dataset)
+```
+
+## ASCA modelling
+
+A basic ASCA model having two factors
+
+```{r}
+mod <- asca(y~x+z, data=dataset)
+print(mod)
+```
+
+## Scores
+
+Scores for first factor
+
+```{r}
+sc <- scores(mod)
+head(sc)
+
+scoreplot(mod, legendpos = "topleft")
+```
+
+Scores for second factor
+
+```{r}
+sc <- scores(mod, factor="z")
+head(sc)
+
+scoreplot(mod, factor="z")
+```
+
+## Loadings
+
+```{r}
+lo <- loadings(mod)
+head(lo)
+
+loadingplot(mod, scatter = TRUE, labels = 'names')
+```
+

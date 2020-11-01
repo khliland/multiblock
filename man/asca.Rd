@@ -2,36 +2,85 @@
 % Please edit documentation in R/asca.R
 \name{asca}
 \alias{asca}
-\title{Title}
+\alias{print.asca}
+\alias{summary.asca}
+\alias{loadings.asca}
+\alias{scores.asca}
+\alias{loadingplot.asca}
+\alias{scoreplot.asca}
+\alias{projections}
+\alias{projections.asca}
+\title{Analysis of Variance Simultaneous Component Analysis}
 \usage{
 asca(formula, data, subset, weights, na.action, family, pca.in = FALSE)
+
+\method{print}{asca}(x, ...)
+
+\method{summary}{asca}(object, ...)
+
+\method{loadings}{asca}(object, factor = 1, ...)
+
+\method{loadingplot}{asca}(object, factor = 1, comps = 1:2, ...)
+
+\method{scores}{asca}(object, factor = 1, ...)
+
+projections(object, ...)
+
+\method{projections}{asca}(object, factor = 1, ...)
+
+\method{scoreplot}{asca}(
+  object,
+  factor = 1,
+  comps = 1:2,
+  pch.scores = 19,
+  pch.projections = 1,
+  gr.col = 1:nlevels(object$effects[[factor]]),
+  ellipsoids,
+  xlim,
+  ylim,
+  xlab,
+  ylab,
+  legendpos,
+  ...
+)
 }
 \arguments{
-\item{formula}{}
+\item{formula}{Model formula accepting a single response (block) and predictor names separated by + signs.}
 
-\item{data}{}
+\item{data}{The data set to analyse.}
 
-\item{subset}{}
+\item{subset}{Subset of objects}
 
-\item{weights}{}
+\item{weights}{Optional object weights.}
 
-\item{na.action}{}
+\item{na.action}{How to handle NAs (no action implemented).}
 
-\item{family}{}
+\item{family}{Error distributions and link function for Generalized Linear Models.}
 
-\item{pca.in}{}
+\item{pca.in}{Compress response before ASCA (number of components).}
+
+\item{object}{\code{ASCA} object used when extracting and plotting.}
+
+\item{factor}{String or integer indicating which factor to select for extracting and plotting.}
 }
 \value{
 
 }
 \description{
-Title
+Analysis of Variance Simultaneous Component Analysis
 }
 \examples{
-dataset1   <- data.frame(y=I(matrix(rnorm(24*10),ncol=10)), x=factor(c(rep(2,8),rep(1,8),rep(0,8))), z=factor(rep(c(1,0),12)), w=rnorm(24))
-mod <- asca(y~x+z, data=dataset1)
-mod <- asca(y~x+z, data=dataset1, pca.in=0)
-mod <- asca(y~x+z+w, data=dataset1, family="gaussian")
-mod <- asca(y~x+(1|z), data=dataset1)
-mod <- asca(y~x+(1|z)+w, data=dataset1, family="gaussian")
+dataset   <- data.frame(y=I(matrix(rnorm(24*10),ncol=10)), x=factor(c(rep(2,8),rep(1,8),rep(0,8))), z=factor(rep(c(1,0),12)), w=rnorm(24))
+colnames(dataset$y) <- paste('Var', 1:10, sep=" ")
+rownames(dataset) <- paste('Obj', 1:24, sep=" ")
+mod <- asca(y~x+z, data=dataset)
+print(mod)
+loadingplot(mod, scatter=TRUE)
+scoreplot(mod)
+
+mod.pca <- asca(y~x+z, data=dataset, pca.in=5)
+mod.glm <- asca(y~x+z+w, data=dataset, family="gaussian")
+
+mod <- asca(y~x+(1|z), data=dataset)
+mod <- asca(y~x+(1|z)+w, data=dataset, family="gaussian")
 }

@@ -22,7 +22,6 @@
 # Include also Penalized Exponential SCA (SLIDE, penalty-based)
 # 
 # NB! Removed:
-#  MetStaT ASCA.Calculate
 #  r.jive jive
 
 #' @rdname unsupervised 

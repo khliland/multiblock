@@ -7,6 +7,8 @@
 \alias{coef.sopls}
 \alias{print.sopls}
 \alias{summary.sopls}
+\alias{classify}
+\alias{classify.sopls}
 \alias{loadings.sopls}
 \alias{loadingplot.sopls}
 \alias{scores.sopls}
@@ -43,19 +45,21 @@
   ...
 )
 
-sopls.classify(object, classes, newdata, ncomp, LQ)
+classify(object, ...)
 
-\method{loadings}{sopls}(object, ncomp, block = 1, ...)
+\method{classify}{sopls}(object, classes, newdata, ncomp, LQ = "LDA")
 
-\method{loadingplot}{sopls}(object, ncomp, comps = c(1, 2), block = 1, ...)
+\method{loadings}{sopls}(object, ncomp = "all", block = 1, ...)
 
-\method{scores}{sopls}(object, ncomp, block = 1, ...)
+\method{loadingplot}{sopls}(object, ncomp = "all", comps = c(1, 2), block = 1, ...)
 
-\method{scoreplot}{sopls}(object, ncomp, comps = c(1, 2), block = 1, ...)
+\method{scores}{sopls}(object, ncomp = "all", block = 1, ...)
 
-\method{R2}{sopls}(object, estimate, newdata, ncomp, individual = FALSE, ...)
+\method{scoreplot}{sopls}(object, ncomp = "all", comps = c(1, 2), block = 1, ...)
 
-\method{RMSEP}{sopls}(object, estimate, newdata, ncomp, individual = FALSE, ...)
+\method{R2}{sopls}(object, estimate, newdata, ncomp = "all", individual = FALSE, ...)
+
+\method{RMSEP}{sopls}(object, estimate, newdata, ncomp = "all", individual = FALSE, ...)
 }
 \arguments{
 \item{object}{A \code{sopls} object.}

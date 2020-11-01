@@ -19,7 +19,10 @@ knitr::opts_chunk$set(
 # Legge denne i YAML på toppen for å skrive ut til tex
 #output: 
 #  pdf_document: 
-#    keep_tex: yes
+#    keep_tex: true
+# Original:
+#  rmarkdown::html_vignette:
+#    toc: true
 ```
 
 ```{r setup}
@@ -40,37 +43,94 @@ y <- X %*% rnorm(p) + 10
 ABC <- list(A = X[,1:20], B = X[,21:50], C = X[,51:90], y = y)
 
 # Model using names of blocks (see below for full SO-PLS example)
-mod <- sopls(y ~ A + B + C, data = ABC, ncomp = c(4,3,4))
+so.abc <- sopls(y ~ A + B + C, data = ABC, ncomp = c(4,3,4))
+```
+
+# MB-PLS
+
+Multiblock PLS is presented briefly using the _potato_ data.
+
+## Modelling
+
+A multi-response two-block MB-PLS model with up to 10 components in total is cross-validated with 10 random segments.
+
+```{r}
+data(potato)
+mb <- mbpls(potato[c('Chemical','Compression')], potato[['Sensory']], ncomp = 10,
+            max_comps=10, validation="CV", segments=10)
+print(mb)
+```
+
+## Summaries and plotting
+
+MB-PLS is implemented as a block-wise weighted concatenated ordinary PLSR. Therefore, all methods available for _plsr_ are available for the global part of the MB-PL. In addition one can extrac _blockScores_ and _blockLoadings_.
+
+```{r}
+Tb1 <- blockScores(mb)
+plot(Tb1)
+
+Pb2 <- blockLoadings(mb, block=2)
+plot(Pb2, main = 'Loadings for block 2')
 ```
 
 
 # SO-PLS
 
-The following example uses the _potato_ data to showcase some of the functions available for SO-PLS analyses
+The following example uses the _potato_ data to showcase some of the functions available for SO-PLS analyses.
 
 ## Modelling
 
 A multi-response two-block SO-PLS model with up to 10 components in total is cross-validated with 10 random segments.
 
 ```{r}
-data(potato)
-so <- sopls(Sensory ~ Chemical + Compression, data=potato, 
+# Load potato data and fit SO-PLS model
+so.pot <- sopls(Sensory ~ Chemical + Compression, data=potato, 
             ncomp=c(10,10), max_comps=10, validation="CV", segments=10)
-print(so)
-summary(so)
+print(so.pot)
+summary(so.pot)
 ```
+
+## Måge plot
+
+Full Måge plot for all combinations of components for all blocks. This
+can be used for a global search for the best fitting cross-validated model.
+
+```{r}
+# Load Wine data and model with SO-PLS
+data(wine)
+ncomp <- unlist(lapply(wine, ncol))[-5]
+so.wine <- sopls(`Global quality` ~ ., data=wine, ncomp=ncomp, 
+             max_comps=6, validation="CV", segments=10)
+maage(so.wine)
+```
+
+A sequential Måge plot can be used for a sequential search for
+the optimal model.
+
+```{r}
+# Sequential search for optimal number of components per block
+old.par <- par(mfrow=c(2,2), mar=c(3,3,0.5,1), mgp=c(2,0.7,0))
+maageSeq(so.wine)
+maageSeq(so.wine, 2)
+maageSeq(so.wine, c(2,1))
+maageSeq(so.wine, c(2,1,1))
+par(old.par)
+```
+
 
 ## Loadings
 
 One set of loadings is printed and two sets are plotted to show how to select specific components from specific blocks.
 
 ```{r}
-loadings(so, ncomp = c(4,0), block = 1)
+# Display loadings up to four components for first block
+loadings(so.pot, ncomp = c(4,0), block = 1)
 ```
 ```{r}
+# Plot loadings from block 1 and 2
 old.par <- par("mfrow"); on.exit(par(old.par)); par(mfrow=c(1,2))
-loadingplot(so, ncomp = c(4,3), comps = c(2,3), block = 1, scatter = TRUE, main = "Block 1")
-loadingplot(so, ncomp = c(4,3), block = 2, scatter = TRUE, main = "Block 2")
+loadingplot(so.pot, ncomp = c(4,3), comps = c(2,3), block = 1, scatter = TRUE, main = "Block 1")
+loadingplot(so.pot, ncomp = c(4,3), block = 2, scatter = TRUE, main = "Block 2")
 par(old.par)
 ```
 
@@ -79,12 +139,14 @@ par(old.par)
 One set of scores is printed and two sets are plotted to show how to select specific components from specific blocks.
 
 ```{r}
-scores(so, ncomp = c(4,0), block = 1)
+# Display scores up to four components for first block
+scores(so.pot, ncomp = c(4,0), block = 1)
 ```
 ```{r}
+# Plot scores from block 1 and 2
 old.par <- par("mfrow"); on.exit(par(old.par)); par(mfrow=c(1,2))
-scoreplot(so, ncomp = c(4,3), comps = c(2,3), block = 1, main = "Block 1")
-scoreplot(so, ncomp = c(4,3), block = 2, main = "Block 2")
+scoreplot(so.pot, ncomp = c(4,3), comps = c(2,3), block = 1, main = "Block 1")
+scoreplot(so.pot, ncomp = c(4,3), block = 2, main = "Block 2")
 par(old.par)
 ```
 
@@ -93,10 +155,13 @@ par(old.par)
 A three block model is fitted using a single response, 5 components and a subset of the data. The remaining data are used as test set for prediction.
 
 ```{r}
+# Modify data to contain a single response
 potato1 <- potato; potato1$Sensory <- potato1$Sensory[,1]
-mod <- sopls(Sensory ~ ., data = potato1[c(1:3,9)], ncomp = 5, subset = 1:20)
+# Model 20 first objects with SO-PLS
+so.pot20 <- sopls(Sensory ~ ., data = potato1[c(1:3,9)], ncomp = 5, subset = 1:20)
+# Predict remaining objects
 testset <- potato1[-(1:20),]; # testset$Sensory <- NULL
-predict(mod, testset, comps=c(2,1,2))
+predict(so.pot20, testset, comps=c(2,1,2))
 
 ```
 
@@ -106,38 +171,39 @@ Compute validation statistics; explained variance - R$^2$ and Root Mean Squared 
 
 ```{r}
 # Cross-validation
-R2(so, ncomp = c(5,5))
-R2(so, ncomp = c(5,5), individual = TRUE)
+R2(so.pot, ncomp = c(5,5))
+R2(so.pot, ncomp = c(5,5), individual = TRUE)
 # Training
-R2(so, 'train', ncomp = c(5,5))
+R2(so.pot, 'train', ncomp = c(5,5))
 
 # Test data
-R2(mod, newdata = testset, ncomp = c(2,1,2))
+R2(so.pot20, newdata = testset, ncomp = c(2,1,2))
 ```
 
 ```{r}
 # Cross-validation
-RMSEP(so, ncomp = c(5,5))
-RMSEP(so, ncomp = c(5,5), individual = TRUE)
+RMSEP(so.pot, ncomp = c(5,5))
+RMSEP(so.pot, ncomp = c(5,5), individual = TRUE)
 # Training
-RMSEP(so, 'train', ncomp = c(5,5))
+RMSEP(so.pot, 'train', ncomp = c(5,5))
 
 # Test data
-RMSEP(mod, newdata = testset, ncomp = c(2,1,2))
+RMSEP(so.pot20, newdata = testset, ncomp = c(2,1,2))
 ```
 
 # ROSA
 
-The following example uses the _potato_ data to showcase some of the functions available for ROSA analyses
+The following example uses the _potato_ data to showcase some of the functions available for ROSA analyses.
 
 ## Modelling
 
 A multi-response two-block ROSA model with up to 10 components in total is cross-validated with 10 random segments.
 
 ```{r}
-ros <- rosa(Sensory ~ ., data = potato1, ncomp = 10, validation = "CV", segments = 5)
-print(ros)
-summary(ros)
+# Model all eight potato blocks with ROSA
+ros.pot <- rosa(Sensory ~ ., data = potato1, ncomp = 10, validation = "CV", segments = 5)
+print(ros.pot)
+summary(ros.pot)
 ```
 
 ## Loadings
@@ -145,8 +211,8 @@ summary(ros)
 Extract loadings (not used further) and plot two first vectors of loadings.
 
 ```{r}
-loads <- loadings(ros)
-loadingplot(ros, comps = 1:2)
+loads <- loadings(ros.pot)
+loadingplot(ros.pot, comps = 1:2)
 ```
 
 ## Scores
@@ -154,8 +220,8 @@ loadingplot(ros, comps = 1:2)
 Extract scores (not used further) and plot two first vectors of scores.
 
 ```{r}
-sco <- scores(ros)
-scoreplot(ros, comps = 1:2)
+sco <- scores(ros.pot)
+scoreplot(ros.pot, comps = 1:2)
 ```
 
 ## Prediction
@@ -163,6 +229,7 @@ scoreplot(ros, comps = 1:2)
 A three block model is fitted using a single response, 5 components and a subset of the data. The remaining data are used as test set for prediction.
 
 ```{r}
+# Model 20 first objects of three potato blocks
 rosT <- rosa(Sensory ~ ., data = potato1[c(1:3,9)], ncomp = 5, subset = 1:20)
 testset <- potato1[-(1:20),]; # testset$Sensory <- NULL
 predict(rosT, testset, comps=2)
@@ -174,9 +241,9 @@ Compute validation statistics; explained variance - R$^2$ and Root Mean Squared 
 
 ```{r}
 # Cross-validation
-R2(ros)
+R2(ros.pot)
 # Training
-R2(ros, 'train')
+R2(ros.pot, 'train')
 
 # Test data
 R2(rosT, 'test', newdata = testset)
@@ -184,10 +251,22 @@ R2(rosT, 'test', newdata = testset)
 
 ```{r}
 # Cross-validation
-RMSEP(ros)
+RMSEP(ros.pot)
 # Training
-RMSEP(ros, 'train')
+RMSEP(ros.pot, 'train')
 
 # Test data
 RMSEP(rosT, newdata = testset)
 ```
+
+## Image plots
+
+Plots for evaluation of the block selection process in ROSA.
+
+```{r}
+# Correlation to winning scores
+image(ros.pot)
+# Residual response given candidate scores
+image(ros.pot, "residual")
+```
+

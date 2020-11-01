@@ -47,7 +47,7 @@ predict.sopls <- function(object, newdata, ncomp = object$ncomp, comps = object$
   
   type <- match.arg(type)
   
-  if(sum(comps) > object$max_comp)
+  if(!is.character(comps) && sum(comps) > object$max_comp)
     stop(paste0("Selected components (",paste(comps,collapse=","),") is outside range of fitted model."))
   if (type == "response") {
     return(sopls_prediction(object, newdata, comps, FALSE))
@@ -71,7 +71,7 @@ coef.sopls <- function(object, ncomp = object$ncomp, comps = object$ncomp, inter
   nblock  <- length(X)
   nresp   <- dim(Y)[2]
   selComp <- pathComp(comps, object$decomp$compList)
-  tot_comp <- length(selComp$hits)
+  tot_comp <- nrow(selComp$path)
   
   Cr <- Crval <- 0
   for(i in 1:nblock){
@@ -152,14 +152,17 @@ summary.sopls <- function(object, what = c("all", "validation", "training"),
 }
 
 
-# TODO: S3 object of sopls.classify and adapt to sopls
+#' @rdname sopls_results
+#' @export
+classify <- function(object, ...) UseMethod("classify")
+
 #' @rdname sopls_results
 #' @importFrom MASS lda qda
 #' @export
-sopls.classify <- function(object, classes, newdata, ncomp, LQ){
+classify.sopls <- function(object, classes, newdata, ncomp, LQ = "LDA"){
   if(LQ == "max"){
     labels  <- names(table(classes))
-    predVal <- predict(object, newdata = newdata, ncomp = 1:ncomp)
+    predVal <- predict(object, newdata = newdata, ncomp = 1:ncomp) # Njei. Ikke sånn
     class   <- apply(predVal,c(1,3),which.max)
     for(i in 1:ncol(class)){
       class[[i]]   <- labels[class[[i]]]
@@ -194,9 +197,7 @@ sopls.classify <- function(object, classes, newdata, ncomp, LQ){
 
 #' @rdname sopls_results
 #' @export
-loadings.sopls <- function(object, ncomp, block = 1, ...){
-  if(missing(ncomp))
-    stop("Please, specify 'ncomp'")
+loadings.sopls <- function(object, ncomp = "all", block = 1, ...){
   selComp <- pathComp(ncomp, object$decomp$compList)
   blocks  <- object$decomp$changeBlock[selComp$hits]
   P <- crossprod(object$data$X[[block]], object$decomp$T[, selComp$hits[block==blocks, drop=FALSE]])
@@ -206,15 +207,13 @@ loadings.sopls <- function(object, ncomp, block = 1, ...){
 
 #' @rdname sopls_results
 #' @export
-loadingplot.sopls <- function(object, ncomp, comps = c(1,2), block = 1, ...){
+loadingplot.sopls <- function(object, ncomp = "all", comps = c(1,2), block = 1, ...){
   plot(loadings(object, ncomp, block), comps, ...)
 }
 
 #' @rdname sopls_results
 #' @export
-scores.sopls <- function(object, ncomp, block = 1, ...){
-  if(missing(ncomp))
-    stop("Please, specify 'ncomp'")
+scores.sopls <- function(object, ncomp = "all", block = 1, ...){
   selComp <- pathComp(ncomp, object$decomp$compList)
   blocks  <- object$decomp$changeBlock[selComp$hits]
   T <- object$decomp$T[, selComp$hits[block==blocks, drop=FALSE]]
@@ -224,13 +223,13 @@ scores.sopls <- function(object, ncomp, block = 1, ...){
 
 #' @rdname sopls_results
 #' @export
-scoreplot.sopls <- function(object, ncomp, comps = c(1,2), block = 1, ...){
+scoreplot.sopls <- function(object, ncomp = "all", comps = c(1,2), block = 1, ...){
   plot(scores(object, ncomp, block), comps, ...)
 }
 
 #' @rdname sopls_results
 #' @export
-R2.sopls <- function(object, estimate, newdata, ncomp, individual = FALSE, ...){
+R2.sopls <- function(object, estimate, newdata, ncomp = "all", individual = FALSE, ...){
   if (missing(estimate)) {
     ## Select the `best' available estimate
     if (!missing(newdata)) {
@@ -286,7 +285,7 @@ R2.sopls <- function(object, estimate, newdata, ncomp, individual = FALSE, ...){
 
 #' @rdname sopls_results
 #' @export
-RMSEP.sopls <- function(object, estimate, newdata, ncomp, individual = FALSE, ...){
+RMSEP.sopls <- function(object, estimate, newdata, ncomp = "all", individual = FALSE, ...){
   if (missing(estimate)) {
     ## Select the `best' available estimate
     if (!missing(newdata)) {
