@@ -1,5 +1,5 @@
 #' @name asca
-#' @aliases asca print.asca summary.asca loadings.asca scores.asca loadingplot.asca scoreplot.asca
+#' @aliases asca print.asca summary.asca print.summary.asca loadings.asca scores.asca loadingplot.asca scoreplot.asca
 #' @title Analysis of Variance Simultaneous Component Analysis
 #'
 #' @param formula Model formula accepting a single response (block) and predictor names separated by + signs.
@@ -16,6 +16,7 @@
 #' @return
 #'
 #' @importfrom lme4 lmer
+#' @importFrom car ellipse dataEllipse
 #' @examples
 #' dataset   <- data.frame(y=I(matrix(rnorm(24*10),ncol=10)), x=factor(c(rep(2,8),rep(1,8),rep(0,8))), z=factor(rep(c(1,0),12)), w=rnorm(24))
 #' colnames(dataset$y) <- paste('Var', 1:10, sep=" ")
@@ -38,6 +39,7 @@ asca <- function(formula, data, subset, weights, na.action, family, pca.in = FAL
   ## Get the data matrices
   Y <- data[[formula[[2]]]]
   N <- nrow(Y)
+  p <- ncol(Y)
   Y <- Y - rep(colMeans(Y), each=N) # Centre Y
   ssqY <- sum(Y^2)
   if(pca.in != 0){
@@ -137,18 +139,19 @@ asca <- function(formula, data, subset, weights, na.action, family, pca.in = FAL
   # SCAs
   scores <- loadings <- projected <- singulars <- list()
   for(i in approved){
+    maxDir <- min(sum(assign==i), p)
     udv <- svd(LS[[effs[i]]])
-    scores[[effs[i]]]    <- (udv$u * rep(udv$d, each=N))[,1:sum(assign==i), drop=FALSE]
-    dimnames(scores[[effs[i]]]) <- list(rownames(LS[[effs[i]]]), paste("Comp", 1:sum(assign==i), sep=" "))
-    loadings[[effs[i]]]  <- udv$v[,1:sum(assign==i), drop=FALSE]
-    dimnames(loadings[[effs[i]]]) <- list(colnames(LS[[effs[i]]]), paste("Comp", 1:sum(assign==i), sep=" "))
+    scores[[effs[i]]]    <- (udv$u * rep(udv$d, each=N))[,1:maxDir, drop=FALSE]
+    dimnames(scores[[effs[i]]]) <- list(rownames(LS[[effs[i]]]), paste("Comp", 1:maxDir, sep=" "))
+    loadings[[effs[i]]]  <- udv$v[,1:maxDir, drop=FALSE]
+    dimnames(loadings[[effs[i]]]) <- list(colnames(LS[[effs[i]]]), paste("Comp", 1:maxDir, sep=" "))
     projected[[effs[i]]] <- residuals %*% loadings[[effs[i]]]
-    dimnames(projected[[effs[i]]]) <- list(rownames(LS[[effs[i]]]), paste("Comp", 1:sum(assign==i), sep=" "))
-    singulars[[effs[i]]] <- udv$d[1:sum(assign==i)]
-    names(singulars[[effs[i]]]) <- paste("Comp", 1:sum(assign==i), sep=" ")
+    dimnames(projected[[effs[i]]]) <- list(rownames(LS[[effs[i]]]), paste("Comp", 1:maxDir, sep=" "))
+    singulars[[effs[i]]] <- udv$d[1:maxDir]
+    names(singulars[[effs[i]]]) <- paste("Comp", 1:maxDir, sep=" ")
     if(pca.in!=0){ # Transform back if PCA on Y has been performed
       loadings[[effs[i]]] <- Yudv$v[,1:pca.in,drop=FALSE] %*% loadings[[effs[i]]]
-      dimnames(loadings[[effs[i]]]) <- list(colnames(LS[[effs[i]]]), paste("Comp", 1:sum(assign==i), sep=" "))
+      dimnames(loadings[[effs[i]]]) <- list(colnames(LS[[effs[i]]]), paste("Comp", 1:maxDir, sep=" "))
     }
   }
   
@@ -176,7 +179,19 @@ print.asca <- function(x, ...){
 #' @rdname asca
 #' @export
 summary.asca <- function(object, ...){
-  warning('Not implemented yet!')
+  dat <- data.frame(ss=object$ssq, expl=object$explvar)
+  dat <- dat[-nrow(dat),,drop=FALSE]
+  x <- list(dat=dat, fit.type=object$fit.type)
+  class(x) <- c('summary.asca')
+  x
+}
+
+#' @rdname asca
+#' @export
+print.summary.asca <- function(x, digits=2, ...){
+  cat("Anova Simultaneous Component Analysis fitted using", x$fit.type, "\n")
+  print(round(x$dat, digits))
+  invisible(x$dat)
 }
 
 #' @rdname asca
@@ -220,6 +235,7 @@ scoreplot.asca <- function(object, factor = 1, comps = 1:2, pch.scores = 19, pch
                            xlim,ylim, xlab,ylab, legendpos, ...){
   # Number of levels in current factor
   nlev  <- nlevels(object$effects[[factor]])
+  nobj  <- nrow(object$Y)
   # Remove redundant levels
   comps <- comps[comps <= nlev-1]
 
@@ -245,8 +261,9 @@ scoreplot.asca <- function(object, factor = 1, comps = 1:2, pch.scores = 19, pch
   if(length(comps)>1){ # Scatter plot
     scoreplot(scors, comps=comps, xlim=xlim, ylim=ylim, xlab=xlab, ylab=ylab, pch=pch.scores, ...)
     for(i in 1:nlev){
-      points(scors[as.numeric(object$effects[[factor]]) == i, comps], pch=pch.scores, col=gr.col[i])
-      points(projs[as.numeric(object$effects[[factor]]) == i, comps], pch=pch.projections, col=gr.col[i])
+      lev <- levels(object$effects[[factor]])[i]
+      points(scors[object$effects[[factor]] == lev, comps], pch=pch.scores, col=gr.col[i])
+      points(projs[object$effects[[factor]] == lev, comps], pch=pch.projections, col=gr.col[i])
     }
     if(!missing(legendpos))
       legend(legendpos, legend = levels(object$effects[[factor]]), col=gr.col, pch=pch.scores)
@@ -254,12 +271,25 @@ scoreplot.asca <- function(object, factor = 1, comps = 1:2, pch.scores = 19, pch
     if(!missing(ellipsoids)){
       if(ellipsoids == "data"){
         dataEllipse(projs[,comps], groups = object$effects[[factor]], levels=c(0.4,0.68,0.95), add=TRUE, plot.points=FALSE, col=gr.col, lwd=1, group.labels="", center.pch=FALSE, lty=3)
-        # for(i in 1:nlev){
-        #   sigma <- cov(projs[as.numeric(object$effects[[factor]]) == i, comps])
-        #   S     <- chol(sigma)
-        #   nobji <- sum(as.numeric(object$effects[[factor]]) == i)
-        #   
-        # }
+      }
+      if(ellipsoids == "confidence" || ellipsoids == "conf"){
+        # Covariance matrix
+        sigma <- crossprod(object$residuals)/nobj
+        L <- object$loadings[[factor]][,comps]
+        # Transformed covariance matrix
+        LSL <- crossprod(L,sigma) %*% L * nlev / (nobj-nlev)
+        if(!isSymmetric(LSL))
+          LSL <- (LSL + t(LSL))/2 # Force symmetry
+        # Scaling by confidence
+        c40 <- sqrt((nobj-nlev)*2 / (nobj-nlev-2+1) * qf(0.40, 2, nobj-nlev-2+1))
+        c68 <- sqrt((nobj-nlev)*2 / (nobj-nlev-2+1) * qf(0.68, 2, nobj-nlev-2+1))
+        c95 <- sqrt((nobj-nlev)*2 / (nobj-nlev-2+1) * qf(0.95, 2, nobj-nlev-2+1))
+        for(i in 1:nlev){
+          lev <- levels(object$effects[[factor]])[i]
+          ellipse(colMeans(scors[object$effects[[factor]]==lev,comps]), LSL, c40, lwd=1, col=gr.col[i])
+          ellipse(colMeans(scors[object$effects[[factor]]==lev,comps]), LSL, c68, lwd=1, col=gr.col[i])
+          ellipse(colMeans(scors[object$effects[[factor]]==lev,comps]), LSL, c95, lwd=1, col=gr.col[i])
+        }
       }
     }
   } else { # Line plot
@@ -269,12 +299,30 @@ scoreplot.asca <- function(object, factor = 1, comps = 1:2, pch.scores = 19, pch
     axis(2, at=1:nlev, labels = levels(object$effects[[factor]]))
     box()
     for(i in 1:nlev){
-      points(scors[as.numeric(object$effects[[factor]]) == i, comps], rep(i,sum(as.numeric(object$effects[[factor]]) == i)), pch=pch.scores, col=gr.col[i])
-      points(projs[as.numeric(object$effects[[factor]]) == i, comps], rep(i,sum(as.numeric(object$effects[[factor]]) == i)), pch=pch.projections, col=gr.col[i])
+      lev <- levels(object$effects[[factor]])[i]
+      points(scors[object$effects[[factor]] == lev, comps], rep(i,sum(as.numeric(object$effects[[factor]]) == i)), pch=pch.scores, col=gr.col[i])
+      points(projs[object$effects[[factor]] == lev, comps], rep(i,sum(as.numeric(object$effects[[factor]]) == i)), pch=pch.projections, col=gr.col[i])
+    }
+    if(!missing(ellipsoids)){
+      if(ellipsoids == "confidence" || ellipsoids == "conf"){
+        sigma <- crossprod(object$residuals)/nobj
+        L <- object$loadings[[factor]][,comps]
+        # Transformed covariance matrix
+        LSL <- sqrt(crossprod(L,sigma) %*% L * nlev / (nobj-nlev))
+        # Scaling by confidence
+        c40 <- sqrt((nobj-nlev)*1 / (nobj-nlev-1+1) * qf(0.40, 1, nobj-nlev-1+1))
+        c68 <- sqrt((nobj-nlev)*1 / (nobj-nlev-1+1) * qf(0.68, 1, nobj-nlev-1+1))
+        c95 <- sqrt((nobj-nlev)*1 / (nobj-nlev-1+1) * qf(0.95, 1, nobj-nlev-1+1))
+        for(i in 1:nlev){
+          lev <- levels(object$effects[[factor]])[i]
+          lines(mean(scors[object$effects[[factor]] == lev,comps])*c(1,1)+c(LSL)*c40, i+c(-0.2,0.2), col=gr.col[i])
+          lines(mean(scors[object$effects[[factor]] == lev,comps])*c(1,1)+c(LSL)*c68, i+c(-0.2,0.2), col=gr.col[i])
+          lines(mean(scors[object$effects[[factor]] == lev,comps])*c(1,1)+c(LSL)*c95, i+c(-0.2,0.2), col=gr.col[i])
+          lines(mean(scors[object$effects[[factor]] == lev,comps])*c(1,1)-c(LSL)*c40, i+c(-0.2,0.2), col=gr.col[i])
+          lines(mean(scors[object$effects[[factor]] == lev,comps])*c(1,1)-c(LSL)*c68, i+c(-0.2,0.2), col=gr.col[i])
+          lines(mean(scors[object$effects[[factor]] == lev,comps])*c(1,1)-c(LSL)*c95, i+c(-0.2,0.2), col=gr.col[i])
+        }
+      }
     }
   }
-  #TODO: 
-  # - Data ellipsoids, car::dataEllipse
-  # - Model ellipsoids
-  
 }

@@ -29,7 +29,7 @@ knitr::opts_chunk$set(
 library(multiblock)
 ```
 
-## Random data generation
+## Simulated data
 
 ```{r cars}
 set.seed(1)
@@ -58,7 +58,7 @@ Scores for first factor
 sc <- scores(mod)
 head(sc)
 
-scoreplot(mod, legendpos = "topleft")
+scoreplot(mod, legendpos = "topleft", ellipsoids = "confidence")
 ```
 
 Scores for second factor
@@ -67,7 +67,7 @@ Scores for second factor
 sc <- scores(mod, factor="z")
 head(sc)
 
-scoreplot(mod, factor="z")
+scoreplot(mod, factor="z", ellipsoids = "confidence")
 ```
 
 ## Loadings

@@ -4,6 +4,7 @@
 \alias{asca}
 \alias{print.asca}
 \alias{summary.asca}
+\alias{print.summary.asca}
 \alias{loadings.asca}
 \alias{scores.asca}
 \alias{loadingplot.asca}
@@ -17,6 +18,8 @@ asca(formula, data, subset, weights, na.action, family, pca.in = FALSE)
 \method{print}{asca}(x, ...)
 
 \method{summary}{asca}(object, ...)
+
+\method{print}{summary.asca}(x, digits = 2, ...)
 
 \method{loadings}{asca}(object, factor = 1, ...)
 
