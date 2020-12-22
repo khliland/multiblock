@@ -1,8 +1,8 @@
 ---
 title: "Vignette, ASCA"
 output: 
-  rmarkdown::html_vignette:
-    toc: true
+  pdf_document: 
+    keep_tex: true
 vignette: >
   %\VignetteIndexEntry{Vignette, ASCA}
   %\VignetteEngine{knitr::rmarkdown}
@@ -29,7 +29,13 @@ knitr::opts_chunk$set(
 library(multiblock)
 ```
 
+# ANOVA Simultaneous Component Analysis -- ASCA
+
+The following example uses a simulated dataset for showcasing some of the possibilities of the ASCA method.
+
 ## Simulated data
+
+Two categorical factors and a covariate are simulated together with a standard normal set of 10 responses.
 
 ```{r cars}
 set.seed(1)
@@ -43,7 +49,7 @@ str(dataset)
 
 ## ASCA modelling
 
-A basic ASCA model having two factors
+A basic ASCA model having two factors is fitted and printed.
 
 ```{r}
 mod <- asca(y~x+z, data=dataset)
@@ -52,7 +58,7 @@ print(mod)
 
 ## Scores
 
-Scores for first factor
+Scores for first factor are extracted and a scoreplot with confidence ellipsoids is produced.
 
 ```{r}
 sc <- scores(mod)
@@ -61,7 +67,7 @@ head(sc)
 scoreplot(mod, legendpos = "topleft", ellipsoids = "confidence")
 ```
 
-Scores for second factor
+This is repeated for the second factor.
 
 ```{r}
 sc <- scores(mod, factor="z")
@@ -71,6 +77,8 @@ scoreplot(mod, factor="z", ellipsoids = "confidence")
 ```
 
 ## Loadings
+
+A basic loadingplot for the first factor is generated using graphics from the _pls_ package.
 
 ```{r}
 lo <- loadings(mod)

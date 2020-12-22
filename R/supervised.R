@@ -6,16 +6,21 @@
 #' * MB-PLS - Multiblock Partial Least Squares (\code{mbpls})
 #' * SO-PLS - Sequential and Orthgonalized PLS (\code{\link{sopls}})
 #' * ROSA - Response Oriented Sequential Alternation (\code{\link{rosa}})
-#' * Multiblock Redundancy Analysis (\code{mbra})
+#' * mbRDA - Multiblock Redundancy Analysis (\code{mbra})
 #' 
 #' @importFrom RGCCA rgcca
 #' @importFrom ade4 mbpcaiv ktab.list.df dudi.pca
-# #' @importFrom MetStaT ASCA.Calculate
 #'  
 #' @examples
 #' data(potato)
 #' mb <- mbpls(potato[c('Chemical','Compression')], potato[['Sensory']], ncomp = 5)
 #' print(mb)
+#' 
+#' # Convert data.frame with AsIs objects to list of matrices
+#' potatoList <- lapply(potato, unclass)
+#' mbr <- mbrda(potatoList[c('Chemical','Compression')], potatoList[['Sensory']], ncomp = 10)
+#' print(mbr)
+#' scoreplot(mbr)
 #' 
 #' @export
 mbpls <- function(X, Y, ncomp=1, scale=FALSE, ...){
@@ -59,17 +64,20 @@ mbpls <- function(X, Y, ncomp=1, scale=FALSE, ...){
 
 #' @rdname supervised 
 #' @export
-mbra <- function(X, Y, ncomp=1, ...){
+mbrda <- function(X, Y, ncomp=1, ...){
   # MBRedundancyAnalysis
-  Xd <- lapply(X,as.data.frame)
-  Xk <- ktab.list.df(Xd)
-  Y  <- dudi.pca(Y, scannf = FALSE, nf = 1)
+  Xd  <- lapply(X,as.data.frame)
+  Xk  <- ktab.list.df(Xd)
+  Y   <- dudi.pca(Y, scannf = FALSE, nf = 1)
   res <- mbpcaiv(Y, Xk, scale = TRUE, scannf = FALSE, nf = ncomp, ...)
   
   varT <- diag(crossprod(res$lX * res$lw, res$lX))
   covarTY <- diag(tcrossprod(crossprod(res$lX * res$lw, 
                                        as.matrix(res$tabY))))
   varExplTY <- (covarTY/varT)/sum(covarTY/varT) * 100
-  return(list(Yscores=res$lY, Yloadings=res$Yc1, scores=res$lX, loadings=res$Tfa, varT=varT, covarTY=covarTY, varExplTY=varExplTY, mbpcaivObject=res))
+  mod <- list(Yscores=res$lY, Yloadings=res$Yc1, scores=res$lX, loadings=res$Tfa, varT=varT, covarTY=covarTY, varExplTY=varExplTY, mbpcaivObject=res)
+  mod$call <- match.call()
+  class(mod) <- c('mbrda','mvr')
+  return(mod)
 }
 

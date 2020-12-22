@@ -47,3 +47,11 @@ blockScores.mbpls <- function(object, block=1, ...){
   class(sc) <- "scores"
   return(sc)
 }
+
+#' @rdname supervised_results
+#' @export
+print.mbrda <- function(x, ...){
+  cat("Multiblock Redundancy Analysis")
+  cat("\nCall:\n", deparse(x$call), "\n", sep = "")
+  invisible(x)
+}

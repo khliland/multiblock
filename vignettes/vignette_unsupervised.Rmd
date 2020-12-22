@@ -1,0 +1,60 @@
+---
+title: "Vignette, unsupervised multiblock"
+output: 
+  pdf_document: 
+    keep_tex: true
+vignette: >
+  %\VignetteIndexEntry{Vignette, unsupervised multiblock}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.width=6, 
+  fig.height=4
+)
+# Legge denne i YAML på toppen for å skrive ut til tex
+#output: 
+#  pdf_document: 
+#    keep_tex: true
+# Original:
+#  rmarkdown::html_vignette:
+#    toc: true
+```
+
+```{r setup}
+library(multiblock)
+```
+
+# Simultaenous Component Analysis - SCA
+
+SCA will be demonstrated using sensory wine data.
+
+## Modelling
+
+An SCA model with three blocks and 4 components is fitted.
+
+```{r}
+data(wine)
+sc <- sca(wine[c('Smell at rest', 'View', 'Smell after shaking')], ncomp = 4)
+print(sc)
+```
+
+## Loadings and scores
+
+When extracting loadings and scores from an _sca_, one of them will be a list depending on sample or variable linking. The Wine data are sample linked, i.e. there are several loading blocks.
+
+```{r}
+# Extract and plot loadings
+loads <- loadings(sc)
+plot(loads[['View']])
+# or 
+plot(blockLoadings(sc, 'View'))
+
+# Plot scores
+scoreplot(sc)
+```
+

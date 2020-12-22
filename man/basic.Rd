@@ -6,9 +6,10 @@
 \alias{pca}
 \alias{pcr}
 \alias{plsr}
+\alias{cca}
+\alias{gsvd}
 \alias{ifa}
 \alias{reexports}
-\alias{cca}
 \title{Single- and Two-Block Methods}
 \usage{
 pca(X, scale = FALSE, ncomp = 1, ...)
@@ -16,16 +17,11 @@ pca(X, scale = FALSE, ncomp = 1, ...)
 cca(X)
 
 ifa(X, ncomp = 1, scale = FALSE, verbose = FALSE, ...)
+
+gsvd(X)
 }
 \description{
-This documentation covers a range of single- and two-block methods. In particular:
-\itemize{
-\item Principal Component Analysis (\code{pca})
-\item Principal Component Regression (\code{pcr})
-\item Partial Least Squares Regression (\code{plsr})
-\item Canonical Correlation Analysis (\code{cca})
-\item Interbattery Factor Analysis (\code{ifa})
-}
+
 }
 \keyword{internal}
 \description{

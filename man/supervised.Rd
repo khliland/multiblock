@@ -4,11 +4,12 @@
 \alias{supervised}
 \alias{mbpls}
 \alias{mbra}
+\alias{mbrda}
 \title{Supervised Multiblock Methods}
 \usage{
 mbpls(X, Y, ncomp = 1, scale = FALSE, ...)
 
-mbra(X, Y, ncomp = 1, ...)
+mbrda(X, Y, ncomp = 1, ...)
 }
 \description{
 Collection of supervised multiblock methods:
@@ -16,12 +17,18 @@ Collection of supervised multiblock methods:
 \item MB-PLS - Multiblock Partial Least Squares (\code{mbpls})
 \item SO-PLS - Sequential and Orthgonalized PLS (\code{\link{sopls}})
 \item ROSA - Response Oriented Sequential Alternation (\code{\link{rosa}})
-\item Multiblock Redundancy Analysis (\code{mbra})
+\item mbRDA - Multiblock Redundancy Analysis (\code{mbra})
 }
 }
 \examples{
 data(potato)
 mb <- mbpls(potato[c('Chemical','Compression')], potato[['Sensory']], ncomp = 5)
 print(mb)
+
+# Convert data.frame with AsIs objects to list of matrices
+potatoList <- lapply(potato, unclass)
+mbr <- mbrda(potatoList[c('Chemical','Compression')], potatoList[['Sensory']], ncomp = 10)
+print(mbr)
+scoreplot(mbr)
 
 }

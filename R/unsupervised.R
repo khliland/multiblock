@@ -1,41 +1,90 @@
 #' @name unsupervised
 #' @title Unsupervised Multiblock Methods
-#' @aliases hpca gca sca mfa mcoa pcagca disco statis
-# # GSVD JIVE
+#' @aliases sca gca mfa pcagca disco jive statis hogsvd hpca mcoa
 #' @importFrom RGCCA rgcca
-#' @importFrom MFAg MFA
+#' @importFrom FactoMineR MFA
 #' @importFrom RegularizedSCA DISCOsca
 #' @importFrom ade4 statis
+#' @importFrom r.jive jive summary.jive plot.jive
 #' 
 #' @description Collection of unsupervised multiblock methods:
-#' * Hierarchical Principal component analysis (\code{hpca})
-#' * Generalized Canonical Analysis (\code{gca})
-#' * Simultaneous Component Analysis (\code{sca})
-#' * Higher Order Generalized SVD (\code{hogsvd})
-#' * Multiple Factor Analysis (\code{mfa})
-#' * Multiple Co-Inertia Analysis (\code{mcoa})
+#' * SCA - Simultaneous Component Analysis (\code{sca})
+#' * GCA - Generalized Canonical Analysis (\code{gca})
+#' * MFA - Multiple Factor Analysis (\code{mfa})
 #' * PCA-GCA (\code{pcagca})
-#' * Distinctive and Common Components with SCA (\code{disco})
+#' * DISCO - Distinctive and Common Components with SCA (\code{disco})
+#' * JIVE - Joint and Invidual Variation Explained (\code{jive})
 #' * STATIS - Structuration des Tableaux A Trois Indices de la Statistique (\code{statis})
+#' * HOGSVD - Higher Order Generalized SVD (\code{hogsvd})
+#' * HPCA - Hierarchical Principal component analysis (\code{hpca})
+#' * MCOA - Multiple Co-Inertia Analysis (\code{mcoa})
 #' 
+#' @details 
 #' Original documentation of STATIS: \link[ade4]{statis}.
+#' 
+#' @examples 
+#' potList <- as.list(potato[1:3])
+#' pot.sca    <- sca(potList)
+#' pot.gca    <- gca(potList)
+#' pot.mfa    <- mfa(potList)
+#' pot.pcagca <- pcagca(potList)
+#' pot.disco  <- disco(potList)
+#' # JIVE assumes variable link
+#' pot.jive   <- jive(lapply(potList,t))
+#' # HOGSVD assumes tall matrices with variable link
+#' pot.hogsvd <- hogsvd(lapply(as.list(potato[3:5]),t))
+#' pot.statis <- statis(potList)
+#
 # Include also Penalized Exponential SCA (SLIDE, penalty-based)
 # 
-# NB! Removed:
-#  r.jive jive
-
-#' @rdname unsupervised 
+#' @rdname unsupervised
 #' @export
-hpca <- function(X, ncomp=1, scale=FALSE, verbose=FALSE, ...){
-  n_block <- length(X)
-  if(length(ncomp)==1){ ncomp <- rep(ncomp,n_block) }
-  X <- lapply(X, function(i) scale(i, scale = FALSE))
-  X[[n_block+1]] <- do.call(cbind, X)
-  C <- matrix(0, n_block+1, n_block+1)
-  C[n_block+1,1:n_block] <- 1; C[1:n_block,n_block+1] <- 1
-  res <- RGCCA::rgcca(A = X, C = C, tau=c(rep(1,n_block),0), scale = scale, ncomp=ncomp, scheme = function(x) x^4, verbose = verbose, ...)
-  # A = scores and superscore (last), B = loadings and superloadings (last)
-  return(list(A = lapply(1:(n_block+1), function(i)X[[i]]%*%res$astar[[i]]), B = res$astar, X = X, rgcca = res))
+sca <- function(X, ncomp=1, scale=FALSE, samplelinked = 'auto', ...){
+  # SVD/PCA based SVD-P with block-centering (and global scaling)
+  # Infer link-mode:
+  row <- unlist(lapply(X,nrow))
+  col <- unlist(lapply(X,ncol))
+  if(all(row==row[1])){
+    samplelinked <- TRUE
+    if(all(col==col[1])){
+      stop('Cannot determine if matrices are sample linked or not (both satisfied).')
+    }
+  } else {
+    if(all(col==col[1])){
+      samplelinked <- FALSE
+    } else {
+      stop('Neither rows, nor collumns match (not equal numbers in all matrices).')
+    }
+  }
+  
+  # Center (and scale)
+  X <- lapply(X, function(x)scale(x, scale=FALSE))
+  if(samplelinked == FALSE){
+    Xr <- do.call(rbind, X)
+  } else {
+    Xr <- do.call(cbind, X)
+  }
+  if(scale)
+    Xr <- scale(Xr)
+  # SVD/PCA
+  PCA <- pca(Xr, scale=scale, ncomp=ncomp)
+  if(samplelinked == FALSE){
+    loadings <- PCA$loadings
+    nvar   <- lapply(X, nrow)
+    lookup <- unlist(lapply(1:length(X), function(i)rep(i, nvar[[i]])))
+    scores <- lapply(1:length(X), function(i)PCA$scores[lookup==i,,drop=FALSE])
+    names(scores) <- names(X)
+  } else {
+    scores <- PCA$scores
+    nvar   <- lapply(X, ncol)
+    lookup <- unlist(lapply(1:length(X), function(i)rep(i, nvar[[i]])))
+    loadings <- lapply(1:length(X), function(i)PCA$loadings[lookup==i,,drop=FALSE])
+    names(loadings) <- names(X)
+  }
+  mod <- list(loadings=loadings, scores=scores, samplelinked=samplelinked)
+  mod$call <- match.call()
+  class(mod) <- c('sca','mvr')
+  return(mod)
 }
 
 #' @rdname unsupervised 
@@ -100,72 +149,10 @@ gca.svd <- function(X, tol=10^-12){
   list(A=A, U=U, T=T, C=C, R=R)
 }
 
-#' @rdname unsupervised
-#' @export
-sca <- function(X, ncomp=1, scale=FALSE, samplelinked = 'auto', ...){
-  # SVD/PCA based SVD-P with block-centering (and global scaling)
-  # Infer link-mode:
-  row <- unlist(lapply(X,nrow))
-  col <- unlist(lapply(X,ncol))
-  if(all(row==row[1])){
-    samplelinked <- TRUE
-    if(all(col==col[1])){
-      stop('Cannot determine if matrices are sample linked or not (both satisfied).')
-    }
-  } else {
-    if(all(col==col[1])){
-      samplelinked <- FALSE
-    } else {
-    stop('Neither rows, nor collumns match (not equal numbers in all matrices).')
-    }
-  }
-
-  # Center (and scale)
-  X <- lapply(X, function(x)scale(x, scale=FALSE))
-  if(samplelinked == FALSE){
-    Xr <- do.call(rbind, X)
-  } else {
-    Xr <- do.call(cbind, X)
-  }
-  if(scale)
-    Xr <- scale(Xr)
-  # SVD/PCA
-  PCA <- pca(Xr, scale=scale, ncomp=ncomp)
-  if(samplelinked == FALSE){
-    loadings <- PCA$loadings
-    nvar   <- lapply(X, nrow)
-    lookup <- unlist(lapply(1:length(X), function(i)rep(i, nvar[[i]])))
-    scores <- lapply(1:length(X), function(i)PCA$scores[lookup==i,,drop=FALSE])
-    names(scores) <- names(X)
-  } else {
-    scores <- PCA$scores
-    nvar   <- lapply(X, ncol)
-    lookup <- unlist(lapply(1:length(X), function(i)rep(i, nvar[[i]])))
-    loadings <- lapply(1:length(X), function(i)PCA$loadings[lookup==i,,drop=FALSE])
-    names(loadings) <- names(X)
-  }
-  return(list(loadings=loadings, scores=scores))
-}
-
 #' @rdname unsupervised 
 #' @export
-mfa <- function(X, groupType = rep("n", length(X)), groupName = NULL, ...){
-  MFAg::MFA(do.call(cbind,X), unlist(lapply(X,ncol)), TipoGrupo = groupType, NomeGrupos = groupName)
-}
-
-# Multiple Co-Inertia Analysis
-#' @rdname unsupervised 
-#' @export
-mcoa <- function(X, ncomp=1, scale=FALSE, verbose=FALSE, ...){
-  n_block <- length(X)
-  if(length(ncomp)==1){ ncomp <- rep(ncomp,n_block+1) }
-  X <- lapply(X, function(i) scale(i, scale = FALSE))
-  X[[n_block+1]] <- do.call(cbind, X)
-  C <- matrix(0, n_block+1, n_block+1)
-  C[n_block+1,1:n_block] <- 1; C[1:n_block,n_block+1] <- 1
-  res <- RGCCA::rgcca(A = X, C = C, tau=c(rep(1,n_block),0), verbose = verbose, scale = scale, ncomp=ncomp, scheme = "factorial", ...)
-  # A = coefficients and global coefficients
-  return(list(A = res$astar, B = NULL, X = X, rgcca = res))
+mfa <- function(X, groupType = rep("c", length(X)), groupName = NULL, ...){
+  FactoMineR::MFA(as.data.frame(do.call(cbind,X)), unlist(lapply(X,ncol)), type = groupType, name.group = groupName)
 }
 
 
@@ -284,29 +271,31 @@ pcagca <- function(X, commons=2, auto=TRUE, auto.par=list(explVarLim=40, rLim=0.
     Loadings <- lapply(1:n_block,function(i)Loadings[[i]][,explVar[[i]]>auto.par$explVarLim, drop=FALSE])
     explVar  <- lapply(1:n_block,function(i)explVar[[i]][explVar[[i]]>auto.par$explVarLim, drop=FALSE])
   }
-  list(scores=Scores, loadings=Loadings, R=R, explVar=explVar, ncomp=unlist(lapply(explVar, length)), ncommon=ncommon)
+  obj <- list(scores=Scores, loadings=Loadings, R=R, explVar=explVar, ncomp=unlist(lapply(explVar, length)), ncommon=ncommon)
+  class(obj) <- c("pcagca","list")
+  return(obj)
 }
 
 #' @rdname unsupervised 
 #' @export
-disco <- function(X, ncomp, ...){
+disco <- function(X, ncomp = 2, ...){
   RegularizedSCA::DISCOsca(do.call(cbind,X) , ncomp, unlist(lapply(X,ncol)))
 }
 
-# #' @rdname unsupervised 
-# #' @export
-# JIVE <- function(X, ...){
-#   X <- lapply(X,t) # Objects in columns
-#   r.jive::jive(X, ...)
-#   # jive(X, rankJ = 1, rankA = rep(1, length(data)), method = "perm",
-#   #      dnames = names(data), conv = "default", maxiter = 1000, scale = TRUE, center = TRUE,
-#   #      orthIndiv = TRUE, est = TRUE, showProgress=TRUE)
-# }
+#' @rdname unsupervised
+#' @export
+jive <- function(X, ...){
+  # X <- lapply(X,t) # Objects in columns
+  r.jive::jive(X, ...)
+  # jive(X, rankJ = 1, rankA = rep(1, length(data)), method = "perm",
+  #      dnames = names(data), conv = "default", maxiter = 1000, scale = TRUE, center = TRUE,
+  #      orthIndiv = TRUE, est = TRUE, showProgress=TRUE)
+}
 
 #' @rdname unsupervised 
 #' @export
 statis <- function(X, ncomp = 3, scannf = FALSE, tol = 1e-07, ...){
-  K <- ktab.list.df(X)
+  K <- ktab.list.df(lapply(X, as.data.frame))
   ade4::statis(K, scannf=scannf, nf=ncomp, tol=tol, ...)
   # Has plot and print in ade4
   # Clustatis in https://cran.r-project.org/web/packages/ClustBlock/ClustBlock.pdf
@@ -314,8 +303,7 @@ statis <- function(X, ncomp = 3, scannf = FALSE, tol = 1e-07, ...){
 
 #' @rdname unsupervised 
 #' @export
-hogsvd  <- function(X, ncomp = 3){
-  # TODO: Limit number of commponents in output
+hogsvd  <- function(X){
   # Assumes equal number of variables
   nvar  <- ncol(X[[1]])
   nblock <- length(X)
@@ -331,7 +319,7 @@ hogsvd  <- function(X, ncomp = 3){
   }
   S <- S / (nblock * (nblock-1))
   
-  # Eigen-decompose of S
+  # Eigen-decompose S
   eig <- eigen(S)
   eigen_values <- eig$values
   V <- eig$vectors
@@ -347,3 +335,33 @@ hogsvd  <- function(X, ncomp = 3){
   
   return(list(U=U, sigmas=sigmas, eigen_values=eigen_values, V=V, U_sigma=B))
 }
+
+#' @rdname unsupervised 
+#' @export
+hpca <- function(X, ncomp=1, scale=FALSE, verbose=FALSE, ...){
+  n_block <- length(X)
+  if(length(ncomp)==1){ ncomp <- rep(ncomp,n_block) }
+  X <- lapply(X, function(i) scale(i, scale = FALSE))
+  X[[n_block+1]] <- do.call(cbind, X)
+  C <- matrix(0, n_block+1, n_block+1)
+  C[n_block+1,1:n_block] <- 1; C[1:n_block,n_block+1] <- 1
+  res <- RGCCA::rgcca(A = X, C = C, tau=c(rep(1,n_block),0), scale = scale, ncomp=ncomp, scheme = function(x) x^4, verbose = verbose, ...)
+  # A = scores and superscore (last), B = loadings and superloadings (last)
+  return(list(A = lapply(1:(n_block+1), function(i)X[[i]]%*%res$astar[[i]]), B = res$astar, X = X, rgcca = res))
+}
+
+# Multiple Co-Inertia Analysis
+#' @rdname unsupervised 
+#' @export
+mcoa <- function(X, ncomp=1, scale=FALSE, verbose=FALSE, ...){
+  n_block <- length(X)
+  if(length(ncomp)==1){ ncomp <- rep(ncomp,n_block+1) }
+  X <- lapply(X, function(i) scale(i, scale = FALSE))
+  X[[n_block+1]] <- do.call(cbind, X)
+  C <- matrix(0, n_block+1, n_block+1)
+  C[n_block+1,1:n_block] <- 1; C[1:n_block,n_block+1] <- 1
+  res <- RGCCA::rgcca(A = X, C = C, tau=c(rep(1,n_block),0), verbose = verbose, scale = scale, ncomp=ncomp, scheme = "factorial", ...)
+  # A = coefficients and global coefficients
+  return(list(A = res$astar, B = NULL, X = X, rgcca = res))
+}
+

@@ -1,8 +1,8 @@
 ---
 title: "Vignette, supervised multiblock"
 output: 
-  rmarkdown::html_vignette:
-    toc: true
+  pdf_document: 
+    keep_tex: true
 vignette: >
   %\VignetteIndexEntry{Vignette, supervised multiblock}
   %\VignetteEngine{knitr::rmarkdown}
@@ -46,7 +46,7 @@ ABC <- list(A = X[,1:20], B = X[,21:50], C = X[,51:90], y = y)
 so.abc <- sopls(y ~ A + B + C, data = ABC, ncomp = c(4,3,4))
 ```
 
-# MB-PLS
+# Multiblock Partial Least Squares - MB-PLS
 
 Multiblock PLS is presented briefly using the _potato_ data.
 
@@ -74,7 +74,7 @@ plot(Pb2, main = 'Loadings for block 2')
 ```
 
 
-# SO-PLS
+# Sequential and orthogonalised PLS - SO-PLS
 
 The following example uses the _potato_ data to showcase some of the functions available for SO-PLS analyses.
 
@@ -191,7 +191,7 @@ RMSEP(so.pot, 'train', ncomp = c(5,5))
 RMSEP(so.pot20, newdata = testset, ncomp = c(2,1,2))
 ```
 
-# ROSA
+# Response Oriented Sequential Alternation - ROSA
 
 The following example uses the _potato_ data to showcase some of the functions available for ROSA analyses.
 
@@ -268,5 +268,34 @@ Plots for evaluation of the block selection process in ROSA.
 image(ros.pot)
 # Residual response given candidate scores
 image(ros.pot, "residual")
+```
+
+# Multiblock Redundancy Analysis - mbRDA
+
+The following example uses the _potato_ data to showcase some of the functions available for mbRDA analyses.
+
+## Modelling
+
+This implementation uses a wrapper for the _mbpcaiv_ function in the _ade4_ package to perform mbRDA. A multi-response 5 component model is fitted.
+
+```{r}
+# Convert data.frame with AsIs objects to list of matrices
+potatoList <- lapply(potato, unclass)
+
+# Perform mbRDA with two blocks explaining sensory attributes
+mbr <- mbrda(potatoList[c('Chemical','Compression')], potatoList[['Sensory']], ncomp = 5)
+print(mbr)
+```
+
+## Loadings and scores
+
+The _mbpcaiv_ wrapper extracts key elements for inspection using the same format as the rest of this package. The full fitted _mbpcaiv_ object is also available, e.g. through _mbr$mbpcaivObject_.
+
+```{r}
+# Extract and view loadings
+lo_mbr <- loadings(mbr)
+print(head(lo_mbr))
+# Plot scores
+scoreplot(mbr)
 ```
 

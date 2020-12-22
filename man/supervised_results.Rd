@@ -8,6 +8,7 @@
 \alias{blockScores.mbpls}
 \alias{blockLoadings}
 \alias{blockScores}
+\alias{print.mbrda}
 \title{Result functions for Supervised Multiblock Methods}
 \usage{
 \method{print}{mbpls}(x, ...)
@@ -21,6 +22,8 @@ blockLoadings(object, ...)
 blockScores(object, ...)
 
 \method{blockScores}{mbpls}(object, block = 1, ...)
+
+\method{print}{mbrda}(x, ...)
 }
 \description{
 Result functions for Supervised Multiblock Methods

@@ -2,26 +2,23 @@
 % Please edit documentation in R/unsupervised.R
 \name{unsupervised}
 \alias{unsupervised}
-\alias{hpca}
-\alias{gca}
 \alias{sca}
+\alias{gca}
 \alias{mfa}
-\alias{mcoa}
 \alias{pcagca}
 \alias{disco}
+\alias{jive}
 \alias{statis}
 \alias{hogsvd}
+\alias{hpca}
+\alias{mcoa}
 \title{Unsupervised Multiblock Methods}
 \usage{
-hpca(X, ncomp = 1, scale = FALSE, verbose = FALSE, ...)
+sca(X, ncomp = 1, scale = FALSE, samplelinked = "auto", ...)
 
 gca(X, ncomp = 1, svd = TRUE, tol = 10^-12, corrs = TRUE, ...)
 
-sca(X, ncomp = 1, scale = FALSE, samplelinked = "auto", ...)
-
-mfa(X, groupType = rep("n", length(X)), groupName = NULL, ...)
-
-mcoa(X, ncomp = 1, scale = FALSE, verbose = FALSE, ...)
+mfa(X, groupType = rep("c", length(X)), groupName = NULL, ...)
 
 pcagca(
   X,
@@ -32,25 +29,44 @@ pcagca(
   tol = 10^-12
 )
 
-disco(X, ncomp, ...)
+disco(X, ncomp = 2, ...)
+
+jive(X, ...)
 
 statis(X, ncomp = 3, scannf = FALSE, tol = 1e-07, ...)
 
-hogsvd(X, ncomp = 3)
+hogsvd(X, ncomp = unlist(lapply(X, function(x) min(dim(x)))) - 1)
+
+hpca(X, ncomp = 1, scale = FALSE, verbose = FALSE, ...)
+
+mcoa(X, ncomp = 1, scale = FALSE, verbose = FALSE, ...)
 }
 \description{
 Collection of unsupervised multiblock methods:
 \itemize{
-\item Hierarchical Principal component analysis (\code{hpca})
-\item Generalized Canonical Analysis (\code{gca})
-\item Simultaneous Component Analysis (\code{sca})
-\item Higher Order Generalized SVD (\code{hogsvd})
-\item Multiple Factor Analysis (\code{mfa})
-\item Multiple Co-Inertia Analysis (\code{mcoa})
+\item SCA - Simultaneous Component Analysis (\code{sca})
+\item GCA - Generalized Canonical Analysis (\code{gca})
+\item MFA - Multiple Factor Analysis (\code{mfa})
 \item PCA-GCA (\code{pcagca})
-\item Distinctive and Common Components with SCA (\code{disco})
+\item DISCO - Distinctive and Common Components with SCA (\code{disco})
+\item JIVE - Joint and Invidual Variation Explained (\code{jive})
 \item STATIS - Structuration des Tableaux A Trois Indices de la Statistique (\code{statis})
+\item HOGSVD - Higher Order Generalized SVD (\code{hogsvd})
+\item HPCA - Hierarchical Principal component analysis (\code{hpca})
+\item MCOA - Multiple Co-Inertia Analysis (\code{mcoa})
 }
-
+}
+\details{
 Original documentation of STATIS: \link[ade4]{statis}.
+}
+\examples{
+potList <- as.list(potato[1:3])
+pot.sca    <- sca(potList)
+pot.gca    <- gca(potList)
+pot.mfa    <- mfa(potList)
+pot.pcagca <- pcagca(potList)
+pot.disco  <- disco(potList)
+pot.jive   <- jive(potList)
+pot.hogsvd <- hogsvd(potList)
+summary(pot.jive)
 }
