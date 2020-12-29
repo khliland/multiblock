@@ -12,13 +12,16 @@
 \alias{hogsvd}
 \alias{hpca}
 \alias{mcoa}
+\alias{gpa}
 \title{Unsupervised Multiblock Methods}
 \usage{
 sca(X, ncomp = 1, scale = FALSE, samplelinked = "auto", ...)
 
 gca(X, ncomp = 1, svd = TRUE, tol = 10^-12, corrs = TRUE, ...)
 
-mfa(X, groupType = rep("c", length(X)), groupName = NULL, ...)
+gpa(X, graph = FALSE, ...)
+
+mfa(X, type = rep("c", length(X)), graph = FALSE, ...)
 
 pcagca(
   X,
@@ -31,42 +34,52 @@ pcagca(
 
 disco(X, ncomp = 2, ...)
 
+hpca(X, ncomp = 1, scale = FALSE, verbose = FALSE, ...)
+
+mcoa(X, ncomp = 1, scale = FALSE, verbose = FALSE, ...)
+
 jive(X, ...)
 
 statis(X, ncomp = 3, scannf = FALSE, tol = 1e-07, ...)
 
-hogsvd(X, ncomp = unlist(lapply(X, function(x) min(dim(x)))) - 1)
-
-hpca(X, ncomp = 1, scale = FALSE, verbose = FALSE, ...)
-
-mcoa(X, ncomp = 1, scale = FALSE, verbose = FALSE, ...)
+hogsvd(X)
 }
 \description{
 Collection of unsupervised multiblock methods:
 \itemize{
 \item SCA - Simultaneous Component Analysis (\code{sca})
 \item GCA - Generalized Canonical Analysis (\code{gca})
+\item GPA - Generalized Procrustes Analysis (\code{gpa})
 \item MFA - Multiple Factor Analysis (\code{mfa})
 \item PCA-GCA (\code{pcagca})
 \item DISCO - Distinctive and Common Components with SCA (\code{disco})
-\item JIVE - Joint and Invidual Variation Explained (\code{jive})
-\item STATIS - Structuration des Tableaux A Trois Indices de la Statistique (\code{statis})
-\item HOGSVD - Higher Order Generalized SVD (\code{hogsvd})
 \item HPCA - Hierarchical Principal component analysis (\code{hpca})
 \item MCOA - Multiple Co-Inertia Analysis (\code{mcoa})
+\item JIVE - Joint and Individual Variation Explained (\code{jive})
+\item STATIS - Structuration des Tableaux A Trois Indices de la Statistique (\code{statis})
+\item HOGSVD - Higher Order Generalized SVD (\code{hogsvd})
 }
 }
 \details{
 Original documentation of STATIS: \link[ade4]{statis}.
+JIVE, STATIS and HOGSVD assume variable linked matrices/data.frames, while SCA handles both links.
 }
 \examples{
-potList <- as.list(potato[1:3])
+# Object linked data
+potList <- as.list(potato[c(1,2,9)])
 pot.sca    <- sca(potList)
 pot.gca    <- gca(potList)
+pot.gpa    <- gpa(potList)
 pot.mfa    <- mfa(potList)
 pot.pcagca <- pcagca(potList)
 pot.disco  <- disco(potList)
-pot.jive   <- jive(potList)
-pot.hogsvd <- hogsvd(potList)
-summary(pot.jive)
+pot.hpca   <- hpca(potList)
+pot.mcoa   <- mcoa(potList)
+
+# Variable linked data
+candyList <- lapply(1:nlevels(candies$candy),function(x)candies$assessment[candies$candy==x,])
+can.jive   <- jive(candyList)
+can.statis <- statis(candyList)
+can.hogsvd <- hogsvd(candyList)
+plot(can.statis$statis)
 }

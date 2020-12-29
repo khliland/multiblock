@@ -3,7 +3,6 @@
 \name{supervised}
 \alias{supervised}
 \alias{mbpls}
-\alias{mbra}
 \alias{mbrda}
 \title{Supervised Multiblock Methods}
 \usage{
@@ -15,9 +14,9 @@ mbrda(X, Y, ncomp = 1, ...)
 Collection of supervised multiblock methods:
 \itemize{
 \item MB-PLS - Multiblock Partial Least Squares (\code{mbpls})
-\item SO-PLS - Sequential and Orthgonalized PLS (\code{\link{sopls}})
+\item SO-PLS - Sequential and Orthogonalized PLS (\code{\link{sopls}})
 \item ROSA - Response Oriented Sequential Alternation (\code{\link{rosa}})
-\item mbRDA - Multiblock Redundancy Analysis (\code{mbra})
+\item mbRDA - Multiblock Redundancy Analysis (\code{mbrda})
 }
 }
 \examples{

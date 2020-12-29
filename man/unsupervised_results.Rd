@@ -2,16 +2,20 @@
 % Please edit documentation in R/unsupervised_results.R
 \name{unsupervised_results}
 \alias{unsupervised_results}
+\alias{scores.multiblock}
 \alias{print.sca}
-\alias{blockScores.sca}
-\alias{blockLoadings.sca}
+\alias{loadings.multiblock}
+\alias{print.multiblock}
+\alias{summary.multiblock}
 \title{Result functions for Unsupervised Multiblock Methods}
 \usage{
-\method{print}{sca}(x, ...)
+\method{scores}{multiblock}(object, block = 0, ...)
 
-\method{blockScores}{sca}(object, block = 1, ...)
+\method{loadings}{multiblock}(object, block = 0, ...)
 
-\method{blockLoadings}{sca}(object, block = 1, ...)
+\method{print}{multiblock}(x, ...)
+
+\method{summary}{multiblock}(object, ...)
 }
 \description{
 Result functions for Unsupervised Multiblock Methods

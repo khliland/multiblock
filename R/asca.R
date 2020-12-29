@@ -15,7 +15,7 @@
 #'
 #' @return
 #'
-#' @importfrom lme4 lmer
+#' @importFrom lme4 lmer
 #' @importFrom car ellipse dataEllipse
 #' @examples
 #' dataset   <- data.frame(y=I(matrix(rnorm(24*10),ncol=10)), x=factor(c(rep(2,8),rep(1,8),rep(0,8))), z=factor(rep(c(1,0),12)), w=rnorm(24))

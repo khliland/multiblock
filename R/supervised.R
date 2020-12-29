@@ -1,12 +1,12 @@
 #' @name supervised
 #' @title Supervised Multiblock Methods
-#' @aliases mbpls mbra
+#' @aliases mbpls mbrda
 #' 
 #' @description Collection of supervised multiblock methods:
 #' * MB-PLS - Multiblock Partial Least Squares (\code{mbpls})
-#' * SO-PLS - Sequential and Orthgonalized PLS (\code{\link{sopls}})
+#' * SO-PLS - Sequential and Orthogonalized PLS (\code{\link{sopls}})
 #' * ROSA - Response Oriented Sequential Alternation (\code{\link{rosa}})
-#' * mbRDA - Multiblock Redundancy Analysis (\code{mbra})
+#' * mbRDA - Multiblock Redundancy Analysis (\code{mbrda})
 #' 
 #' @importFrom RGCCA rgcca
 #' @importFrom ade4 mbpcaiv ktab.list.df dudi.pca

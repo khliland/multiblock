@@ -41,6 +41,18 @@ normVec <- function(x){
   x / sqrt(sum(crossprod(x)))
 }
 
+colnamesList <- function(X, nam){
+  for(i in 1:length(X))
+    colnames(X[[i]]) <- nam
+  return(X)
+}
+
+rownamesList <- function(X, nam){
+  for(i in 1:length(X))
+    rownames(X[[i]]) <- nam
+  return(X)
+}
+
 
 #' Color palette generation from matrix of RGB values
 #'

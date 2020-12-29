@@ -34,7 +34,7 @@ NULL
 #'
 #' @description A dataset containing simulated data for 4 connected events where A is the
 #' starting point and D is the end point. This can be described as a directed
-#' asyclic graph (sketched below, moving left->right). \cr
+#' acyclic graph (sketched below, moving left->right). \cr
 #' 
 #' \code{\Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} C    }\cr
 #' \code{\Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} /^\   }\cr
@@ -56,7 +56,9 @@ NULL
 #'   ...
 #' }
 #' 
-#' @references Næs, Romano, ..., Liland, In preparation.
+#' @references Tormod Næs, Rosaria Romano, Oliver Tomic, Ingrid Måge, Age Smilde, Kristian Hovde Liland, 
+#' Sequential and orthogonalized PLS (SO-PLS) regression for path analysis: Order of blocks and relations between effects.
+#' Journal of Chemometrics, In Press
 NULL
 
 #' @name candies
@@ -77,4 +79,36 @@ NULL
 #' 
 #' @references Luciano G, Næs T. Interpreting sensory data by combining principal 
 #' component analysis and analysis of variance. Food Qual Prefer. 2009;20(3):167‐175.
+NULL
+
+#' @name potato
+#' @title Sensory, rheological, chemical and spectroscopic analysis of potatoes.
+#'
+#' @description A dataset containing 9 blocks of measurements on 26 potatoes.
+#' Original dataset can be found at http://models.life.ku.dk/Texture_Potatoes.
+#' This version has been pre-processed as follows (corresponding to Liland et al. 2016):
+#' * Variables containing NaN have been removed.
+#' * Chemical and Compression blocks have been scaled by standard deviations.
+#' * NIR blocks have been subjected to SNV (Standard Normal Variate).
+#'
+#' @docType data
+#' @usage data(potato)
+#' 
+#' @format A data.frame having 26 rows and 9 variables:
+#' \describe{
+#'   \item{Chemical}{Matrix of chemical measurements}
+#'   \item{Compression}{Matrix of rheological compression data}
+#'   \item{NIRraw}{Matrix of near-infrared measurements of raw potatoes}
+#'   \item{NIRcooked}{Matrix of near-infrared measurements of cooked potatoes}
+#'   \item{CPMGraw}{Matrix of NMR (CPMG) measurements of raw potatoes}
+#'   \item{CPMGcooked}{Matrix of NMR (CPMG) measurements of cooked potatoes}
+#'   \item{FIDraw}{Matrix of NMR (FID) measurements of raw potatoes}
+#'   \item{FIDcooked}{Matrix of NMR (FID) measurements of cooked potatoes}
+#'   \item{Sensory}{Matrix of sensory assessments}
+#' }
+#' 
+#' @references L.G.Thygesen, A.K.Thybo, S.B.Engelsen, Prediction of Sensory Texture Quality of Boiled Potatoes 
+#' From Low-field1H NMR of Raw Potatoes. The Role of Chemical Constituents. LWT - Food Science and Technology 34(7), 2001, pp 469-477.
+#' Kristian Hovde Liland, Tormod Næs, Ulf Geir Indahl, ROSA – a fast extension of Partial Least Squares Regression for Multiblock Data Analysis,
+#' Journal of Chemometrics 30:11 (2016), pp. 651-662.
 NULL

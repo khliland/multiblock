@@ -18,7 +18,7 @@ data(simulated)
 \description{
 A dataset containing simulated data for 4 connected events where A is the
 starting point and D is the end point. This can be described as a directed
-asyclic graph (sketched below, moving left->right). \cr
+acyclic graph (sketched below, moving left->right). \cr
 
 \code{\Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} C    }\cr
 \code{\Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} /^\   }\cr
@@ -31,5 +31,7 @@ asyclic graph (sketched below, moving left->right). \cr
 Subpaths include: ABD, AD, ABCD, ACD
 }
 \references{
-Næs, Romano, ..., Liland, In preparation.
+Tormod Næs, Rosaria Romano, Oliver Tomic, Ingrid Måge, Age Smilde, Kristian Hovde Liland,
+Sequential and orthogonalized PLS (SO-PLS) regression for path analysis: Order of blocks and relations between effects.
+Journal of Chemometrics, In Press
 }
