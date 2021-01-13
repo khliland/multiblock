@@ -33,26 +33,32 @@ library(multiblock)
 
 The following example uses a simulated dataset for showcasing some of the possibilities of the ASCA method.
 
+
 ## Simulated data
 
 Two categorical factors and a covariate are simulated together with a standard normal set of 10 responses.
 
 ```{r cars}
 set.seed(1)
-dataset   <- data.frame(y=I(matrix(rnorm(24*10),ncol=10)), 
-                        x=factor(c(rep(2,8),rep(1,8),rep(0,8))), 
-                        z=factor(rep(c(1,0),12)), w=rnorm(24))
-colnames(dataset$y) <- paste('Var', 1:10, sep=" ")
-rownames(dataset)   <- paste('Obj', 1:24, sep=" ")
+dataset   <- data.frame(y = I(matrix(rnorm(24*10), ncol = 10)), 
+                        x = factor(c(rep(2,8), rep(1,8), rep(0,8))), 
+                        z = factor(rep(c(1,0), 12)), w = rnorm(24))
+colnames(dataset$y) <- paste('Var', 1:10, sep = " ")
+rownames(dataset)   <- paste('Obj', 1:24, sep = " ")
 str(dataset)
 ```
 
+## Formula interface
+
+This ASCA implementation uses R's formula interface for model specification. This means that the first argument is a formula with response on the left and design on the right, separated by a tilde operator, e.g. _y ~ x + z_ or _assessment ~ assessor + candy_. The names in the formula refer to variables in a data.frame (or list). Separation with plus (_+_) adds main effects to the model, while separation by stars (_\*_) adds main effects and interactions, e.g. _y ~ x \* z_. Colons (_:_) can be used for explicit interactions, e.g. _y ~ x + z + x:z_. More complicated formulas exist, but only a simple subset is supported by _asca_.
+
+
 ## ASCA modelling
 
-A basic ASCA model having two factors is fitted and printed.
+A basic ASCA model having two factors is fitted and printed as follows.
 
 ```{r}
-mod <- asca(y~x+z, data=dataset)
+mod <- asca(y~x+z, data = dataset)
 print(mod)
 ```
 
@@ -70,10 +76,10 @@ scoreplot(mod, legendpos = "topleft", ellipsoids = "confidence")
 This is repeated for the second factor.
 
 ```{r}
-sc <- scores(mod, factor="z")
+sc <- scores(mod, factor = "z")
 head(sc)
 
-scoreplot(mod, factor="z", ellipsoids = "confidence")
+scoreplot(mod, factor = "z", ellipsoids = "confidence")
 ```
 
 ## Loadings

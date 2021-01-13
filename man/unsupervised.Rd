@@ -15,9 +15,9 @@
 \alias{gpa}
 \title{Unsupervised Multiblock Methods}
 \usage{
-sca(X, ncomp = 1, scale = FALSE, samplelinked = "auto", ...)
+sca(X, ncomp = 2, scale = FALSE, samplelinked = "auto", ...)
 
-gca(X, ncomp = 1, svd = TRUE, tol = 10^-12, corrs = TRUE, ...)
+gca(X, ncomp = 2, svd = TRUE, tol = 10^-12, corrs = TRUE, ...)
 
 gpa(X, graph = FALSE, ...)
 
@@ -34,9 +34,9 @@ pcagca(
 
 disco(X, ncomp = 2, ...)
 
-hpca(X, ncomp = 1, scale = FALSE, verbose = FALSE, ...)
+hpca(X, ncomp = 2, scale = FALSE, verbose = FALSE, ...)
 
-mcoa(X, ncomp = 1, scale = FALSE, verbose = FALSE, ...)
+mcoa(X, ncomp = 2, scale = FALSE, verbose = FALSE, ...)
 
 jive(X, ...)
 

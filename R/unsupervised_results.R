@@ -5,6 +5,7 @@
 #' data(wine)
 #' sc <- sca(wine[c('Smell at rest', 'View', 'Smell after shaking')], ncomp = 4)
 #' print(sc)
+#' plot(loadings(sc, block = 1), labels = "names", scatter = TRUE)
 #' 
 #' @export
 scores.multiblock <- function(object, block = 0, ...){
@@ -12,7 +13,7 @@ scores.multiblock <- function(object, block = 0, ...){
     warning('No global/consensus scores. Returning block 1 scores.')
     block <- 1
   }
-  if(block>0 && is.null(object$blockScores)){
+  if(block!=0 && is.null(object$blockScores)){
     warning('No block scores. Returning global/consensus scores.')
     block <- 0
   }
@@ -34,7 +35,7 @@ loadings.multiblock <- function(object, block = 0, ...){
     warning('No global/consensus loadings available. Returning block 1 loadings.')
     block <- 1
   }
-  if(block>0 && is.null(object$blockLoadings)){
+  if(block!=0 && is.null(object$blockLoadings)){
     warning('No block loadings available. Returning global/consensus loadings.')
     block <- 0
   }
@@ -60,8 +61,15 @@ print.multiblock <- function(x, ...){
 #' @rdname unsupervised_results 
 #' @export
 summary.multiblock <- function(object, ...){
-  cat(object$info$method, "\n")
-  cat("\nCall:\n", deparse(object$call), "\n", sep = "")
+  cat(object$info$method, "\n\n")
+  if(!is.null(object$scores))
+    cat("Score type: ", object$info$scores, "\n")
+  if(!is.null(object$loadings))
+    cat("Loadings type: ", object$info$loadings, "\n")
+  if(!is.null(object$blockScores))
+    cat("Block scores type: ", object$info$blockScores, "\n")
+  if(!is.null(object$blockLoadings))
+    cat("Block loadings type: ", object$info$blockLoadings, "\n")
   invisible(object)
 }
 
@@ -72,25 +80,3 @@ summary.multiblock <- function(object, ...){
 # jive: post-process with PCA?
 # All methods: Check that dimnames are given to scores and loadings (- gca.rgcca, mcoa, jive)
 
-# #' @export
-# print.sca <- function(x, ...){
-#   cat("Simultaneous Component Analysis")
-#   cat("\nCall:\n", deparse(x$call), "\n", sep = "")
-#   invisible(x)
-# }
-
-# #' @rdname unsupervised_results
-# #' @export
-# blockScores.sca <- function(object, block=1, ...){
-#   sc <- object$scores[[block]]
-#   class(sc) <- "scores"
-#   return(sc)
-# }
-
-# #' @rdname unsupervised_results
-# #' @export
-# blockLoadings.sca <- function(object, block=1, ...){
-#   bl <- object$loadings[[block]]
-#   class(bl) <- "loadings"
-#   return(bl)
-# }

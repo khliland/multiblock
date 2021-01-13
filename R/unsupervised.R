@@ -17,7 +17,7 @@
 #' * HPCA - Hierarchical Principal component analysis (\code{hpca})
 #' * MCOA - Multiple Co-Inertia Analysis (\code{mcoa})
 #' * JIVE - Joint and Individual Variation Explained (\code{jive})
-#' * STATIS - Structuration des Tableaux A Trois Indices de la Statistique (\code{statis})
+#' * STATIS - Structuration des Tableaux à Trois Indices de la Statistique (\code{statis})
 #' * HOGSVD - Higher Order Generalized SVD (\code{hogsvd})
 #' 
 #' @details 
@@ -47,7 +47,7 @@
 # 
 #' @rdname unsupervised
 #' @export
-sca <- function(X, ncomp=1, scale=FALSE, samplelinked = 'auto', ...){
+sca <- function(X, ncomp=2, scale=FALSE, samplelinked = 'auto', ...){
   # SVD/PCA based SVD-P with block-centering (and global scaling)
   # Infer link-mode:
   row <- unlist(lapply(X,nrow))
@@ -83,6 +83,9 @@ sca <- function(X, ncomp=1, scale=FALSE, samplelinked = 'auto', ...){
     scores <- lapply(1:length(X), function(i)PCA$scores[lookup==i,,drop=FALSE])
     names(scores) <- names(X)
     mod <- list(loadings=loadings, blockScores=scores, samplelinked=samplelinked)
+    mod$info <- list(method = "Simultaneous Component Analysis",
+                     scores = "Not used", loadings = "Common loadings",
+                     blockScores = "Block scores", blockLoadings = "Not used")
   } else {
     scores <- PCA$scores
     nvar   <- lapply(X, ncol)
@@ -90,10 +93,10 @@ sca <- function(X, ncomp=1, scale=FALSE, samplelinked = 'auto', ...){
     loadings <- lapply(1:length(X), function(i)PCA$loadings[lookup==i,,drop=FALSE])
     names(loadings) <- names(X)
     mod <- list(blockLoadings=loadings, scores=scores, samplelinked=samplelinked)
+    mod$info <- list(method = "Simultaneous Component Analysis", 
+                     scores = "Common scores", loadings = "Not used",
+                     blockScores = "Not used", blockLoadings = "Block loadings")
   }
-  mod$info <- list(method = "Simultaneous Component Analysis", 
-               scores = "Common scores", loadings = "Common loadings",
-               blockScores = "Block scores", blockLoadings = "Block loadings")
   mod$call <- match.call()
   class(mod) <- c('multiblock','list')
   return(mod)
@@ -101,7 +104,7 @@ sca <- function(X, ncomp=1, scale=FALSE, samplelinked = 'auto', ...){
 
 #' @rdname unsupervised 
 #' @export
-gca <- function(X, ncomp=1, svd=TRUE, tol=10^-12, corrs=TRUE, ...){
+gca <- function(X, ncomp=2, svd=TRUE, tol=10^-12, corrs=TRUE, ...){
   if(svd){
     obj <- gca.svd(X=X, tol=tol)
     obj$call = match.call()
@@ -404,7 +407,7 @@ disco <- function(X, ncomp = 2, ...){
 
 #' @rdname unsupervised 
 #' @export
-hpca <- function(X, ncomp=1, scale=FALSE, verbose=FALSE, ...){
+hpca <- function(X, ncomp=2, scale=FALSE, verbose=FALSE, ...){
   n_block <- length(X)
   if(length(ncomp)==1){ ncomp <- rep(ncomp,n_block+1) }
   X <- lapply(X, function(i) scale(i, scale = FALSE))
@@ -434,7 +437,7 @@ hpca <- function(X, ncomp=1, scale=FALSE, verbose=FALSE, ...){
 # Multiple Co-Inertia Analysis
 #' @rdname unsupervised 
 #' @export
-mcoa <- function(X, ncomp=1, scale=FALSE, verbose=FALSE, ...){
+mcoa <- function(X, ncomp=2, scale=FALSE, verbose=FALSE, ...){
   n_block <- length(X)
   if(length(ncomp)==1){ ncomp <- rep(ncomp,n_block+1) }
   X <- lapply(X, function(i) scale(i, scale = FALSE))

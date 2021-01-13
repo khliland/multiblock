@@ -22,6 +22,12 @@
 #' print(mbr)
 #' scoreplot(mbr)
 #' 
+#' TODO: 
+#' * mbRDA to formula interface
+#' * MBPLS to formula interface
+#' * sparse MBPLS (ST-type, Lenth type)
+#' * PO-PLS
+#' 
 #' @export
 mbpls <- function(X, Y, ncomp=1, scale=FALSE, ...){
   # TODO: Extend with various block norms

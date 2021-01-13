@@ -24,5 +24,6 @@ Result functions for Unsupervised Multiblock Methods
 data(wine)
 sc <- sca(wine[c('Smell at rest', 'View', 'Smell after shaking')], ncomp = 4)
 print(sc)
+plot(loadings(sc, block = 1), labels = "names", scatter = TRUE)
 
 }

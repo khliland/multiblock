@@ -14,7 +14,7 @@
 #' * HPCA - Hierarchical Principal component analysis (\code{hpca})
 #' * MCOA - Multiple Co-Inertia Analysis (\code{mcoa})
 #' * JIVE - Joint and Individual Variation Explained (\code{jive})
-#' * STATIS - Structuration des Tableaux A Trois Indices de la Statistique (\code{statis})
+#' * STATIS - Structuration des Tableaux à Trois Indices de la Statistique (\code{statis})
 #' * HOGSVD - Higher Order Generalized SVD (\code{hogsvd})
 #' 
 #' __Design based methods:__
