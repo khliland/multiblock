@@ -72,15 +72,11 @@ str(potList)
 
 # Method interfaces
 
-All unsupervised methods supplied by this package share a common interface which
-expects a list of blocks as the first input. Methods that are imported from other
-packages are wrapped in a function that gives the mentioned interface. It stores
-the results from the imported method in a separate slot in the output in case
-specialised _plot_ or _summary_ functions are available or direct inspection is
-needed. If default parameters are used, a single list of blocks with suitably 
-linked matrices (shared objects or variables) will result in a basic analysis 
-(see first code block below). In addition, all methods have parameters that control
-their behaviour, e.g. number of components, convergence criteria etc.
+All unsupervised methods supplied by this package share a common interface which expects a list of blocks as the first input. Methods that are imported from other packages are wrapped in a function that gives the mentioned interface. Results from the imported method are stored in a separate slot in the output in case specialised _plot_ or _summary_ functions are available or direct inspection is needed. If default parameters are used, a single list of blocks with suitably linked matrices (shared objects or variables) will result in a basic analysis (see first code block below). In addition, all methods have parameters that control their behaviour, e.g., number of components, convergence criteria etc.
+
+## Sample-linked analyses
+
+The following block of code loads a multiblock data set, extracts three blocks and runs through all included unsupervised methods having sample-link using the same interface. 
 
 ```{r}
 # Object linked data
@@ -98,12 +94,19 @@ pot.disco  <- disco(potList)
 pot.hpca   <- hpca(potList)
 pot.mcoa   <- mcoa(potList)
 })}))
+```
 
+## Variable-linked analyses
+
+The following block of code loads a sensory data set, extracts blocks and runs through all included unsupervised methods having object-link using the same interface. 
+
+```{r}
 # Variable linked data
 data(candies)
 candyList  <- lapply(1:nlevels(candies$candy), function(x)candies$assessment[candies$candy==x,])
 
 invisible({capture.output({ # jive in package r.jive is highly verbose.
+can.sca    <- sca(candyList)
 can.jive   <- jive(candyList)
 can.statis <- statis(candyList)
 can.hogsvd <- hogsvd(candyList)

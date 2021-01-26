@@ -4,7 +4,7 @@
 # ... of first on last block given intermediates
 
 #' @name SO_TDI
-#' @aliases sopls_dirIndTotAddOver print.SO_TDI
+#' @aliases sopls_pm print.SO_TDI
 #' @title Total, direct, indirect and additional effects in SO-PLS-PM.
 #'
 #' @param X A \code{list} of input blocks (of type \code{matrix}).
@@ -29,7 +29,7 @@
 #'
 #' @examples
 #' @export
-sopls_dirIndTotAddOver <- function(X, Y, comps, max_comps = min(sum(comps), 20), sel.comp = "opt", computeAdditional = FALSE, sequential = FALSE, B = NULL, k = 10, type = "consecutive"){#validation = "LOO", ...){
+sopls_pm <- function(X, Y, comps, max_comps = min(sum(comps), 20), sel.comp = "opt", computeAdditional = FALSE, sequential = FALSE, B = NULL, k = 10, type = "consecutive"){#validation = "LOO", ...){
   Y <- as.matrix(Y)
   n      <- dim(Y)[1]
   nresp  <- dim(Y)[2]
@@ -300,7 +300,7 @@ print.SO_TDI <- function(x, showComp=TRUE, heading="SO-PLS path effects", digits
 # Multiple calls for each sequential version
 #' @rdname SO_TDI
 #' @export
-sopls_dirIndTotAddOver_multiple <- function(X, X_names, comps, max_comps = min(sum(comps), 20), sel.comp = "opt", computeAdditional = FALSE, sequential = FALSE, B = NULL, k = 10, type = "consecutive"){
+sopls_pm_multiple <- function(X, X_names, comps, max_comps = min(sum(comps), 20), sel.comp = "opt", computeAdditional = FALSE, sequential = FALSE, B = NULL, k = 10, type = "consecutive"){
   nblock <- length(X)
   
   models <- list()
@@ -313,7 +313,7 @@ sopls_dirIndTotAddOver_multiple <- function(X, X_names, comps, max_comps = min(s
       } else {
         sc <- sel.comp
       }
-      models[[b]] <- sopls_dirIndTotAddOver(X[first:(last-1)], X[[last]], comps[first:(last-1)], max_comps = max_comps, sel.comp = sc, computeAdditional = computeAdditional, sequential = sequential, B = B, k = k, type = type)
+      models[[b]] <- sopls_pm(X[first:(last-1)], X[[last]], comps[first:(last-1)], max_comps = max_comps, sel.comp = sc, computeAdditional = computeAdditional, sequential = sequential, B = B, k = k, type = type)
       model_names[[b]] <- paste0(X_names[first],"->",X_names[last])
       b <- b+1
     }
@@ -415,38 +415,38 @@ MSEP0 <- function(Y, segments){
 
 ###################
 # Function testing
-# DITAO <- sopls_dirIndTotAddOver(X, Y, c(3,2,2,1), max_comps = 8, sel.comp = "opt", sequential = FALSE, validation = "CV", k=10)
+# DITAO <- sopls_pm(X, Y, c(3,2,2,1), max_comps = 8, sel.comp = "opt", sequential = FALSE, validation = "CV", k=10)
 # print(DITAO)
-# DITAOchi <- sopls_dirIndTotAddOver(X, Y, c(3,2,2,1), max_comps = 8, sel.comp = "chi", sequential = FALSE, validation = "CV", k=10)
+# DITAOchi <- sopls_pm(X, Y, c(3,2,2,1), max_comps = 8, sel.comp = "chi", sequential = FALSE, validation = "CV", k=10)
 # print(" ");print(DITAOchi)
-# DITAOseq <- sopls_dirIndTotAddOver(X, Y, c(3,2,2,1), max_comps = 8, sel.comp = "opt", sequential = TRUE, validation = "CV", k=10)
+# DITAOseq <- sopls_pm(X, Y, c(3,2,2,1), max_comps = 8, sel.comp = "opt", sequential = TRUE, validation = "CV", k=10)
 # print(" ");print(DITAOseq)
-# DITAOseqchi <- sopls_dirIndTotAddOver(X, Y, c(3,2,2,1), max_comps = 8, sel.comp = "chi", sequential = TRUE, validation = "CV", k=10)
+# DITAOseqchi <- sopls_pm(X, Y, c(3,2,2,1), max_comps = 8, sel.comp = "chi", sequential = TRUE, validation = "CV", k=10)
 # print(" ");print(DITAOseqchi)
 # 
 # 
-# DITAOB <- sopls_dirIndTotAddOver(X, Y, c(3,2,2,1), max_comps = 8, sel.comp = "opt", sequential = FALSE, B=10, validation = "CV", k=10)
+# DITAOB <- sopls_pm(X, Y, c(3,2,2,1), max_comps = 8, sel.comp = "opt", sequential = FALSE, B=10, validation = "CV", k=10)
 # print(DITAOB)
 # 
 # ########################
 # 
 # 
 # 
-# ADE <- sopls_dirIndTotAddOver(process_data[c(1,4)], process_data[[5]], c(4,3), sel.comp = c(4,3), sequential = TRUE, B=10)
-# BDE <- sopls_dirIndTotAddOver(process_data[c(2,4)], process_data[[5]], c(12,4), sel.comp = c(12,4), sequential = TRUE, B=10)
-# CDE <- sopls_dirIndTotAddOver(process_data[c(3,4)], process_data[[5]], c(9,2), sel.comp = c(9,2), sequential = TRUE, B=10)
+# ADE <- sopls_pm(process_data[c(1,4)], process_data[[5]], c(4,3), sel.comp = c(4,3), sequential = TRUE, B=10)
+# BDE <- sopls_pm(process_data[c(2,4)], process_data[[5]], c(12,4), sel.comp = c(12,4), sequential = TRUE, B=10)
+# CDE <- sopls_pm(process_data[c(3,4)], process_data[[5]], c(9,2), sel.comp = c(9,2), sequential = TRUE, B=10)
 # 
-# ADE1 <- sopls_dirIndTotAddOver(process_data[c(1,4)], process_data[[5]][,1], c(3,3), sel.comp = "opt", sequential = TRUE, B=10)
-# BDE1 <- sopls_dirIndTotAddOver(process_data[c(2,4)], process_data[[5]][,1], c(5,3), sel.comp = "opt", sequential = TRUE, B=10)
-# CDE1 <- sopls_dirIndTotAddOver(process_data[c(3,4)], process_data[[5]][,1], c(3,1), sel.comp = "opt", sequential = TRUE, B=10)
+# ADE1 <- sopls_pm(process_data[c(1,4)], process_data[[5]][,1], c(3,3), sel.comp = "opt", sequential = TRUE, B=10)
+# BDE1 <- sopls_pm(process_data[c(2,4)], process_data[[5]][,1], c(5,3), sel.comp = "opt", sequential = TRUE, B=10)
+# CDE1 <- sopls_pm(process_data[c(3,4)], process_data[[5]][,1], c(3,1), sel.comp = "opt", sequential = TRUE, B=10)
 # 
-# ADE2 <- sopls_dirIndTotAddOver(process_data[c(1,4)], process_data[[5]][,2], c(3,3), sel.comp = "opt", sequential = TRUE, B=10)
-# BDE2 <- sopls_dirIndTotAddOver(process_data[c(2,4)], process_data[[5]][,2], c(5,3), sel.comp = "opt", sequential = TRUE, B=10)
-# CDE2 <- sopls_dirIndTotAddOver(process_data[c(3,4)], process_data[[5]][,2], c(3,1), sel.comp = "opt", sequential = TRUE, B=10)
+# ADE2 <- sopls_pm(process_data[c(1,4)], process_data[[5]][,2], c(3,3), sel.comp = "opt", sequential = TRUE, B=10)
+# BDE2 <- sopls_pm(process_data[c(2,4)], process_data[[5]][,2], c(5,3), sel.comp = "opt", sequential = TRUE, B=10)
+# CDE2 <- sopls_pm(process_data[c(3,4)], process_data[[5]][,2], c(3,1), sel.comp = "opt", sequential = TRUE, B=10)
 # 
-# ADE3 <- sopls_dirIndTotAddOver(process_data[c(1,4)], process_data[[5]][,3], c(3,3), sel.comp = "opt", sequential = TRUE, B=10)
-# BDE3 <- sopls_dirIndTotAddOver(process_data[c(2,4)], process_data[[5]][,3], c(5,3), sel.comp = "opt", sequential = TRUE, B=10)
-# CDE3 <- sopls_dirIndTotAddOver(process_data[c(3,4)], process_data[[5]][,3], c(3,1), sel.comp = "opt", sequential = TRUE, B=10)
+# ADE3 <- sopls_pm(process_data[c(1,4)], process_data[[5]][,3], c(3,3), sel.comp = "opt", sequential = TRUE, B=10)
+# BDE3 <- sopls_pm(process_data[c(2,4)], process_data[[5]][,3], c(5,3), sel.comp = "opt", sequential = TRUE, B=10)
+# CDE3 <- sopls_pm(process_data[c(3,4)], process_data[[5]][,3], c(3,1), sel.comp = "opt", sequential = TRUE, B=10)
 # 
 # print(ADE, "A+D->E")
 # print(BDE, "B+D->E")

@@ -15,8 +15,11 @@ mcolors(
 \item{colmatrix}{A numeric \code{matrix} of three columns (R,G,B) to generate color palette from.}
 }
 \value{
-A vector of n colors.
+A vector of n colors in hexadecimal RGB format.
 }
 \description{
 Color palette generation from matrix of RGB values
+}
+\examples{
+mcolors(5)
 }

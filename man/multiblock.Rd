@@ -18,7 +18,7 @@ A collection of methods for analysis of data sets with more than two blocks of d
 \item HPCA - Hierarchical Principal component analysis (\code{hpca})
 \item MCOA - Multiple Co-Inertia Analysis (\code{mcoa})
 \item JIVE - Joint and Individual Variation Explained (\code{jive})
-\item STATIS - Structuration des Tableaux A Trois Indices de la Statistique (\code{statis})
+\item STATIS - Structuration des Tableaux à Trois Indices de la Statistique (\code{statis})
 \item HOGSVD - Higher Order Generalized SVD (\code{hogsvd})
 }
 
@@ -43,5 +43,11 @@ A collection of methods for analysis of data sets with more than two blocks of d
 \item CCA - Canonical Correlation Analysis (\code{cca})
 \item IFA - Interbattery Factor Analysis (\code{ifa})
 \item GSVD - Generalized SVD (\code{gsvd})
+}
+
+\strong{Complex methods:}
+\itemize{
+\item L-PLS - Partial Least Squares in L configuration (\emph{lpls})
+\item SO-PLS-PM - Sequential and Orthogonalised PLS Path Modeling (\emph{sopls_pm})
 }
 }

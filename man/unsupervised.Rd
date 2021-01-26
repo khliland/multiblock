@@ -56,7 +56,7 @@ Collection of unsupervised multiblock methods:
 \item HPCA - Hierarchical Principal component analysis (\code{hpca})
 \item MCOA - Multiple Co-Inertia Analysis (\code{mcoa})
 \item JIVE - Joint and Individual Variation Explained (\code{jive})
-\item STATIS - Structuration des Tableaux A Trois Indices de la Statistique (\code{statis})
+\item STATIS - Structuration des Tableaux à Trois Indices de la Statistique (\code{statis})
 \item HOGSVD - Higher Order Generalized SVD (\code{hogsvd})
 }
 }

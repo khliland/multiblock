@@ -13,6 +13,19 @@
 #' @importFrom pls pcr plsr
 #' @importFrom geigen gsvd
 #' @rdname basic 
+#' 
+#' @examples 
+#' data(potato)
+#' X <- potato$Chemical
+#' y <- potato$Sensory[,1,drop=FALSE]
+#' 
+#' pca.pot  <- pca(X, ncomp = 2)
+#' pcr.pot  <- pcr(y ~ X, ncomp = 2)
+#' pls.pot  <- plsr(y ~ X, ncomp = 2)
+#' cca.pot  <- cca(potato[1:2])
+#' ifa.pot  <- ifa(potato[1:2])
+#' gsvd.pot <- gsvd(lapply(potato[3:4], t))
+#' 
 #' @export
 pca <- function(X, scale=FALSE, ncomp=1, ...){
   X <- as.matrix(unclass(X))
@@ -37,7 +50,18 @@ pls::plsr
 #' @rdname basic 
 #' @export
 cca <- function(X){
-  cancor(X[1:2])
+  cc <- cancor(X[[1]], X[[2]])
+  loadings <- cc[c('xcoef','ycoef')]
+  scores   <- list((X[[1]]-rep(cc$xcenter, each=nrow(X[[1]])))%*%loadings[[1]],
+                   (X[[2]]-rep(cc$ycenter, each=nrow(X[[2]])))%*%loadings[[2]])
+  names(loadings) <- names(scores) <- names(X)
+  mod <- list(blockLoadings=loadings, blockScores=scores, CCA = cc)
+  mod$info <- list(method = "Canonical Correlation Analysis", 
+                   scores = "Not used", loadings = "Not used",
+                   blockScores = "Projected blocks", blockLoadings = "Block loadings")
+  mod$call <- match.call()
+  class(mod) <- c('multiblock','list')
+  return(mod)
 }
 
 #' @rdname basic 
@@ -49,12 +73,32 @@ ifa <- function(X, ncomp=1, scale=FALSE, verbose=FALSE, ...){
   if(length(ncomp)==1){ ncomp <- rep(ncomp,length(X)) }
   res <- RGCCA::rgcca(A = X, C = matrix(c(0,1,1,0),2,2), tau=c(1,1), verbose = verbose, scale = scale, ncomp=ncomp, ...)
   # A = coef. left, B = coef. right, corr = canonical correlation
-  return(list(A = res$astar[[1]], B = res$astar[[2]], corr = sqrt(res$AVE$AVE_inner), X = X, rgcca = res))
+  loadings <- list(res$astar[[1]], res$astar[[2]])
+  scores   <- list(X[[1]]%*%loadings[[1]], X[[2]]%*%loadings[[2]])
+  names(scores) <- names(loadings) <- names(X)
+  corr <- sqrt(res$AVE$AVE_inner)
+  mod <- list(blockLoadings=loadings, blockScores=scores, corr=corr, X = X, rgcca = res)
+  mod$info <- list(method = "Interbattery Factor Analysis", 
+                   scores = "Not used", loadings = "Not used",
+                   blockScores = "Projected blocks", blockLoadings = "Block loadings")
+  mod$call <- match.call()
+  class(mod) <- c('multiblock','list')
+  return(mod)
 }
 
 
 #' @rdname basic 
 #' @export
 gsvd  <- function(X){
-  geigen::gsvd(as.matrix(X[[1]]), as.matrix(X[[2]]))
+  res <- geigen::gsvd(as.matrix(X[[1]]), as.matrix(X[[2]]))
+  loadings <- res$Q
+  scores   <- list(res$U, res$V)
+  names(scores) <- names(X)
+  mod <- list(loadings=loadings, blockScores=scores, GSVD = res)
+  mod$info <- list(method = "Generalized Singular Value Decomposition", 
+                   scores = "Not used", loadings = "Loadings",
+                   blockScores = "Block scores", blockLoadings = "Not used")
+  mod$call <- match.call()
+  class(mod) <- c('multiblock','list')
+  return(mod)
 }

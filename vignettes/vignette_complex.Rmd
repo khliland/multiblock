@@ -1,0 +1,129 @@
+---
+title: "Vignette, complex multiblock"
+output: 
+  pdf_document: 
+    keep_tex: true
+vignette: >
+  %\VignetteIndexEntry{Vignette, complex multiblock}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.width=6, 
+  fig.height=4
+)
+# Legge denne i YAML på toppen for å skrive ut til tex
+#output: 
+#  pdf_document: 
+#    keep_tex: true
+# Original:
+#  rmarkdown::html_vignette:
+#    toc: true
+```
+
+```{r}
+# Start the multiblock R package
+library(multiblock)
+```
+
+# Complex methods
+
+The following complex methods are available in the _multiblock_ package (function names in parentheses):
+
+* L-PLS - Partial Least Squares in L configuration (_lpls_)
+* SO-PLS-PM - Sequential and Orthogonalised PLS Path Modeling (_sopls_pm_)
+
+## L-PLS
+
+To showcase L-PLS we will use simulated data specifically made for L-shaped data. Regression 
+using L-PLS can be either outwards from _X1_ to _X2_ and _X3_ or inwards from _X2_ and _X3_
+to _X1_. In the former case, prediction can either be of _X2_ or _X3_ given _X1_. Cross-validation
+is performed either on the rows of _X1_ or the columns of _X1_.
+
+```{}
+   ______N 
+  |       |
+  |       |
+  |  X3   |
+  |       |
+ K|_______|
+             
+             
+   ______N       ________J 
+  |       |     |         |
+  |       |     |         |
+  |  X1   |     |   X2    |
+  |       |     |         |
+ I|_______|    I|_________|
+```
+
+
+## Simulated L-shaped data
+
+We simulate two latent components in L shape with blocks having dimensions (30x20),
+(20x5) and (6x20) for blocks _X1_, _X2_ and _X3_, respectively.
+
+```{r}
+set.seed(42)
+
+# Simulate data set
+sim <- lplsData(I = 30, N = 20, J = 5, K = 6, ncomp = 2)
+
+# Split into separate blocks
+X1  <- sim$X1; X2 <- sim$X2; X3 <- sim$X3
+```
+
+## Exo-L-PLS
+
+The first L-PLS will be outwards. Predictions have to be accompanied by a direction.
+
+```{r fig.width=5, fig.height=5}
+# exo-L-PLS:
+lp.exo  <- lpls(X1,X2,X3, ncomp = 2) # type = "exo" is default
+
+# Predict X1
+pred.exo.X2 <- predict(lp.exo, X1new = X1, exo.direction = "X2")
+
+# Predict X3
+pred.exo.X2 <- predict(lp.exo, X1new = X1, exo.direction = "X3")
+
+# Correlation loading plot
+plot(lp.exo)
+```
+
+
+## Endo-L-PLS
+
+The second L-PLS will be inwards.
+
+```{r}
+# endo-L-PLS:
+lp.endo <- lpls(X1,X2,X3, ncomp = 2, type = "endo")
+
+# Predict X1 from X2 and X3 (in this case fitted values):
+pred.endo.X1 <- predict(lp.endo, X2new = X2, X3new = X3)
+```
+
+## L-PLS cross-validation
+
+Cross-validation comes with choices of directions when applying this to L-PLS since we have both sample
+and variable links. The cross-validation routines compute RMSECV values and does cross-validated predictions.
+
+```{r}
+# LOO cross-validation horizontally
+lp.cv1 <- lplsCV(lp.exo, segments1 = as.list(1:dim(X1)[1]), trace = FALSE)
+
+# LOO cross-validation vertically
+lp.cv2 <- lplsCV(lp.exo, segments2 = as.list(1:dim(X1)[2]), trace = FALSE)
+
+# Three-fold CV, horizontal
+lp.cv3 <- lplsCV(lp.exo, segments1 = as.list(1:10, 11:20, 21:30), trace = FALSE)
+
+# Three-fold CV, horizontal, inwards model
+lp.cv4 <- lplsCV(lp.endo, segments1 = as.list(1:10, 11:20, 21:30), trace = FALSE)
+```
+

@@ -26,6 +26,10 @@
 #' * ROSA - Response Oriented Sequential Alternation (\code{\link{rosa}})
 #' * mbRDA - Multiblock Redundancy Analysis (\code{mbrda})
 #' 
+#' __Complex methods:__
+#' * L-PLS - Partial Least Squares in L configuration (_lpls_)
+#' * SO-PLS-PM - Sequential and Orthogonalised PLS Path Modeling (_sopls_pm_)
+#'
 #' __Single- and two-block methods:__
 #' * PCA - Principal Component Analysis (\code{pca})  
 #' * PCR - Principal Component Regression (\code{pcr})  
@@ -33,7 +37,7 @@
 #' * CCA - Canonical Correlation Analysis (\code{cca})  
 #' * IFA - Interbattery Factor Analysis (\code{ifa})
 #' * GSVD - Generalized SVD (\code{gsvd})
-#'
+#' 
 #' @docType package
 #' @name multiblock
 NULL

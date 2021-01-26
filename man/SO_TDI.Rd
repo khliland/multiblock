@@ -2,13 +2,13 @@
 % Please edit documentation in R/direct_indirect.R
 \name{SO_TDI}
 \alias{SO_TDI}
-\alias{sopls_dirIndTotAddOver}
+\alias{sopls_pm}
 \alias{print.SO_TDI}
-\alias{sopls_dirIndTotAddOver_multiple}
+\alias{sopls_pm_multiple}
 \alias{print.SO_TDI_multiple}
 \title{Total, direct, indirect and additional effects in SO-PLS-PM.}
 \usage{
-sopls_dirIndTotAddOver(
+sopls_pm(
   X,
   Y,
   comps,
@@ -23,7 +23,7 @@ sopls_dirIndTotAddOver(
 
 \method{print}{SO_TDI}(x, showComp = TRUE, heading = "SO-PLS path effects", digits = 2, ...)
 
-sopls_dirIndTotAddOver_multiple(
+sopls_pm_multiple(
   X,
   X_names,
   comps,

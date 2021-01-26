@@ -30,4 +30,10 @@ mbr <- mbrda(potatoList[c('Chemical','Compression')], potatoList[['Sensory']], n
 print(mbr)
 scoreplot(mbr)
 
+TODO: 
+* mbRDA to formula interface
+* MBPLS to formula interface
+* sparse MBPLS (ST-type, Lenth type)
+* PO-PLS
+
 }

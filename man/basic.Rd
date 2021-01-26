@@ -23,6 +23,19 @@ gsvd(X)
 \description{
 
 }
+\examples{
+data(potato)
+X <- potato$Chemical
+y <- potato$Sensory[,1,drop=FALSE]
+
+pca.pot  <- pca(X, ncomp = 2)
+pcr.pot  <- pcr(y ~ X, ncomp = 2)
+pls.pot  <- plsr(y ~ X, ncomp = 2)
+cca.pot  <- cca(potato[1:2])
+ifa.pot  <- ifa(potato[1:2])
+gsvd.pot <- gsvd(lapply(potato[3:4], t))
+
+}
 \keyword{internal}
 \description{
 These objects are imported from other packages. Follow the links

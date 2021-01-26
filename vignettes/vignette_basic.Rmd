@@ -1,0 +1,119 @@
+---
+title: "Vignette, basic analyses"
+output: 
+  pdf_document: 
+    keep_tex: true
+vignette: >
+  %\VignetteIndexEntry{Vignette, basic analyses}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.width=6, 
+  fig.height=4
+)
+# Legge denne i YAML på toppen for å skrive ut til tex
+#output: 
+#  pdf_document: 
+#    keep_tex: true
+# Original:
+#  rmarkdown::html_vignette:
+#    toc: true
+```
+
+```{r setup}
+# Start the multiblock R package
+library(multiblock)
+```
+
+# Basic methods
+
+The following single- and two-block methods are available in the _multiblock_ package (function names in parentheses):
+
+* PCA - Principal Component Analysis (_pca_)
+* PCR - Principal Component Regression (_pcr_)
+* PLSR - Partial Least Squares Regression (_plsr_)
+* CCA - Canonical Correlation Analysis (_cca_)
+* IFA - Interbattery Factor Analysis (_ifa_)
+* GSVD - Generalized SVD (_gsvd_)
+
+The following sections will describe how to format your data for analysis and invoke all methods from the list above.
+
+## Prepare data
+
+We use a selection of extracts from the potato data included in the package for the basic data analyses. The
+data set is stored as a named list of matrices with chemical, rheological, spectral and sensory measurements.
+
+```{r}
+data(potato)
+X <- potato$Chemical
+y <- potato$Sensory[,1,drop=FALSE]
+```
+
+## Modelling
+
+Since the basic methods cover both single block analysis, supervised and unsupervised analysis, the interfaces 
+for the basic methods vary a bit. Supervised methods use the formula interface and the remaining methods take
+input as a single matrix or list of matrices. See vignettes for supervised and unsupervised analysis for details.
+
+```{r}
+# Single block
+pot.pca  <- pca(X, ncomp = 2)
+
+# Two blocks, supervised
+pot.pcr  <- pcr(y ~ X, ncomp = 2)
+pot.pls  <- plsr(y ~ X, ncomp = 2)
+
+# Two blocks, unsupervised
+pot.cca  <- cca(potato[1:2])
+pot.ifa  <- ifa(potato[1:2])
+
+# Variable linked decomposition
+pot.gsvd <- gsvd(lapply(potato[3:4], t))
+```
+
+## Common output elements across methods
+
+Output from all methods include slots called _loadings_, _scores_, _blockLoadings_
+and _blockScores_, or a suitable subset of these. An _info_ slot describes which
+types of (block) loadings/scores are in the output. There may be various extra
+elements in addition to the common elements, e.g. coefficients, weights etc.
+
+```{r}
+# PCA returns loadings and scores:
+names(pot.pca)
+summary(pot.pca)
+# GSVD returns block scores and common loadings:
+names(pot.gsvd)
+summary(pot.gsvd)
+```
+
+## Scores and loadings
+
+Functions for accessing scores and loadings are based on functions
+from the _pls_ package, but extended with a _block_ parameter to
+allow extraction of common/global scores/loadings and their block
+counterparts. The default block is 0, corresponding to the common/global
+block. Block scores/loadings can be accessed by number or name.
+
+```{r}
+# Global scores plotted with object labels
+plot(scores(pot.pca), labels = "names")
+```
+
+```{r}
+# Block loadings for Chemical block with variable labels in scatter format
+plot(loadings(pot.cca, "Chemical"), labels = "names", scatter = TRUE)
+```
+
+
+```{r}
+# Non-existing elements are swapped with existing ones with a warning.
+sc <- scores(pot.cca)
+```

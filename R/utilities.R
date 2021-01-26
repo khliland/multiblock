@@ -59,10 +59,11 @@ rownamesList <- function(X, nam){
 #' @param n Integer number of colors to produce.
 #' @param colmatrix A numeric \code{matrix} of three columns (R,G,B) to generate color palette from.
 #'
-#' @return A vector of n colors.
-#' @export
+#' @return A vector of n colors in hexadecimal RGB format.
 #'
-#' @examples
+#' @examples 
+#' mcolors(5)
+#' @export
 mcolors <- function(n, colmatrix = matrix(c(0,0,1, 1,1,1, 1,0,0), 3,3, byrow = TRUE)){
   cols <- character(n)
   colR <- approx(seq(0,1,length.out=nrow(colmatrix)), colmatrix[,1], (0:(n-1))/(n-1))$y
