@@ -20,7 +20,10 @@ Imports: Rcpp (>= 1.0.0), RcppEigen (>= 0.3.3.5.0),
   MASS,
   RSpectra,
   plotrix,
-  pracma
+  pracma,
+  r.jive,
+  geigen,
+  FactoMineR
 LinkingTo: Rcpp, RcppEigen
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1

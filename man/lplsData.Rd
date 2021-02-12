@@ -18,10 +18,18 @@ lplsData(I = 30, N = 20, J = 5, K = 6, ncomp = 2)
 \item{ncomp}{\code{numeric} number of latent components}
 }
 \value{
-
+A \code{list} of three matrices.
 }
 \description{
 L-PLS data simulation for exo-type analysis
+}
+\examples{
+lp <- lplsData(I = 30, N = 20, J = 5, K = 6, ncomp = 2)
+names(lp)
+
+}
+\seealso{
+Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 }
 \author{
 Solve Sæbø (adapted by Kristian Hovde Liland)

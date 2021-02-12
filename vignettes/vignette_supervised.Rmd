@@ -5,8 +5,10 @@ output:
     keep_tex: true
 vignette: >
   %\VignetteIndexEntry{Vignette, supervised multiblock}
-  %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r, include = FALSE}
@@ -28,6 +30,18 @@ knitr::opts_chunk$set(
 ```{r setup}
 library(multiblock)
 ```
+
+# Supervised methods
+
+The following supervised methods are available in the _multiblock_ package (function names in parentheses):
+
+* MB-PLS - Multiblock Partial Least Squares (_mbpls_)
+* SO-PLS - Sequential and Orthogonalised PLS (_sopls_)
+* PO-PLS - Parallel and Orthogonalised PLS (_popls_)
+* ROSA - Response Oriented Sequential Alternation (_rosa_)
+* mbRDA - Multiblock Redundancy Analysis (_mbrda_)
+
+The following sections will describe how to format your data for analysis and invoke all methods from the list above.
 
 # Formatting data for multiblock analyses
 
@@ -129,8 +143,8 @@ loadings(so.pot, ncomp = c(4,0), block = 1)
 ```{r}
 # Plot loadings from block 1 and 2
 old.par <- par("mfrow"); on.exit(par(old.par)); par(mfrow=c(1,2))
-loadingplot(so.pot, ncomp = c(4,3), comps = c(2,3), block = 1, scatter = TRUE, main = "Block 1")
-loadingplot(so.pot, ncomp = c(4,3), block = 2, scatter = TRUE, main = "Block 2")
+loadingplot(so.pot, ncomp = c(4,3), comps = c(2,3), block = 1, scatter = TRUE, main = "Block 1", labels = "names")
+loadingplot(so.pot, ncomp = c(4,3), block = 2, scatter = TRUE, main = "Block 2", labels = "names")
 par(old.par)
 ```
 
@@ -145,8 +159,8 @@ scores(so.pot, ncomp = c(4,0), block = 1)
 ```{r}
 # Plot scores from block 1 and 2
 old.par <- par("mfrow"); on.exit(par(old.par)); par(mfrow=c(1,2))
-scoreplot(so.pot, ncomp = c(4,3), comps = c(2,3), block = 1, main = "Block 1")
-scoreplot(so.pot, ncomp = c(4,3), block = 2, main = "Block 2")
+scoreplot(so.pot, ncomp = c(4,3), comps = c(2,3), block = 1, main = "Block 1", labels = "names")
+scoreplot(so.pot, ncomp = c(4,3), block = 2, main = "Block 2", labels = "names")
 par(old.par)
 ```
 
@@ -190,6 +204,52 @@ RMSEP(so.pot, 'train', ncomp = c(5,5))
 # Test data
 RMSEP(so.pot20, newdata = testset, ncomp = c(2,1,2))
 ```
+
+# Parallel and Orthgonalised Partial Least Squares - PO-PLS
+
+PO-PLS is presented briefly using the _potato_ data. 
+
+## Modelling
+
+There are many choices
+with regard to numbers of components and possible local and common components.
+Using automatic selection, the user selects the highest number of blocks to 
+combine into local/common components, minimum explained variance and minimum
+squared correlation to the response. Manual selection is limited to setting
+the number of initial components from the blocks and maximum number of 
+local/common components.
+
+```{r}
+# Automatic analysis
+pot.po.auto <- popls(potato[1:3], potato[['Sensory']][,1], commons = 2)
+
+# Explained variance
+pot.po.auto$explVar
+```
+
+```{r}
+# Manual choice of up to 5 components for each block and 1, 0, and 2 blocks,
+# respectively from the (1,2), (1,3) and (2,3) combinations of blocks.
+pot.po.man <- popls(potato[1:3], potato[['Sensory']][,1], commons = 2,
+                    auto=FALSE, manual.par = list(ncomp=c(5,5,5),
+                                                  ncommon=c(1,0,2)))
+# Explained variance
+pot.po.man$explVar
+```
+
+## Scores and loadings
+
+Scores and loadings are stored per block. Common scores/loadings are found
+in each of the blocks' list of components.
+
+```{r}
+# Score plot for local (2,3) components
+plot(scores(pot.po.man,3), comps=1:2, labels="names")
+
+# Corresponding loadings
+plot(loadings(pot.po.man,3), comps=1:2, labels="names")
+```
+
 
 # Response Oriented Sequential Alternation - ROSA
 

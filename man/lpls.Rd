@@ -44,9 +44,6 @@ lpls(
 
 \item{...}{Additional arguments, not used.}
 }
-\value{
-
-}
 \description{
 Simultaneous decomposition of three blocks connected in an L pattern. Two versions of L-PLS
 are available: exo- and endo-L-PLS. See references for details.
@@ -79,11 +76,15 @@ predict function has prediction implemented. \cr
 sim <- lplsData(I = 30, N = 20, J = 5, K = 6, ncomp = 2)
 X1  <- sim$X1; X2 <- sim$X2; X3 <- sim$X3
 lp  <- lpls(X1,X2,X3) # exo-L-PLS
+
 }
 \references{
 Sæbø, S., Martens, M. and Martens H. (2010) Three-block data modeling by endo- and
 exo-LPLS regression. In Handbook of Partial Least Squares: Concepts, Methods and Applications.
 Esposito Vinzi, V.; Chin, W.W.; Henseler, J.; Wang, H. (Eds.). Springer.
+}
+\seealso{
+Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 }
 \author{
 Solve Sæbø (adapted by Kristian Hovde Liland)

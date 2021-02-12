@@ -1,15 +1,17 @@
 #' @name supervised
 #' @title Supervised Multiblock Methods
-#' @aliases mbpls mbrda
 #' 
 #' @description Collection of supervised multiblock methods:
-#' * MB-PLS - Multiblock Partial Least Squares (\code{mbpls})
+#' * MB-PLS - Multiblock Partial Least Squares (\code{\link{mbpls}})
 #' * SO-PLS - Sequential and Orthogonalized PLS (\code{\link{sopls}})
+#' * PO-PLS - Parallel and Orthogonalized PLS (\code{\link{popls}})
 #' * ROSA - Response Oriented Sequential Alternation (\code{\link{rosa}})
-#' * mbRDA - Multiblock Redundancy Analysis (\code{mbrda})
+#' * mbRDA - Multiblock Redundancy Analysis (\code{\link{mbrda}})
 #' 
 #' @importFrom RGCCA rgcca
 #' @importFrom ade4 mbpcaiv ktab.list.df dudi.pca
+#' 
+#' @seealso Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 #'  
 #' @examples
 #' data(potato)
@@ -22,12 +24,23 @@
 #' print(mbr)
 #' scoreplot(mbr)
 #' 
-#' TODO: 
-#' * mbRDA to formula interface
-#' * MBPLS to formula interface
-#' * sparse MBPLS (ST-type, Lenth type)
-#' * PO-PLS
+NULL
+
+#' Multiblock Partial Least Squares - MB-PLS
 #' 
+#' @param X \code{list} of input blocks.
+#' @param Y \code{matrix} of responses.
+#' @param ncomp \code{integer} number of PLS components.
+#' @param scale \code{logical} for autoscaling inputs (default = FALSE).
+#' @param ... additional arguments to pls::plsr.
+#' 
+#' @return \code{mbpls} object containing the underlying \code{pls} object, with all its result and plot possibilities plus block-wise loadings, loading weights and scores.
+#' @examples 
+#' data(potato)
+#' mb <- mbpls(potato[c('Chemical','Compression')], potato[['Sensory']], ncomp = 5)
+#' print(mb)
+#' scoreplot(mb, labels="names") # Exploiting mvr object structure from pls package
+#' @seealso Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 #' @export
 mbpls <- function(X, Y, ncomp=1, scale=FALSE, ...){
   # TODO: Extend with various block norms
@@ -63,12 +76,26 @@ mbpls <- function(X, Y, ncomp=1, scale=FALSE, ...){
   mod$superWeights  <- Wt
   mod$call <- match.call()
   class(mod) <- c('mbpls','mvr')
-  # obj <- list(Tt=mod$scores, Wt=Wt, Tb=Tb, Wb=Wb, Pb=Pb, plsmod=mod, call=match.call())
-  # class(obj) <- 'mbpls'
   return(mod)
 }
 
-#' @rdname supervised 
+#' Multiblock Redundancy Analysis - mbRDA
+#' @param X \code{list} of input blocks.
+#' @param Y \code{matrix} of responses.
+#' @param ncomp \code{integer} number of PLS components.
+#' @param ... additional arguments to ade4::mbpcaiv.
+#' 
+#' @return \code{mbrda,mvr} object containing elements corresponding to a \code{pls} object, with all its result and plot possibilities plus block-wise loadings, loading weights and scores.
+#' 
+#' @examples
+#' # Convert data.frame with AsIs objects to list of matrices
+#' data(potato)
+#' potatoList <- lapply(potato, unclass)
+#' 
+#' mbr <- mbrda(potatoList[c('Chemical','Compression')], potatoList[['Sensory']], ncomp = 10)
+#' print(mbr)
+#' scoreplot(mbr) # Exploiting mvr object structure from pls package
+#' @seealso Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 #' @export
 mbrda <- function(X, Y, ncomp=1, ...){
   # MBRedundancyAnalysis

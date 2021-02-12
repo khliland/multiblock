@@ -8,7 +8,6 @@
 #' * CCA - Canonical Correlation Analysis (\code{cca})  
 #' * IFA - Interbattery Factor Analysis (\code{ifa})
 #' * GSVD - Generalized SVD (\code{gsvd})
-#' }  
 #' 
 #' @importFrom pls pcr plsr
 #' @importFrom geigen gsvd
@@ -26,6 +25,7 @@
 #' ifa.pot  <- ifa(potato[1:2])
 #' gsvd.pot <- gsvd(lapply(potato[3:4], t))
 #' 
+#' @seealso Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 #' @export
 pca <- function(X, scale=FALSE, ncomp=1, ...){
   X <- as.matrix(unclass(X))

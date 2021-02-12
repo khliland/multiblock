@@ -7,10 +7,13 @@
 #' @param ncomp \code{numeric} number of latent components
 #' @author Solve Sæbø (adapted by Kristian Hovde Liland)
 #'
-#' @return
-#' @export
-#'
+#' @return A \code{list} of three matrices.
 #' @examples
+#' lp <- lplsData(I = 30, N = 20, J = 5, K = 6, ncomp = 2)
+#' names(lp)
+#' 
+#' @seealso Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+#' @export
 lplsData <- function(I = 30, N = 20, J = 5, K = 6, ncomp = 2){
   # Data-simulation for LPLS testing (exo-type)
   

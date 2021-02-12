@@ -27,3 +27,6 @@ print(sc)
 plot(loadings(sc, block = 1), labels = "names", scatter = TRUE)
 
 }
+\seealso{
+Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+}

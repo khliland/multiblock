@@ -2,48 +2,7 @@
 % Please edit documentation in R/unsupervised.R
 \name{unsupervised}
 \alias{unsupervised}
-\alias{sca}
-\alias{gca}
-\alias{mfa}
-\alias{pcagca}
-\alias{disco}
-\alias{jive}
-\alias{statis}
-\alias{hogsvd}
-\alias{hpca}
-\alias{mcoa}
-\alias{gpa}
 \title{Unsupervised Multiblock Methods}
-\usage{
-sca(X, ncomp = 2, scale = FALSE, samplelinked = "auto", ...)
-
-gca(X, ncomp = 2, svd = TRUE, tol = 10^-12, corrs = TRUE, ...)
-
-gpa(X, graph = FALSE, ...)
-
-mfa(X, type = rep("c", length(X)), graph = FALSE, ...)
-
-pcagca(
-  X,
-  commons = 2,
-  auto = TRUE,
-  auto.par = list(explVarLim = 40, rLim = 0.8),
-  manual.par = list(ncomp = 0, ncommon = 0),
-  tol = 10^-12
-)
-
-disco(X, ncomp = 2, ...)
-
-hpca(X, ncomp = 2, scale = FALSE, verbose = FALSE, ...)
-
-mcoa(X, ncomp = 2, scale = FALSE, verbose = FALSE, ...)
-
-jive(X, ...)
-
-statis(X, ncomp = 3, scannf = FALSE, tol = 1e-07, ...)
-
-hogsvd(X)
-}
 \description{
 Collection of unsupervised multiblock methods:
 \itemize{
@@ -66,6 +25,7 @@ JIVE, STATIS and HOGSVD assume variable linked matrices/data.frames, while SCA h
 }
 \examples{
 # Object linked data
+data(potato)
 potList <- as.list(potato[c(1,2,9)])
 pot.sca    <- sca(potList)
 pot.gca    <- gca(potList)
@@ -77,9 +37,13 @@ pot.hpca   <- hpca(potList)
 pot.mcoa   <- mcoa(potList)
 
 # Variable linked data
+data(candies)
 candyList <- lapply(1:nlevels(candies$candy),function(x)candies$assessment[candies$candy==x,])
 can.jive   <- jive(candyList)
 can.statis <- statis(candyList)
 can.hogsvd <- hogsvd(candyList)
 plot(can.statis$statis)
+}
+\seealso{
+Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 }

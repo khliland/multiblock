@@ -1,4 +1,20 @@
 # Create all unique component combinations of n_blocks from min_level to max_level in length
+#' Unique combinations of blocks
+#' 
+#' @description Compute a list of all possible block combinations where
+#' the number of blocks in each combination is limited by parameters
+#' \code{min_level} and \code{max_level}.
+#'
+#' @param n_block \code{integer} number of input blocks.
+#' @param max_level \code{integer} maximum number of blocks per combination.
+#' @param min_level \code{integer} minimum number of blocks per combination.
+#'
+#' @return A list of combinations.
+#'
+#' @examples
+#' unique_combos(3, 2)
+#' 
+#' @export
 unique_combos <- function(n_block, max_level, min_level=2){
   all_comb_lim <- function(comb, vec, nb, n, pos){
     if(pos > n){

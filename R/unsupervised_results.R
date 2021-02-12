@@ -7,6 +7,7 @@
 #' print(sc)
 #' plot(loadings(sc, block = 1), labels = "names", scatter = TRUE)
 #' 
+#' @seealso Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 #' @export
 scores.multiblock <- function(object, block = 0, ...){
   if(block==0 && is.null(object$scores)){
@@ -73,10 +74,14 @@ summary.multiblock <- function(object, ...){
   invisible(object)
 }
 
-# TODO:
-# gca: gca.rgcca?
-# pcagca: summary
-# mcoa: include or not?
-# jive: post-process with PCA?
-# All methods: Check that dimnames are given to scores and loadings (- gca.rgcca, mcoa, jive)
-
+# #' @rdname unsupervised_results
+# #' @export
+# info <- function (object, ...) {
+#   UseMethod("info", object)
+# }
+# 
+# #' @rdname unsupervised_results
+# #' @export
+# info.multiblock(object, ...) {
+#   summary(object)
+# }

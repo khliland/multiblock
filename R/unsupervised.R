@@ -1,6 +1,6 @@
+# #' @aliases sca gca mfa pcagca disco jive statis hogsvd hpca mcoa
 #' @name unsupervised
 #' @title Unsupervised Multiblock Methods
-#' @aliases sca gca mfa pcagca disco jive statis hogsvd hpca mcoa
 #' @importFrom RGCCA rgcca
 #' @importFrom FactoMineR MFA GPA
 #' @importFrom RegularizedSCA DISCOsca
@@ -26,6 +26,7 @@
 #' 
 #' @examples 
 #' # Object linked data
+#' data(potato)
 #' potList <- as.list(potato[c(1,2,9)])
 #' pot.sca    <- sca(potList)
 #' pot.gca    <- gca(potList)
@@ -37,31 +38,59 @@
 #' pot.mcoa   <- mcoa(potList)
 #' 
 #' # Variable linked data
+#' data(candies)
 #' candyList <- lapply(1:nlevels(candies$candy),function(x)candies$assessment[candies$candy==x,])
 #' can.jive   <- jive(candyList)
 #' can.statis <- statis(candyList)
 #' can.hogsvd <- hogsvd(candyList)
 #' plot(can.statis$statis)
+#' @seealso Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 #
 # Include also Penalized Exponential SCA (SLIDE, penalty-based)?????????
 # 
-#' @rdname unsupervised
+NULL
+
+#' Simultaneous Component Analysis - SCA
+#' @param X \code{list} of input blocks.
+#' @param ncomp \code{integer} number of components to extract.
+#' @param scale \code{logical} indicating autoscaling of features (default = FALSE).
+#' @param samplelinked \code{character/logical} indicating if blocks are linked by samples (TRUE) or variables (FALSE). Using 'auto' (default), this will be determined automatically.
+#' @param ... additional arguments (not used).
+#' 
+#' @return \code{multiblock} object including relevant scores and loadings.
+#' 
+#' @examples
+#' # Object linked data
+#' data(potato)
+#' potList <- as.list(potato[c(1,2,9)])
+#' pot.sca    <- sca(potList)
+#' plot(scores(pot.sca), labels="names")
+#' 
+#' # Variable linked data
+#' data(candies)
+#' candyList <- lapply(1:nlevels(candies$candy),function(x)candies$assessment[candies$candy==x,])
+#' pot.sca    <- sca(candyList, samplelinked = FALSE)
+#' pot.sca
+#'
+#' @seealso Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 #' @export
 sca <- function(X, ncomp=2, scale=FALSE, samplelinked = 'auto', ...){
-  # SVD/PCA based SVD-P with block-centering (and global scaling)
+  # SVD/PCA based SVD-P with block-centring (and global scaling)
   # Infer link-mode:
   row <- unlist(lapply(X,nrow))
   col <- unlist(lapply(X,ncol))
-  if(all(row==row[1])){
-    samplelinked <- TRUE
-    if(all(col==col[1])){
-      stop('Cannot determine if matrices are sample linked or not (both satisfied).')
-    }
-  } else {
-    if(all(col==col[1])){
-      samplelinked <- FALSE
+  if(is.character(samplelinked) && samplelinked == 'auto'){
+    if(all(row==row[1])){
+      samplelinked <- TRUE
+      if(all(col==col[1])){
+        stop('Cannot determine if matrices are sample linked or not (both satisfied).')
+      }
     } else {
-      stop('Neither rows, nor collumns match (not equal numbers in all matrices).')
+      if(all(col==col[1])){
+        samplelinked <- FALSE
+      } else {
+        stop('Neither rows, nor collumns match (not equal numbers in all matrices).')
+      }
     }
   }
   
@@ -102,7 +131,21 @@ sca <- function(X, ncomp=2, scale=FALSE, samplelinked = 'auto', ...){
   return(mod)
 }
 
-#' @rdname unsupervised 
+#' Generalized Canonical Analysis - GCA
+#' @param X \code{list} of input blocks.
+#' @param ncomp \code{integer} number of components to extract.
+#' @param svd \code{logical} indicating if Singular Value Decomposition approach should be used (default=TRUE).
+#' @param tol \code{numeric} tolerance for component inclusion (singular values).
+#' @param corrs \code{logical} indicating if correlations should be calculated for RGCCA based approach.
+#' @param ... additional arguments for RGCCA approach.
+#' 
+#' @examples 
+#' data(potato)
+#' potList <- as.list(potato[c(1,2,9)])
+#' pot.gca <- gca(potList)
+#' plot(scores(pot.gca), labels="names")
+#'
+#' @seealso Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 #' @export
 gca <- function(X, ncomp=2, svd=TRUE, tol=10^-12, corrs=TRUE, ...){
   if(svd){
@@ -177,14 +220,25 @@ gca.svd <- function(X, tol=10^-12){
     rownames(U[[i]])  <- rownames(X[[i]])
     rownames(Pb[[i]]) <- colnames(X[[i]])
   }
-  rownames(P) <- unlist(lapply(Pb,rownames))
+  rownames(P) <- paste0("Consensus dim ", 1:nrow(P))
   obj <- list(scores=C, loadings=P, blockScores=U, blockLoadings=Pb, 
               blockCoef=A, cor=R, info=info)
   class(obj) <- list('multiblock','list')
   return(obj)
 }
 
-#' @rdname unsupervised 
+#' Generalized Procrustes Analysis - GPA
+#' @param X \code{list} of input blocks.
+#' @param graph \code{logical} indicating if decomposition should be plotted.
+#' @param ... additional arguments for RGCCA approach.
+#' 
+#' @examples
+#' data(potato)
+#' potList <- as.list(potato[c(1,2,9)])
+#' pot.gpa    <- gpa(potList)
+#' plot(scores(pot.gpa), labels="names")
+#'
+#' @seealso Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 #' @export
 gpa <- function(X, graph = FALSE, ...){
   Xcat <- as.data.frame(do.call(cbind,X))
@@ -214,7 +268,21 @@ gpa <- function(X, graph = FALSE, ...){
   return(obj)
 }
 
-#' @rdname unsupervised 
+#' Multiple Factor Analysis - MFA
+#' @param X \code{list} of input blocks.
+#' @param type \code{character} vector indicating block types, defaults to \code{rep("c", length(X))} for continuous values.
+#' @param graph \code{logical} indicating if decomposition should be plotted.
+#' @param ... additional arguments for RGCCA approach.
+#' 
+#' @examples 
+#' data(potato)
+#' potList <- as.list(potato[c(1,2,9)])
+#' pot.mfa    <- mfa(potList)
+#' if(interactive()){
+#'   plot(pot.mfa$MFA)
+#' }
+#'
+#' @seealso Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 #' @export
 mfa <- function(X, type = rep("c", length(X)), graph = FALSE, ...){
   ret <- FactoMineR::MFA(as.data.frame(do.call(cbind,X)), unlist(lapply(X,ncol)), type = type, graph = graph, ...)
@@ -242,10 +310,27 @@ mfa <- function(X, type = rep("c", length(X)), graph = FALSE, ...){
   return(obj)
 }
 
-#' @rdname unsupervised 
+#' PCA-GCA
+#' @param X \code{list} of input blocks
+#' @param commons \code{numeric} giving the highest number of blocks to combine when calculating local or common scores.
+#' @param auto \code{logical} indicating if automatic choice of complexities should be used.
+#' @param auto.par \code{named list} setting limits for automatic choice of complexities.
+#' @param manual.par \code{named list} for manual choice of blocks. The list consists of \code{ncomp} which indicates the number of components to extract from each block and \code{ncommon} which is the corresponding for choosing the block combinations (local/common). For the latter, use unique_combos(n_blocks, commons) to see order of local/common blocks. Component numbers will be reduced if simpler models give better predictions. See example.
+#' @param tol \code{numeric} tolerance for component inclusion (singular values).
+#' 
+#' @examples 
+#' data(potato)
+#' potList <- as.list(potato[c(1,2,9)])
+#' pot.pcagca <- pcagca(potList)
+#' plot(scores(pot.pcagca, block=2), comps=1, labels="names")
+#'
+#' @seealso Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 #' @export
 pcagca <- function(X, commons=2, auto=TRUE, auto.par=list(explVarLim=40, rLim=0.8),
                    manual.par=list(ncomp=0, ncommon=0), tol=10^-12){
+  
+  # commons can be a list of integer vectors specifying which local/common block combinations should be included or a single integer indicating the highest order of commonness between blocks, e.g., 2 means all combinations of two blocks are included.
+  
   # Initialize
   n_block <- length(X)
   n <- nrow(X[[1]])
@@ -280,7 +365,7 @@ pcagca <- function(X, commons=2, auto=TRUE, auto.par=list(explVarLim=40, rLim=0.
   # Basis scores for each block
   for(i in 1:n_block){
     udv <- svd(X[[i]], ncomp[i], ncomp[i])
-    U[[i]] <- udv$u[,1:ncomp[i],drop=FALSE]
+    # U[[i]] <- udv$u[,1:ncomp[i],drop=FALSE]
     T[[i]] <- udv$u[,1:ncomp[i],drop=FALSE] %*% diag(udv$d[1:ncomp[i]])
     ncomp[i] <- pcaopt(X[[i]], T[[i]], udv$v, ncomp[i])
     T[[i]] <- T[[i]][,1:ncomp[i],drop=FALSE]
@@ -372,7 +457,18 @@ pcagca <- function(X, commons=2, auto=TRUE, auto.par=list(explVarLim=40, rLim=0.
   return(obj)
 }
 
-#' @rdname unsupervised 
+#' Distinctive and Common Components with SCA - DISCO
+#' @param X \code{list} of input blocks.
+#' @param ncomp \code{integer} number of components to extract.
+#' @param ... additional arguments (not used).
+#' 
+#' @examples
+#' data(potato)
+#' potList <- as.list(potato[c(1,2,9)])
+#' pot.disco  <- disco(potList)
+#' plot(scores(pot.disco), labels="names")
+#'
+#' @seealso Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 #' @export
 disco <- function(X, ncomp = 2, ...){
   ret <- RegularizedSCA::DISCOsca(do.call(cbind,X) , ncomp, unlist(lapply(X,ncol)))
@@ -405,7 +501,20 @@ disco <- function(X, ncomp = 2, ...){
   return(obj)
 }
 
-#' @rdname unsupervised 
+#' Hierarchical Principal component analysis - HPCA
+#' @param X \code{list} of input blocks.
+#' @param ncomp \code{integer} number of components to extract.
+#' @param scale \code{logical} indicating if variables should be scaled.
+#' @param verbose \code{logical} indicating if diagnostic information should be printed.
+#' @param ... additional arguments for RGCCA.
+#' 
+#' @examples
+#' data(potato)
+#' potList <- as.list(potato[c(1,2,9)])
+#' pot.hpca   <- hpca(potList)
+#' plot(scores(pot.hpca), labels="names")
+#'
+#' @seealso Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 #' @export
 hpca <- function(X, ncomp=2, scale=FALSE, verbose=FALSE, ...){
   n_block <- length(X)
@@ -434,8 +543,20 @@ hpca <- function(X, ncomp=2, scale=FALSE, verbose=FALSE, ...){
   return(obj)
 }
 
-# Multiple Co-Inertia Analysis
-#' @rdname unsupervised 
+#' Multiple Co-Inertia Analysis - MCOA
+#' @param X \code{list} of input blocks.
+#' @param ncomp \code{integer} number of components to extract.
+#' @param scale \code{logical} indicating if variables should be scaled.
+#' @param verbose \code{logical} indicating if diagnostic information should be printed.
+#' @param ... additional arguments for RGCCA.
+#' 
+#' @examples 
+#' data(potato)
+#' potList <- as.list(potato[c(1,2,9)])
+#' pot.mcoa   <- mcoa(potList)
+#' plot(scores(pot.mcoa), labels="names")
+#'
+#' @seealso Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 #' @export
 mcoa <- function(X, ncomp=2, scale=FALSE, verbose=FALSE, ...){
   n_block <- length(X)
@@ -446,20 +567,55 @@ mcoa <- function(X, ncomp=2, scale=FALSE, verbose=FALSE, ...){
   C[n_block+1,1:n_block] <- 1; C[1:n_block,n_block+1] <- 1
   res <- RGCCA::rgcca(A = X, C = C, tau=c(rep(1,n_block),0), verbose = verbose, scale = scale, ncomp=ncomp, scheme = "factorial", ...)
   # A = coefficients and global coefficients
-  return(list(A = res$astar, B = NULL, X = X, rgcca = res))
+  # return(list(A = res$astar, B = NULL, X = X, rgcca = res))
+  info <- list(method = "Multiple Co-Inertia Analysis",
+               scores = "Super scores", loadings = "Super loadings",
+               blockScores = "Block scores", blockLoadings = "Block loadings")
+  scores   <- X[[n_block+1]]%*%res$astar[[n_block+1]]
+  loadings <- res$astar[[n_block+1]]
+  colnames(scores) <- colnames(loadings) <- paste0('Comp ', 1:ncomp[1])
+  blockScores   <- colnamesList(lapply(1:n_block, function(i)X[[i]]%*%res$astar[[i]]), paste0('Comp ', 1:ncomp[1]))
+  blockLoadings <- colnamesList(res$astar[1:n_block], paste0('Comp ', 1:ncomp[1]))
+  for(i in 1:n_block)
+    rownames(blockLoadings[[i]]) <- colnames(X[[i]])
+  names(blockScores) <- names(blockLoadings) <- names(X[1:n_block])
+  obj <- list(scores = scores, loadings = loadings, 
+              blockScores = blockScores, blockLoadings = blockLoadings, X = X, 
+              info = info, rgcca = res, call = match.call())
+  class(obj) <- c("multiblock","list")
+  return(obj)
 }
 
-#' @rdname unsupervised
+#' Joint and Individual Variation Explained - JIVE
+#' @param X \code{list} of input blocks.
+#' @param ... additional arguments for \code{r.jive::jive}.
+#' 
+#' @examples 
+#' data(candies)
+#' candyList <- lapply(1:nlevels(candies$candy),function(x)candies$assessment[candies$candy==x,])
+#' can.jive  <- jive(candyList)
+#' summary(can.jive)
+#' 
+#' @seealso Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 #' @export
 jive <- function(X, ...){
-  # X <- lapply(X,t) # Objects in columns
   r.jive::jive(X, ...)
-  # jive(X, rankJ = 1, rankA = rep(1, length(data)), method = "perm",
-  #      dnames = names(data), conv = "default", maxiter = 1000, scale = TRUE, center = TRUE,
-  #      orthIndiv = TRUE, est = TRUE, showProgress=TRUE)
 }
 
-#' @rdname unsupervised 
+#' Structuration des Tableaux à Trois Indices de la Statistique - STATIS
+#' @param X \code{list} of input blocks.
+#' @param ncomp \code{integer} number of components to extract.
+#' @param scannf \code{logical} indicating if eigenvalue bar plot shoulde be displayed.
+#' @param tol \code{numeric} eigenvalue threshold tolerance.
+#' @param ... additional arguments (not used).
+#' 
+#' @examples
+#' data(candies)
+#' candyList <- lapply(1:nlevels(candies$candy),function(x)candies$assessment[candies$candy==x,])
+#' can.statis <- statis(candyList)
+#' plot(scores(can.statis), labels="names")
+#'
+#' @seealso Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 #' @export
 statis <- function(X, ncomp = 3, scannf = FALSE, tol = 1e-07, ...){
   X_frame  <- as.data.frame(do.call(rbind, X))
@@ -485,7 +641,16 @@ statis <- function(X, ncomp = 3, scannf = FALSE, tol = 1e-07, ...){
   # Clustatis in https://cran.r-project.org/web/packages/ClustBlock/ClustBlock.pdf
 }
 
-#' @rdname unsupervised 
+#' Higher Order Generalized SVD - HOGSVD
+#' @param X \code{list} of input blocks.
+#' 
+#' @examples
+#' data(candies)
+#' candyList <- lapply(1:nlevels(candies$candy),function(x)candies$assessment[candies$candy==x,])
+#' can.hogsvd <- hogsvd(candyList)
+#' plot(scores(can.hogsvd, block=1), labels="names")
+#' 
+#' @seealso Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 #' @export
 hogsvd  <- function(X){
   # Assumes equal number of variables

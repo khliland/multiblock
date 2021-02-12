@@ -31,8 +31,15 @@ A collection of methods for analysis of data sets with more than two blocks of d
 \itemize{
 \item MB-PLS - Multiblock Partial Least Squares (\code{mbpls})
 \item SO-PLS - Sequential and Orthogonalized PLS (\code{\link{sopls}})
+\item PO-PLS - Parallel and Orthogonalized PLS (\code{popls})
 \item ROSA - Response Oriented Sequential Alternation (\code{\link{rosa}})
 \item mbRDA - Multiblock Redundancy Analysis (\code{mbrda})
+}
+
+\strong{Complex methods:}
+\itemize{
+\item L-PLS - Partial Least Squares in L configuration (\emph{lpls})
+\item SO-PLS-PM - Sequential and Orthogonalised PLS Path Modeling (\emph{sopls_pm})
 }
 
 \strong{Single- and two-block methods:}
@@ -43,11 +50,5 @@ A collection of methods for analysis of data sets with more than two blocks of d
 \item CCA - Canonical Correlation Analysis (\code{cca})
 \item IFA - Interbattery Factor Analysis (\code{ifa})
 \item GSVD - Generalized SVD (\code{gsvd})
-}
-
-\strong{Complex methods:}
-\itemize{
-\item L-PLS - Partial Least Squares in L configuration (\emph{lpls})
-\item SO-PLS-PM - Sequential and Orthogonalised PLS Path Modeling (\emph{sopls_pm})
 }
 }

@@ -46,14 +46,14 @@
 #' exo-LPLS regression. In Handbook of Partial Least Squares: Concepts, Methods and Applications. 
 #' Esposito Vinzi, V.; Chin, W.W.; Henseler, J.; Wang, H. (Eds.). Springer.
 #'
-#' @return
-#' @export
-#'
 #' @examples
 #' # Simulate data set
 #' sim <- lplsData(I = 30, N = 20, J = 5, K = 6, ncomp = 2)
 #' X1  <- sim$X1; X2 <- sim$X2; X3 <- sim$X3
 #' lp  <- lpls(X1,X2,X3) # exo-L-PLS
+#' 
+#' @seealso Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+#' @export
 lpls <- function(X1,X2,X3, ncomp = 2, doublecenter = TRUE, scale = c(FALSE,FALSE,FALSE),
                  type = c("exo"), impute = FALSE, niter = 25, subsetX2 = NULL, subsetX3 = NULL,...){
   
@@ -250,14 +250,17 @@ lpls <- function(X1,X2,X3, ncomp = 2, doublecenter = TRUE, scale = c(FALSE,FALSE
   res <- list(call=match.call())
   res$ncomp <- ncomp
   res$coefficients <- list(B1=B1, B3=B3, C=Ca)
-  res$scores       <- list(T11=T11, T12=T12, T21=T21, T22=T22, T31=T31, T32=T32)
-  res$loadings     <- list(P1=P1, P3=P3, P21=P21, P22=P22, D=D)
+  res$blockScores  <- list(T11=T11, T12=T12, T21=T21, T22=T22, T31=T31, T32=T32)
+  res$blockLoadings<- list(P1=P1, P3=P3, P21=P21, P22=P22, D=D)
   res$corloadings  <- list(R1=R1, R21=R21, R22=R22, R3=R3, R2rmean=R2rmean, R2cmean=R2cmean)
   res$means     <- list(mX1=mX1, mX3=mX3, grandmX2=grandmX2, rowmX2=rowmX2, colmX2=colmX2)  
   res$data      <- list(X1=X1save, X2=X2save, X3=X3save)
   res$residuals <- dlist
   res$options   <- list(doublecenter=doublecenter, scale=scale, type=type)
   res$vars      <- list(X1varprop=X1varprop, X2varprop=X2varprop, X3varprop=X3varprop)
+  res$info      <- list(method = "L-PLS", 
+                        scores = "Not used", loadings = "Not used",
+                        blockScores = "Block scores", blockLoadings = "Block loadings")
   class(res)    <- c('lpls', 'multiblock','list')
   return(res)
 }

@@ -3,7 +3,6 @@
 \docType{data}
 \name{process}
 \alias{process}
-\alias{process_data}
 \title{Cheese production process data.}
 \format{
 A list of matrices having 795 rows and varying numbers of variables:

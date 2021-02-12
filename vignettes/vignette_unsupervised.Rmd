@@ -106,7 +106,7 @@ data(candies)
 candyList  <- lapply(1:nlevels(candies$candy), function(x)candies$assessment[candies$candy==x,])
 
 invisible({capture.output({ # jive in package r.jive is highly verbose.
-can.sca    <- sca(candyList)
+can.sca    <- sca(candyList, samplelinked = FALSE)
 can.jive   <- jive(candyList)
 can.statis <- statis(candyList)
 can.hogsvd <- hogsvd(candyList)

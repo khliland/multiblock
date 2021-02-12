@@ -1,5 +1,4 @@
 #' @name process
-#' @aliases process_data
 #' @title Cheese production process data.
 #'
 #' @description A dataset containing process data for 4 connected process (A,B,C,D) stages,
@@ -111,4 +110,24 @@ NULL
 #' From Low-field1H NMR of Raw Potatoes. The Role of Chemical Constituents. LWT - Food Science and Technology 34(7), 2001, pp 469-477.
 #' Kristian Hovde Liland, Tormod Næs, Ulf Geir Indahl, ROSA – a fast extension of Partial Least Squares Regression for Multiblock Data Analysis,
 #' Journal of Chemometrics 30:11 (2016), pp. 651-662.
+NULL
+
+#' @name wine
+#' @title ..wine..
+#'
+#' @description Description
+#'
+#' @docType data
+#' @usage data(wine)
+#' 
+#' @format A data.frame having 21 rows and 5 variables:
+#' \describe{
+#'   \item{Smell at rest}{Matrix of sensory assessments}
+#'   \item{View}{Matrix of sensory assessments}
+#'   \item{Smell after shaking}{Matrix of sensory assessments}
+#'   \item{Tasting}{Matrix of sensory assessments}
+#'   \item{Global quality}{Matrix of sensory assessments}
+#' }
+#' 
+#' @references A good reference .........................
 NULL

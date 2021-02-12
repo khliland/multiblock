@@ -1,6 +1,12 @@
 #' @name supervised_results
 #' @title Result functions for Supervised Multiblock Methods
 #' @aliases print.mbpls summary.mbpls blockLoadings.mbpls blockScores.mbpls
+#' 
+#' @param object \code{object} returned from \code{mbpls} or \code{mbrda}.
+#' @param x \code{object} returned from \code{mbpls} or \code{mbrda}.
+#' @param block \code{integer} or \code{character} identifying a block when used block-wise.
+#' @param ... additional arguments (not used).
+#'
 #' @examples 
 #' data(potato)
 #' mb <- mbpls(potato[c('Chemical','Compression')], potato[['Sensory']], ncomp = 5)
@@ -9,6 +15,7 @@
 #' Tb1 <- blockScores(mb)
 #' plot(Tb1)
 #' 
+#' @seealso Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 #' @export
 print.mbpls <- function(x, ...){
   cat("Multiblock Partial Least Squares")
@@ -27,6 +34,7 @@ summary.mbpls <- function(object, ...){
 blockLoadings <- function (object, ...) {
   UseMethod("blockLoadings", object)
 }
+
 #' @rdname supervised_results
 #' @export
 blockLoadings.mbpls <- function(object, block=1, ...){

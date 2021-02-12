@@ -25,6 +25,15 @@ blockScores(object, ...)
 
 \method{print}{mbrda}(x, ...)
 }
+\arguments{
+\item{x}{\code{object} returned from \code{mbpls} or \code{mbrda}.}
+
+\item{...}{additional arguments (not used).}
+
+\item{object}{\code{object} returned from \code{mbpls} or \code{mbrda}.}
+
+\item{block}{\code{integer} or \code{character} identifying a block when used block-wise.}
+}
 \description{
 Result functions for Supervised Multiblock Methods
 }
@@ -36,4 +45,7 @@ print(mb)
 Tb1 <- blockScores(mb)
 plot(Tb1)
 
+}
+\seealso{
+Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 }

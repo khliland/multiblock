@@ -2,21 +2,15 @@
 % Please edit documentation in R/supervised.R
 \name{supervised}
 \alias{supervised}
-\alias{mbpls}
-\alias{mbrda}
 \title{Supervised Multiblock Methods}
-\usage{
-mbpls(X, Y, ncomp = 1, scale = FALSE, ...)
-
-mbrda(X, Y, ncomp = 1, ...)
-}
 \description{
 Collection of supervised multiblock methods:
 \itemize{
-\item MB-PLS - Multiblock Partial Least Squares (\code{mbpls})
+\item MB-PLS - Multiblock Partial Least Squares (\code{\link{mbpls}})
 \item SO-PLS - Sequential and Orthogonalized PLS (\code{\link{sopls}})
+\item PO-PLS - Parallel and Orthogonalized PLS (\code{\link{popls}})
 \item ROSA - Response Oriented Sequential Alternation (\code{\link{rosa}})
-\item mbRDA - Multiblock Redundancy Analysis (\code{mbrda})
+\item mbRDA - Multiblock Redundancy Analysis (\code{\link{mbrda}})
 }
 }
 \examples{
@@ -30,10 +24,7 @@ mbr <- mbrda(potatoList[c('Chemical','Compression')], potatoList[['Sensory']], n
 print(mbr)
 scoreplot(mbr)
 
-TODO: 
-* mbRDA to formula interface
-* MBPLS to formula interface
-* sparse MBPLS (ST-type, Lenth type)
-* PO-PLS
-
+}
+\seealso{
+Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 }

@@ -9,7 +9,6 @@
 #'
 #' @param X A \code{list} of input blocks (of type \code{matrix}).
 #' @param Y A \code{matrix} of response(s).
-#' @param X_names A \code{list} of names for the X blocks.
 #' @param comps An \code{integer} vector giving the number of components per block.
 #' @param max_comps Maximum total number of components.
 #' @param sel.comp A \code{character} or \code{integer} vector indicating the type ("opt" - minimum error / "chi" - chi-squared reduced) or number of components in selections.
@@ -28,6 +27,15 @@
 #' possibly additional effects and standard deviations.
 #'
 #' @examples
+#' # Single path:
+#' data(potato)
+#' pot.pm <- sopls_pm(potato[1:3], potato[['Sensory']], c(5,5,5), computeAdditional=TRUE)
+#' pot.pm
+#' 
+#' # All path in the forward direction:
+#' data(wine)
+#' pot.pm.multiple <- sopls_pm_multiple(wine, comps = c(4,2,9,8))
+#' pot.pm.multiple
 #' @export
 sopls_pm <- function(X, Y, comps, max_comps = min(sum(comps), 20), sel.comp = "opt", computeAdditional = FALSE, sequential = FALSE, B = NULL, k = 10, type = "consecutive"){#validation = "LOO", ...){
   Y <- as.matrix(Y)
@@ -224,7 +232,7 @@ sopls_pm <- function(X, Y, comps, max_comps = min(sum(comps), 20), sel.comp = "o
       additional_boot <- apply(additional_boot,2,sd)
     }
   }
-  
+
   ##################
   # Returned object
   out <- list(effects = list(direct=unname(direct), indirect=unname(indirect), total=unname(total)),
@@ -252,12 +260,12 @@ sopls_pm <- function(X, Y, comps, max_comps = min(sum(comps), 20), sel.comp = "o
 print.SO_TDI <- function(x, showComp=TRUE, heading="SO-PLS path effects", digits=2, ...){
   # cat(paste0(heading,"\n"))
   if(!is.null(x$sd)){
-    comp_text <- paste(",", unlist(x$comps[1:2]))
+    comp_text <- paste(",", unlist(x$comp[1:2]))
     dfr <- data.frame(direct = paste(round(x$effects$direct*100, digits=digits), " (", round(x$sd$direct*100, digits=digits),ifelse(showComp,comp_text[2],""),")", sep="" ),
                      indirect = paste(round(x$effects$indirect*100, digits=digits), " (", round(x$sd$indirect*100, digits=digits),")", sep="" ),
                      total = paste(round(x$effects$total*100, digits=digits), " (", round(x$sd$total*100, digits=digits),ifelse(showComp,comp_text[1],""),")", sep="" ))
     if(length(x$effects$additional)>0){
-      comp_text <- paste(",", x$comps[[3]])
+      comp_text <- paste(",", x$comp[[3]])
       for(i in 1:length(x$effects$additional)){
         dfr <- cbind(dfr, additional = paste(round(x$effects$additional[i]*100, digits=digits), " (", round(x$sd$additional[i]*100, digits=digits),ifelse(showComp,comp_text[i],""),")", sep="" ))
       }
@@ -272,12 +280,12 @@ print.SO_TDI <- function(x, showComp=TRUE, heading="SO-PLS path effects", digits
     }
     rownames(dfr) <- ""
   } else {
-    comp_text <- paste(" (", unlist(x$comps[1:2]), ")", sep="")
+    comp_text <- paste(" (", unlist(x$comp[1:2]), ")", sep="")
     dfr <- data.frame(direct = paste(round(x$effects$direct*100, digits=digits),ifelse(showComp,comp_text[2],""), sep="" ),
                       indirect = paste(round(x$effects$indirect*100, digits=digits), sep="" ),
                       total = paste(round(x$effects$total*100, digits=digits),ifelse(showComp,comp_text[1],""), sep="" ))
     if(length(x$effects$additional)>0){
-      comp_text <- paste(" (", x$comps[[3]], ")", sep="")
+      comp_text <- paste(" (", x$comp[[3]], ")", sep="")
       for(i in 1:length(x$effects$additional)){
         dfr <- cbind(dfr, additional = paste(round(x$effects$additional[i]*100, digits=digits),ifelse(showComp,comp_text[i],""), sep="" ))
       }
@@ -300,9 +308,11 @@ print.SO_TDI <- function(x, showComp=TRUE, heading="SO-PLS path effects", digits
 # Multiple calls for each sequential version
 #' @rdname SO_TDI
 #' @export
-sopls_pm_multiple <- function(X, X_names, comps, max_comps = min(sum(comps), 20), sel.comp = "opt", computeAdditional = FALSE, sequential = FALSE, B = NULL, k = 10, type = "consecutive"){
+sopls_pm_multiple <- function(X, comps, max_comps = min(sum(comps), 20), sel.comp = "opt", computeAdditional = FALSE, sequential = FALSE, B = NULL, k = 10, type = "consecutive"){
   nblock <- length(X)
   
+  if(is.null(X_names <- names(X)))
+    X_names <- paste0('Block ', 1:nblock)
   models <- list()
   model_names <- list()
   b <- 1

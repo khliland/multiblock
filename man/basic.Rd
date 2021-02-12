@@ -21,7 +21,15 @@ ifa(X, ncomp = 1, scale = FALSE, verbose = FALSE, ...)
 gsvd(X)
 }
 \description{
-
+This documentation covers a range of single- and two-block methods. In particular:
+\itemize{
+\item PCA - Principal Component Analysis (\code{pca})
+\item PCR - Principal Component Regression (\code{pcr})
+\item PLSR - Partial Least Squares Regression (\code{plsr})
+\item CCA - Canonical Correlation Analysis (\code{cca})
+\item IFA - Interbattery Factor Analysis (\code{ifa})
+\item GSVD - Generalized SVD (\code{gsvd})
+}
 }
 \examples{
 data(potato)
@@ -35,6 +43,9 @@ cca.pot  <- cca(potato[1:2])
 ifa.pot  <- ifa(potato[1:2])
 gsvd.pot <- gsvd(lapply(potato[3:4], t))
 
+}
+\seealso{
+Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 }
 \keyword{internal}
 \description{
