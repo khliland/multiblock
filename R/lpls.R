@@ -42,9 +42,10 @@
 #'
 #' @author Solve Sæbø (adapted by Kristian Hovde Liland)
 #' 
-#' @references Sæbø, S., Martens, M. and Martens H. (2010) Three-block data modeling by endo- and
-#' exo-LPLS regression. In Handbook of Partial Least Squares: Concepts, Methods and Applications. 
-#' Esposito Vinzi, V.; Chin, W.W.; Henseler, J.; Wang, H. (Eds.). Springer.
+#' @references 
+#' * Martens, H., Anderssen, E., Flatberg, A.,Gidskehaug, L.H., Høy, M., Westad, F.,Thybo, A., and Martens, M. (2005). Regression of a data matrix on descriptors of both its rows and of its columns via latent variables: L-PLSR. Computational Statistics & Data Analysis, 48(1), 103 – 123.
+#' * Sæbø, S., Almøy, T., Flatberg, A., Aastveit, A.H., and Martens, H. (2008). LPLS-regression: a method for prediction and classification under the influence of background information on predictor variables. Chemometrics and Intelligent Laboratory Systems, 91, 121–132.
+#' * Sæbø, S., Martens, M. and Martens H. (2010) Three-block data modeling by endo- and exo-LPLS regression. In Handbook of Partial Least Squares: Concepts, Methods and Applications. Esposito Vinzi, V.; Chin, W.W.; Henseler, J.; Wang, H. (Eds.). Springer.
 #'
 #' @examples
 #' # Simulate data set

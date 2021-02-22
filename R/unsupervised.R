@@ -59,6 +59,8 @@ NULL
 #' 
 #' @return \code{multiblock} object including relevant scores and loadings.
 #' 
+#' @references Levin, J. (1966) Simultaneous factor analysis of several gramian matrices. Psychometrika, 31(3), 413–419.
+#' 
 #' @examples
 #' # Object linked data
 #' data(potato)
@@ -138,6 +140,12 @@ sca <- function(X, ncomp=2, scale=FALSE, samplelinked = 'auto', ...){
 #' @param tol \code{numeric} tolerance for component inclusion (singular values).
 #' @param corrs \code{logical} indicating if correlations should be calculated for RGCCA based approach.
 #' @param ... additional arguments for RGCCA approach.
+#' 
+#' @return \code{multiblock} object including relevant scores and loadings.
+#' 
+#' @references
+#' * Carroll, J. D. (1968). Generalization of canonical correlation analysis to three or more sets of variables. Proceedings of the American Psychological Association, pages 227-22.
+#' * Van der Burg, E. and Dijksterhuis, G. (1996). Generalised canonical analysis of individual sensory profiles and instrument data, Elsevier, pp. 221–258.
 #' 
 #' @examples 
 #' data(potato)
@@ -232,6 +240,10 @@ gca.svd <- function(X, tol=10^-12){
 #' @param graph \code{logical} indicating if decomposition should be plotted.
 #' @param ... additional arguments for RGCCA approach.
 #' 
+#' @return \code{multiblock} object including relevant scores and loadings.
+#' 
+#' @references Gower, J. C. (1975). Generalized procrustes analysis. Psychometrika. 40: 33–51.
+#' 
 #' @examples
 #' data(potato)
 #' potList <- as.list(potato[c(1,2,9)])
@@ -273,6 +285,10 @@ gpa <- function(X, graph = FALSE, ...){
 #' @param type \code{character} vector indicating block types, defaults to \code{rep("c", length(X))} for continuous values.
 #' @param graph \code{logical} indicating if decomposition should be plotted.
 #' @param ... additional arguments for RGCCA approach.
+#' 
+#' @return \code{multiblock} object including relevant scores and loadings.
+#' 
+#' @references Pagès, J. (2005). Collection and analysis of perceived product inter-distances using multiple factor analysis: Application to the study of 10 white wines from the Loire valley. Food Quality and Preference, 16(7), 642–649.
 #' 
 #' @examples 
 #' data(potato)
@@ -317,6 +333,10 @@ mfa <- function(X, type = rep("c", length(X)), graph = FALSE, ...){
 #' @param auto.par \code{named list} setting limits for automatic choice of complexities.
 #' @param manual.par \code{named list} for manual choice of blocks. The list consists of \code{ncomp} which indicates the number of components to extract from each block and \code{ncommon} which is the corresponding for choosing the block combinations (local/common). For the latter, use unique_combos(n_blocks, commons) to see order of local/common blocks. Component numbers will be reduced if simpler models give better predictions. See example.
 #' @param tol \code{numeric} tolerance for component inclusion (singular values).
+#' 
+#' @return \code{multiblock} object including relevant scores and loadings.
+#' 
+#' @references Smilde, A., Måge, I., Naes, T., Hankemeier, T.,Lips, M., Kiers, H., Acar, E., and Bro, R.(2017). Common and distinct components in data fusion. Journal of Chemometrics, 31(7), e2900.
 #' 
 #' @examples 
 #' data(potato)
@@ -462,6 +482,10 @@ pcagca <- function(X, commons=2, auto=TRUE, auto.par=list(explVarLim=40, rLim=0.
 #' @param ncomp \code{integer} number of components to extract.
 #' @param ... additional arguments (not used).
 #' 
+#' @return \code{multiblock} object including relevant scores and loadings.
+#' 
+#' @references Schouteden, M., Van Deun, K., Wilderjans, T. F., & Van Mechelen, I. (2014). Performing DISCO-SCA to search for distinctive and common information in linked data. Behavior research methods, 46(2), 576-587.
+#' 
 #' @examples
 #' data(potato)
 #' potList <- as.list(potato[c(1,2,9)])
@@ -508,6 +532,10 @@ disco <- function(X, ncomp = 2, ...){
 #' @param verbose \code{logical} indicating if diagnostic information should be printed.
 #' @param ... additional arguments for RGCCA.
 #' 
+#' @return \code{multiblock} object including relevant scores and loadings.
+#'
+#' @references Westerhuis, J.A., Kourti, T., and MacGregor,J.F. (1998). Analysis of multiblock and hierarchical PCA and PLS models. Journal of Chemometrics, 12, 301–321.
+#' 
 #' @examples
 #' data(potato)
 #' potList <- as.list(potato[c(1,2,9)])
@@ -550,6 +578,12 @@ hpca <- function(X, ncomp=2, scale=FALSE, verbose=FALSE, ...){
 #' @param verbose \code{logical} indicating if diagnostic information should be printed.
 #' @param ... additional arguments for RGCCA.
 #' 
+#' @return \code{multiblock} object including relevant scores and loadings.
+#' 
+#' @references 
+#' * Le Roux; B. and H. Rouanet (2004). Geometric Data Analysis, From Correspondence Analysis to Structured Data Analysis. Dordrecht. Kluwer: p.180.
+#' * Greenacre, Michael and Blasius, Jörg (editors) (2006). Multiple Correspondence Analysis and Related Methods. London: Chapman & Hall/CRC.
+#' 
 #' @examples 
 #' data(potato)
 #' potList <- as.list(potato[c(1,2,9)])
@@ -590,6 +624,10 @@ mcoa <- function(X, ncomp=2, scale=FALSE, verbose=FALSE, ...){
 #' @param X \code{list} of input blocks.
 #' @param ... additional arguments for \code{r.jive::jive}.
 #' 
+#' @return \code{multiblock} object including relevant scores and loadings.
+#' 
+#' @references Lock, E., Hoadley, K., Marron, J., and Nobel, A. (2013) Joint and individual variation explained (JIVE) for integrated analysis of multiple data types. Ann Appl Stat, 7 (1), 523–542.
+#' 
 #' @examples 
 #' data(candies)
 #' candyList <- lapply(1:nlevels(candies$candy),function(x)candies$assessment[candies$candy==x,])
@@ -608,6 +646,10 @@ jive <- function(X, ...){
 #' @param scannf \code{logical} indicating if eigenvalue bar plot shoulde be displayed.
 #' @param tol \code{numeric} eigenvalue threshold tolerance.
 #' @param ... additional arguments (not used).
+#' 
+#' @return \code{multiblock} object including relevant scores and loadings.
+#' 
+#' @references Lavit, C.; Escoufier, Y.; Sabatier, R.; Traissac, P. (1994). The ACT (STATIS method). Computational Statistics & Data Analysis. 18: 97
 #' 
 #' @examples
 #' data(candies)
@@ -643,6 +685,10 @@ statis <- function(X, ncomp = 3, scannf = FALSE, tol = 1e-07, ...){
 
 #' Higher Order Generalized SVD - HOGSVD
 #' @param X \code{list} of input blocks.
+#' 
+#' @return \code{multiblock} object including relevant scores and loadings.
+#' 
+#' @references Ponnapalli, S. P., Saunders, M. A., Van Loan, C. F., & Alter, O. (2011). A higher-order generalized singular value decomposition for comparison of global mRNA expression from multiple organisms. PloS one, 6(12), e28072.
 #' 
 #' @examples
 #' data(candies)

@@ -6,29 +6,31 @@
 #' models with class \code{lpls}.
 #'
 #' @param x \code{lpls} object
-#' @param comps \code{} 
-#' @param doplot \code{}
-#' @param level \code{}
-#' @param arrow \code{}
-#' @param xlim \code{}
-#' @param ylim \code{}
-#' @param samplecol \code{}
-#' @param pathcol \code{}
-#' @param varcol \code{}
-#' @param varsize \code{}
-#' @param sampleindex \code{}
-#' @param pathindex \code{}
-#' @param varindex \code{}
-#' @param object \code{}
-#' @param X1new \code{}
-#' @param X2new \code{}
-#' @param X3new \code{}
-#' @param exo.direction \code{} 
-#' @param segments1 \code{}
-#' @param segments2 \code{}
-#' @param trace \code{}
+#' @param comps \code{integer} vector of components.
+#' @param doplot \code{logical} indicating if plotting should be performed.
+#' @param level \code{integer} vector of length 3 for selecting plot symbol. 1=dots. 2=dimnames.
+#' @param arrow \code{integer} vector of length 3 indicating arrows (1) or not (0).
+#' @param xlim \code{numeric} x limits.
+#' @param ylim \code{numeric} y limits.
+#' @param samplecol \code{character} for sample colours.
+#' @param pathcol \code{character} for third colour.
+#' @param varcol \code{character} for variable colours.
+#' @param varsize \code{numeric} size of symbols for variables.
+#' @param sampleindex \code{integer} for selecting samples.
+#' @param pathindex \code{integer} for selecting in third direction.
+#' @param varindex \code{integer} for selecting variables.
+#' @param object \code{lpls} object.
+#' @param X1new \code{matrix} of new X1 samples.
+#' @param X2new \code{matrix} of new X2 samples.
+#' @param X3new \code{matrix} of new X3 samples.
+#' @param exo.direction \code{character} selecting "X2" or "X3" prediction.
+#' @param segments1 \code{list} of sample segments.
+#' @param segments2 \code{list} of variable segments.
+#' @param trace \code{logical} indicating if verbose mode should be selected.
+#' @param ... Not implemented.
 #'
-#' @return
+#' @return Nothing for plotting, predicted values for predictions and cross-validation
+#' metrics for cross-validation.
 #'
 #' @examples
 #' # Simulate data set
@@ -61,7 +63,7 @@
 plot.lpls <- function(x, comps=c(1,2), doplot=c(TRUE,TRUE,TRUE), level=c(2,2,2),
                       arrow=c(1,0,1), xlim=c(-1,1), ylim=c(-1,1), samplecol=4, pathcol=2, varcol="grey70",
                       varsize=1, sampleindex=1:dim(x$corloadings$R22)[1], pathindex=1:dim(x$corloadings$R3)[1],
-                      varindex=1:dim(x$corloadings$R21)[1]){
+                      varindex=1:dim(x$corloadings$R21)[1], ...){
   
   plottype <- c("p","n")
   
@@ -106,7 +108,7 @@ plot.lpls <- function(x, comps=c(1,2), doplot=c(TRUE,TRUE,TRUE), level=c(2,2,2),
 
 #' @rdname lpls_results 
 #' @export
-predict.lpls <- function(object, X1new = NULL, X2new = NULL, X3new = NULL, exo.direction = c("X2", "X3")){
+predict.lpls <- function(object, X1new = NULL, X2new = NULL, X3new = NULL, exo.direction = c("X2", "X3"), ...){
 
   # Rename inputs from Smilde, Liland and Næs 2021 to Sæbø et al.
   X1newa <- X1new

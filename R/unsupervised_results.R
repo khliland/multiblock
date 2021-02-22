@@ -1,6 +1,12 @@
 #' @name unsupervised_results
 #' @title Result functions for Unsupervised Multiblock Methods
 #' @aliases print.sca
+#' 
+#' @param object \code{multiblock} object.
+#' @param x \code{multiblock} object.
+#' @param block \code{integer/character} for block selection.
+#' @param ... Not implemented.
+
 #' @examples 
 #' data(wine)
 #' sc <- sca(wine[c('Smell at rest', 'View', 'Smell after shaking')], ncomp = 4)

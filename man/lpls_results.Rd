@@ -21,7 +21,8 @@
   varsize = 1,
   sampleindex = 1:dim(x$corloadings$R22)[1],
   pathindex = 1:dim(x$corloadings$R3)[1],
-  varindex = 1:dim(x$corloadings$R21)[1]
+  varindex = 1:dim(x$corloadings$R21)[1],
+  ...
 )
 
 \method{predict}{lpls}(
@@ -29,7 +30,8 @@
   X1new = NULL,
   X2new = NULL,
   X3new = NULL,
-  exo.direction = c("X2", "X3")
+  exo.direction = c("X2", "X3"),
+  ...
 )
 
 lplsCV(object, segments1 = NULL, segments2 = NULL, trace = TRUE)
@@ -37,50 +39,53 @@ lplsCV(object, segments1 = NULL, segments2 = NULL, trace = TRUE)
 \arguments{
 \item{x}{\code{lpls} object}
 
-\item{comps}{\code{}}
+\item{comps}{\code{integer} vector of components.}
 
-\item{doplot}{\code{}}
+\item{doplot}{\code{logical} indicating if plotting should be performed.}
 
-\item{level}{\code{}}
+\item{level}{\code{integer} vector of length 3 for selecting plot symbol. 1=dots. 2=dimnames.}
 
-\item{arrow}{\code{}}
+\item{arrow}{\code{integer} vector of length 3 indicating arrows (1) or not (0).}
 
-\item{xlim}{\code{}}
+\item{xlim}{\code{numeric} x limits.}
 
-\item{ylim}{\code{}}
+\item{ylim}{\code{numeric} y limits.}
 
-\item{samplecol}{\code{}}
+\item{samplecol}{\code{character} for sample colours.}
 
-\item{pathcol}{\code{}}
+\item{pathcol}{\code{character} for third colour.}
 
-\item{varcol}{\code{}}
+\item{varcol}{\code{character} for variable colours.}
 
-\item{varsize}{\code{}}
+\item{varsize}{\code{numeric} size of symbols for variables.}
 
-\item{sampleindex}{\code{}}
+\item{sampleindex}{\code{integer} for selecting samples.}
 
-\item{pathindex}{\code{}}
+\item{pathindex}{\code{integer} for selecting in third direction.}
 
-\item{varindex}{\code{}}
+\item{varindex}{\code{integer} for selecting variables.}
 
-\item{object}{\code{}}
+\item{...}{Not implemented.}
 
-\item{X1new}{\code{}}
+\item{object}{\code{lpls} object.}
 
-\item{X2new}{\code{}}
+\item{X1new}{\code{matrix} of new X1 samples.}
 
-\item{X3new}{\code{}}
+\item{X2new}{\code{matrix} of new X2 samples.}
 
-\item{exo.direction}{\code{}}
+\item{X3new}{\code{matrix} of new X3 samples.}
 
-\item{segments1}{\code{}}
+\item{exo.direction}{\code{character} selecting "X2" or "X3" prediction.}
 
-\item{segments2}{\code{}}
+\item{segments1}{\code{list} of sample segments.}
 
-\item{trace}{\code{}}
+\item{segments2}{\code{list} of variable segments.}
+
+\item{trace}{\code{logical} indicating if verbose mode should be selected.}
 }
 \value{
-
+Nothing for plotting, predicted values for predictions and cross-validation
+metrics for cross-validation.
 }
 \description{
 Correlation loading plot, prediction and cross-validation for L-PLS

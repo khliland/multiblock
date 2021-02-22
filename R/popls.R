@@ -7,6 +7,10 @@
 #' @param manual.par \code{named list} for manual choice of blocks. The list consists of \code{ncomp} which indicates the number of components to extract from each block and \code{ncommon} which is the corresponding for choosing the block combinations (local/common). For the latter, use unique_combos(n_blocks, commons) to see order of local/common blocks. Component numbers will be reduced if simpler models give better predictions. See example.
 #' 
 #' @return A \code{multiblock} object with block-wise, local and common loadings and scores.
+#' 
+#' @references 
+#' * I Måge, BH Mevik, T Næs. (2008). Regression models with process variables and parallel blocks of raw material measurements. Journal of Chemometrics: A Journal of the Chemometrics Society 22 (8), 443-456
+#' * I Måge, E Menichelli, T Næs (2012). Preference mapping by PO-PLS: Separating common and unique information in several data blocks. Food quality and preference 24 (1), 8-16
 #'
 #' @examples 
 #' data(potato)
@@ -24,9 +28,10 @@
 #' # Score plot for local (2,3) components
 #' plot(scores(pot.po.man,3), comps=1:2, labels="names")
 #' 
+#' @seealso Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 #' @export
 popls <- function(X, Y, commons=2, auto=TRUE, auto.par=list(explVarLim=40, rLim=0.8),
-                   manual.par=list(ncomp=rep(0,lenght(X)), ncommon=list())){
+                   manual.par=list(ncomp=rep(0,length(X)), ncommon=list())){
   
   # commons can be a list of integer vectors specifying which local/common block combinations should be included or a single integer indicating the highest order of commonness between blocks, e.g., 2 means all combinations of two blocks are included.
   
@@ -109,7 +114,7 @@ popls <- function(X, Y, commons=2, auto=TRUE, auto.par=list(explVarLim=40, rLim=
       ncommon[[i]] <- nc
     }
     
-    if((!length(ncommon[[i]])==0) && ncommon[[i]]>0){
+    if(length(ncommon[[i]])>0 && any(ncommon[[i]]>0)){
       R <- c(R, gcaComp$cor[ncommon[[i]]])
       for(j in 1:length(commons[[i]])){
         # Store common scores

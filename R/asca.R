@@ -10,27 +10,40 @@
 #' @param na.action How to handle NAs (no action implemented).
 #' @param family Error distributions and link function for Generalized Linear Models.
 #' @param pca.in Compress response before ASCA (number of components).
-#' @param object \code{ASCA} object used when extracting and plotting.
-#' @param factor String or integer indicating which factor to select for extracting and plotting.
 #'
-#' @return
+#' @return An \code{asca} object containing loadings, scores, explained variances, etc.
+#' 
+#' @references 
+#' * Smilde, A., Jansen, J., Hoefsloot, H., Lamers,R., Van Der Greef, J., and Timmerman, M.(2005). ANOVA-Simultaneous Component Analysis (ASCA): A new tool for analyzing designed metabolomics data. Bioinformatics, 21(13), 3043–3048.
+#' * Liland, K.H., Smilde, A., Marini, F., and Næs,T. (2018). Confidence ellipsoids for ASCA models based on multivariate regression theory. Journal of Chemometrics, 32(e2990), 1–13.
+#' * Martin, M. and Govaerts, B. (2020). LiMM-PCA: Combining ASCA+ and linear mixed models to analyse high-dimensional designed data. Journal of Chemometrics, 34(6), e3232.
 #'
 #' @importFrom lme4 lmer
 #' @importFrom car ellipse dataEllipse
+#' @seealso Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 #' @examples
-#' dataset   <- data.frame(y=I(matrix(rnorm(24*10),ncol=10)), x=factor(c(rep(2,8),rep(1,8),rep(0,8))), z=factor(rep(c(1,0),12)), w=rnorm(24))
+#' # Simulate data set
+#' dataset   <- data.frame(y = I(matrix(rnorm(24*10),ncol=10)), 
+#'                         x = factor(c(rep(2,8),rep(1,8),rep(0,8))), 
+#'                         z = factor(rep(c(1,0),12)), 
+#'                         w = rnorm(24))
 #' colnames(dataset$y) <- paste('Var', 1:10, sep=" ")
 #' rownames(dataset) <- paste('Obj', 1:24, sep=" ")
+#' 
+#' # Basic ASCA model with two factors
 #' mod <- asca(y~x+z, data=dataset)
 #' print(mod)
+#' 
+#' # Result plotting for first factor
 #' loadingplot(mod, scatter=TRUE)
 #' scoreplot(mod)
 #' 
+#' # ASCA model with compressed response using 5 principal components
 #' mod.pca <- asca(y~x+z, data=dataset, pca.in=5)
-#' mod.glm <- asca(y~x+z+w, data=dataset, family="gaussian")
 #' 
+#' # Mixed Model ASCA
 #' mod <- asca(y~x+(1|z), data=dataset)
-#' mod <- asca(y~x+(1|z)+w, data=dataset, family="gaussian")
+#' 
 #' @export
 asca <- function(formula, data, subset, weights, na.action, family, pca.in = FALSE){
   ## Force contrast to sum
@@ -166,163 +179,10 @@ asca <- function(formula, data, subset, weights, na.action, family, pca.in = FAL
   }
   class(obj) <- c('asca', 'list')
   return(obj)
-}
-
-#' @rdname asca
-#' @export
-print.asca <- function(x, ...){
-  cat("Anova Simultaneous Component Analysis fitted using", x$fit.type)
-  cat("\nCall:\n", deparse(x$call), "\n", sep = "")
-  invisible(x)
-}
-  
-#' @rdname asca
-#' @export
-summary.asca <- function(object, ...){
-  dat <- data.frame(ss=object$ssq, expl=object$explvar)
-  dat <- dat[-nrow(dat),,drop=FALSE]
-  x <- list(dat=dat, fit.type=object$fit.type)
-  class(x) <- c('summary.asca')
-  x
-}
-
-#' @rdname asca
-#' @export
-print.summary.asca <- function(x, digits=2, ...){
-  cat("Anova Simultaneous Component Analysis fitted using", x$fit.type, "\n")
-  print(round(x$dat, digits))
-  invisible(x$dat)
-}
-
-#' @rdname asca
-#' @export
-loadings.asca <- function(object, factor = 1, ...){
-  loads <- object$loadings[[factor]]
-  class(loads) <- "loadings"
-  return(loads)
-}
-#' @rdname asca
-#' @export
-loadingplot.asca <- function(object, factor = 1, comps = 1:2, ...){
-  plot(loadings(object=object, factor=factor), comps=comps, ...)
-}
-
-#' @rdname asca
-#' @export
-scores.asca <- function(object, factor = 1, ...){
-  scors <- object$scores[[factor]]
-  class(scors) <- "scores"
-  return(scors)
-}
-
-#' @rdname asca
-#' @export
-projections <- function (object, ...) {
-  UseMethod("projections", object)
-}
-#' @rdname asca
-#' @export
-projections.asca <- function(object, factor = 1, ...){
-  projs <- object$projected[[factor]]
-  class(projs) <- "projs"
-  return(projs)
-}
-
-#' @rdname asca
-#' @export
-scoreplot.asca <- function(object, factor = 1, comps = 1:2, pch.scores = 19, pch.projections = 1, 
-                           gr.col = 1:nlevels(object$effects[[factor]]), ellipsoids,
-                           xlim,ylim, xlab,ylab, legendpos, ...){
-  # Number of levels in current factor
-  nlev  <- nlevels(object$effects[[factor]])
-  nobj  <- nrow(object$Y)
-  # Remove redundant levels
-  comps <- comps[comps <= nlev-1]
-
-  scors <- scores(object=object, factor=factor)
-  projs <- projections(object=object, factor=factor) + scors
-  if(missing(xlim))
-    xlim <- c(min(min(scors[,comps[1]]), min(projs[,comps[1]])),
-              max(max(scors[,comps[1]]), max(projs[,comps[1]])))
-  if(missing(ylim))
-    if(length(comps)>1)
-      ylim <- c(min(min(scors[,comps[2]]), min(projs[,comps[2]])),
-                max(max(scors[,comps[2]]), max(projs[,comps[2]])))
-    else
-      ylim <- c(0.5, nlev+0.5)
-  if(missing(xlab))
-    xlab <- paste("Comp", comps[1])
-  if(missing(ylab))
-    if(length(comps)>1)
-      ylab <- paste("Comp", comps[2])
-    else
-      ylab <- 'Level'
-  
-  if(length(comps)>1){ # Scatter plot
-    scoreplot(scors, comps=comps, xlim=xlim, ylim=ylim, xlab=xlab, ylab=ylab, pch=pch.scores, ...)
-    for(i in 1:nlev){
-      lev <- levels(object$effects[[factor]])[i]
-      points(scors[object$effects[[factor]] == lev, comps], pch=pch.scores, col=gr.col[i])
-      points(projs[object$effects[[factor]] == lev, comps], pch=pch.projections, col=gr.col[i])
-    }
-    if(!missing(legendpos))
-      legend(legendpos, legend = levels(object$effects[[factor]]), col=gr.col, pch=pch.scores)
-
-    if(!missing(ellipsoids)){
-      if(ellipsoids == "data"){
-        dataEllipse(projs[,comps], groups = object$effects[[factor]], levels=c(0.4,0.68,0.95), add=TRUE, plot.points=FALSE, col=gr.col, lwd=1, group.labels="", center.pch=FALSE, lty=3)
-      }
-      if(ellipsoids == "confidence" || ellipsoids == "conf"){
-        # Covariance matrix
-        sigma <- crossprod(object$residuals)/nobj
-        L <- object$loadings[[factor]][,comps]
-        # Transformed covariance matrix
-        LSL <- crossprod(L,sigma) %*% L * nlev / (nobj-nlev)
-        if(!isSymmetric(LSL))
-          LSL <- (LSL + t(LSL))/2 # Force symmetry
-        # Scaling by confidence
-        c40 <- sqrt((nobj-nlev)*2 / (nobj-nlev-2+1) * qf(0.40, 2, nobj-nlev-2+1))
-        c68 <- sqrt((nobj-nlev)*2 / (nobj-nlev-2+1) * qf(0.68, 2, nobj-nlev-2+1))
-        c95 <- sqrt((nobj-nlev)*2 / (nobj-nlev-2+1) * qf(0.95, 2, nobj-nlev-2+1))
-        for(i in 1:nlev){
-          lev <- levels(object$effects[[factor]])[i]
-          ellipse(colMeans(scors[object$effects[[factor]]==lev,comps]), LSL, c40, lwd=1, col=gr.col[i])
-          ellipse(colMeans(scors[object$effects[[factor]]==lev,comps]), LSL, c68, lwd=1, col=gr.col[i])
-          ellipse(colMeans(scors[object$effects[[factor]]==lev,comps]), LSL, c95, lwd=1, col=gr.col[i])
-        }
-      }
-    }
-  } else { # Line plot
-    plot(scors[,comps], as.numeric(object$effects[[factor]]), xlim=xlim, 
-         ylim=ylim, xlab=xlab, ylab=ylab, axes = FALSE)
-    axis(1)
-    axis(2, at=1:nlev, labels = levels(object$effects[[factor]]))
-    box()
-    for(i in 1:nlev){
-      lev <- levels(object$effects[[factor]])[i]
-      points(scors[object$effects[[factor]] == lev, comps], rep(i,sum(as.numeric(object$effects[[factor]]) == i)), pch=pch.scores, col=gr.col[i])
-      points(projs[object$effects[[factor]] == lev, comps], rep(i,sum(as.numeric(object$effects[[factor]]) == i)), pch=pch.projections, col=gr.col[i])
-    }
-    if(!missing(ellipsoids)){
-      if(ellipsoids == "confidence" || ellipsoids == "conf"){
-        sigma <- crossprod(object$residuals)/nobj
-        L <- object$loadings[[factor]][,comps]
-        # Transformed covariance matrix
-        LSL <- sqrt(crossprod(L,sigma) %*% L * nlev / (nobj-nlev))
-        # Scaling by confidence
-        c40 <- sqrt((nobj-nlev)*1 / (nobj-nlev-1+1) * qf(0.40, 1, nobj-nlev-1+1))
-        c68 <- sqrt((nobj-nlev)*1 / (nobj-nlev-1+1) * qf(0.68, 1, nobj-nlev-1+1))
-        c95 <- sqrt((nobj-nlev)*1 / (nobj-nlev-1+1) * qf(0.95, 1, nobj-nlev-1+1))
-        for(i in 1:nlev){
-          lev <- levels(object$effects[[factor]])[i]
-          lines(mean(scors[object$effects[[factor]] == lev,comps])*c(1,1)+c(LSL)*c40, i+c(-0.2,0.2), col=gr.col[i])
-          lines(mean(scors[object$effects[[factor]] == lev,comps])*c(1,1)+c(LSL)*c68, i+c(-0.2,0.2), col=gr.col[i])
-          lines(mean(scors[object$effects[[factor]] == lev,comps])*c(1,1)+c(LSL)*c95, i+c(-0.2,0.2), col=gr.col[i])
-          lines(mean(scors[object$effects[[factor]] == lev,comps])*c(1,1)-c(LSL)*c40, i+c(-0.2,0.2), col=gr.col[i])
-          lines(mean(scors[object$effects[[factor]] == lev,comps])*c(1,1)-c(LSL)*c68, i+c(-0.2,0.2), col=gr.col[i])
-          lines(mean(scors[object$effects[[factor]] == lev,comps])*c(1,1)-c(LSL)*c95, i+c(-0.2,0.2), col=gr.col[i])
-        }
-      }
-    }
-  }
+  # # Experimental features
+  # # Generalised ASCA, here with a mock Gaussian distribution
+  # mod.glm <- asca(y~x+z, data=dataset, family="gaussian")
+  # 
+  # # Generalised Mixed Model ASCA
+  # mod <- asca(y~x+(1|z), data=dataset, family="gaussian")
 }

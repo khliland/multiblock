@@ -8,6 +8,7 @@
 #' @author Solve Sæbø (adapted by Kristian Hovde Liland)
 #'
 #' @return A \code{list} of three matrices.
+#' 
 #' @examples
 #' lp <- lplsData(I = 30, N = 20, J = 5, K = 6, ncomp = 2)
 #' names(lp)

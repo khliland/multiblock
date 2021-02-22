@@ -17,6 +17,15 @@
 
 \method{summary}{multiblock}(object, ...)
 }
+\arguments{
+\item{object}{\code{multiblock} object.}
+
+\item{block}{\code{integer/character} for block selection.}
+
+\item{...}{Not implemented.}
+
+\item{x}{\code{multiblock} object.}
+}
 \description{
 Result functions for Unsupervised Multiblock Methods
 }

@@ -39,6 +39,9 @@
 #' * IFA - Interbattery Factor Analysis (\code{ifa})
 #' * GSVD - Generalized SVD (\code{gsvd})
 #' 
+#' @seealso Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+#' @importFrom graphics abline arrows legend
+#' @importFrom stats coefficients qf
 #' @docType package
 #' @name multiblock
 NULL

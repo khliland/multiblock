@@ -37,6 +37,9 @@ pot.sca    <- sca(candyList, samplelinked = FALSE)
 pot.sca
 
 }
+\references{
+Levin, J. (1966) Simultaneous factor analysis of several gramian matrices. Psychometrika, 31(3), 413–419.
+}
 \seealso{
 Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 }

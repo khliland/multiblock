@@ -17,13 +17,19 @@
 #' @param segments Optional number of segments or list of segments for cross-validation. (See \code{[pls::cvsegments()]}).
 #' @param sel.comp Character indicating if sequential optimal number of components shuld be chosen as minimum RMSECV ('opt', default) or by Chi-square test ('chi').
 #' @param progress Logical indicating if a progress bar should be displayed while cross-validating.
-#' @param ... 
+#' @param ... Additional arguments to underlying methods.
 #' 
+#' @return An \code{sopls, mvr} object with scores, loadings, etc. 
+#' associated with printing and plotting methods.
+#' 
+#' @references Jørgensen K, Mevik BH, Næs T. Combining designed experiments with several blocks of spectroscopic data. Chemometr Intell Lab Syst. 2007;88(2): 154–166.
+
 #' @examples 
 #' data(potato)
 #' so <- sopls(Sensory ~ Chemical + Compression, data=potato, ncomp=c(10,10), 
 #'             max_comps=10, validation="CV", segments=10)
 #' summary(so)
+#' @seealso Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 #' @export
 sopls <- function(formula, ncomp, max_comps = min(sum(ncomp), 20), data, 
                   subset, na.action, scale = FALSE, validation = c("none", "CV", "LOO"), 

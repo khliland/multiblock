@@ -25,6 +25,10 @@
 #'
 #' @return An object of type \code{SO_TDI} containing total, direct and indirect effects, plus
 #' possibly additional effects and standard deviations.
+#' 
+#' @references 
+#' * Menichelli, E., Almøy, T., Tomic, O., Olsen, N. V., & Næs, T. (2014). SO-PLS as an exploratory tool for path modelling. Food quality and preference, 36, 122-134.
+#' * Næs, T., Romano, R., Tomic, O., Måge, I., Smilde, A., & Liland, K. H. (2020). Sequential and orthogonalized PLS (SO‐PLS) regression for path analysis: Order of blocks and relations between effects. Journal of Chemometrics, e3243.
 #'
 #' @examples
 #' # Single path:
@@ -36,6 +40,7 @@
 #' data(wine)
 #' pot.pm.multiple <- sopls_pm_multiple(wine, comps = c(4,2,9,8))
 #' pot.pm.multiple
+#' @seealso Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 #' @export
 sopls_pm <- function(X, Y, comps, max_comps = min(sum(comps), 20), sel.comp = "opt", computeAdditional = FALSE, sequential = FALSE, B = NULL, k = 10, type = "consecutive"){#validation = "LOO", ...){
   Y <- as.matrix(Y)

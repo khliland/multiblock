@@ -15,6 +15,9 @@ mfa(X, type = rep("c", length(X)), graph = FALSE, ...)
 
 \item{...}{additional arguments for RGCCA approach.}
 }
+\value{
+\code{multiblock} object including relevant scores and loadings.
+}
 \description{
 Multiple Factor Analysis - MFA
 }
@@ -26,6 +29,9 @@ if(interactive()){
   plot(pot.mfa$MFA)
 }
 
+}
+\references{
+Pagès, J. (2005). Collection and analysis of perceived product inter-distances using multiple factor analysis: Application to the study of 10 white wines from the Loire valley. Food Quality and Preference, 16(7), 642–649.
 }
 \seealso{
 Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.

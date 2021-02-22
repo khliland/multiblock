@@ -9,43 +9,9 @@
 \alias{scores.asca}
 \alias{loadingplot.asca}
 \alias{scoreplot.asca}
-\alias{projections}
-\alias{projections.asca}
 \title{Analysis of Variance Simultaneous Component Analysis}
 \usage{
 asca(formula, data, subset, weights, na.action, family, pca.in = FALSE)
-
-\method{print}{asca}(x, ...)
-
-\method{summary}{asca}(object, ...)
-
-\method{print}{summary.asca}(x, digits = 2, ...)
-
-\method{loadings}{asca}(object, factor = 1, ...)
-
-\method{loadingplot}{asca}(object, factor = 1, comps = 1:2, ...)
-
-\method{scores}{asca}(object, factor = 1, ...)
-
-projections(object, ...)
-
-\method{projections}{asca}(object, factor = 1, ...)
-
-\method{scoreplot}{asca}(
-  object,
-  factor = 1,
-  comps = 1:2,
-  pch.scores = 19,
-  pch.projections = 1,
-  gr.col = 1:nlevels(object$effects[[factor]]),
-  ellipsoids,
-  xlim,
-  ylim,
-  xlab,
-  ylab,
-  legendpos,
-  ...
-)
 }
 \arguments{
 \item{formula}{Model formula accepting a single response (block) and predictor names separated by + signs.}
@@ -61,29 +27,44 @@ projections(object, ...)
 \item{family}{Error distributions and link function for Generalized Linear Models.}
 
 \item{pca.in}{Compress response before ASCA (number of components).}
-
-\item{object}{\code{ASCA} object used when extracting and plotting.}
-
-\item{factor}{String or integer indicating which factor to select for extracting and plotting.}
 }
 \value{
-
+An \code{asca} object containing loadings, scores, explained variances, etc.
 }
 \description{
 Analysis of Variance Simultaneous Component Analysis
 }
 \examples{
-dataset   <- data.frame(y=I(matrix(rnorm(24*10),ncol=10)), x=factor(c(rep(2,8),rep(1,8),rep(0,8))), z=factor(rep(c(1,0),12)), w=rnorm(24))
+# Simulate data set
+dataset   <- data.frame(y = I(matrix(rnorm(24*10),ncol=10)), 
+                        x = factor(c(rep(2,8),rep(1,8),rep(0,8))), 
+                        z = factor(rep(c(1,0),12)), 
+                        w = rnorm(24))
 colnames(dataset$y) <- paste('Var', 1:10, sep=" ")
 rownames(dataset) <- paste('Obj', 1:24, sep=" ")
+
+# Basic ASCA model with two factors
 mod <- asca(y~x+z, data=dataset)
 print(mod)
+
+# Result plotting for first factor
 loadingplot(mod, scatter=TRUE)
 scoreplot(mod)
 
+# ASCA model with compressed response using 5 principal components
 mod.pca <- asca(y~x+z, data=dataset, pca.in=5)
-mod.glm <- asca(y~x+z+w, data=dataset, family="gaussian")
 
+# Mixed Model ASCA
 mod <- asca(y~x+(1|z), data=dataset)
-mod <- asca(y~x+(1|z)+w, data=dataset, family="gaussian")
+
+}
+\references{
+\itemize{
+\item Smilde, A., Jansen, J., Hoefsloot, H., Lamers,R., Van Der Greef, J., and Timmerman, M.(2005). ANOVA-Simultaneous Component Analysis (ASCA): A new tool for analyzing designed metabolomics data. Bioinformatics, 21(13), 3043–3048.
+\item Liland, K.H., Smilde, A., Marini, F., and Næs,T. (2018). Confidence ellipsoids for ASCA models based on multivariate regression theory. Journal of Chemometrics, 32(e2990), 1–13.
+\item Martin, M. and Govaerts, B. (2020). LiMM-PCA: Combining ASCA+ and linear mixed models to analyse high-dimensional designed data. Journal of Chemometrics, 34(6), e3232.
+}
+}
+\seealso{
+Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 }

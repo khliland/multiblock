@@ -79,3 +79,6 @@ maageSeq(so.wine, c(2,1))
 maageSeq(so.wine, c(2,1,1))
 par(old.par)
 }
+\seealso{
+Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+}

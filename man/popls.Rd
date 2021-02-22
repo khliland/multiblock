@@ -10,7 +10,7 @@ popls(
   commons = 2,
   auto = TRUE,
   auto.par = list(explVarLim = 40, rLim = 0.8),
-  manual.par = list(ncomp = rep(0, lenght(X)), ncommon = list())
+  manual.par = list(ncomp = rep(0, length(X)), ncommon = list())
 )
 }
 \arguments{
@@ -48,4 +48,13 @@ pot.po.man$explVar
 # Score plot for local (2,3) components
 plot(scores(pot.po.man,3), comps=1:2, labels="names")
 
+}
+\references{
+\itemize{
+\item I Måge, BH Mevik, T Næs. (2008). Regression models with process variables and parallel blocks of raw material measurements. Journal of Chemometrics: A Journal of the Chemometrics Society 22 (8), 443-456
+\item I Måge, E Menichelli, T Næs (2012). Preference mapping by PO-PLS: Separating common and unique information in several data blocks. Food quality and preference 24 (1), 8-16
+}
+}
+\seealso{
+Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 }

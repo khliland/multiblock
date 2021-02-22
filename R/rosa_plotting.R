@@ -11,7 +11,6 @@
 #' @param object A \code{rosa} object.
 #' @param height A \code{rosa} object.
 #' @param ncomp Integer to control the number of components to plot (if fewer than the fitted number of components).
-#' @param comps An \code{integer} vector giving the exact components to use for predictions.
 #' @param type An optional \code{character} for selecting the plot type. For \code{image.rosa} the options are: "correlation" (default), "residual" or "order". For \code{barplot.rosa} the options indicate: explained variance should be based on training data ("train") or cross-validation ("CV").
 #' @param col Colors used for the image and bar plot, defaulting to mcolors(128).
 #' @param legend Logical indicating if a legend should be included (default = TRUE) for \code{image.rosa}.
@@ -20,6 +19,7 @@
 #' @param ... Additional parameters passed to \code{loadingplot}, \code{image} or \code{barplot}
 #'
 #' @return No return.
+#' @references Liland, K.H., Næs, T., and Indahl, U.G. (2016). ROSA - a fast extension of partial least squares regression for multiblock data analysis. Journal of Chemometrics, 30, 651–662, doi:10.1002/cem.2824.
 #' @importFrom graphics image barplot
 #' @importFrom plotrix color.legend
 #'
@@ -30,6 +30,7 @@
 #' barplot(mod)
 #' loadingweightplot(mod)
 #' 
+#' @seealso Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 #' @export
 image.rosa <- function(x, type = c("correlation","residual","order"), ncomp = x$ncomp,
                        col = mcolors(128), legend = TRUE, mar = c(5,6,4,7), las = 1, ...){

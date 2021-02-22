@@ -29,6 +29,12 @@ mb <- mbpls(potato[c('Chemical','Compression')], potato[['Sensory']], ncomp = 5)
 print(mb)
 scoreplot(mb, labels="names") # Exploiting mvr object structure from pls package
 }
+\references{
+\itemize{
+\item Wangen, L.E. and Kowalski, B.R. (1988). A multiblock partial least squares algorithm for investigating complex chemical systems. Journal of Chemometrics, 3, 3–20.
+\item Westerhuis, J.A., Kourti, T., and MacGregor,J.F. (1998). Analysis of multiblock and hierarchical PCA and PLS models. Journal of Chemometrics, 12, 301–321.
+}
+}
 \seealso{
 Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 }

@@ -17,6 +17,9 @@ mcoa(X, ncomp = 2, scale = FALSE, verbose = FALSE, ...)
 
 \item{...}{additional arguments for RGCCA.}
 }
+\value{
+\code{multiblock} object including relevant scores and loadings.
+}
 \description{
 Multiple Co-Inertia Analysis - MCOA
 }
@@ -26,6 +29,12 @@ potList <- as.list(potato[c(1,2,9)])
 pot.mcoa   <- mcoa(potList)
 plot(scores(pot.mcoa), labels="names")
 
+}
+\references{
+\itemize{
+\item Le Roux; B. and H. Rouanet (2004). Geometric Data Analysis, From Correspondence Analysis to Structured Data Analysis. Dordrecht. Kluwer: p.180.
+\item Greenacre, Michael and Blasius, Jörg (editors) (2006). Multiple Correspondence Analysis and Related Methods. London: Chapman & Hall/CRC.
+}
 }
 \seealso{
 Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.

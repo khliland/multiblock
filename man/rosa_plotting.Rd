@@ -48,8 +48,6 @@ loadingweightplot(object, ...)
 \item{height}{A \code{rosa} object.}
 
 \item{object}{A \code{rosa} object.}
-
-\item{comps}{An \code{integer} vector giving the exact components to use for predictions.}
 }
 \value{
 No return.
@@ -67,4 +65,10 @@ image(mod)
 barplot(mod)
 loadingweightplot(mod)
 
+}
+\references{
+Liland, K.H., Næs, T., and Indahl, U.G. (2016). ROSA - a fast extension of partial least squares regression for multiblock data analysis. Journal of Chemometrics, 30, 651–662, doi:10.1002/cem.2824.
+}
+\seealso{
+Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 }

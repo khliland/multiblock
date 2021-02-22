@@ -52,3 +52,6 @@ A collection of methods for analysis of data sets with more than two blocks of d
 \item GSVD - Generalized SVD (\code{gsvd})
 }
 }
+\seealso{
+Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+}

@@ -13,6 +13,9 @@ gpa(X, graph = FALSE, ...)
 
 \item{...}{additional arguments for RGCCA approach.}
 }
+\value{
+\code{multiblock} object including relevant scores and loadings.
+}
 \description{
 Generalized Procrustes Analysis - GPA
 }
@@ -22,6 +25,9 @@ potList <- as.list(potato[c(1,2,9)])
 pot.gpa    <- gpa(potList)
 plot(scores(pot.gpa), labels="names")
 
+}
+\references{
+Gower, J. C. (1975). Generalized procrustes analysis. Psychometrika. 40: 33–51.
 }
 \seealso{
 Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.

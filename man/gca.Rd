@@ -19,6 +19,9 @@ gca(X, ncomp = 2, svd = TRUE, tol = 10^-12, corrs = TRUE, ...)
 
 \item{...}{additional arguments for RGCCA approach.}
 }
+\value{
+\code{multiblock} object including relevant scores and loadings.
+}
 \description{
 Generalized Canonical Analysis - GCA
 }
@@ -28,6 +31,12 @@ potList <- as.list(potato[c(1,2,9)])
 pot.gca <- gca(potList)
 plot(scores(pot.gca), labels="names")
 
+}
+\references{
+\itemize{
+\item Carroll, J. D. (1968). Generalization of canonical correlation analysis to three or more sets of variables. Proceedings of the American Psychological Association, pages 227-22.
+\item Van der Burg, E. and Dijksterhuis, G. (1996). Generalised canonical analysis of individual sensory profiles and instrument data, Elsevier, pp. 221–258.
+}
 }
 \seealso{
 Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.

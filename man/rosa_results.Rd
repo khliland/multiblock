@@ -81,7 +81,7 @@ Result functions for ROSA models
 \examples{
 data(potato)
 mod <- rosa(Sensory[,1] ~ ., data = potato, ncomp = 5, subset = 1:20)
-testset <- potato[-(1:20),]; testset$Sensory <- NULL#testset$Sensory[,1]
+testset <- potato[-(1:20),]; testset$Sensory <- testset$Sensory[,1,drop=FALSE]
 predict(mod, testset, ncomp=5)
 dim(coef(mod, ncomp=5)) # <variables x responses x components>
 print(mod)
@@ -89,4 +89,10 @@ summary(mod)
 blockexpl(mod)
 print(blockexpl(mod), compwise=TRUE)
 
+}
+\references{
+Liland, K.H., Næs, T., and Indahl, U.G. (2016). ROSA - a fast extension of partial least squares regression for multiblock data analysis. Journal of Chemometrics, 30, 651–662, doi:10.1002/cem.2824.
+}
+\seealso{
+Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 }

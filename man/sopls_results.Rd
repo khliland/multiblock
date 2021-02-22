@@ -47,7 +47,7 @@
 
 classify(object, ...)
 
-\method{classify}{sopls}(object, classes, newdata, ncomp, LQ = "LDA")
+\method{classify}{sopls}(object, classes, newdata, ncomp, LQ = "LDA", ...)
 
 \method{loadings}{sopls}(object, ncomp = "all", block = 1, ...)
 
@@ -114,4 +114,10 @@ summary(mod)
 #blockexpl(mod)
 #print(blockexpl(mod), compwise=TRUE)
 
+}
+\references{
+Jørgensen K, Mevik BH, Næs T. Combining designed experiments with several blocks of spectroscopic data. Chemometr Intell Lab Syst. 2007;88(2): 154–166.
+}
+\seealso{
+Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 }

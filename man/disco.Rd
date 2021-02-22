@@ -13,6 +13,9 @@ disco(X, ncomp = 2, ...)
 
 \item{...}{additional arguments (not used).}
 }
+\value{
+\code{multiblock} object including relevant scores and loadings.
+}
 \description{
 Distinctive and Common Components with SCA - DISCO
 }
@@ -22,6 +25,9 @@ potList <- as.list(potato[c(1,2,9)])
 pot.disco  <- disco(potList)
 plot(scores(pot.disco), labels="names")
 
+}
+\references{
+Schouteden, M., Van Deun, K., Wilderjans, T. F., & Van Mechelen, I. (2014). Performing DISCO-SCA to search for distinctive and common information in linked data. Behavior research methods, 46(2), 576-587.
 }
 \seealso{
 Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.

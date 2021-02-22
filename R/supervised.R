@@ -35,6 +35,11 @@ NULL
 #' @param ... additional arguments to pls::plsr.
 #' 
 #' @return \code{mbpls} object containing the underlying \code{pls} object, with all its result and plot possibilities plus block-wise loadings, loading weights and scores.
+#' 
+#' @references 
+#' * Wangen, L.E. and Kowalski, B.R. (1988). A multiblock partial least squares algorithm for investigating complex chemical systems. Journal of Chemometrics, 3, 3–20.
+#' * Westerhuis, J.A., Kourti, T., and MacGregor,J.F. (1998). Analysis of multiblock and hierarchical PCA and PLS models. Journal of Chemometrics, 12, 301–321.
+#' 
 #' @examples 
 #' data(potato)
 #' mb <- mbpls(potato[c('Chemical','Compression')], potato[['Sensory']], ncomp = 5)
@@ -86,6 +91,8 @@ mbpls <- function(X, Y, ncomp=1, scale=FALSE, ...){
 #' @param ... additional arguments to ade4::mbpcaiv.
 #' 
 #' @return \code{mbrda,mvr} object containing elements corresponding to a \code{pls} object, with all its result and plot possibilities plus block-wise loadings, loading weights and scores.
+#' 
+#' @references Bougeard, S., Qannari, E.M., Lupo, C., andHanafi, M. (2011). From Multiblock Partial Least Squares to Multiblock Redundancy Analysis. A Continuum Approach. Informatica, 22(1), 11–26.
 #' 
 #' @examples
 #' # Convert data.frame with AsIs objects to list of matrices

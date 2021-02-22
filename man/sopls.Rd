@@ -45,7 +45,11 @@ sopls(
 
 \item{progress}{Logical indicating if a progress bar should be displayed while cross-validating.}
 
-\item{...}{}
+\item{...}{Additional arguments to underlying methods.}
+}
+\value{
+An \code{sopls, mvr} object with scores, loadings, etc.
+associated with printing and plotting methods.
 }
 \description{
 Sequential and Orthogonalized PLS (SO-PLS)
@@ -55,4 +59,10 @@ data(potato)
 so <- sopls(Sensory ~ Chemical + Compression, data=potato, ncomp=c(10,10), 
             max_comps=10, validation="CV", segments=10)
 summary(so)
+}
+\references{
+Jørgensen K, Mevik BH, Næs T. Combining designed experiments with several blocks of spectroscopic data. Chemometr Intell Lab Syst. 2007;88(2): 154–166.
+}
+\seealso{
+Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 }

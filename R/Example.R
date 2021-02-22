@@ -1,8 +1,5 @@
 # TODO
 # - Bestem avgrensninger mellom MatrixCorrelation, ROSA, multiblock
-# - Kompletter og funksjonaliser SO-PLS
-# - Legg til mye brukte metoder
-# - ASCA?
 # - Documentation
 #   - Kort beskrivelse av hver metode
 

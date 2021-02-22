@@ -17,6 +17,9 @@ hpca(X, ncomp = 2, scale = FALSE, verbose = FALSE, ...)
 
 \item{...}{additional arguments for RGCCA.}
 }
+\value{
+\code{multiblock} object including relevant scores and loadings.
+}
 \description{
 Hierarchical Principal component analysis - HPCA
 }
@@ -26,6 +29,9 @@ potList <- as.list(potato[c(1,2,9)])
 pot.hpca   <- hpca(potList)
 plot(scores(pot.hpca), labels="names")
 
+}
+\references{
+Westerhuis, J.A., Kourti, T., and MacGregor,J.F. (1998). Analysis of multiblock and hierarchical PCA and PLS models. Journal of Chemometrics, 12, 301–321.
 }
 \seealso{
 Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.

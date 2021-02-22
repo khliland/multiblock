@@ -23,11 +23,13 @@
 #'
 #' @return Returns depend on method used, e.g. \code{predict.sopls} returns predicted responses 
 #' or scores depending on inputs, \code{coef.sopls} return regression coefficients.
+#' 
+#' @references Jørgensen K, Mevik BH, Næs T. Combining designed experiments with several blocks of spectroscopic data. Chemometr Intell Lab Syst. 2007;88(2): 154–166.
 #'
 #' @examples
 #' data(potato)
 #' mod <- sopls(Sensory[,1] ~ ., data = potato[c(1:3,9)], ncomp = 5, subset = 1:20)
-#' testset <- potato[-(1:20),]; testset$Sensory <- NULL#testset$Sensory[,1]
+#' testset <- potato[-(1:20),]; testset$Sensory <- testset$Sensory[,1,drop=FALSE]
 #' predict(mod, testset, comps=c(2,1,2))
 #' #dim(coef(mod, ncomp=5)) # <variables x responses x components>
 #' print(mod)
@@ -35,6 +37,7 @@
 #' #blockexpl(mod)
 #' #print(blockexpl(mod), compwise=TRUE)
 #' 
+#' @seealso Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 #' @export
 predict.sopls <- function(object, newdata, ncomp = object$ncomp, comps = object$ncomp,
                          type = c("response", "scores"), na.action = na.pass, ...){
@@ -159,7 +162,7 @@ classify <- function(object, ...) UseMethod("classify")
 #' @rdname sopls_results
 #' @importFrom MASS lda qda
 #' @export
-classify.sopls <- function(object, classes, newdata, ncomp, LQ = "LDA"){
+classify.sopls <- function(object, classes, newdata, ncomp, LQ = "LDA", ...){
   if(LQ == "max"){
     labels  <- names(table(classes))
     predVal <- predict(object, newdata = newdata, ncomp = 1:ncomp) # Njei. Ikke sånn

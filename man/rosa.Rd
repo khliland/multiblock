@@ -43,6 +43,8 @@ rosa(
 
 \item{validation}{Optional cross-validation strategy "CV" or "LOO".}
 
+\item{internal.validation}{Optional cross-validation for block selection process, "LOO" or vector of integers.}
+
 \item{fixed.block}{integer vector with block numbers for each component (0 = not fixed) or list of length <= ncomp (element length 0 = not fixed).}
 
 \item{design.block}{integer vector containing block numbers of design blocks}
@@ -50,10 +52,6 @@ rosa(
 \item{canonical}{logical indicating if canonical correlation should be use when calculating loading weights (default), enabling B/W maximization, common components, etc. Alternatively (FALSE) a PLS2 strategy, e.g. for spectra response, is used.}
 
 \item{...}{Additonal arguments for \code{cvseg} or \code{rosa.fit}}
-
-\item{lower}{numerical indicating lower bound for powered PLS. Default = 0.5.}
-
-\item{upper}{numerical indicating upper bound for powered PLS. Default = 0.5.}
 }
 \value{
 An object of classes \code{rosa} and \code{mvr} having several associated printing and plotting methods.
@@ -65,4 +63,10 @@ Response Oriented Sequential Alternation
 data(potato)
 mod <- rosa(Sensory[,1] ~ ., data = potato, ncomp = 10, validation = "CV", segments = 5)
 summary(mod)
+}
+\references{
+Liland, K.H., Næs, T., and Indahl, U.G. (2016). ROSA - a fast extension of partial least squares regression for multiblock data analysis. Journal of Chemometrics, 30, 651–662, doi:10.1002/cem.2824.
+}
+\seealso{
+Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 }

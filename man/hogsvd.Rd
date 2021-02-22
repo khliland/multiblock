@@ -9,6 +9,9 @@ hogsvd(X)
 \arguments{
 \item{X}{\code{list} of input blocks.}
 }
+\value{
+\code{multiblock} object including relevant scores and loadings.
+}
 \description{
 Higher Order Generalized SVD - HOGSVD
 }
@@ -18,6 +21,9 @@ candyList <- lapply(1:nlevels(candies$candy),function(x)candies$assessment[candi
 can.hogsvd <- hogsvd(candyList)
 plot(scores(can.hogsvd, block=1), labels="names")
 
+}
+\references{
+Ponnapalli, S. P., Saunders, M. A., Van Loan, C. F., & Alter, O. (2011). A higher-order generalized singular value decomposition for comparison of global mRNA expression from multiple organisms. PloS one, 6(12), e28072.
 }
 \seealso{
 Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.

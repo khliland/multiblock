@@ -26,6 +26,9 @@ pcagca(
 
 \item{tol}{\code{numeric} tolerance for component inclusion (singular values).}
 }
+\value{
+\code{multiblock} object including relevant scores and loadings.
+}
 \description{
 PCA-GCA
 }
@@ -35,6 +38,9 @@ potList <- as.list(potato[c(1,2,9)])
 pot.pcagca <- pcagca(potList)
 plot(scores(pot.pcagca, block=2), comps=1, labels="names")
 
+}
+\references{
+Smilde, A., Måge, I., Naes, T., Hankemeier, T.,Lips, M., Kiers, H., Acar, E., and Bro, R.(2017). Common and distinct components in data fusion. Journal of Chemometrics, 31(7), e2900.
 }
 \seealso{
 Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
