@@ -22,7 +22,7 @@
 #' potatoList <- lapply(potato, unclass)
 #' mbr <- mbrda(potatoList[c('Chemical','Compression')], potatoList[['Sensory']], ncomp = 10)
 #' print(mbr)
-#' scoreplot(mbr)
+#' scoreplot(mbr, labels="names")
 #' 
 NULL
 
@@ -33,6 +33,14 @@ NULL
 #' @param ncomp \code{integer} number of PLS components.
 #' @param scale \code{logical} for autoscaling inputs (default = FALSE).
 #' @param ... additional arguments to pls::plsr.
+#' 
+#' @description MB-PLS is the prototypical component based supervised multiblock method.
+#' It was originally formulated as a two-level method with a block-level and a super-level,
+#' but it was later discovered that it could be expressed as an ordinary PLS on concatenated
+#' weighted X blocks followed by a simple loop for calculating block-level loading weights,
+#' loadings and scores. This implementation uses the \code{\link[pls]{plsr}} function on the
+#' scaled input blocks (1/sqrt(ncol)) enabling all summaries and plots from the \code{pls}
+#' package.
 #' 
 #' @return \code{mbpls} object containing the underlying \code{pls} object, with all its result and plot possibilities plus block-wise loadings, loading weights and scores.
 #' 
@@ -79,8 +87,11 @@ mbpls <- function(X, Y, ncomp=1, scale=FALSE, ...){
   mod$blockLoadingweights <- Wb
   mod$blockLoadings <- Pb
   mod$superWeights  <- Wt
+  mod$info <- list(method = "Multiblock PLS", 
+                   scores = "Superscores", loadings = "Superloadings",
+                   blockScores = "Block scores", blockLoadings = "Block loadings")
   mod$call <- match.call()
-  class(mod) <- c('mbpls','mvr')
+  class(mod) <- c('multiblock','mvr')
   return(mod)
 }
 
@@ -91,6 +102,11 @@ mbpls <- function(X, Y, ncomp=1, scale=FALSE, ...){
 #' @param ... additional arguments to ade4::mbpcaiv.
 #' 
 #' @return \code{mbrda,mvr} object containing elements corresponding to a \code{pls} object, with all its result and plot possibilities plus block-wise loadings, loading weights and scores.
+#' 
+#' @description mbRDA is a multiblock formulation of Redundancy (Data) Analysis. RDA is theoretically
+#' between PLS and GCA. Like GCA, RDA does not consider correlations within X, but like
+#' PLS it does consider correlations within Y. RDA can also be viewed as a PCR of Y constrained to
+#' have scores that are also linear combinations of X.
 #' 
 #' @references Bougeard, S., Qannari, E.M., Lupo, C., andHanafi, M. (2011). From Multiblock Partial Least Squares to Multiblock Redundancy Analysis. A Continuum Approach. Informatica, 22(1), 11–26.
 #' 
@@ -116,8 +132,11 @@ mbrda <- function(X, Y, ncomp=1, ...){
                                        as.matrix(res$tabY))))
   varExplTY <- (covarTY/varT)/sum(covarTY/varT) * 100
   mod <- list(Yscores=res$lY, Yloadings=res$Yc1, scores=res$lX, loadings=res$Tfa, varT=varT, covarTY=covarTY, varExplTY=varExplTY, mbpcaivObject=res)
+  mod$info <- list(method = "Multiblock RDA", 
+                   scores = "Scores", loadings = "Loadings",
+                   blockScores = "Not used", blockLoadings = "Not used")
   mod$call <- match.call()
-  class(mod) <- c('mbrda','mvr')
+  class(mod) <- c('multiblock','mvr')
   return(mod)
 }
 

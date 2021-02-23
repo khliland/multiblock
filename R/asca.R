@@ -1,5 +1,5 @@
 #' @name asca
-#' @aliases asca print.asca summary.asca print.summary.asca loadings.asca scores.asca loadingplot.asca scoreplot.asca
+#' @aliases asca
 #' @title Analysis of Variance Simultaneous Component Analysis
 #'
 #' @param formula Model formula accepting a single response (block) and predictor names separated by + signs.

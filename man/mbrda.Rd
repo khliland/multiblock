@@ -19,7 +19,10 @@ mbrda(X, Y, ncomp = 1, ...)
 \code{mbrda,mvr} object containing elements corresponding to a \code{pls} object, with all its result and plot possibilities plus block-wise loadings, loading weights and scores.
 }
 \description{
-Multiblock Redundancy Analysis - mbRDA
+mbRDA is a multiblock formulation of Redundancy (Data) Analysis. RDA is theoretically
+between PLS and GCA. Like GCA, RDA does not consider correlations within X, but like
+PLS it does consider correlations within Y. RDA can also be viewed as a PCR of Y constrained to
+have scores that are also linear combinations of X.
 }
 \examples{
 # Convert data.frame with AsIs objects to list of matrices

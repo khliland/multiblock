@@ -106,7 +106,7 @@ Result functions for SO-PLS models
 \examples{
 data(potato)
 mod <- sopls(Sensory[,1] ~ ., data = potato[c(1:3,9)], ncomp = 5, subset = 1:20)
-testset <- potato[-(1:20),]; testset$Sensory <- NULL#testset$Sensory[,1]
+testset <- potato[-(1:20),]; testset$Sensory <- testset$Sensory[,1,drop=FALSE]
 predict(mod, testset, comps=c(2,1,2))
 #dim(coef(mod, ncomp=5)) # <variables x responses x components>
 print(mod)

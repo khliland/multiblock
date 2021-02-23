@@ -28,20 +28,11 @@ JIVE, STATIS and HOGSVD assume variable linked matrices/data.frames, while SCA h
 data(potato)
 potList <- as.list(potato[c(1,2,9)])
 pot.sca    <- sca(potList)
-pot.gca    <- gca(potList)
-pot.gpa    <- gpa(potList)
-pot.mfa    <- mfa(potList)
-pot.pcagca <- pcagca(potList)
-pot.disco  <- disco(potList)
-pot.hpca   <- hpca(potList)
-pot.mcoa   <- mcoa(potList)
 
 # Variable linked data
 data(candies)
 candyList <- lapply(1:nlevels(candies$candy),function(x)candies$assessment[candies$candy==x,])
-can.jive   <- jive(candyList)
 can.statis <- statis(candyList)
-can.hogsvd <- hogsvd(candyList)
 plot(can.statis$statis)
 }
 \seealso{

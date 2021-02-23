@@ -1,4 +1,6 @@
+#' @title ASCA Result Methods
 #' @name asca_results
+#' @aliases asca_results print.asca summary.asca projections projections.asca print.summary.asca loadings.asca scores.asca scoreplot.asca
 #' @param object \code{asca} object.
 #' @param x \code{asca} object.
 #' @param factor \code{integer/character} for selecting a model factor.

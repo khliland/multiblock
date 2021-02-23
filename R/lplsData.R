@@ -6,6 +6,9 @@
 #' @param K \code{numeric} number of rows in X3
 #' @param ncomp \code{numeric} number of latent components
 #' @author Solve Sæbø (adapted by Kristian Hovde Liland)
+#' 
+#' @description Three data blocks are simulated to express covariance in an exo-L-PLS direction.
+#' Dimensionality and number of underlying components can be controlled.
 #'
 #' @return A \code{list} of three matrices.
 #' 

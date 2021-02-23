@@ -8,17 +8,17 @@
 #' @importFrom r.jive jive summary.jive plot.jive
 #' 
 #' @description Collection of unsupervised multiblock methods:
-#' * SCA - Simultaneous Component Analysis (\code{sca})
-#' * GCA - Generalized Canonical Analysis (\code{gca})
-#' * GPA - Generalized Procrustes Analysis (\code{gpa})
-#' * MFA - Multiple Factor Analysis (\code{mfa})
-#' * PCA-GCA (\code{pcagca})
-#' * DISCO - Distinctive and Common Components with SCA (\code{disco})
-#' * HPCA - Hierarchical Principal component analysis (\code{hpca})
-#' * MCOA - Multiple Co-Inertia Analysis (\code{mcoa})
-#' * JIVE - Joint and Individual Variation Explained (\code{jive})
-#' * STATIS - Structuration des Tableaux à Trois Indices de la Statistique (\code{statis})
-#' * HOGSVD - Higher Order Generalized SVD (\code{hogsvd})
+#' * SCA - Simultaneous Component Analysis (\code{\link{sca}})
+#' * GCA - Generalized Canonical Analysis (\code{\link{gca}})
+#' * GPA - Generalized Procrustes Analysis (\code{\link{gpa}})
+#' * MFA - Multiple Factor Analysis (\code{\link{mfa}})
+#' * PCA-GCA (\code{\link{pcagca})
+#' * DISCO - Distinctive and Common Components with SCA (\code{\link{disco}})
+#' * HPCA - Hierarchical Principal component analysis (\code{\link{hpca}})
+#' * MCOA - Multiple Co-Inertia Analysis (\code{\link{mcoa}})
+#' * JIVE - Joint and Individual Variation Explained (\code{\link{jive}})
+#' * STATIS - Structuration des Tableaux à Trois Indices de la Statistique (\code{\link{statis}})
+#' * HOGSVD - Higher Order Generalized SVD (\code{\link{hogsvd}})
 #' 
 #' @details 
 #' Original documentation of STATIS: \link[ade4]{statis}.
@@ -29,20 +29,11 @@
 #' data(potato)
 #' potList <- as.list(potato[c(1,2,9)])
 #' pot.sca    <- sca(potList)
-#' pot.gca    <- gca(potList)
-#' pot.gpa    <- gpa(potList)
-#' pot.mfa    <- mfa(potList)
-#' pot.pcagca <- pcagca(potList)
-#' pot.disco  <- disco(potList)
-#' pot.hpca   <- hpca(potList)
-#' pot.mcoa   <- mcoa(potList)
 #' 
 #' # Variable linked data
 #' data(candies)
 #' candyList <- lapply(1:nlevels(candies$candy),function(x)candies$assessment[candies$candy==x,])
-#' can.jive   <- jive(candyList)
 #' can.statis <- statis(candyList)
-#' can.hogsvd <- hogsvd(candyList)
 #' plot(can.statis$statis)
 #' @seealso Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 #
@@ -629,10 +620,12 @@ mcoa <- function(X, ncomp=2, scale=FALSE, verbose=FALSE, ...){
 #' @references Lock, E., Hoadley, K., Marron, J., and Nobel, A. (2013) Joint and individual variation explained (JIVE) for integrated analysis of multiple data types. Ann Appl Stat, 7 (1), 523–542.
 #' 
 #' @examples 
+#' \dontrun{ # Too time consuming
 #' data(candies)
 #' candyList <- lapply(1:nlevels(candies$candy),function(x)candies$assessment[candies$candy==x,])
 #' can.jive  <- jive(candyList)
 #' summary(can.jive)
+#' }
 #' 
 #' @seealso Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 #' @export

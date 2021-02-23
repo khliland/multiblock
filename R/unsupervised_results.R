@@ -1,5 +1,5 @@
-#' @name unsupervised_results
-#' @title Result functions for Unsupervised Multiblock Methods
+#' @name multiblock_summaries
+#' @title Result Functions for Supervised and Unsupervised Multiblock Methods
 #' @aliases print.sca
 #' 
 #' @param object \code{multiblock} object.
@@ -35,7 +35,7 @@ scores.multiblock <- function(object, block = 0, ...){
   return(s)
 }
 
-#' @rdname unsupervised_results 
+#' @rdname multiblock_summaries 
 #' @export
 loadings.multiblock <- function(object, block = 0, ...){
   if(block==0 && is.null(object$loadings)){
@@ -57,7 +57,7 @@ loadings.multiblock <- function(object, block = 0, ...){
   return(l)
 }
 
-#' @rdname unsupervised_results 
+#' @rdname multiblock_summaries 
 #' @export
 print.multiblock <- function(x, ...){
   cat(x$info$method, "\n")
@@ -65,7 +65,7 @@ print.multiblock <- function(x, ...){
   invisible(x)
 }
 
-#' @rdname unsupervised_results 
+#' @rdname multiblock_summaries 
 #' @export
 summary.multiblock <- function(object, ...){
   cat(object$info$method, "\n\n")
@@ -80,13 +80,13 @@ summary.multiblock <- function(object, ...){
   invisible(object)
 }
 
-# #' @rdname unsupervised_results
+# #' @rdname multiblock_summaries
 # #' @export
 # info <- function (object, ...) {
 #   UseMethod("info", object)
 # }
 # 
-# #' @rdname unsupervised_results
+# #' @rdname multiblock_summaries
 # #' @export
 # info.multiblock(object, ...) {
 #   summary(object)

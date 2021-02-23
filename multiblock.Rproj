@@ -14,6 +14,8 @@ LaTeX: pdfLaTeX
 
 BuildType: Package
 PackageUseDevtools: Yes
-PackageInstallArgs: --no-multiarch --with-keep.source
+PackageInstallArgs: --no-multiarch --with-keep.source --library=C:/R/Library
 PackageCheckArgs: --as-cran --library=C:/R/Library
 PackageRoxygenize: rd,collate,namespace
+
+SpellingDictionary: en_GB

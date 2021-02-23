@@ -18,10 +18,12 @@ jive(X, ...)
 Joint and Individual Variation Explained - JIVE
 }
 \examples{
+\dontrun{ # Too time consuming
 data(candies)
 candyList <- lapply(1:nlevels(candies$candy),function(x)candies$assessment[candies$candy==x,])
 can.jive  <- jive(candyList)
 summary(can.jive)
+}
 
 }
 \references{

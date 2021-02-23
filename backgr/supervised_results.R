@@ -6,6 +6,8 @@
 #' @param x \code{object} returned from \code{mbpls} or \code{mbrda}.
 #' @param block \code{integer} or \code{character} identifying a block when used block-wise.
 #' @param ... additional arguments (not used).
+#' 
+#' @description Print, summary
 #'
 #' @examples 
 #' data(potato)

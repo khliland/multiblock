@@ -2,13 +2,6 @@
 % Please edit documentation in R/asca.R
 \name{asca}
 \alias{asca}
-\alias{print.asca}
-\alias{summary.asca}
-\alias{print.summary.asca}
-\alias{loadings.asca}
-\alias{scores.asca}
-\alias{loadingplot.asca}
-\alias{scoreplot.asca}
 \title{Analysis of Variance Simultaneous Component Analysis}
 \usage{
 asca(formula, data, subset, weights, na.action, family, pca.in = FALSE)
