@@ -21,7 +21,8 @@ sca(X, ncomp = 2, scale = FALSE, samplelinked = "auto", ...)
 \code{multiblock} object including relevant scores and loadings.
 }
 \description{
-Simultaneous Component Analysis - SCA
+SCA, in its original variable-linked version, calculates common scores and block-wise
+loadings.
 }
 \examples{
 # Object linked data

@@ -4,20 +4,7 @@
 \alias{unsupervised}
 \title{Unsupervised Multiblock Methods}
 \description{
-Collection of unsupervised multiblock methods:
-\itemize{
-\item SCA - Simultaneous Component Analysis (\code{sca})
-\item GCA - Generalized Canonical Analysis (\code{gca})
-\item GPA - Generalized Procrustes Analysis (\code{gpa})
-\item MFA - Multiple Factor Analysis (\code{mfa})
-\item PCA-GCA (\code{pcagca})
-\item DISCO - Distinctive and Common Components with SCA (\code{disco})
-\item HPCA - Hierarchical Principal component analysis (\code{hpca})
-\item MCOA - Multiple Co-Inertia Analysis (\code{mcoa})
-\item JIVE - Joint and Individual Variation Explained (\code{jive})
-\item STATIS - Structuration des Tableaux à Trois Indices de la Statistique (\code{statis})
-\item HOGSVD - Higher Order Generalized SVD (\code{hogsvd})
-}
+
 }
 \details{
 Original documentation of STATIS: \link[ade4]{statis}.

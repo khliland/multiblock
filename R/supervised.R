@@ -106,7 +106,8 @@ mbpls <- function(X, Y, ncomp=1, scale=FALSE, ...){
 #' @description mbRDA is a multiblock formulation of Redundancy (Data) Analysis. RDA is theoretically
 #' between PLS and GCA. Like GCA, RDA does not consider correlations within X, but like
 #' PLS it does consider correlations within Y. RDA can also be viewed as a PCR of Y constrained to
-#' have scores that are also linear combinations of X.
+#' have scores that are also linear combinations of X. If the \code{adegraphics} package is attached,
+#' a nice overview can be plotted as \code{plot(mbr$mbpcaiv)} following the example below.
 #' 
 #' @references Bougeard, S., Qannari, E.M., Lupo, C., andHanafi, M. (2011). From Multiblock Partial Least Squares to Multiblock Redundancy Analysis. A Continuum Approach. Informatica, 22(1), 11–26.
 #' 
@@ -131,10 +132,11 @@ mbrda <- function(X, Y, ncomp=1, ...){
   covarTY <- diag(tcrossprod(crossprod(res$lX * res$lw, 
                                        as.matrix(res$tabY))))
   varExplTY <- (covarTY/varT)/sum(covarTY/varT) * 100
-  mod <- list(Yscores=res$lY, Yloadings=res$Yc1, scores=res$lX, loadings=res$Tfa, varT=varT, covarTY=covarTY, varExplTY=varExplTY, mbpcaivObject=res)
+  #                     u                 v
+  mod <- list(Yscores=res$lY, Yloadings=res$Yc1, scores=res$lX, blockLoadings=res$Tfa, blockScores=res$Tl1, varT=varT, covarTY=covarTY, varExplTY=varExplTY, mbpcaiv=res)
   mod$info <- list(method = "Multiblock RDA", 
-                   scores = "Scores", loadings = "Loadings",
-                   blockScores = "Not used", blockLoadings = "Not used")
+                   scores = "Scores", loadings = "Not used",
+                   blockScores = "Block scores", blockLoadings = "Block loadings") # t_m, w_m
   mod$call <- match.call()
   class(mod) <- c('multiblock','mvr')
   return(mod)

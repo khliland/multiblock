@@ -48,6 +48,12 @@ NULL
 #' @param samplelinked \code{character/logical} indicating if blocks are linked by samples (TRUE) or variables (FALSE). Using 'auto' (default), this will be determined automatically.
 #' @param ... additional arguments (not used).
 #' 
+#' @description SCA, in its original variable-linked version, calculates common loadings and block-wise
+#' scores. There are many possible constraints and specialisations. This implementations uses
+#' PCA as the backbone, thus resulting in deterministic, ordered components. A parameter controls
+#' the linking mode, but if left untouched an atempt is made at automatically determining
+#' variable or sample linking.
+#' 
 #' @return \code{multiblock} object including relevant scores and loadings.
 #' 
 #' @references Levin, J. (1966) Simultaneous factor analysis of several gramian matrices. Psychometrika, 31(3), 413–419.
@@ -131,6 +137,11 @@ sca <- function(X, ncomp=2, scale=FALSE, samplelinked = 'auto', ...){
 #' @param tol \code{numeric} tolerance for component inclusion (singular values).
 #' @param corrs \code{logical} indicating if correlations should be calculated for RGCCA based approach.
 #' @param ... additional arguments for RGCCA approach.
+#' 
+#' @description GCA is a generalisation of Canonical Correlation Analysis to handle three or more
+#' blocks. There are several ways to generalise, and two of these are available through \code{gca}.
+#' The default is an SVD based approach estimating a common subspace and measuring mean squared
+#' correlation to this. An alternative approach is available through RGCCA.
 #' 
 #' @return \code{multiblock} object including relevant scores and loadings.
 #' 
@@ -231,6 +242,11 @@ gca.svd <- function(X, tol=10^-12){
 #' @param graph \code{logical} indicating if decomposition should be plotted.
 #' @param ... additional arguments for RGCCA approach.
 #' 
+#' @description GPA is a generalisation of Procrustes analysis, where one matrix is scaled and 
+#' rotated to be as similar as possible to another one. Through the generalisation, individual
+#' scaling and rotation of each input matrix is performed against a common
+#' representation which is estimated in an iterative manner.
+#' 
 #' @return \code{multiblock} object including relevant scores and loadings.
 #' 
 #' @references Gower, J. C. (1975). Generalized procrustes analysis. Psychometrika. 40: 33–51.
@@ -276,6 +292,13 @@ gpa <- function(X, graph = FALSE, ...){
 #' @param type \code{character} vector indicating block types, defaults to \code{rep("c", length(X))} for continuous values.
 #' @param graph \code{logical} indicating if decomposition should be plotted.
 #' @param ... additional arguments for RGCCA approach.
+#' 
+#' @description MFA is a methods typically used to compare several equally sized matrices. It is
+#' often used in sensory analyses, where matrices consist of sensory characteristics and products,
+#' and each assessor generates one matrix each. In its basic form, MFA scales all matrices by their
+#' largest eigenvalue, concatenates them and performs PCA on the result. There are several
+#' possibilities for plots and inspections of the model, handling of categorical and continuous
+#' inputs etc. connected to MFA.
 #' 
 #' @return \code{multiblock} object including relevant scores and loadings.
 #' 
@@ -326,6 +349,13 @@ mfa <- function(X, type = rep("c", length(X)), graph = FALSE, ...){
 #' @param tol \code{numeric} tolerance for component inclusion (singular values).
 #' 
 #' @return \code{multiblock} object including relevant scores and loadings.
+#' 
+#' @description PCA-GCA is a methods which aims at estimating subspaces of common, local and
+#' distinct variation from two or more blocks. The name comes from the process of first applying
+#' PCA to each block, then using GCA to estimate local and common components, and finally
+#' orthogonalising the block-wise scores on the local/common ones and re-estimating these to
+#' obtain distinct components. The procedure is highly similar to the supervised method
+#' PO-PLS, where the PCA steps are exchanged with PLS.
 #' 
 #' @references Smilde, A., Måge, I., Naes, T., Hankemeier, T.,Lips, M., Kiers, H., Acar, E., and Bro, R.(2017). Common and distinct components in data fusion. Journal of Chemometrics, 31(7), e2900.
 #' 
@@ -475,6 +505,12 @@ pcagca <- function(X, commons=2, auto=TRUE, auto.par=list(explVarLim=40, rLim=0.
 #' 
 #' @return \code{multiblock} object including relevant scores and loadings.
 #' 
+#' @description DISCO is a restriction of SCA where Alternating Least Squares is used for
+#' estimation of loadings and scores. The loadings (in variable linked mode) are filled with 
+#' zeros for each iteration in a pattern forcing distinct, local and common components.
+#' When used in sample linked mode and only selecting distinct components, it shares a 
+#' clear resemblance to SO-PLS, only in an unsupervised setting.
+#' 
 #' @references Schouteden, M., Van Deun, K., Wilderjans, T. F., & Van Mechelen, I. (2014). Performing DISCO-SCA to search for distinctive and common information in linked data. Behavior research methods, 46(2), 576-587.
 #' 
 #' @examples
@@ -522,6 +558,11 @@ disco <- function(X, ncomp = 2, ...){
 #' @param scale \code{logical} indicating if variables should be scaled.
 #' @param verbose \code{logical} indicating if diagnostic information should be printed.
 #' @param ... additional arguments for RGCCA.
+#' 
+#' @description HPCA is a hierarchical PCA analysis which combines two or more blocks
+#' into a two-level decomposition with block-wise loadings and scores and superlevel
+#' common loadings and scores. The method is closely related to the supervised method MB-PLS
+#' in structure.
 #' 
 #' @return \code{multiblock} object including relevant scores and loadings.
 #'
@@ -571,6 +612,11 @@ hpca <- function(X, ncomp=2, scale=FALSE, verbose=FALSE, ...){
 #' 
 #' @return \code{multiblock} object including relevant scores and loadings.
 #' 
+#' @description MCOA resembles GCA and MFA in that it creates a set of reference scores, for which each
+#' block's individual scores should correlate maximally too, but also the variance within
+#' each block should be taken into account. A single component solution is equivalent to a
+#' PCA on concatenated blocks scaled by the so called inverse inertia.
+#' 
 #' @references 
 #' * Le Roux; B. and H. Rouanet (2004). Geometric Data Analysis, From Correspondence Analysis to Structured Data Analysis. Dordrecht. Kluwer: p.180.
 #' * Greenacre, Michael and Blasius, Jörg (editors) (2006). Multiple Correspondence Analysis and Related Methods. London: Chapman & Hall/CRC.
@@ -617,6 +663,9 @@ mcoa <- function(X, ncomp=2, scale=FALSE, verbose=FALSE, ...){
 #' 
 #' @return \code{multiblock} object including relevant scores and loadings.
 #' 
+#' @description Jive performs a decomposition of the variation in two or more blocks into
+#' low-dimensional representations of individual and joint variation plus residual variation.
+#' 
 #' @references Lock, E., Hoadley, K., Marron, J., and Nobel, A. (2013) Joint and individual variation explained (JIVE) for integrated analysis of multiple data types. Ann Appl Stat, 7 (1), 523–542.
 #' 
 #' @examples 
@@ -641,6 +690,10 @@ jive <- function(X, ...){
 #' @param ... additional arguments (not used).
 #' 
 #' @return \code{multiblock} object including relevant scores and loadings.
+#' 
+#' @description STATIS is a method, related to MFA, for analysing two or more blocks. It also
+#' decomposes the data into a low-dimensional subspace but uses a different scaling of the
+#' individual blocks.
 #' 
 #' @references Lavit, C.; Escoufier, Y.; Sabatier, R.; Traissac, P. (1994). The ACT (STATIS method). Computational Statistics & Data Analysis. 18: 97
 #' 
@@ -680,6 +733,9 @@ statis <- function(X, ncomp = 3, scannf = FALSE, tol = 1e-07, ...){
 #' @param X \code{list} of input blocks.
 #' 
 #' @return \code{multiblock} object including relevant scores and loadings.
+#' 
+#' @description HOGSVD is a generalisation of SVD to two or more blocks. It finds a common set
+#' of loadings across blocks and individual sets of scores per block.
 #' 
 #' @references Ponnapalli, S. P., Saunders, M. A., Van Loan, C. F., & Alter, O. (2011). A higher-order generalized singular value decomposition for comparison of global mRNA expression from multiple organisms. PloS one, 6(12), e28072.
 #' 

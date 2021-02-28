@@ -21,7 +21,8 @@ lplsData(I = 30, N = 20, J = 5, K = 6, ncomp = 2)
 A \code{list} of three matrices.
 }
 \description{
-L-PLS data simulation for exo-type analysis
+Three data blocks are simulated to express covariance in an exo-L-PLS direction.
+Dimensionality and number of underlying components can be controlled.
 }
 \examples{
 lp <- lplsData(I = 30, N = 20, J = 5, K = 6, ncomp = 2)

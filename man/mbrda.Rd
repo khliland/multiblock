@@ -22,7 +22,8 @@ mbrda(X, Y, ncomp = 1, ...)
 mbRDA is a multiblock formulation of Redundancy (Data) Analysis. RDA is theoretically
 between PLS and GCA. Like GCA, RDA does not consider correlations within X, but like
 PLS it does consider correlations within Y. RDA can also be viewed as a PCR of Y constrained to
-have scores that are also linear combinations of X.
+have scores that are also linear combinations of X. If the \code{adegraphics} package is attached,
+a nice overview can be plotted as \code{plot(mbr$mbpcaiv)} following the example below.
 }
 \examples{
 # Convert data.frame with AsIs objects to list of matrices

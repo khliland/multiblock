@@ -2,7 +2,7 @@
 title: "Vignette, supervised multiblock"
 output: 
   pdf_document: 
-    keep_tex: true
+    keep_tex: yes
 vignette: >
   %\VignetteIndexEntry{Vignette, supervised multiblock}
   %\VignetteEncoding{UTF-8}
@@ -80,10 +80,10 @@ print(mb)
 MB-PLS is implemented as a block-wise weighted concatenated ordinary PLSR. Therefore, all methods available for _plsr_ are available for the global part of the MB-PL. In addition one can extrac _blockScores_ and _blockLoadings_.
 
 ```{r}
-Tb1 <- blockScores(mb)
-plot(Tb1)
+Tb1 <- scores(mb, block=1)
+plot(Tb1, labels = "names")
 
-Pb2 <- blockLoadings(mb, block=2)
+Pb2 <- loadings(mb, block=2)
 plot(Pb2, main = 'Loadings for block 2')
 ```
 
@@ -143,8 +143,8 @@ loadings(so.pot, ncomp = c(4,0), block = 1)
 ```{r}
 # Plot loadings from block 1 and 2
 old.par <- par("mfrow"); on.exit(par(old.par)); par(mfrow=c(1,2))
-loadingplot(so.pot, ncomp = c(4,3), comps = c(2,3), block = 1, scatter = TRUE, main = "Block 1", labels = "names")
-loadingplot(so.pot, ncomp = c(4,3), block = 2, scatter = TRUE, main = "Block 2", labels = "names")
+loadingplot(so.pot, ncomp = c(4,3), comps = c(2,3), block = 1, scatter = TRUE, main = "Block 1", labels = "names", cex = 0.8)
+loadingplot(so.pot, ncomp = c(4,3), block = 2, scatter = TRUE, main = "Block 2", labels = "names", cex = 0.8)
 par(old.par)
 ```
 
@@ -281,7 +281,7 @@ Extract scores (not used further) and plot two first vectors of scores.
 
 ```{r}
 sco <- scores(ros.pot)
-scoreplot(ros.pot, comps = 1:2)
+scoreplot(ros.pot, comps = 1:2, labels = "names")
 ```
 
 ## Prediction
@@ -356,6 +356,6 @@ The _mbpcaiv_ wrapper extracts key elements for inspection using the same format
 lo_mbr <- loadings(mbr)
 print(head(lo_mbr))
 # Plot scores
-scoreplot(mbr)
+scoreplot(mbr, labels = "names")
 ```
 

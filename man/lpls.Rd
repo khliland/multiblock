@@ -46,12 +46,10 @@ lpls(
 }
 \description{
 Simultaneous decomposition of three blocks connected in an L pattern. Two versions of L-PLS
-are available: exo- and endo-L-PLS. See references for details.
+are available: exo- and endo-L-PLS which assume an outward or inward relationship between the
+main block X1 and the two other blocks X2 and X3.
 }
 \details{
-See chapter Three-block data modeling by endo- and exo-L-PLS regression by Sæbø, S., Martens,
-M and Martens, M. for details on the endo- and exo-L-PLS algorithms. Endo-L-PLS is an inward
-regression of X2 and X3 on X1, whereas exo-L-PLS is an outward regression of X1 on X2 and X3.
 The \code{exo_ort} algorithm returns orthogonal scores and should be chosen for visual
 exploration in correlation loading plots. If exo-L-PLS with prediction is the main purpose
 of the model then the non-orthogonal \code{exo} type L-PLS should be chosen for which the

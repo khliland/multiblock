@@ -22,7 +22,7 @@ print(mb)
 potatoList <- lapply(potato, unclass)
 mbr <- mbrda(potatoList[c('Chemical','Compression')], potatoList[['Sensory']], ncomp = 10)
 print(mbr)
-scoreplot(mbr)
+scoreplot(mbr, labels="names")
 
 }
 \seealso{
