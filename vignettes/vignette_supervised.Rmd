@@ -1,10 +1,10 @@
 ---
-title: "Vignette, supervised multiblock"
+title: "4. Supervised multiblock analysis"
 output: 
   rmarkdown::html_vignette:
     toc: true
 vignette: >
-  %\VignetteIndexEntry{Vignette, supervised multiblock}
+  %\VignetteIndexEntry{4. Supervised multiblock analysis}
   %\VignetteEncoding{UTF-8}
   %\VignetteEngine{knitr::rmarkdown}
 editor_options: 

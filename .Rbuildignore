@@ -1,3 +1,6 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 backgr
+^_pkgdown\.yml$
+^docs$
+^pkgdown$

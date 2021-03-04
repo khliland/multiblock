@@ -1,10 +1,10 @@
 ---
-title: "Vignette, basic analyses"
+title: "1. Basic analysis"
 output: 
   rmarkdown::html_vignette:
     toc: true
 vignette: >
-  %\VignetteIndexEntry{Vignette, basic analyses}
+  %\VignetteIndexEntry{1. Basic analysis}
   %\VignetteEncoding{UTF-8}
   %\VignetteEngine{knitr::rmarkdown}
 editor_options: 

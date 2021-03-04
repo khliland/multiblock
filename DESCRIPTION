@@ -1,13 +1,19 @@
 Encoding: UTF-8
 Package: multiblock
 Type: Package
-Title: Multiblock data analysis
+Title: Multiblock Data Analysis
 Version: 0.6.0
 Date: 2021-03-03
-Author: Kristian Hovde Liland
-Maintainer: Kristian Hovde Liland <kristian.liland@nmbu.no>
-Description: Analysis of multiple blocks of data, e.g. where the same samples have been measured using various instruments or conditions.
+Authors@R: 
+    c(person(given = "Kristian Hovde",
+             family = "Liland",
+             role = c("aut", "cre"),
+             email = "kristian.liland@nmbu.no",
+             comment = c(ORCID = "0000-0001-6468-9423")))
+Description: Analysis of multiple blocks of data, e.g., where the same samples have been measured using various instruments or conditions.
 License: GPL (>= 2)
+URL: https://khliland.github.io/multiblock, https://github.com/khliland/multiblock
+BugReports: https://github.com/khliland/multiblock/issues
 Depends: R (>= 3.5.0)
 Imports: ade4,
   car,

@@ -42,3 +42,8 @@ vignettes/*.pdf
 src-i386/*
 src-x64/*
 
+# pkgdown website
+docs
+
+# My own old files
+backgr

@@ -1,4 +1,4 @@
-#' @name sopls_results
+#' @name sopls_object
 #' @title Result functions for SO-PLS models
 #'
 #' @aliases predict.sopls sopls.classify coef.sopls print.sopls summary.sopls
@@ -61,7 +61,7 @@ predict.sopls <- function(object, newdata, ncomp = object$ncomp, comps = object$
   }
 }
 
-#' @rdname sopls_results
+#' @rdname sopls_object
 #' @export
 coef.sopls <- function(object, ncomp = object$ncomp, comps = object$ncomp, intercept = FALSE,
                       ...)
@@ -99,7 +99,7 @@ coef.sopls <- function(object, ncomp = object$ncomp, comps = object$ncomp, inter
   return(B)
 }
 
-#' @rdname sopls_results
+#' @rdname sopls_object
 #' @export
 print.sopls <- function(x, ...) {
   ana <- "Sequential and Orthogonalized Partial Least Squares"
@@ -112,7 +112,7 @@ print.sopls <- function(x, ...) {
   invisible(x)
 }
 
-#' @rdname sopls_results
+#' @rdname sopls_object
 #' @export
 summary.sopls <- function(object, what = c("all", "validation", "training"),
                          digits = 4, print.gap = 2, ...)
@@ -157,11 +157,11 @@ summary.sopls <- function(object, what = c("all", "validation", "training"),
 }
 
 
-#' @rdname sopls_results
+#' @rdname sopls_object
 #' @export
 classify <- function(object, ...) UseMethod("classify")
 
-#' @rdname sopls_results
+#' @rdname sopls_object
 #' @importFrom MASS lda qda
 #' @export
 classify.sopls <- function(object, classes, newdata, ncomp, LQ = "LDA", ...){
@@ -200,7 +200,7 @@ classify.sopls <- function(object, classes, newdata, ncomp, LQ = "LDA", ...){
 }
 
 
-#' @rdname sopls_results
+#' @rdname sopls_object
 #' @export
 loadings.sopls <- function(object, ncomp = "all", block = 1, ...){
   selComp <- pathComp(ncomp, object$decomp$compList)
@@ -210,13 +210,13 @@ loadings.sopls <- function(object, ncomp = "all", block = 1, ...){
   P
 }
 
-#' @rdname sopls_results
+#' @rdname sopls_object
 #' @export
 loadingplot.sopls <- function(object, ncomp = "all", comps = c(1,2), block = 1, ...){
   plot(loadings(object, ncomp, block), comps, ...)
 }
 
-#' @rdname sopls_results
+#' @rdname sopls_object
 #' @export
 scores.sopls <- function(object, ncomp = "all", block = 1, ...){
   selComp <- pathComp(ncomp, object$decomp$compList)
@@ -226,13 +226,13 @@ scores.sopls <- function(object, ncomp = "all", block = 1, ...){
   T
 }
 
-#' @rdname sopls_results
+#' @rdname sopls_object
 #' @export
 scoreplot.sopls <- function(object, ncomp = "all", comps = c(1,2), block = 1, ...){
   plot(scores(object, ncomp, block), comps, ...)
 }
 
-#' @rdname sopls_results
+#' @rdname sopls_object
 #' @export
 R2.sopls <- function(object, estimate, newdata, ncomp = "all", individual = FALSE, ...){
   if (missing(estimate)) {
@@ -288,7 +288,7 @@ R2.sopls <- function(object, estimate, newdata, ncomp = "all", individual = FALS
 }
 
 
-#' @rdname sopls_results
+#' @rdname sopls_object
 #' @export
 RMSEP.sopls <- function(object, estimate, newdata, ncomp = "all", individual = FALSE, ...){
   if (missing(estimate)) {

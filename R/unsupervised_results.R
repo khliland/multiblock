@@ -1,12 +1,11 @@
-#' @name multiblock_summaries
-#' @title Result Functions for Supervised and Unsupervised Multiblock Methods
-#' @aliases print.sca
+#' @name multiblock_object
+#' @title Result Functions for Supervised and Multiblock Objects
+#' @aliases scores.multiblock loadings.multiblock print.multiblock summary.multiblock
 #' 
 #' @param object \code{multiblock} object.
 #' @param x \code{multiblock} object.
 #' @param block \code{integer/character} for block selection.
 #' @param ... Not implemented.
-
 #' @examples 
 #' data(wine)
 #' sc <- sca(wine[c('Smell at rest', 'View', 'Smell after shaking')], ncomp = 4)
@@ -35,7 +34,7 @@ scores.multiblock <- function(object, block = 0, ...){
   return(s)
 }
 
-#' @rdname multiblock_summaries 
+#' @rdname multiblock_object 
 #' @export
 loadings.multiblock <- function(object, block = 0, ...){
   if(block==0 && is.null(object$loadings)){
@@ -57,7 +56,7 @@ loadings.multiblock <- function(object, block = 0, ...){
   return(l)
 }
 
-#' @rdname multiblock_summaries 
+#' @rdname multiblock_object 
 #' @export
 print.multiblock <- function(x, ...){
   cat(x$info$method, "\n")
@@ -65,7 +64,7 @@ print.multiblock <- function(x, ...){
   invisible(x)
 }
 
-#' @rdname multiblock_summaries 
+#' @rdname multiblock_object 
 #' @export
 summary.multiblock <- function(object, ...){
   cat(object$info$method, "\n\n")
@@ -80,13 +79,13 @@ summary.multiblock <- function(object, ...){
   invisible(object)
 }
 
-# #' @rdname multiblock_summaries
+# #' @rdname multiblock_object
 # #' @export
 # info <- function (object, ...) {
 #   UseMethod("info", object)
 # }
 # 
-# #' @rdname multiblock_summaries
+# #' @rdname multiblock_object
 # #' @export
 # info.multiblock(object, ...) {
 #   summary(object)

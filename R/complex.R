@@ -1,4 +1,4 @@
-#' @name comples
+#' @name complex
 #' @title Methods With Complex Linkage
 #' @description This documentation covers a few complex methods. In particular:
 #' * L-PLS - Partial Least Squares in L configuration (\code{\link{lpls}})

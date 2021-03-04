@@ -1,0 +1,60 @@
+reference:
+- title: "Multiblock object"
+  desc: A common object type for many multiblock methods.
+- contents:
+  - multiblock_object
+- title: "Basic methods"
+  desc: Single- and two-block methods
+- contents:
+  - pca
+  - pcr
+  - plsr
+  - cca
+  - ifa
+  - gsvd
+- title: "Unsupervised methods"
+- contents:
+  - sca
+  - gca
+  - gpa
+  - mfa
+  - pcagca
+  - disco
+  - hpca
+  - mcoa
+  - jive
+  - statis
+  - hogsvd
+- title: "Supervised methods"
+- contents:
+  - mbpls
+  - sopls
+  - sopls_object
+  - popls
+  - rosa
+  - rosa_object
+  - rosa_plotting
+  - mbrda
+- title: "Complex methods"
+- contents:
+  - lpls
+  - lpls_object
+  - sopls_pm
+- title: "ASCA"
+- contents:
+  - asca
+  - asca_object
+- title: "Utility functions"
+- contents:
+  - lplsData
+  - maage
+  - mcolors
+  - reexports
+  - unique_combos
+- title : "Datasets"
+- contents:
+  - candies
+  - potato
+  - process
+  - simulated
+  - wine

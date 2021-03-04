@@ -1,4 +1,4 @@
-#' @name rosa_results
+#' @name rosa_object
 #' @title Result functions for ROSA models
 #'
 #' @aliases predict.rosa rosa.classify coef.rosa print.rosa summary.rosa blockexpl print.rosaexpl
@@ -104,7 +104,7 @@ predict.rosa <- function(object, newdata, ncomp = 1:object$ncomp, comps,
   }
 }
 
-#' @rdname rosa_results
+#' @rdname rosa_object
 #' @export
 coef.rosa <- function(object, ncomp = object$ncomp, comps, intercept = FALSE,
                      ...)
@@ -137,7 +137,7 @@ coef.rosa <- function(object, ncomp = object$ncomp, comps, intercept = FALSE,
   return(B)
 }
 
-#' @rdname rosa_results
+#' @rdname rosa_object
 #' @export
 print.rosa <- function(x, ...) {
      ana <- "Response Orinented Sequential Alternation"
@@ -150,7 +150,7 @@ print.rosa <- function(x, ...) {
   invisible(x)
 }
 
-#' @rdname rosa_results
+#' @rdname rosa_object
 #' @export
 summary.rosa <- function(object, what = c("all", "validation", "training"),
                         digits = 4, print.gap = 2, ...)
@@ -186,7 +186,7 @@ summary.rosa <- function(object, what = c("all", "validation", "training"),
   }
 }
 
-#' @rdname rosa_results
+#' @rdname rosa_object
 #' @export
 blockexpl <- function(object, ncomp = object$ncomp, type = c("train","CV")){
   nblock  <- length(object$X)
@@ -261,7 +261,7 @@ blockexpl <- function(object, ncomp = object$ncomp, type = c("train","CV")){
   res
 }
 
-#' @rdname rosa_results
+#' @rdname rosa_object
 #' @export
 print.rosaexpl <- function(x, digits = 3, compwise = FALSE, ...){
   if(compwise){
@@ -277,7 +277,7 @@ print.rosaexpl <- function(x, digits = 3, compwise = FALSE, ...){
 }
 
 # TODO: S3 object of rosa.classify #' @method pls ER
-#' @rdname rosa_results
+#' @rdname rosa_object
 #' @importFrom MASS lda qda
 #' @export
 rosa.classify <- function(object, classes, newdata, ncomp, LQ){

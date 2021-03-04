@@ -4,12 +4,15 @@ pls::pcr
 #' @export
 pls::plsr
 
+#' @importFrom pls MSEP
 #' @export
 pls::MSEP
 
+#' @importFrom pls R2
 #' @export
 pls::R2
   
+#' @importFrom pls RMSEP
 #' @export
 pls::RMSEP
 
@@ -31,6 +34,7 @@ pls::loadingplot
 #' @export
 pls::loadings
 
+#' @importFrom pls mvrValstats
 #' @export
 pls::mvrValstats
 

@@ -1,10 +1,10 @@
 ---
-title: "Vignette, complex multiblock"
+title: "5. Complex multiblock analysis"
 output: 
   rmarkdown::html_vignette:
     toc: true
 vignette: >
-  %\VignetteIndexEntry{Vignette, complex multiblock}
+  %\VignetteIndexEntry{5. Complex multiblock analysis}
   %\VignetteEncoding{UTF-8}
   %\VignetteEngine{knitr::rmarkdown}
 editor_options: 

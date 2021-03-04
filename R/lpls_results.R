@@ -1,4 +1,4 @@
-#' @name lpls_results
+#' @name lpls_object
 #' @title Result functions for L-PLS objects (\code{lpls})
 #' @aliases plot.lpls predict.lpls lplsCV
 #' 
@@ -106,7 +106,7 @@ plot.lpls <- function(x, comps=c(1,2), doplot=c(TRUE,TRUE,TRUE), level=c(2,2,2),
   }
 }
 
-#' @rdname lpls_results 
+#' @rdname lpls_object 
 #' @export
 predict.lpls <- function(object, X1new = NULL, X2new = NULL, X3new = NULL, exo.direction = c("X2", "X3"), ...){
 
@@ -210,7 +210,7 @@ predict.lpls <- function(object, X1new = NULL, X2new = NULL, X3new = NULL, exo.d
   res
 }
 
-#' @rdname lpls_results 
+#' @rdname lpls_object 
 #' @export
 lplsCV <- function(object, segments1 = NULL, segments2 = NULL, trace = TRUE){
   X1 <- object$data$X1

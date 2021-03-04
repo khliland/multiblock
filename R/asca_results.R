@@ -1,6 +1,6 @@
 #' @title ASCA Result Methods
-#' @name asca_results
-#' @aliases asca_results print.asca summary.asca projections projections.asca print.summary.asca loadings.asca scores.asca scoreplot.asca
+#' @name asca_object
+#' @aliases asca_object print.asca summary.asca projections projections.asca print.summary.asca loadings.asca scores.asca scoreplot.asca
 #' @param object \code{asca} object.
 #' @param x \code{asca} object.
 #' @param factor \code{integer/character} for selecting a model factor.
@@ -24,7 +24,7 @@ print.asca <- function(x, ...){
   invisible(x)
 }
 
-#' @rdname asca_results
+#' @rdname asca_object
 #' @export
 summary.asca <- function(object, ...){
   dat <- data.frame(ss=object$ssq, expl=object$explvar)
@@ -34,7 +34,7 @@ summary.asca <- function(object, ...){
   x
 }
 
-#' @rdname asca_results
+#' @rdname asca_object
 #' @export
 print.summary.asca <- function(x, digits=2, ...){
   cat("Anova Simultaneous Component Analysis fitted using", x$fit.type, "\n")
@@ -42,20 +42,20 @@ print.summary.asca <- function(x, digits=2, ...){
   invisible(x$dat)
 }
 
-#' @rdname asca_results
+#' @rdname asca_object
 #' @export
 loadings.asca <- function(object, factor = 1, ...){
   loads <- object$loadings[[factor]]
   class(loads) <- "loadings"
   return(loads)
 }
-#' @rdname asca_results
+#' @rdname asca_object
 #' @export
 loadingplot.asca <- function(object, factor = 1, comps = 1:2, ...){
   plot(loadings(object=object, factor=factor), comps=comps, ...)
 }
 
-#' @rdname asca_results
+#' @rdname asca_object
 #' @export
 scores.asca <- function(object, factor = 1, ...){
   scors <- object$scores[[factor]]
@@ -63,13 +63,13 @@ scores.asca <- function(object, factor = 1, ...){
   return(scors)
 }
 
-#' @rdname asca_results
+#' @rdname asca_object
 #' @export
 projections <- function (object, ...) {
   UseMethod("projections", object)
 }
 
-#' @rdname asca_results
+#' @rdname asca_object
 #' @export
 projections.asca <- function(object, factor = 1, ...){
   projs <- object$projected[[factor]]
@@ -77,7 +77,7 @@ projections.asca <- function(object, factor = 1, ...){
   return(projs)
 }
 
-#' @rdname asca_results
+#' @rdname asca_object
 #' @export
 scoreplot.asca <- function(object, factor = 1, comps = 1:2, pch.scores = 19, pch.projections = 1, 
                            gr.col = 1:nlevels(object$effects[[factor]]), ellipsoids,
