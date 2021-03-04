@@ -21,7 +21,10 @@ hpca(X, ncomp = 2, scale = FALSE, verbose = FALSE, ...)
 \code{multiblock} object including relevant scores and loadings.
 }
 \description{
-Hierarchical Principal component analysis - HPCA
+HPCA is a hierarchical PCA analysis which combines two or more blocks
+into a two-level decomposition with block-wise loadings and scores and superlevel
+common loadings and scores. The method is closely related to the supervised method MB-PLS
+in structure.
 }
 \examples{
 data(potato)
@@ -34,5 +37,5 @@ plot(scores(pot.hpca), labels="names")
 Westerhuis, J.A., Kourti, T., and MacGregor,J.F. (1998). Analysis of multiblock and hierarchical PCA and PLS models. Journal of Chemometrics, 12, 301–321.
 }
 \seealso{
-Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 }

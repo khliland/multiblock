@@ -24,6 +24,8 @@
 #' @return Returns depend on method used, e.g. \code{predict.sopls} returns predicted responses 
 #' or scores depending on inputs, \code{coef.sopls} return regression coefficients.
 #' 
+#' @description Standard result functions for SO-PLS (\code{\link{sopls}}).
+#' 
 #' @references Jørgensen K, Mevik BH, Næs T. Combining designed experiments with several blocks of spectroscopic data. Chemometr Intell Lab Syst. 2007;88(2): 154–166.
 #'
 #' @examples
@@ -37,7 +39,7 @@
 #' #blockexpl(mod)
 #' #print(blockexpl(mod), compwise=TRUE)
 #' 
-#' @seealso Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+#' @seealso Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 #' @export
 predict.sopls <- function(object, newdata, ncomp = object$ncomp, comps = object$ncomp,
                          type = c("response", "scores"), na.action = na.pass, ...){

@@ -28,7 +28,7 @@
 #' # Score plot for local (2,3) components
 #' plot(scores(pot.po.man,3), comps=1:2, labels="names")
 #' 
-#' @seealso Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+#' @seealso Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 #' @export
 popls <- function(X, Y, commons=2, auto=TRUE, auto.par=list(explVarLim=40, rLim=0.8),
                    manual.par=list(ncomp=rep(0,length(X)), ncommon=list())){

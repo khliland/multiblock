@@ -1,45 +1,44 @@
 #' multiblock
 #'
-#' 
 #' @description 
 #' A collection of methods for analysis of data sets with more than two blocks of data.
 #' 
 #' __Unsupervised methods:__
-#' * SCA - Simultaneous Component Analysis (\code{sca})
-#' * GCA - Generalized Canonical Analysis (\code{gca})
-#' * GPA - Generalized Procrustes Analysis (\code{gpa})
-#' * MFA - Multiple Factor Analysis (\code{mfa})
-#' * PCA-GCA (\code{pcagca})
-#' * DISCO - Distinctive and Common Components with SCA (\code{disco})
-#' * HPCA - Hierarchical Principal component analysis (\code{hpca})
-#' * MCOA - Multiple Co-Inertia Analysis (\code{mcoa})
-#' * JIVE - Joint and Individual Variation Explained (\code{jive})
-#' * STATIS - Structuration des Tableaux à Trois Indices de la Statistique (\code{statis})
-#' * HOGSVD - Higher Order Generalized SVD (\code{hogsvd})
+#' * SCA - Simultaneous Component Analysis (\code{\link{sca}})
+#' * GCA - Generalized Canonical Analysis (\code{\link{gca}})
+#' * GPA - Generalized Procrustes Analysis (\code{\link{gpa}})
+#' * MFA - Multiple Factor Analysis (\code{\link{mfa}})
+#' * PCA-GCA (\code{\link{pcagca}})
+#' * DISCO - Distinctive and Common Components with SCA (\code{\link{disco}})
+#' * HPCA - Hierarchical Principal component analysis (\code{\link{hpca}})
+#' * MCOA - Multiple Co-Inertia Analysis (\code{\link{mcoa}})
+#' * JIVE - Joint and Individual Variation Explained (\code{\link{jive}})
+#' * STATIS - Structuration des Tableaux à Trois Indices de la Statistique (\code{\link{statis}})
+#' * HOGSVD - Higher Order Generalized SVD (\code{\link{hogsvd}})
 #' 
 #' __Design based methods:__
-#' * ASCA - Anova Simultaneous Component Analysis (\code{asca})
+#' * ASCA - Anova Simultaneous Component Analysis (\code{\link{asca}})
 #' 
 #' __Supervised methods:__
-#' * MB-PLS - Multiblock Partial Least Squares (\code{mbpls})
+#' * MB-PLS - Multiblock Partial Least Squares (\code{\link{mbpls}})
 #' * SO-PLS - Sequential and Orthogonalized PLS (\code{\link{sopls}})
-#' * PO-PLS - Parallel and Orthogonalized PLS (\code{popls})
+#' * PO-PLS - Parallel and Orthogonalized PLS (\code{\link{popls}})
 #' * ROSA - Response Oriented Sequential Alternation (\code{\link{rosa}})
-#' * mbRDA - Multiblock Redundancy Analysis (\code{mbrda})
+#' * mbRDA - Multiblock Redundancy Analysis (\code{\link{mbrda}})
 #' 
 #' __Complex methods:__
-#' * L-PLS - Partial Least Squares in L configuration (_lpls_)
-#' * SO-PLS-PM - Sequential and Orthogonalised PLS Path Modeling (_sopls_pm_)
+#' * L-PLS - Partial Least Squares in L configuration (\code{\link{lpls}})
+#' * SO-PLS-PM - Sequential and Orthogonalised PLS Path Modelling (\code{\link{sopls_pm}})
 #'
 #' __Single- and two-block methods:__
-#' * PCA - Principal Component Analysis (\code{pca})  
-#' * PCR - Principal Component Regression (\code{pcr})  
-#' * PLSR - Partial Least Squares Regression (\code{plsr})  
-#' * CCA - Canonical Correlation Analysis (\code{cca})  
-#' * IFA - Interbattery Factor Analysis (\code{ifa})
-#' * GSVD - Generalized SVD (\code{gsvd})
+#' * PCA - Principal Component Analysis (\code{\link{pca}})  
+#' * PCR - Principal Component Regression (\code{\link{pcr}})  
+#' * PLSR - Partial Least Squares Regression (\code{\link{plsr}})  
+#' * CCA - Canonical Correlation Analysis (\code{\link{cca}})  
+#' * IFA - Interbattery Factor Analysis (\code{\link{ifa}})
+#' * GSVD - Generalized SVD (\code{\link{gsvd}})
 #' 
-#' @seealso Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+#' @seealso Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 #' @importFrom graphics abline arrows legend
 #' @importFrom stats coefficients qf
 #' @docType package

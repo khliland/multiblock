@@ -1,6 +1,6 @@
 #' @name asca
 #' @aliases asca
-#' @title Analysis of Variance Simultaneous Component Analysis
+#' @title Analysis of Variance Simultaneous Component Analysis - ASCA
 #'
 #' @param formula Model formula accepting a single response (block) and predictor names separated by + signs.
 #' @param data The data set to analyse.
@@ -13,6 +13,10 @@
 #'
 #' @return An \code{asca} object containing loadings, scores, explained variances, etc.
 #' 
+#' @description ASCA is a method which decomposes a multivariate response according to one or more design
+#' variables. ANOVA is used to split variation into contributions from factors, and PCA is performed
+#' on the corresponding least squares estimates, i.e., $Y = X1 B1 + X2 B2 + ... + E = T1 P1' + T2 P2' + ... + E$.
+#' 
 #' @references 
 #' * Smilde, A., Jansen, J., Hoefsloot, H., Lamers,R., Van Der Greef, J., and Timmerman, M.(2005). ANOVA-Simultaneous Component Analysis (ASCA): A new tool for analyzing designed metabolomics data. Bioinformatics, 21(13), 3043–3048.
 #' * Liland, K.H., Smilde, A., Marini, F., and Næs,T. (2018). Confidence ellipsoids for ASCA models based on multivariate regression theory. Journal of Chemometrics, 32(e2990), 1–13.
@@ -20,7 +24,7 @@
 #'
 #' @importFrom lme4 lmer
 #' @importFrom car ellipse dataEllipse
-#' @seealso Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+#' @seealso Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 #' @examples
 #' # Simulate data set
 #' dataset   <- data.frame(y = I(matrix(rnorm(24*10),ncol=10)), 

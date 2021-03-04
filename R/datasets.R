@@ -114,9 +114,11 @@ NULL
 NULL
 
 #' @name wine
-#' @title ..wine..
+#' @title Wines of Val de Loire
 #'
-#' @description Description
+#' @description This dataset contains sensory assessment of 21 wines. The assessments are grouped
+#' according to the tasting process and thus have a natural ordering with a all blocks pointing forward
+#' to all remaining blocks in the process.
 #'
 #' @docType data
 #' @usage data(wine)
@@ -130,5 +132,5 @@ NULL
 #'   \item{Global quality}{Matrix of sensory assessments}
 #' }
 #' 
-#' @references A good reference .........................
+#' @references Escofier B, Pages L. Analyses Factorielles Simples and Multiples. Paris: Dunod; 1988.
 NULL

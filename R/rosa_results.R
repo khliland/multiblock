@@ -23,6 +23,8 @@
 #' or scores depending on inputs, \code{coef.rosa} return regression coefficients, \code{blockexpl}
 #' returns an object of class \code{rosaexpl} containing block-wise and component-wise explained variance contained in a matrix with attributes.
 #' 
+#' @description Standard result functions for ROSA (\code{\link{rosa}}).
+#' 
 #' @references Liland, K.H., Næs, T., and Indahl, U.G. (2016). ROSA - a fast extension of partial least squares regression for multiblock data analysis. Journal of Chemometrics, 30, 651–662, doi:10.1002/cem.2824.
 #'
 #' @examples
@@ -36,7 +38,7 @@
 #' blockexpl(mod)
 #' print(blockexpl(mod), compwise=TRUE)
 #' 
-#' @seealso Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+#' @seealso Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 #' @export
 predict.rosa <- function(object, newdata, ncomp = 1:object$ncomp, comps,
                          type = c("response", "scores"), na.action = na.pass, ...){

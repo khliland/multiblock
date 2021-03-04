@@ -12,7 +12,7 @@
 #' * GCA - Generalized Canonical Analysis (\code{\link{gca}})
 #' * GPA - Generalized Procrustes Analysis (\code{\link{gpa}})
 #' * MFA - Multiple Factor Analysis (\code{\link{mfa}})
-#' * PCA-GCA (\code{\link{pcagca})
+#' * PCA-GCA (\code{\link{pcagca}})
 #' * DISCO - Distinctive and Common Components with SCA (\code{\link{disco}})
 #' * HPCA - Hierarchical Principal component analysis (\code{\link{hpca}})
 #' * MCOA - Multiple Co-Inertia Analysis (\code{\link{mcoa}})
@@ -35,7 +35,7 @@
 #' candyList <- lapply(1:nlevels(candies$candy),function(x)candies$assessment[candies$candy==x,])
 #' can.statis <- statis(candyList)
 #' plot(can.statis$statis)
-#' @seealso Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+#' @seealso Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 #
 # Include also Penalized Exponential SCA (SLIDE, penalty-based)?????????
 # 
@@ -71,7 +71,7 @@ NULL
 #' pot.sca    <- sca(candyList, samplelinked = FALSE)
 #' pot.sca
 #'
-#' @seealso Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+#' @seealso Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 #' @export
 sca <- function(X, ncomp=2, scale=FALSE, samplelinked = 'auto', ...){
   # SVD/PCA based SVD-P with block-centring (and global scaling)
@@ -155,7 +155,7 @@ sca <- function(X, ncomp=2, scale=FALSE, samplelinked = 'auto', ...){
 #' pot.gca <- gca(potList)
 #' plot(scores(pot.gca), labels="names")
 #'
-#' @seealso Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+#' @seealso Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 #' @export
 gca <- function(X, ncomp=2, svd=TRUE, tol=10^-12, corrs=TRUE, ...){
   if(svd){
@@ -257,7 +257,7 @@ gca.svd <- function(X, tol=10^-12){
 #' pot.gpa    <- gpa(potList)
 #' plot(scores(pot.gpa), labels="names")
 #'
-#' @seealso Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+#' @seealso Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 #' @export
 gpa <- function(X, graph = FALSE, ...){
   Xcat <- as.data.frame(do.call(cbind,X))
@@ -312,7 +312,7 @@ gpa <- function(X, graph = FALSE, ...){
 #'   plot(pot.mfa$MFA)
 #' }
 #'
-#' @seealso Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+#' @seealso Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 #' @export
 mfa <- function(X, type = rep("c", length(X)), graph = FALSE, ...){
   ret <- FactoMineR::MFA(as.data.frame(do.call(cbind,X)), unlist(lapply(X,ncol)), type = type, graph = graph, ...)
@@ -365,7 +365,7 @@ mfa <- function(X, type = rep("c", length(X)), graph = FALSE, ...){
 #' pot.pcagca <- pcagca(potList)
 #' plot(scores(pot.pcagca, block=2), comps=1, labels="names")
 #'
-#' @seealso Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+#' @seealso Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 #' @export
 pcagca <- function(X, commons=2, auto=TRUE, auto.par=list(explVarLim=40, rLim=0.8),
                    manual.par=list(ncomp=0, ncommon=0), tol=10^-12){
@@ -509,7 +509,7 @@ pcagca <- function(X, commons=2, auto=TRUE, auto.par=list(explVarLim=40, rLim=0.
 #' estimation of loadings and scores. The loadings (in variable linked mode) are filled with 
 #' zeros for each iteration in a pattern forcing distinct, local and common components.
 #' When used in sample linked mode and only selecting distinct components, it shares a 
-#' clear resemblance to SO-PLS, only in an unsupervised setting.
+#' resemblance to SO-PLS, only in an unsupervised setting.
 #' 
 #' @references Schouteden, M., Van Deun, K., Wilderjans, T. F., & Van Mechelen, I. (2014). Performing DISCO-SCA to search for distinctive and common information in linked data. Behavior research methods, 46(2), 576-587.
 #' 
@@ -519,7 +519,7 @@ pcagca <- function(X, commons=2, auto=TRUE, auto.par=list(explVarLim=40, rLim=0.
 #' pot.disco  <- disco(potList)
 #' plot(scores(pot.disco), labels="names")
 #'
-#' @seealso Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+#' @seealso Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 #' @export
 disco <- function(X, ncomp = 2, ...){
   ret <- RegularizedSCA::DISCOsca(do.call(cbind,X) , ncomp, unlist(lapply(X,ncol)))
@@ -574,7 +574,7 @@ disco <- function(X, ncomp = 2, ...){
 #' pot.hpca   <- hpca(potList)
 #' plot(scores(pot.hpca), labels="names")
 #'
-#' @seealso Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+#' @seealso Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 #' @export
 hpca <- function(X, ncomp=2, scale=FALSE, verbose=FALSE, ...){
   n_block <- length(X)
@@ -627,7 +627,7 @@ hpca <- function(X, ncomp=2, scale=FALSE, verbose=FALSE, ...){
 #' pot.mcoa   <- mcoa(potList)
 #' plot(scores(pot.mcoa), labels="names")
 #'
-#' @seealso Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+#' @seealso Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 #' @export
 mcoa <- function(X, ncomp=2, scale=FALSE, verbose=FALSE, ...){
   n_block <- length(X)
@@ -676,7 +676,7 @@ mcoa <- function(X, ncomp=2, scale=FALSE, verbose=FALSE, ...){
 #' summary(can.jive)
 #' }
 #' 
-#' @seealso Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+#' @seealso Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 #' @export
 jive <- function(X, ...){
   r.jive::jive(X, ...)
@@ -703,7 +703,7 @@ jive <- function(X, ...){
 #' can.statis <- statis(candyList)
 #' plot(scores(can.statis), labels="names")
 #'
-#' @seealso Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+#' @seealso Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 #' @export
 statis <- function(X, ncomp = 3, scannf = FALSE, tol = 1e-07, ...){
   X_frame  <- as.data.frame(do.call(rbind, X))
@@ -745,7 +745,7 @@ statis <- function(X, ncomp = 3, scannf = FALSE, tol = 1e-07, ...){
 #' can.hogsvd <- hogsvd(candyList)
 #' plot(scores(can.hogsvd, block=1), labels="names")
 #' 
-#' @seealso Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+#' @seealso Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 #' @export
 hogsvd  <- function(X){
   # Assumes equal number of variables

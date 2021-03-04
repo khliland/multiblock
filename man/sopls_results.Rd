@@ -101,7 +101,7 @@ Returns depend on method used, e.g. \code{predict.sopls} returns predicted respo
 or scores depending on inputs, \code{coef.sopls} return regression coefficients.
 }
 \description{
-Result functions for SO-PLS models
+Standard result functions for SO-PLS (\code{\link{sopls}}).
 }
 \examples{
 data(potato)
@@ -119,5 +119,5 @@ summary(mod)
 Jørgensen K, Mevik BH, Næs T. Combining designed experiments with several blocks of spectroscopic data. Chemometr Intell Lab Syst. 2007;88(2): 154–166.
 }
 \seealso{
-Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 }

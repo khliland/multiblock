@@ -51,7 +51,7 @@
 #' X1  <- sim$X1; X2 <- sim$X2; X3 <- sim$X3
 #' lp  <- lpls(X1,X2,X3) # exo-L-PLS
 #' 
-#' @seealso Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+#' @seealso Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 #' @export
 lpls <- function(X1,X2,X3, ncomp = 2, doublecenter = TRUE, scale = c(FALSE,FALSE,FALSE),
                  type = c("exo"), impute = FALSE, niter = 25, subsetX2 = NULL, subsetX3 = NULL,...){

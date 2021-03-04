@@ -19,7 +19,12 @@ mfa(X, type = rep("c", length(X)), graph = FALSE, ...)
 \code{multiblock} object including relevant scores and loadings.
 }
 \description{
-Multiple Factor Analysis - MFA
+MFA is a methods typically used to compare several equally sized matrices. It is
+often used in sensory analyses, where matrices consist of sensory characteristics and products,
+and each assessor generates one matrix each. In its basic form, MFA scales all matrices by their
+largest eigenvalue, concatenates them and performs PCA on the result. There are several
+possibilities for plots and inspections of the model, handling of categorical and continuous
+inputs etc. connected to MFA.
 }
 \examples{
 data(potato)
@@ -34,5 +39,5 @@ if(interactive()){
 Pagès, J. (2005). Collection and analysis of perceived product inter-distances using multiple factor analysis: Application to the study of 10 white wines from the Loire valley. Food Quality and Preference, 16(7), 642–649.
 }
 \seealso{
-Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 }

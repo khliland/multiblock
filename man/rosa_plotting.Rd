@@ -53,7 +53,7 @@ loadingweightplot(object, ...)
 No return.
 }
 \description{
-Various plotting procedures for \code{rosa} objects. \code{image.rosa}
+Various plotting procedures for \code{\link{rosa}} objects. \code{image.rosa}
 makes an image plot of each candidate score's correlation to the winner or the block-wise
 response residual. \code{barplot.rosa} makes barplot of block and component explained variances.
 \code{loadingweightsplot} is an adaptation of \code{pls::loadingplot} to plot loading weights.
@@ -70,5 +70,5 @@ loadingweightplot(mod)
 Liland, K.H., Næs, T., and Indahl, U.G. (2016). ROSA - a fast extension of partial least squares regression for multiblock data analysis. Journal of Chemometrics, 30, 651–662, doi:10.1002/cem.2824.
 }
 \seealso{
-Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 }

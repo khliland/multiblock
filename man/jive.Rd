@@ -15,7 +15,8 @@ jive(X, ...)
 \code{multiblock} object including relevant scores and loadings.
 }
 \description{
-Joint and Individual Variation Explained - JIVE
+Jive performs a decomposition of the variation in two or more blocks into
+low-dimensional representations of individual and joint variation plus residual variation.
 }
 \examples{
 \dontrun{ # Too time consuming
@@ -30,5 +31,5 @@ summary(can.jive)
 Lock, E., Hoadley, K., Marron, J., and Nobel, A. (2013) Joint and individual variation explained (JIVE) for integrated analysis of multiple data types. Ann Appl Stat, 7 (1), 523–542.
 }
 \seealso{
-Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 }

@@ -13,11 +13,13 @@ cca(X)
 \code{multiblock} object with associated with printing, scores, loadings, ...
 }
 \description{
-Canonical Correlation Analysis - CCA
+CCA is a method which maximises correlation between linear combinations of the columns of
+two blocks, i.e., max(cor(X1\*a, X2\*b)). This is done sequentially with deflation in between, such
+that a sequence of correlations and weight vectors a and b are associated with a pair of matrices.
 }
 \references{
 Hotelling, H. (1936) Relations between two sets of variates. Biometrika, 28, 321–377.
 }
 \seealso{
-Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 }

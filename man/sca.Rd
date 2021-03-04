@@ -21,8 +21,11 @@ sca(X, ncomp = 2, scale = FALSE, samplelinked = "auto", ...)
 \code{multiblock} object including relevant scores and loadings.
 }
 \description{
-SCA, in its original variable-linked version, calculates common scores and block-wise
-loadings.
+SCA, in its original variable-linked version, calculates common loadings and block-wise
+scores. There are many possible constraints and specialisations. This implementations uses
+PCA as the backbone, thus resulting in deterministic, ordered components. A parameter controls
+the linking mode, but if left untouched an atempt is made at automatically determining
+variable or sample linking.
 }
 \examples{
 # Object linked data
@@ -42,5 +45,5 @@ pot.sca
 Levin, J. (1966) Simultaneous factor analysis of several gramian matrices. Psychometrika, 31(3), 413–419.
 }
 \seealso{
-Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 }

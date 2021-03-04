@@ -6,8 +6,8 @@
 \description{
 This documentation covers a few complex methods. In particular:
 \itemize{
-\item L-PLS - Partial Least Squares in L configuration (\emph{lpls})
-\item SO-PLS-PM - Sequential and Orthogonalised PLS Path Modeling (\emph{sopls_pm})
+\item L-PLS - Partial Least Squares in L configuration (\code{\link{lpls}})
+\item SO-PLS-PM - Sequential and Orthogonalised PLS Path Modeling (\code{\link{sopls_pm}})
 }
 }
 \examples{
@@ -18,5 +18,5 @@ lp  <- lpls(X1,X2,X3) # exo-L-PLS
 
 }
 \seealso{
-Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 }

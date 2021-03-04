@@ -4,7 +4,20 @@
 \alias{unsupervised}
 \title{Unsupervised Multiblock Methods}
 \description{
-
+Collection of unsupervised multiblock methods:
+\itemize{
+\item SCA - Simultaneous Component Analysis (\code{\link{sca}})
+\item GCA - Generalized Canonical Analysis (\code{\link{gca}})
+\item GPA - Generalized Procrustes Analysis (\code{\link{gpa}})
+\item MFA - Multiple Factor Analysis (\code{\link{mfa}})
+\item PCA-GCA (\code{\link{pcagca}})
+\item DISCO - Distinctive and Common Components with SCA (\code{\link{disco}})
+\item HPCA - Hierarchical Principal component analysis (\code{\link{hpca}})
+\item MCOA - Multiple Co-Inertia Analysis (\code{\link{mcoa}})
+\item JIVE - Joint and Individual Variation Explained (\code{\link{jive}})
+\item STATIS - Structuration des Tableaux à Trois Indices de la Statistique (\code{\link{statis}})
+\item HOGSVD - Higher Order Generalized SVD (\code{\link{hogsvd}})
+}
 }
 \details{
 Original documentation of STATIS: \link[ade4]{statis}.
@@ -23,5 +36,5 @@ can.statis <- statis(candyList)
 plot(can.statis$statis)
 }
 \seealso{
-Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/asca.R
 \name{asca}
 \alias{asca}
-\title{Analysis of Variance Simultaneous Component Analysis}
+\title{Analysis of Variance Simultaneous Component Analysis - ASCA}
 \usage{
 asca(formula, data, subset, weights, na.action, family, pca.in = FALSE)
 }
@@ -25,7 +25,9 @@ asca(formula, data, subset, weights, na.action, family, pca.in = FALSE)
 An \code{asca} object containing loadings, scores, explained variances, etc.
 }
 \description{
-Analysis of Variance Simultaneous Component Analysis
+ASCA is a method which decomposes a multivariate response according to one or more design
+variables. ANOVA is used to split variation into contributions from factors, and PCA is performed
+on the corresponding least squares estimates, i.e., $Y = X1 B1 + X2 B2 + ... + E = T1 P1' + T2 P2' + ... + E$.
 }
 \examples{
 # Simulate data set
@@ -59,5 +61,5 @@ mod <- asca(y~x+(1|z), data=dataset)
 }
 }
 \seealso{
-Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 }

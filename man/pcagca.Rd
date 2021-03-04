@@ -30,7 +30,12 @@ pcagca(
 \code{multiblock} object including relevant scores and loadings.
 }
 \description{
-PCA-GCA
+PCA-GCA is a methods which aims at estimating subspaces of common, local and
+distinct variation from two or more blocks. The name comes from the process of first applying
+PCA to each block, then using GCA to estimate local and common components, and finally
+orthogonalising the block-wise scores on the local/common ones and re-estimating these to
+obtain distinct components. The procedure is highly similar to the supervised method
+PO-PLS, where the PCA steps are exchanged with PLS.
 }
 \examples{
 data(potato)
@@ -43,5 +48,5 @@ plot(scores(pot.pcagca, block=2), comps=1, labels="names")
 Smilde, A., Måge, I., Naes, T., Hankemeier, T.,Lips, M., Kiers, H., Acar, E., and Bro, R.(2017). Common and distinct components in data fusion. Journal of Chemometrics, 31(7), e2900.
 }
 \seealso{
-Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 }

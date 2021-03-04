@@ -7,7 +7,7 @@
 #' 
 #' @param formula Model formula accepting a single response (block) and predictor block names separated by + signs.
 #' @param ncomp Numeric vector of components per block or scalar of overall maximum components.
-#' @param max_comps Maximum total number of components from all blocks combined.
+#' @param max_comps Maximum total number of components from all blocks combined (<= sum(ncomp)).
 #' @param data The data set to analyse.
 #' @param subset Expression for subsetting the data before modelling.
 #' @param na.action How to handle NAs (no action implemented).
@@ -15,12 +15,19 @@
 #' @param validation Optional cross-validation strategy "CV" or "LOO".
 #' @param sequential Logical indicating if optimal components are chosen sequentially or globally.
 #' @param segments Optional number of segments or list of segments for cross-validation. (See \code{[pls::cvsegments()]}).
-#' @param sel.comp Character indicating if sequential optimal number of components shuld be chosen as minimum RMSECV ('opt', default) or by Chi-square test ('chi').
+#' @param sel.comp Character indicating if sequential optimal number of components should be chosen as minimum RMSECV ('opt', default) or by Chi-square test ('chi').
 #' @param progress Logical indicating if a progress bar should be displayed while cross-validating.
 #' @param ... Additional arguments to underlying methods.
 #' 
+#' @description SO-PLS is a method which handles two or more input blocks by sequentially performing
+#' PLS on blocks against a response and orthogonalising the remaining blocks on the extracted components.
+#' Component number optimisation can either be done globally (best combination across blocks) or sequentially
+#' (determine for one block, move to next, etc.).
+#' 
 #' @return An \code{sopls, mvr} object with scores, loadings, etc. 
 #' associated with printing and plotting methods.
+#' 
+#' @description 
 #' 
 #' @references Jørgensen K, Mevik BH, Næs T. Combining designed experiments with several blocks of spectroscopic data. Chemometr Intell Lab Syst. 2007;88(2): 154–166.
 
@@ -29,7 +36,7 @@
 #' so <- sopls(Sensory ~ Chemical + Compression, data=potato, ncomp=c(10,10), 
 #'             max_comps=10, validation="CV", segments=10)
 #' summary(so)
-#' @seealso Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+#' @seealso Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 #' @export
 sopls <- function(formula, ncomp, max_comps = min(sum(ncomp), 20), data, 
                   subset, na.action, scale = FALSE, validation = c("none", "CV", "LOO"), 

@@ -22,13 +22,18 @@ pca(X, scale = FALSE, ncomp = 1, ...)
 \description{
 This documentation covers a range of single- and two-block methods. In particular:
 \itemize{
-\item PCA - Principal Component Analysis (\code{pca})
-\item PCR - Principal Component Regression (\code{pcr})
-\item PLSR - Partial Least Squares Regression (\code{plsr})
-\item CCA - Canonical Correlation Analysis (\code{cca})
-\item IFA - Interbattery Factor Analysis (\code{ifa})
-\item GSVD - Generalized SVD (\code{gsvd})
+\item PCA - Principal Component Analysis (\code{\link{pca}})
+\item PCR - Principal Component Regression (\code{\link{pcr}})
+\item PLSR - Partial Least Squares Regression (\code{\link{plsr}})
+\item CCA - Canonical Correlation Analysis (\code{\link{cca}})
+\item IFA - Interbattery Factor Analysis (\code{\link{ifa}})
+\item GSVD - Generalized SVD (\code{\link{gsvd}})
 }
+
+PCA is method for decomposing a matrix into subspace components with sample scores and
+variable loadings. It can be formulated in various ways, but the standard formulation uses singular
+value decomposition to create scores and loadings. PCA is guaranteed to be the optimal way of extracting
+orthogonal subspaces from a matrix with regard to the amount of explained variance per component.
 }
 \examples{
 data(potato)
@@ -44,20 +49,12 @@ gsvd.pot <- gsvd(lapply(potato[3:4], t))
 
 }
 \references{
-\itemize{
-\item PCA: Pearson, K. (1901) On lines and planes of closest fit to points in space. Philosophical Magazine, 2, 559–572.
-\item PLS: Wold, S., Ruhe, A., Wold, H., and Dunn, W.J. (1984) The collinearity problem in linear regression. the partial least squares (PLS) approach to generalized inverses. SIAM Journal of Scientific and Statistical Computing, 5, 735–743.
-\item CCA: Hotelling, H. (1936) Relations between two sets of variates. Biometrika, 28, 321–377.
-\item IFA: Tucker, L. R. (1958). An inter-battery method of factor analysis. Psychometrika, 23(2), 111-136.
-\item GSVD: Van Loan, C. (1976) Generalizing the singular value decomposition. SIAM Journal on Numerical Analysis, 13, 76–83.
-}
-
 Pearson, K. (1901) On lines and planes of closest fit to points in space. Philosophical Magazine, 2, 559–572.
 }
 \seealso{
-Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 NULL
 Principal Component Analysis - PCA
 
-Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 }

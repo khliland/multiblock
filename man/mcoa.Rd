@@ -21,7 +21,10 @@ mcoa(X, ncomp = 2, scale = FALSE, verbose = FALSE, ...)
 \code{multiblock} object including relevant scores and loadings.
 }
 \description{
-Multiple Co-Inertia Analysis - MCOA
+MCOA resembles GCA and MFA in that it creates a set of reference scores, for which each
+block's individual scores should correlate maximally too, but also the variance within
+each block should be taken into account. A single component solution is equivalent to a
+PCA on concatenated blocks scaled by the so called inverse inertia.
 }
 \examples{
 data(potato)
@@ -37,5 +40,5 @@ plot(scores(pot.mcoa), labels="names")
 }
 }
 \seealso{
-Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 }

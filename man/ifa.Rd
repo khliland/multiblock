@@ -21,11 +21,11 @@ ifa(X, ncomp = 1, scale = FALSE, verbose = FALSE, ...)
 \code{multiblock} object with associated with printing, scores, loadings, ...
 }
 \description{
-Inter-battery Factor Analysis - IFA
+IFA rotates two matrices to align one or more factors against each other, maximising correlations.
 }
 \references{
 Tucker, L. R. (1958). An inter-battery method of factor analysis. Psychometrika, 23(2), 111-136.
 }
 \seealso{
-Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 }

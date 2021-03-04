@@ -2,7 +2,7 @@
 % Please edit documentation in R/rosa.R
 \name{rosa}
 \alias{rosa}
-\title{Response Oriented Sequential Alternation}
+\title{Response Oriented Sequential Alternation - ROSA}
 \usage{
 rosa(
   formula,
@@ -51,13 +51,18 @@ rosa(
 
 \item{canonical}{logical indicating if canonical correlation should be use when calculating loading weights (default), enabling B/W maximization, common components, etc. Alternatively (FALSE) a PLS2 strategy, e.g. for spectra response, is used.}
 
-\item{...}{Additonal arguments for \code{cvseg} or \code{rosa.fit}}
+\item{...}{Additional arguments for \code{cvseg} or \code{rosa.fit}}
 }
 \value{
 An object of classes \code{rosa} and \code{mvr} having several associated printing and plotting methods.
 }
 \description{
-Response Oriented Sequential Alternation
+ROSA is an opportunistic method sequentially selecting components from whichever block explains
+the response most effectively. It can be formulated as a PLS model on concatenated input block with block
+selection per component. This implementation add several options that are not described in the literature.
+Most importantly, it opens for internal validation in the block selection process, making this more
+robust. In addition it handles design blocks explicitly, enables classification and secondary responses (CPLS),
+and definition of common components.
 }
 \examples{
 data(potato)
@@ -68,5 +73,5 @@ summary(mod)
 Liland, K.H., Næs, T., and Indahl, U.G. (2016). ROSA - a fast extension of partial least squares regression for multiblock data analysis. Journal of Chemometrics, 30, 651–662, doi:10.1002/cem.2824.
 }
 \seealso{
-Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 }

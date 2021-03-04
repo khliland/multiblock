@@ -21,7 +21,9 @@ statis(X, ncomp = 3, scannf = FALSE, tol = 1e-07, ...)
 \code{multiblock} object including relevant scores and loadings.
 }
 \description{
-Structuration des Tableaux à Trois Indices de la Statistique - STATIS
+STATIS is a method, related to MFA, for analysing two or more blocks. It also
+decomposes the data into a low-dimensional subspace but uses a different scaling of the
+individual blocks.
 }
 \examples{
 data(candies)
@@ -34,5 +36,5 @@ plot(scores(can.statis), labels="names")
 Lavit, C.; Escoufier, Y.; Sabatier, R.; Traissac, P. (1994). The ACT (STATIS method). Computational Statistics & Data Analysis. 18: 97
 }
 \seealso{
-Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 }

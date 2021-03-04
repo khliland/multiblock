@@ -1,8 +1,8 @@
 ---
 title: "Vignette, complex multiblock"
 output: 
-  pdf_document: 
-    keep_tex: true
+  rmarkdown::html_vignette:
+    toc: true
 vignette: >
   %\VignetteIndexEntry{Vignette, complex multiblock}
   %\VignetteEncoding{UTF-8}

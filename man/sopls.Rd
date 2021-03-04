@@ -25,7 +25,7 @@ sopls(
 
 \item{ncomp}{Numeric vector of components per block or scalar of overall maximum components.}
 
-\item{max_comps}{Maximum total number of components from all blocks combined.}
+\item{max_comps}{Maximum total number of components from all blocks combined (<= sum(ncomp)).}
 
 \item{data}{The data set to analyse.}
 
@@ -41,7 +41,7 @@ sopls(
 
 \item{segments}{Optional number of segments or list of segments for cross-validation. (See \code{[pls::cvsegments()]}).}
 
-\item{sel.comp}{Character indicating if sequential optimal number of components shuld be chosen as minimum RMSECV ('opt', default) or by Chi-square test ('chi').}
+\item{sel.comp}{Character indicating if sequential optimal number of components should be chosen as minimum RMSECV ('opt', default) or by Chi-square test ('chi').}
 
 \item{progress}{Logical indicating if a progress bar should be displayed while cross-validating.}
 
@@ -52,7 +52,12 @@ An \code{sopls, mvr} object with scores, loadings, etc.
 associated with printing and plotting methods.
 }
 \description{
-Sequential and Orthogonalized PLS (SO-PLS)
+SO-PLS is a method which handles two or more input blocks by sequentially performing
+PLS on blocks against a response and orthogonalising the remaining blocks on the extracted components.
+Component number optimisation can either be done globally (best combination across blocks) or sequentially
+(determine for one block, move to next, etc.).
+
+
 }
 \examples{
 data(potato)
@@ -64,5 +69,5 @@ summary(so)
 Jørgensen K, Mevik BH, Næs T. Combining designed experiments with several blocks of spectroscopic data. Chemometr Intell Lab Syst. 2007;88(2): 154–166.
 }
 \seealso{
-Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 }

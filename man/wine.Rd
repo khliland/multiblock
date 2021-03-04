@@ -3,7 +3,7 @@
 \docType{data}
 \name{wine}
 \alias{wine}
-\title{..wine..}
+\title{Wines of Val de Loire}
 \format{
 A data.frame having 21 rows and 5 variables:
 \describe{
@@ -18,8 +18,10 @@ A data.frame having 21 rows and 5 variables:
 data(wine)
 }
 \description{
-Description
+This dataset contains sensory assessment of 21 wines. The assessments are grouped
+according to the tasting process and thus have a natural ordering with a all blocks pointing forward
+to all remaining blocks in the process.
 }
 \references{
-A good reference .........................
+Escofier B, Pages L. Analyses Factorielles Simples and Multiples. Paris: Dunod; 1988.
 }

@@ -11,7 +11,7 @@
 #' @importFrom RGCCA rgcca
 #' @importFrom ade4 mbpcaiv ktab.list.df dudi.pca
 #' 
-#' @seealso Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+#' @seealso Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 #'  
 #' @examples
 #' data(potato)
@@ -53,7 +53,7 @@ NULL
 #' mb <- mbpls(potato[c('Chemical','Compression')], potato[['Sensory']], ncomp = 5)
 #' print(mb)
 #' scoreplot(mb, labels="names") # Exploiting mvr object structure from pls package
-#' @seealso Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+#' @seealso Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 #' @export
 mbpls <- function(X, Y, ncomp=1, scale=FALSE, ...){
   # TODO: Extend with various block norms
@@ -119,7 +119,7 @@ mbpls <- function(X, Y, ncomp=1, scale=FALSE, ...){
 #' mbr <- mbrda(potatoList[c('Chemical','Compression')], potatoList[['Sensory']], ncomp = 10)
 #' print(mbr)
 #' scoreplot(mbr) # Exploiting mvr object structure from pls package
-#' @seealso Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+#' @seealso Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 #' @export
 mbrda <- function(X, Y, ncomp=1, ...){
   # MBRedundancyAnalysis

@@ -17,7 +17,11 @@ disco(X, ncomp = 2, ...)
 \code{multiblock} object including relevant scores and loadings.
 }
 \description{
-Distinctive and Common Components with SCA - DISCO
+DISCO is a restriction of SCA where Alternating Least Squares is used for
+estimation of loadings and scores. The loadings (in variable linked mode) are filled with
+zeros for each iteration in a pattern forcing distinct, local and common components.
+When used in sample linked mode and only selecting distinct components, it shares a
+resemblance to SO-PLS, only in an unsupervised setting.
 }
 \examples{
 data(potato)
@@ -30,5 +34,5 @@ plot(scores(pot.disco), labels="names")
 Schouteden, M., Van Deun, K., Wilderjans, T. F., & Van Mechelen, I. (2014). Performing DISCO-SCA to search for distinctive and common information in linked data. Behavior research methods, 46(2), 576-587.
 }
 \seealso{
-Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 }

@@ -62,7 +62,8 @@ maageSeq(
 \item{col.block}{Line colours for blocks (default = c('red','blue','darkgreen','purple','black'))}
 }
 \description{
-Måge plot
+Måge plot for SO-PLS (\code{\link{sopls}}) cross-validation visualisation. This can either be used
+for global optimisation across blocks or sequential optimisation, using \code{maageSeq}.
 }
 \examples{
 data(wine)
@@ -80,5 +81,5 @@ maageSeq(so.wine, c(2,1,1))
 par(old.par)
 }
 \seealso{
-Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 }

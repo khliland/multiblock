@@ -2,7 +2,7 @@
 % Please edit documentation in R/basic.R
 \name{gsvd}
 \alias{gsvd}
-\title{Generalised Singular Value Decomposition}
+\title{Generalised Singular Value Decomposition - GSVD}
 \usage{
 gsvd(X)
 }
@@ -13,11 +13,12 @@ gsvd(X)
 \code{multiblock} object with associated with printing, scores, loadings, ...
 }
 \description{
-Generalised Singular Value Decomposition
+GSVD is a generalisation of SVD to two variable-linked matrices where common loadings
+and block-wise scores are estimated.
 }
 \references{
 Van Loan, C. (1976) Generalizing the singular value decomposition. SIAM Journal on Numerical Analysis, 13, 76–83.
 }
 \seealso{
-Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 }

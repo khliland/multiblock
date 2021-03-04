@@ -1,7 +1,7 @@
 #' @name rosa_plotting
 #' @title Plotting functions for ROSA models
 #' 
-#' @description Various plotting procedures for \code{rosa} objects. \code{image.rosa}
+#' @description Various plotting procedures for \code{\link{rosa}} objects. \code{image.rosa}
 #' makes an image plot of each candidate score's correlation to the winner or the block-wise
 #' response residual. \code{barplot.rosa} makes barplot of block and component explained variances.
 #' \code{loadingweightsplot} is an adaptation of \code{pls::loadingplot} to plot loading weights.
@@ -30,7 +30,7 @@
 #' barplot(mod)
 #' loadingweightplot(mod)
 #' 
-#' @seealso Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+#' @seealso Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 #' @export
 image.rosa <- function(x, type = c("correlation","residual","order"), ncomp = x$ncomp,
                        col = mcolors(128), legend = TRUE, mar = c(5,6,4,7), las = 1, ...){

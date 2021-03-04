@@ -58,7 +58,7 @@
 #' # Three-fold CV, horizontal
 #' lp.cv3 <- lplsCV(lp.exo, segments1 = as.list(1:10, 11:20, 21:30))
 #' 
-#' @seealso Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+#' @seealso Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 #' @export
 plot.lpls <- function(x, comps=c(1,2), doplot=c(TRUE,TRUE,TRUE), level=c(2,2,2),
                       arrow=c(1,0,1), xlim=c(-1,1), ylim=c(-1,1), samplecol=4, pathcol=2, varcol="grey70",

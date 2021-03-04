@@ -2,8 +2,8 @@ Encoding: UTF-8
 Package: multiblock
 Type: Package
 Title: Multiblock data analysis
-Version: 0.5.1
-Date: 2020-12-29
+Version: 0.6.0
+Date: 2021-03-03
 Author: Kristian Hovde Liland
 Maintainer: Kristian Hovde Liland <kristian.liland@nmbu.no>
 Description: Analysis of multiple blocks of data, e.g. where the same samples have been measured using various instruments or conditions.

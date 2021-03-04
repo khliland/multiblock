@@ -1,23 +1,16 @@
 #' @name basic
 #' @title Single- and Two-Block Methods
 #' @description This documentation covers a range of single- and two-block methods. In particular:
-#' * PCA - Principal Component Analysis (\code{pca})  
-#' * PCR - Principal Component Regression (\code{pcr})  
-#' * PLSR - Partial Least Squares Regression (\code{plsr})  
-#' * CCA - Canonical Correlation Analysis (\code{cca})  
-#' * IFA - Interbattery Factor Analysis (\code{ifa})
-#' * GSVD - Generalized SVD (\code{gsvd})
+#' * PCA - Principal Component Analysis (\code{\link{pca}})  
+#' * PCR - Principal Component Regression (\code{\link{pcr}})  
+#' * PLSR - Partial Least Squares Regression (\code{\link{plsr}})  
+#' * CCA - Canonical Correlation Analysis (\code{\link{cca}})  
+#' * IFA - Interbattery Factor Analysis (\code{\link{ifa}})
+#' * GSVD - Generalized SVD (\code{\link{gsvd}})
 #' 
 #' @importFrom pls pcr plsr
 #' @importFrom geigen gsvd
 #' @rdname basic 
-#' 
-#' @references 
-#' * PCA: Pearson, K. (1901) On lines and planes of closest fit to points in space. Philosophical Magazine, 2, 559–572.
-#' * PLS: Wold, S., Ruhe, A., Wold, H., and Dunn, W.J. (1984) The collinearity problem in linear regression. the partial least squares (PLS) approach to generalized inverses. SIAM Journal of Scientific and Statistical Computing, 5, 735–743.
-#' * CCA: Hotelling, H. (1936) Relations between two sets of variates. Biometrika, 28, 321–377.
-#' * IFA: Tucker, L. R. (1958). An inter-battery method of factor analysis. Psychometrika, 23(2), 111-136.
-#' * GSVD: Van Loan, C. (1976) Generalizing the singular value decomposition. SIAM Journal on Numerical Analysis, 13, 76–83.
 #' 
 #' @examples 
 #' data(potato)
@@ -31,7 +24,7 @@
 #' ifa.pot  <- ifa(potato[1:2])
 #' gsvd.pot <- gsvd(lapply(potato[3:4], t))
 #' 
-#' @seealso Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+#' @seealso Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 #' NULL
 
 #' Principal Component Analysis - PCA
@@ -39,10 +32,15 @@
 #' @param scale \code{logical} indicating if variables should be standardised (default=FALSE).
 #' @param ncomp \code{integer} number of principal components to return.
 #' @param ... additional arguments to \code{pls:pcr}.
+#' 
+#' @description PCA is method for decomposing a matrix into subspace components with sample scores and
+#' variable loadings. It can be formulated in various ways, but the standard formulation uses singular
+#' value decomposition to create scores and loadings. PCA is guaranteed to be the optimal way of extracting
+#' orthogonal subspaces from a matrix with regard to the amount of explained variance per component.
 #'
 #' @return \code{multiblock} object with scores, loadings, mean X values and explained variances.
 #' @references Pearson, K. (1901) On lines and planes of closest fit to points in space. Philosophical Magazine, 2, 559–572.
-#' @seealso Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+#' @seealso Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 #' @export
 pca <- function(X, scale=FALSE, ncomp=1, ...){
   X <- as.matrix(unclass(X))
@@ -62,9 +60,12 @@ pca <- function(X, scale=FALSE, ncomp=1, ...){
 #' Canonical Correlation Analysis - CCA
 #' @param X \code{matrix} of input data.
 #' @return \code{multiblock} object with associated with printing, scores, loadings, ...
+#' @description CCA is a method which maximises correlation between linear combinations of the columns of 
+#' two blocks, i.e., max(cor(X1\*a, X2\*b)). This is done sequentially with deflation in between, such
+#' that a sequence of correlations and weight vectors a and b are associated with a pair of matrices.
 #' @importFrom stats cancor
 #' @references Hotelling, H. (1936) Relations between two sets of variates. Biometrika, 28, 321–377.
-#' @seealso Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+#' @seealso Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 #' @export
 cca <- function(X){
   cc <- cancor(X[[1]], X[[2]])
@@ -90,8 +91,9 @@ cca <- function(X){
 #' @param ... additional arguments to \code{pls:pcr}.
 #'
 #' @return \code{multiblock} object with associated with printing, scores, loadings, ...
+#' @description IFA rotates two matrices to align one or more factors against each other, maximising correlations.
 #' @references Tucker, L. R. (1958). An inter-battery method of factor analysis. Psychometrika, 23(2), 111-136.
-#' @seealso Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+#' @seealso Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 #' @export
 ifa <- function(X, ncomp=1, scale=FALSE, verbose=FALSE, ...){
   # InterbatteryFactorAnalysis
@@ -114,12 +116,14 @@ ifa <- function(X, ncomp=1, scale=FALSE, verbose=FALSE, ...){
 }
 
 
-#' Generalised Singular Value Decomposition
+#' Generalised Singular Value Decomposition - GSVD
 #' @param X \code{matrix} of input data.
 #' @return \code{multiblock} object with associated with printing, scores, loadings, ...
+#' @description GSVD is a generalisation of SVD to two variable-linked matrices where common loadings 
+#' and block-wise scores are estimated.
 #' @importFrom stats cancor
 #' @references Van Loan, C. (1976) Generalizing the singular value decomposition. SIAM Journal on Numerical Analysis, 13, 76–83.
-#' @seealso Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+#' @seealso Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 #' @export
 gsvd  <- function(X){
   res <- geigen::gsvd(as.matrix(X[[1]]), as.matrix(X[[2]]))

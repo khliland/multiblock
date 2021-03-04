@@ -1,8 +1,8 @@
 ---
 title: "Vignette, supervised multiblock"
 output: 
-  pdf_document: 
-    keep_tex: yes
+  rmarkdown::html_vignette:
+    toc: true
 vignette: >
   %\VignetteIndexEntry{Vignette, supervised multiblock}
   %\VignetteEncoding{UTF-8}

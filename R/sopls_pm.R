@@ -40,7 +40,7 @@
 #' data(wine)
 #' pot.pm.multiple <- sopls_pm_multiple(wine, comps = c(4,2,9,8))
 #' pot.pm.multiple
-#' @seealso Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+#' @seealso Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 #' @export
 sopls_pm <- function(X, Y, comps, max_comps = min(sum(comps), 20), sel.comp = "opt", computeAdditional = FALSE, sequential = FALSE, B = NULL, k = 10, type = "consecutive"){#validation = "LOO", ...){
   Y <- as.matrix(Y)
@@ -172,8 +172,8 @@ sopls_pm <- function(X, Y, comps, max_comps = min(sum(comps), 20), sel.comp = "o
     comp_direct <- which.max(r2)-1
   }
   direct_ind <- r2_ind[, comp_direct+1] * rescale
-  direct <- min(total, direct)
-  direct_ind <- pmin(total_ind, direct_ind)
+  direct <- max(min(total, direct),0)
+  direct_ind <- pmax(pmin(total_ind, direct_ind),0)
   
   # Bootstrap direct effect
   if(!is.null(B)){

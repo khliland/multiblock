@@ -13,7 +13,8 @@ hogsvd(X)
 \code{multiblock} object including relevant scores and loadings.
 }
 \description{
-Higher Order Generalized SVD - HOGSVD
+HOGSVD is a generalisation of SVD to two or more blocks. It finds a common set
+of loadings across blocks and individual sets of scores per block.
 }
 \examples{
 data(candies)
@@ -26,5 +27,5 @@ plot(scores(can.hogsvd, block=1), labels="names")
 Ponnapalli, S. P., Saunders, M. A., Van Loan, C. F., & Alter, O. (2011). A higher-order generalized singular value decomposition for comparison of global mRNA expression from multiple organisms. PloS one, 6(12), e28072.
 }
 \seealso{
-Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 }

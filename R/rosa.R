@@ -1,5 +1,5 @@
 #' @name rosa
-#' @title Response Oriented Sequential Alternation
+#' @title Response Oriented Sequential Alternation - ROSA
 #'
 #' @param formula Model formula accepting a single response (block) and predictor block names separated by + signs.
 #' @param ncomp The maximum number of ROSA components.
@@ -15,9 +15,17 @@
 #' @param fixed.block integer vector with block numbers for each component (0 = not fixed) or list of length <= ncomp (element length 0 = not fixed).
 #' @param design.block integer vector containing block numbers of design blocks
 #' @param canonical logical indicating if canonical correlation should be use when calculating loading weights (default), enabling B/W maximization, common components, etc. Alternatively (FALSE) a PLS2 strategy, e.g. for spectra response, is used.
-#' @param ... Additonal arguments for \code{cvseg} or \code{rosa.fit}
+#' @param ... Additional arguments for \code{cvseg} or \code{rosa.fit}
 #'
 #' @return An object of classes \code{rosa} and \code{mvr} having several associated printing and plotting methods.
+#' 
+#' @description ROSA is an opportunistic method sequentially selecting components from whichever block explains
+#' the response most effectively. It can be formulated as a PLS model on concatenated input block with block
+#' selection per component. This implementation add several options that are not described in the literature.
+#' Most importantly, it opens for internal validation in the block selection process, making this more 
+#' robust. In addition it handles design blocks explicitly, enables classification and secondary responses (CPLS),
+#' and definition of common components.
+#' 
 #' @importFrom pracma mrdivide Rank
 #' @importFrom RSpectra svds
 #' @importFrom pls coefplot corrplot cvsegments loadingplot loading.weights loadings predplot scores scoreplot RMSEP validationplot R2 MSEP mvrValstats
@@ -31,7 +39,7 @@
 #' data(potato)
 #' mod <- rosa(Sensory[,1] ~ ., data = potato, ncomp = 10, validation = "CV", segments = 5)
 #' summary(mod)
-#' @seealso Overviews of available methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+#' @seealso Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 #' @export
 rosa <- function(formula, ncomp, Y.add, common.comp = 1, data,
                  subset, na.action, scale = FALSE, weights = NULL,
