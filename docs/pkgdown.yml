@@ -1,0 +1,11 @@
+pandoc: 2.11.2
+pkgdown: 1.6.1
+pkgdown_sha: ~
+articles:
+  vignette_asca: vignette_asca.html
+  vignette_basic: vignette_basic.html
+  vignette_complex: vignette_complex.html
+  vignette_supervised: vignette_supervised.html
+  vignette_unsupervised: vignette_unsupervised.html
+last_built: 2021-03-04T20:16Z
+
