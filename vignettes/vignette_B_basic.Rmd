@@ -1,10 +1,10 @@
 ---
-title: "1. Basic analysis"
+title: "B. Basic analysis"
 output: 
   rmarkdown::html_vignette:
     toc: true
 vignette: >
-  %\VignetteIndexEntry{1. Basic analysis}
+  %\VignetteIndexEntry{B. Basic analysis}
   %\VignetteEncoding{UTF-8}
   %\VignetteEngine{knitr::rmarkdown}
 editor_options: 
@@ -48,7 +48,7 @@ The following sections will describe how to format your data for analysis and in
 ## Prepare data
 
 We use a selection of extracts from the potato data included in the package for the basic data analyses. The
-data set is stored as a named list of matrices with chemical, rheological, spectral and sensory measurements.
+data set is stored as a named list of nine matrices with chemical, rheological, spectral and sensory measurements with measurements from 26 raw and cooked potatoes.
 
 ```{r}
 data(potato)
@@ -80,10 +80,10 @@ pot.gsvd <- gsvd(lapply(potato[3:4], t))
 
 ## Common output elements across methods
 
-Output from all methods include slots called _loadings_, _scores_, _blockLoadings_
-and _blockScores_, or a suitable subset of these. An _info_ slot describes which
+Output from all methods include matrices called _loadings_, _scores_, _blockLoadings_
+and _blockScores_, or a suitable subset of these according the method used. An _info_ list describes which
 types of (block) loadings/scores are in the output. There may be various extra
-elements in addition to the common elements, e.g. coefficients, weights etc.
+elements in addition to the common elements, e.g. coefficients, weights etc. The _names()_ and _summary()_ functions below show all elements of the object and a summary based on the _info_ list, respectively.
 
 ```{r}
 # PCA returns loadings and scores:
@@ -99,17 +99,17 @@ summary(pot.gsvd)
 Functions for accessing scores and loadings are based on functions
 from the _pls_ package, but extended with a _block_ parameter to
 allow extraction of common/global scores/loadings and their block
-counterparts. The default block is 0, corresponding to the common/global
-block. Block scores/loadings can be accessed by number or name.
+counterparts. The default value for _block_ is 0, corresponding to the common/global
+block. Block scores/loadings can be accessed by setting _block_ to a number or name.
 
 ```{r}
 # Global scores plotted with object labels
-plot(scores(pot.pca), labels = "names")
+scoreplot(pot.pca, labels = "names")
 ```
 
 ```{r}
 # Block loadings for Chemical block with variable labels in scatter format
-plot(loadings(pot.cca, "Chemical"), labels = "names", scatter = TRUE)
+loadingplot(pot.cca, block = "Chemical", labels = "names")
 ```
 
 

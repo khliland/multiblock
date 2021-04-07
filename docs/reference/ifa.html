@@ -95,19 +95,22 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/vignette_asca.html">3. ASCA</a>
+      <a href="../articles/vignette_A_data.html">A. Data handling</a>
     </li>
     <li>
-      <a href="../articles/vignette_basic.html">1. Basic analysis</a>
+      <a href="../articles/vignette_B_basic.html">B. Basic analysis</a>
     </li>
     <li>
-      <a href="../articles/vignette_complex.html">5. Complex multiblock analysis</a>
+      <a href="../articles/vignette_C_unsupervised.html">C. Unsupervised multiblock analysis</a>
     </li>
     <li>
-      <a href="../articles/vignette_supervised.html">4. Supervised multiblock analysis</a>
+      <a href="../articles/vignette_D_asca.html">D. ASCA</a>
     </li>
     <li>
-      <a href="../articles/vignette_unsupervised.html">2. Unsupervised multiblock analysis</a>
+      <a href="../articles/vignette_E_supervised.html">E. Supervised multiblock analysis</a>
+    </li>
+    <li>
+      <a href="../articles/vignette_F_complex.html">F. Complex multiblock analysis</a>
     </li>
   </ul>
 </li>
@@ -148,7 +151,7 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>X</th>
-      <td><p><code>matrix</code> of input data.</p></td>
+      <td><p><code>list</code> of input data blocks.</p></td>
     </tr>
     <tr>
       <th>ncomp</th>
@@ -178,6 +181,12 @@
 
     <div class='dont-index'><p>Overviews of available methods, <code><a href='multiblock.html'>multiblock</a></code>, and methods organised by main structure: <code><a href='basic.html'>basic</a></code>, <code><a href='unsupervised.html'>unsupervised</a></code>, <code><a href='asca.html'>asca</a></code>, <code><a href='supervised.html'>supervised</a></code> and <code><a href='complex.html'>complex</a></code>.</p></div>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>potato</span><span class='op'>)</span>
+<span class='va'>X</span> <span class='op'>&lt;-</span> <span class='va'>potato</span><span class='op'>$</span><span class='va'>Chemical</span>
+
+<span class='va'>ifa.pot</span>  <span class='op'>&lt;-</span> <span class='fu'>ifa</span><span class='op'>(</span><span class='va'>potato</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span><span class='op'>]</span><span class='op'>)</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

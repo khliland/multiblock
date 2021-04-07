@@ -42,7 +42,7 @@
 <meta property="og:title" content="Analysis of Variance Simultaneous Component Analysis - ASCA — asca" />
 <meta property="og:description" content="ASCA is a method which decomposes a multivariate response according to one or more design
 variables. ANOVA is used to split variation into contributions from factors, and PCA is performed
-on the corresponding least squares estimates, i.e., $Y = X1 B1 + X2 B2 + ... + E = T1 P1' + T2 P2' + ... + E$." />
+on the corresponding least squares estimates, i.e., Y = X1 B1 + X2 B2 + ... + E = T1 P1' + T2 P2' + ... + E." />
 
 
 
@@ -97,19 +97,22 @@ on the corresponding least squares estimates, i.e., $Y = X1 B1 + X2 B2 + ... + E
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/vignette_asca.html">3. ASCA</a>
+      <a href="../articles/vignette_A_data.html">A. Data handling</a>
     </li>
     <li>
-      <a href="../articles/vignette_basic.html">1. Basic analysis</a>
+      <a href="../articles/vignette_B_basic.html">B. Basic analysis</a>
     </li>
     <li>
-      <a href="../articles/vignette_complex.html">5. Complex multiblock analysis</a>
+      <a href="../articles/vignette_C_unsupervised.html">C. Unsupervised multiblock analysis</a>
     </li>
     <li>
-      <a href="../articles/vignette_supervised.html">4. Supervised multiblock analysis</a>
+      <a href="../articles/vignette_D_asca.html">D. ASCA</a>
     </li>
     <li>
-      <a href="../articles/vignette_unsupervised.html">2. Unsupervised multiblock analysis</a>
+      <a href="../articles/vignette_E_supervised.html">E. Supervised multiblock analysis</a>
+    </li>
+    <li>
+      <a href="../articles/vignette_F_complex.html">F. Complex multiblock analysis</a>
     </li>
   </ul>
 </li>
@@ -142,7 +145,7 @@ on the corresponding least squares estimates, i.e., $Y = X1 B1 + X2 B2 + ... + E
     <div class="ref-description">
     <p>ASCA is a method which decomposes a multivariate response according to one or more design
 variables. ANOVA is used to split variation into contributions from factors, and PCA is performed
-on the corresponding least squares estimates, i.e., $Y = X1 B1 + X2 B2 + ... + E = T1 P1' + T2 P2' + ... + E$.</p>
+on the corresponding least squares estimates, i.e., <code>Y = X1 B1 + X2 B2 + ... + E = T1 P1' + T2 P2' + ... + E</code>.</p>
     </div>
 
     <pre class="usage"><span class='fu'>asca</span><span class='op'>(</span><span class='va'>formula</span>, <span class='va'>data</span>, <span class='va'>subset</span>, <span class='va'>weights</span>, <span class='va'>na.action</span>, <span class='va'>family</span>, pca.in <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
@@ -197,30 +200,32 @@ on the corresponding least squares estimates, i.e., $Y = X1 B1 + X2 B2 + ... + E
     <div class='dont-index'><p>Overviews of available methods, <code><a href='multiblock.html'>multiblock</a></code>, and methods organised by main structure: <code><a href='basic.html'>basic</a></code>, <code><a href='unsupervised.html'>unsupervised</a></code>, <code>asca</code>, <code><a href='supervised.html'>supervised</a></code> and <code><a href='complex.html'>complex</a></code>.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># Simulate data set</span>
-<span class='va'>dataset</span>   <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/AsIs.html'>I</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>24</span><span class='op'>*</span><span class='fl'>10</span><span class='op'>)</span>,ncol<span class='op'>=</span><span class='fl'>10</span><span class='op'>)</span><span class='op'>)</span>, 
-                        x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>2</span>,<span class='fl'>8</span><span class='op'>)</span>,<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>8</span><span class='op'>)</span>,<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>8</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>, 
-                        z <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>0</span><span class='op'>)</span>,<span class='fl'>12</span><span class='op'>)</span><span class='op'>)</span>, 
-                        w <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>24</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span><span class='op'>(</span><span class='va'>dataset</span><span class='op'>$</span><span class='va'>y</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='st'>'Var'</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, sep<span class='op'>=</span><span class='st'>" "</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span><span class='op'>(</span><span class='va'>dataset</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='st'>'Obj'</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>24</span>, sep<span class='op'>=</span><span class='st'>" "</span><span class='op'>)</span>
+    <pre class="examples"><div class='input'><span class='co'># Load candies data</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>candies</span><span class='op'>)</span>
 
 <span class='co'># Basic ASCA model with two factors</span>
-<span class='va'>mod</span> <span class='op'>&lt;-</span> <span class='fu'>asca</span><span class='op'>(</span><span class='va'>y</span><span class='op'>~</span><span class='va'>x</span><span class='op'>+</span><span class='va'>z</span>, data<span class='op'>=</span><span class='va'>dataset</span><span class='op'>)</span>
+<span class='va'>mod</span> <span class='op'>&lt;-</span> <span class='fu'>asca</span><span class='op'>(</span><span class='va'>assessment</span> <span class='op'>~</span> <span class='va'>candy</span> <span class='op'>+</span> <span class='va'>assessor</span>, data<span class='op'>=</span><span class='va'>candies</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>mod</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Anova Simultaneous Component Analysis fitted using 'lm' (Linear Model)
 #&gt; Call:
-#&gt; asca(formula = y ~ x + z, data = dataset)</div><div class='input'>
+#&gt; asca(formula = assessment ~ candy + assessor, data = candies)</div><div class='input'>
+<span class='co'># ASCA model with interaction</span>
+<span class='va'>mod</span> <span class='op'>&lt;-</span> <span class='fu'>asca</span><span class='op'>(</span><span class='va'>assessment</span> <span class='op'>~</span> <span class='va'>candy</span> <span class='op'>*</span> <span class='va'>assessor</span>, data<span class='op'>=</span><span class='va'>candies</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>mod</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Anova Simultaneous Component Analysis fitted using 'lm' (Linear Model)
+#&gt; Call:
+#&gt; asca(formula = assessment ~ candy * assessor, data = candies)</div><div class='input'>
 <span class='co'># Result plotting for first factor</span>
-<span class='fu'><a href='https://rdrr.io/pkg/pls/man/scoreplot.html'>loadingplot</a></span><span class='op'>(</span><span class='va'>mod</span>, scatter<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/pkg/pls/man/scoreplot.html'>loadingplot</a></span><span class='op'>(</span><span class='va'>mod</span>, scatter<span class='op'>=</span><span class='cn'>TRUE</span>, labels<span class='op'>=</span><span class='st'>"names"</span><span class='op'>)</span>
 </div><div class='img'><img src='asca-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/pls/man/scoreplot.html'>scoreplot</a></span><span class='op'>(</span><span class='va'>mod</span><span class='op'>)</span>
 </div><div class='img'><img src='asca-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># ASCA model with compressed response using 5 principal components</span>
-<span class='va'>mod.pca</span> <span class='op'>&lt;-</span> <span class='fu'>asca</span><span class='op'>(</span><span class='va'>y</span><span class='op'>~</span><span class='va'>x</span><span class='op'>+</span><span class='va'>z</span>, data<span class='op'>=</span><span class='va'>dataset</span>, pca.in<span class='op'>=</span><span class='fl'>5</span><span class='op'>)</span>
+<span class='va'>mod.pca</span> <span class='op'>&lt;-</span> <span class='fu'>asca</span><span class='op'>(</span><span class='va'>assessment</span> <span class='op'>~</span> <span class='va'>candy</span> <span class='op'>+</span> <span class='va'>assessor</span>, data<span class='op'>=</span><span class='va'>candies</span>, pca.in<span class='op'>=</span><span class='fl'>5</span><span class='op'>)</span>
 
-<span class='co'># Mixed Model ASCA</span>
-<span class='va'>mod</span> <span class='op'>&lt;-</span> <span class='fu'>asca</span><span class='op'>(</span><span class='va'>y</span><span class='op'>~</span><span class='va'>x</span><span class='op'>+</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>|</span><span class='va'>z</span><span class='op'>)</span>, data<span class='op'>=</span><span class='va'>dataset</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>boundary (singular) fit: see ?isSingular</span></div><div class='output co'>#&gt; <span class='message'>boundary (singular) fit: see ?isSingular</span></div><div class='output co'>#&gt; <span class='message'>boundary (singular) fit: see ?isSingular</span></div><div class='output co'>#&gt; <span class='message'>boundary (singular) fit: see ?isSingular</span></div><div class='output co'>#&gt; <span class='message'>boundary (singular) fit: see ?isSingular</span></div><div class='output co'>#&gt; <span class='message'>boundary (singular) fit: see ?isSingular</span></div><div class='output co'>#&gt; <span class='message'>boundary (singular) fit: see ?isSingular</span></div><div class='input'>
+<span class='co'># Mixed Model ASCA, random assessor</span>
+<span class='va'>mod.mix</span> <span class='op'>&lt;-</span> <span class='fu'>asca</span><span class='op'>(</span><span class='va'>assessment</span> <span class='op'>~</span> <span class='va'>candy</span> <span class='op'>+</span> <span class='op'>(</span><span class='fl'>1</span><span class='op'>|</span><span class='va'>assessor</span><span class='op'>)</span>, data<span class='op'>=</span><span class='va'>candies</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/pkg/pls/man/scoreplot.html'>scoreplot</a></span><span class='op'>(</span><span class='va'>mod.mix</span><span class='op'>)</span>
+</div><div class='img'><img src='asca-3.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

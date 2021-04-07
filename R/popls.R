@@ -1,4 +1,4 @@
-#' @title Parallel and Ortogonalised Partial Least Squares - PO-PLS
+#' @title Parallel and Orthogonalised Partial Least Squares - PO-PLS
 #' @param X \code{list} of input blocks
 #' @param Y \code{matrix} of response variable(s)
 #' @param commons \code{numeric} giving the highest number of blocks to combine when calculating local or common scores.

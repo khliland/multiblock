@@ -5,13 +5,13 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>4. Supervised multiblock analysis • multiblock</title>
+<title>D. Supervised multiblock analysis • multiblock</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="4. Supervised multiblock analysis">
+<script src="../pkgdown.js"></script><meta property="og:title" content="D. Supervised multiblock analysis">
 <meta property="og:description" content="multiblock">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -54,19 +54,19 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/vignette_asca.html">3. ASCA</a>
+      <a href="../articles/vignette_asca.html">C. ASCA</a>
     </li>
     <li>
-      <a href="../articles/vignette_basic.html">1. Basic analysis</a>
+      <a href="../articles/vignette_basic.html">A. Basic analysis</a>
     </li>
     <li>
-      <a href="../articles/vignette_complex.html">5. Complex multiblock analysis</a>
+      <a href="../articles/vignette_complex.html">E. Complex multiblock analysis</a>
     </li>
     <li>
-      <a href="../articles/vignette_supervised.html">4. Supervised multiblock analysis</a>
+      <a href="../articles/vignette_supervised.html">D. Supervised multiblock analysis</a>
     </li>
     <li>
-      <a href="../articles/vignette_unsupervised.html">2. Unsupervised multiblock analysis</a>
+      <a href="../articles/vignette_unsupervised.html">B. Unsupervised multiblock analysis</a>
     </li>
   </ul>
 </li>
@@ -91,7 +91,7 @@
       </header><script src="vignette_supervised_files/header-attrs-2.6/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>4. Supervised multiblock analysis</h1>
+      <h1 data-toc-skip>D. Supervised multiblock analysis</h1>
             
       
       <small class="dont-index">Source: <a href="https://github.com/khliland/multiblock/blob/master/vignettes/vignette_supervised.Rmd"><code>vignettes/vignette_supervised.Rmd</code></a></small>
@@ -102,7 +102,7 @@
     
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">multiblock</span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://khliland.github.io/multiblock">multiblock</a></span><span class="op">)</span>
 <span class="co">#&gt; Registered S3 methods overwritten by 'lme4':</span>
 <span class="co">#&gt;   method                          from</span>
 <span class="co">#&gt;   cooks.distance.influence.merMod car </span>
@@ -303,6 +303,7 @@
 <h2 class="hasAnchor">
 <a href="#m%C3%A5ge-plot" class="anchor"></a>Måge plot</h2>
 <p>Full Måge plot for all combinations of components for all blocks. This can be used for a global search for the best fitting cross-validated model.</p>
+<p>Each point in the figure below is accompanied by a sequence of four numbers referring to the number of components used for each of the four blocks. Horizontal location is given by the total number of components used across all blocks, while vertical location indicates validated explained variance in percentage.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Load Wine data and model with SO-PLS</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">wine</span><span class="op">)</span>
@@ -639,11 +640,11 @@
 <span class="co">#&gt; VALIDATION: RMSEP</span>
 <span class="co">#&gt; Cross-validated using 5 random segments.</span>
 <span class="co">#&gt;        (Intercept)  1 comps  2 comps  3 comps  4 comps  5 comps  6 comps</span>
-<span class="co">#&gt; CV           1.778    1.148   0.9609   0.9660   0.8811   1.0205    1.130</span>
-<span class="co">#&gt; adjCV        1.778    1.100   0.9205   0.9237   0.8519   0.9784    1.077</span>
+<span class="co">#&gt; CV           1.778   0.9689   0.8450   0.8390   0.7532   1.0455    1.107</span>
+<span class="co">#&gt; adjCV        1.778   0.9487   0.8254   0.8157   0.7343   0.9924    1.052</span>
 <span class="co">#&gt;        7 comps  8 comps  9 comps  10 comps</span>
-<span class="co">#&gt; CV       1.179    1.122    1.141     1.272</span>
-<span class="co">#&gt; adjCV    1.126    1.089    1.106     1.223</span>
+<span class="co">#&gt; CV       1.120    1.254    1.301     1.401</span>
+<span class="co">#&gt; adjCV    1.076    1.196    1.238     1.327</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; TRAINING: % variance explained</span>
 <span class="co">#&gt;          1 comps  2 comps  3 comps  4 comps  5 comps  6 comps  7 comps  8 comps</span>
@@ -696,9 +697,9 @@
 <code class="sourceCode R"><span class="co"># Cross-validation</span>
 <span class="fu"><a href="https://rdrr.io/pkg/pls/man/mvrVal.html">R2</a></span><span class="op">(</span><span class="va">ros.pot</span><span class="op">)</span>
 <span class="co">#&gt; (Intercept)      1 comps      2 comps      3 comps      4 comps      5 comps  </span>
-<span class="co">#&gt;     -0.0816       0.5486       0.6839       0.6806       0.7343       0.6436  </span>
+<span class="co">#&gt;     -0.0816       0.6787       0.7556       0.7591       0.8058       0.6259  </span>
 <span class="co">#&gt;     6 comps      7 comps      8 comps      9 comps     10 comps  </span>
-<span class="co">#&gt;      0.5631       0.5243       0.5694       0.5545       0.4458</span>
+<span class="co">#&gt;      0.5802       0.5703       0.4617       0.4206       0.3286</span>
 <span class="co"># Training</span>
 <span class="fu"><a href="https://rdrr.io/pkg/pls/man/mvrVal.html">R2</a></span><span class="op">(</span><span class="va">ros.pot</span>, <span class="st">'train'</span><span class="op">)</span>
 <span class="co">#&gt; (Intercept)      1 comps      2 comps      3 comps      4 comps      5 comps  </span>
@@ -714,11 +715,11 @@
 <code class="sourceCode R"><span class="co"># Cross-validation</span>
 <span class="fu"><a href="https://rdrr.io/pkg/pls/man/mvrVal.html">RMSEP</a></span><span class="op">(</span><span class="va">ros.pot</span><span class="op">)</span>
 <span class="co">#&gt;        (Intercept)  1 comps  2 comps  3 comps  4 comps  5 comps  6 comps</span>
-<span class="co">#&gt; CV           1.778    1.148   0.9609   0.9660   0.8811   1.0205    1.130</span>
-<span class="co">#&gt; adjCV        1.778    1.100   0.9205   0.9237   0.8519   0.9784    1.077</span>
+<span class="co">#&gt; CV           1.778   0.9689   0.8450   0.8390   0.7532   1.0455    1.107</span>
+<span class="co">#&gt; adjCV        1.778   0.9487   0.8254   0.8157   0.7343   0.9924    1.052</span>
 <span class="co">#&gt;        7 comps  8 comps  9 comps  10 comps</span>
-<span class="co">#&gt; CV       1.179    1.122    1.141     1.272</span>
-<span class="co">#&gt; adjCV    1.126    1.089    1.106     1.223</span>
+<span class="co">#&gt; CV       1.120    1.254    1.301     1.401</span>
+<span class="co">#&gt; adjCV    1.076    1.196    1.238     1.327</span>
 <span class="co"># Training</span>
 <span class="fu"><a href="https://rdrr.io/pkg/pls/man/mvrVal.html">RMSEP</a></span><span class="op">(</span><span class="va">ros.pot</span>, <span class="st">'train'</span><span class="op">)</span>
 <span class="co">#&gt; (Intercept)      1 comps      2 comps      3 comps      4 comps      5 comps  </span>

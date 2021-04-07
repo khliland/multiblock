@@ -1,10 +1,10 @@
 ---
-title: "3. ASCA"
+title: "D. ASCA"
 output: 
   rmarkdown::html_vignette:
     toc: true
 vignette: >
-  %\VignetteIndexEntry{3. ASCA}
+  %\VignetteIndexEntry{D. ASCA}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

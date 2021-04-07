@@ -2,23 +2,7 @@
 % Please edit documentation in R/basic.R
 \name{basic}
 \alias{basic}
-\alias{pca}
 \title{Single- and Two-Block Methods}
-\usage{
-pca(X, scale = FALSE, ncomp = 1, ...)
-}
-\arguments{
-\item{X}{\code{matrix} of input data.}
-
-\item{scale}{\code{logical} indicating if variables should be standardised (default=FALSE).}
-
-\item{ncomp}{\code{integer} number of principal components to return.}
-
-\item{...}{additional arguments to \code{pls:pcr}.}
-}
-\value{
-\code{multiblock} object with scores, loadings, mean X values and explained variances.
-}
 \description{
 This documentation covers a range of single- and two-block methods. In particular:
 \itemize{
@@ -29,11 +13,6 @@ This documentation covers a range of single- and two-block methods. In particula
 \item IFA - Interbattery Factor Analysis (\code{\link{ifa}})
 \item GSVD - Generalized SVD (\code{\link{gsvd}})
 }
-
-PCA is method for decomposing a matrix into subspace components with sample scores and
-variable loadings. It can be formulated in various ways, but the standard formulation uses singular
-value decomposition to create scores and loadings. PCA is guaranteed to be the optimal way of extracting
-orthogonal subspaces from a matrix with regard to the amount of explained variance per component.
 }
 \examples{
 data(potato)
@@ -48,13 +27,6 @@ ifa.pot  <- ifa(potato[1:2])
 gsvd.pot <- gsvd(lapply(potato[3:4], t))
 
 }
-\references{
-Pearson, K. (1901) On lines and planes of closest fit to points in space. Philosophical Magazine, 2, 559–572.
-}
 \seealso{
-Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
-NULL
-Principal Component Analysis - PCA
-
 Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 }

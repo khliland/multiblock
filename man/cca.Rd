@@ -7,15 +7,21 @@
 cca(X)
 }
 \arguments{
-\item{X}{\code{matrix} of input data.}
+\item{X}{\code{list} of input data blocks.}
 }
 \value{
 \code{multiblock} object with associated with printing, scores, loadings, ...
 }
 \description{
 CCA is a method which maximises correlation between linear combinations of the columns of
-two blocks, i.e., max(cor(X1\*a, X2\*b)). This is done sequentially with deflation in between, such
+two blocks, i.e. max(cor(X1 x a, X2 x b)). This is done sequentially with deflation in between, such
 that a sequence of correlations and weight vectors a and b are associated with a pair of matrices.
+}
+\examples{
+data(potato)
+X <- potato$Chemical
+
+cca.pot  <- cca(potato[1:2])
 }
 \references{
 Hotelling, H. (1936) Relations between two sets of variates. Biometrika, 28, 321–377.

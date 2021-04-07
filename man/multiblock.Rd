@@ -51,6 +51,21 @@ A collection of methods for analysis of data sets with more than two blocks of d
 \item IFA - Interbattery Factor Analysis (\code{\link{ifa}})
 \item GSVD - Generalized SVD (\code{\link{gsvd}})
 }
+
+\strong{Datasets:}
+\itemize{
+\item Sensory assessment of candies (\code{\link{candies}})
+\item Sensory, rheological, chemical and spectroscopic analysis of potatoes (\code{\link{potato}})
+\item Cheese production process data (\code{\link{process}})
+\item Data simulated to have certain characteristics (\code{\link{simulated}})
+\item Wines of Val de Loire (\code{\link{wine}})
+}
+
+\strong{Utility functions:}
+\itemize{
+\item Block-wise indexable data.frame (\code{\link{block.data.frame}})
+\item Dummy-code a vector (\code{\link{dummycode}})
+}
 }
 \seealso{
 Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.

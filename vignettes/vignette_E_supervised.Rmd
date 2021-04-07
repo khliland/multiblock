@@ -1,10 +1,10 @@
 ---
-title: "4. Supervised multiblock analysis"
+title: "E. Supervised multiblock analysis"
 output: 
   rmarkdown::html_vignette:
     toc: true
 vignette: >
-  %\VignetteIndexEntry{4. Supervised multiblock analysis}
+  %\VignetteIndexEntry{E. Supervised multiblock analysis}
   %\VignetteEncoding{UTF-8}
   %\VignetteEngine{knitr::rmarkdown}
 editor_options: 
@@ -81,10 +81,10 @@ MB-PLS is implemented as a block-wise weighted concatenated ordinary PLSR. There
 
 ```{r}
 Tb1 <- scores(mb, block=1)
-plot(Tb1, labels = "names")
+scoreplot(mb, block = 1, labels = "names")
 
 Pb2 <- loadings(mb, block=2)
-plot(Pb2, main = 'Loadings for block 2')
+loadingplot(mb, block = 1, labels = "names")
 ```
 
 
@@ -108,6 +108,8 @@ summary(so.pot)
 
 Full Måge plot for all combinations of components for all blocks. This
 can be used for a global search for the best fitting cross-validated model.
+
+Each point in the figure below is accompanied by a sequence of four numbers referring to the number of components used for each of the four blocks. Horizontal location is given by the total number of components used across all blocks, while vertical location indicates validated explained variance in percentage.
 
 ```{r}
 # Load Wine data and model with SO-PLS
@@ -137,14 +139,14 @@ par(old.par)
 One set of loadings is printed and two sets are plotted to show how to select specific components from specific blocks.
 
 ```{r}
-# Display loadings up to four components for first block
-loadings(so.pot, ncomp = c(4,0), block = 1)
+# Display loadings for first block
+loadings(so.pot, block = 1)
 ```
 ```{r}
 # Plot loadings from block 1 and 2
-old.par <- par("mfrow"); on.exit(par(old.par)); par(mfrow=c(1,2))
-loadingplot(so.pot, ncomp = c(4,3), comps = c(2,3), block = 1, scatter = TRUE, main = "Block 1", labels = "names", cex = 0.8)
-loadingplot(so.pot, ncomp = c(4,3), block = 2, scatter = TRUE, main = "Block 2", labels = "names", cex = 0.8)
+old.par <- par(mfrow=c(1,2))
+loadingplot(so.pot, comps = c(2,3), block = 1, main = "Block 1", labels = "names", cex = 0.8)
+loadingplot(so.pot, ncomp = 4, block = 2, main = "Block 2", labels = "names", cex = 0.8)
 par(old.par)
 ```
 
@@ -153,14 +155,14 @@ par(old.par)
 One set of scores is printed and two sets are plotted to show how to select specific components from specific blocks.
 
 ```{r}
-# Display scores up to four components for first block
-scores(so.pot, ncomp = c(4,0), block = 1)
+# Display scores for first block
+scores(so.pot, block = 1)
 ```
 ```{r}
 # Plot scores from block 1 and 2
-old.par <- par("mfrow"); on.exit(par(old.par)); par(mfrow=c(1,2))
-scoreplot(so.pot, ncomp = c(4,3), comps = c(2,3), block = 1, main = "Block 1", labels = "names")
-scoreplot(so.pot, ncomp = c(4,3), block = 2, main = "Block 2", labels = "names")
+old.par <- par(mfrow=c(1,2))
+scoreplot(so.pot, comps = c(2,3), block = 1, main = "Block 1", labels = "names")
+scoreplot(so.pot, ncomp = 4, block = 2, main = "Block 2", labels = "names")
 par(old.par)
 ```
 
@@ -176,7 +178,6 @@ so.pot20 <- sopls(Sensory ~ ., data = potato1[c(1:3,9)], ncomp = 5, subset = 1:2
 # Predict remaining objects
 testset <- potato1[-(1:20),]; # testset$Sensory <- NULL
 predict(so.pot20, testset, comps=c(2,1,2))
-
 ```
 
 ## Validation
@@ -244,10 +245,10 @@ in each of the blocks' list of components.
 
 ```{r}
 # Score plot for local (2,3) components
-plot(scores(pot.po.man,3), comps=1:2, labels="names")
+scoreplot(pot.po.man, block = 3, labels = "names")
 
 # Corresponding loadings
-plot(loadings(pot.po.man,3), comps=1:2, labels="names")
+loadingplot(pot.po.man, block = 3, labels="names", scatter = FALSE)
 ```
 
 
@@ -321,7 +322,7 @@ RMSEP(rosT, newdata = testset)
 
 ## Image plots
 
-Plots for evaluation of the block selection process in ROSA.
+These are plots for evaluation of the block selection process in ROSA. Correlation plots show how the different candidate scores (one candidate for each block for each component) correlate to the winning block's scores. Residual response plots show how different choices of candidate scores would affect the RMSE of the residual response. One can for instance use these plots decide on a different block selection order than the one proposed automatically by ROSA.
 
 ```{r}
 # Correlation to winning scores

@@ -1,0 +1,165 @@
+---
+title: "A. Data handling"
+output: 
+  rmarkdown::html_vignette:
+    toc: true
+vignette: >
+  %\VignetteIndexEntry{A. Data handling}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.width=6, 
+  fig.height=4
+)
+# Legge denne i YAML på toppen for å skrive ut til tex
+#output: 
+#  pdf_document: 
+#    keep_tex: true
+# Original:
+#  rmarkdown::html_vignette:
+#    toc: true
+```
+
+```{r setup}
+# Start the multiblock R package
+library(multiblock)
+```
+
+# Read from file
+
+Data are stored in many different file formats. The following three examples
+cover two types of CSV-files and generic flat files.
+
+```{r}
+# Find directory extdata from the multiblock package
+mbdir <- system.file('extdata/', package = "multiblock")
+
+# Comma separated values, row names in first column
+meta_data <- read.csv(paste0(mbdir, "/meta_data.csv"), row.names = 1)
+# If working directory matches file location:
+# meta_data <- read.csv('meta_data.csv', row.names = 1)
+meta_data
+
+# Semi-colon separated values (locales where the decimal point is comma),
+# no row names
+proteins <- read.csv2(paste0(mbdir, "/proteins.csv"))
+proteins
+
+# Blank space separated data without labels
+genes <- read.table(paste0(mbdir, "/genes.dat"))
+genes
+```
+
+# Data pre-processing
+
+Before analysis, various types of pre-processing may be needed. Centring
+and standardising/scaling may be considered the most basic. In R, these
+operations are performed column-wise by default, leading to autoscaling.
+If these operations are performed on the rows, we perform the standard
+normal variate (SNV).
+
+```{r}
+# Column-centring
+genes_centred <- scale(genes, scale=FALSE)
+colMeans(genes_centred) # Check mean values
+
+# Autoscaling
+genes_scaled <- scale(genes)
+apply(genes_scaled, 2, sd) # Check standard deviations
+
+# SNV (transpose, autoscale, re-transpose)
+genes_snv <- t(scale(t(genes)))
+apply(genes_snv, 1, sd) # Check standard deviations
+```
+
+## Re-coding categorical data
+
+Most analysis methods require continuous input data. The __meta_data__
+__data.frame__ contains a character vector (a factor in older R versions)
+of categories. This package has a function __dummycode__ for converting
+categorical data to various dummy formats.
+
+```{r}
+# Default is sum coding
+dummycode(meta_data$colour)
+
+# Treatment coding
+dummycode(meta_data$colour, "contr.treatment")
+
+# Full dummy-coding (rank deficient)
+dummycode(meta_data$colour, drop = FALSE)
+
+# Replace categorical with dummy-coded, use I() to index by common name
+meta_data2 <- meta_data
+meta_data2$colour <- I(dummycode(meta_data$colour, drop = FALSE))
+meta_data2
+meta_data2$colour
+```
+
+
+# Data structures for multiblock analysis
+
+## Create list of blocks
+
+A simple list of blocks can be created using the __list()__
+function. Naming of the blocks can be done directly or 
+after creation.
+
+```{r}
+# Direct approach
+blocks1 <- list(meta = meta_data2, proteins = proteins, genes = genes)
+
+# Two-step approach
+blocks2 <- list(meta_data2, proteins, genes)
+names(blocks2) <- c('meta', 'proteins', 'genes')
+
+# Same result
+identical(blocks1, blocks2)
+
+# Access by name or number
+blocks1[['meta']]
+blocks2[[1]]
+```
+
+## Create data.frame of blocks
+
+A __data.frame__ is a convenient storage format for data
+in R and can handle many types of variables, e.g. numeric,
+logical, character, factor or matrices. The latter is
+useful for analyses of data with shared sample mode.
+
+```{r}
+# Construct block data.frame from list
+df1 <- block.data.frame(blocks1)
+
+# Construct block data.frame from data.frame:
+# First merge blocks into data.frame
+my_data <- cbind(meta_data2, proteins, genes)
+# Then construct block data.frame using named 
+# list of indexes
+df2 <- block.data.frame(my_data, block_inds = 
+        list(meta = 1:2, proteins = 3:5, genes = 6:8))
+
+# Same result
+identical(df1,df2)
+
+# Access by name or number
+df1[[2]]
+df2[['proteins']]
+df1[c(1,3)]
+df1[-2]
+df2[c('proteins','genes')]
+
+# Use with formula interface (see other vignettes)
+# sopls(meta ~ proteins + genes, data = df1)
+
+# Use with single list interface (see other vignettes)
+# mfa(df1[c(1,3)], ncomp = 3)
+```

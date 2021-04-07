@@ -49,4 +49,3 @@ pls::scores
 
 #' @export
 pls::validationplot
-  

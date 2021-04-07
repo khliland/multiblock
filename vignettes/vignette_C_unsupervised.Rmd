@@ -1,10 +1,10 @@
 ---
-title: "2. Unsupervised multiblock analysis"
+title: "C. Unsupervised multiblock analysis"
 output: 
   rmarkdown::html_vignette:
     toc: true
 vignette: >
-  %\VignetteIndexEntry{2. Unsupervised multiblock analysis}
+  %\VignetteIndexEntry{C. Unsupervised multiblock analysis}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -74,9 +74,9 @@ str(potList)
 
 All unsupervised methods supplied by this package share a common interface which expects a list of blocks as the first input. Methods that are imported from other packages are wrapped in a function that gives the mentioned interface. Results from the imported method are stored in a separate slot in the output in case specialised _plot_ or _summary_ functions are available or direct inspection is needed. If default parameters are used, a single list of blocks with suitably linked matrices (shared objects or variables) will result in a basic analysis (see first code block below). In addition, all methods have parameters that control their behaviour, e.g., number of components, convergence criteria etc.
 
-## Sample-linked analyses
+## Shared sample mode
 
-The following block of code loads a multiblock data set, extracts three blocks and runs through all included unsupervised methods having sample-link using the same interface. 
+The following block of code loads a multiblock data set, extracts three blocks and runs through all included unsupervised methods having shared sample mode using the same interface. 
 
 ```{r}
 # Object linked data
@@ -96,12 +96,12 @@ pot.mcoa   <- mcoa(potList)
 })}))
 ```
 
-## Variable-linked analyses
+## Shared variable mode
 
-The following block of code loads a sensory data set, extracts blocks and runs through all included unsupervised methods having object-link using the same interface. 
+The following block of code loads a sensory data set, extracts blocks and runs through all included unsupervised methods having shared variable mode using the same interface. 
 
 ```{r}
-# Variable linked data
+# Shared variable mode data
 data(candies)
 candyList  <- lapply(1:nlevels(candies$candy), function(x)candies$assessment[candies$candy==x,])
 
@@ -121,7 +121,7 @@ types of (block) loadings/scores are in the output. There may be various extra
 elements in addition to the common elements, e.g. coefficients, weights etc.
 
 ```{r}
-# SCA used with object linked data returns block loadings and common scores:
+# SCA used with shared variable mode data returns block loadings and common scores:
 names(pot.sca)
 summary(pot.sca)
 # MFA stores individual PCA scores and loadings as block elements:
@@ -139,12 +139,12 @@ block. Block scores/loadings can be accessed by number or name.
 
 ```{r}
 # Global scores plotted with object labels
-plot(scores(pot.sca), labels = "names")
+scoreplot(pot.sca, labels = "names")
 ```
 
 ```{r}
 # Block loadings for Sensory block with variable labels in scatter format
-plot(loadings(pot.sca, "Sensory"), labels = "names", scatter = TRUE)
+loadingplot(pot.sca, block = "Sensory", labels = "names")
 ```
 
 
@@ -156,12 +156,14 @@ sc <- scores(pot.sca, block = 1)
 
 ## Plot from imported package
 
-Using the stored object from an imported method, one can
+Some methods in the package are wrappers for imported methods from other
+packages. Using the stored object from an imported method (see \$statis code below), one can
 exploit methods from the original package to expand on the
 methods available in this package. An example is the summary
 plot for the _statis_ method in the package _ade4_.
 
 ```{r}
+# Apply a plot function from ade4 (no extra import required).
 plot(can.statis$statis)
 ```
 

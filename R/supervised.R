@@ -57,18 +57,18 @@ NULL
 #' @export
 mbpls <- function(X, Y, ncomp=1, scale=FALSE, ...){
   # TODO: Extend with various block norms
-  X <- lapply(lapply(X, as.matrix), function(x)scale(x, scale=scale))
-  X <- lapply(X, function(x) x/sqrt(ncol(x)))
-  Y <- as.matrix(Y)
+  Xo <- lapply(lapply(X, as.matrix), function(x)scale(x, scale=scale))
+  X  <- lapply(Xo, function(x) x/sqrt(ncol(x)))
+  Y  <- as.matrix(Y)
   Xc  <- do.call(cbind, X)
   dat <- list(X = Xc, Y = Y)
   comps <- paste('Comp', 1:ncomp)
-  mod <- pls::plsr(Y ~ X, data=dat, ncomp=ncomp, ...)
+  mod <- pls::plsr(Y ~ X, data = dat, ncomp = ncomp, ...)
   U   <- normCols(mod$Yscores)^2 # normalized Y-scores
   Wb  <- Tb <- Pb <- list()
   Wt  <- matrix(0, length(X), ncomp)
   for(b in 1:length(X)){ # Loop over blocks
-    Wb[[b]] <- crossprod(X[[b]], U)             # Block loading weights
+    Wb[[b]] <- crossprod(Xo[[b]], U)             # Block loading weights
     for(k in 1:ncomp){
       Wb[[b]][,k] <- Wb[[b]][,k]/sqrt(drop(crossprod(Wb[[b]][,k])))
     }
@@ -87,6 +87,15 @@ mbpls <- function(X, Y, ncomp=1, scale=FALSE, ...){
   mod$blockLoadingweights <- Wb
   mod$blockLoadings <- Pb
   mod$superWeights  <- Wt
+  attr(mod$scores, "explvar") <- attr(mod$loadings, "explvar") <- mod$Xvar/mod$Xtotvar*100
+  # for(i in 1:length(X)){
+  #   expli <- numeric(ncomp)
+  #   normi <- base::norm(X[[i]],'F')^2
+  #   for(j in 1:ncomp){
+  #     expli[j] <- 1-base::norm(X[[i]]-mod$blockScores[[i]][,1:j,drop=FALSE] %*% t(mod$blockLoadings[[i]][,1:j,drop=FALSE]), 'F')^2/normi*100
+  #   }
+  #   attr(mod$blockScores[[i]], "explvar") <- attr(mod$blockLoadings[[i]], "explvar") <- diff(c(0,expli))
+  # }
   mod$info <- list(method = "Multiblock PLS", 
                    scores = "Superscores", loadings = "Superloadings",
                    blockScores = "Block scores", blockLoadings = "Block loadings")

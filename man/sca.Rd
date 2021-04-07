@@ -24,7 +24,7 @@ sca(X, ncomp = 2, scale = FALSE, samplelinked = "auto", ...)
 SCA, in its original variable-linked version, calculates common loadings and block-wise
 scores. There are many possible constraints and specialisations. This implementations uses
 PCA as the backbone, thus resulting in deterministic, ordered components. A parameter controls
-the linking mode, but if left untouched an atempt is made at automatically determining
+the linking mode, but if left untouched an attempt is made at automatically determining
 variable or sample linking.
 }
 \examples{

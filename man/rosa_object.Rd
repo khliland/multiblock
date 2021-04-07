@@ -72,7 +72,7 @@ rosa.classify(object, classes, newdata, ncomp, LQ)
 }
 \value{
 Returns depend on method used, e.g. \code{predict.rosa} returns predicted responses
-or scores depending on inputs, \code{coef.rosa} return regression coefficients, \code{blockexpl}
+or scores depending on inputs, \code{coef.rosa} returns regression coefficients, \code{blockexpl}
 returns an object of class \code{rosaexpl} containing block-wise and component-wise explained variance contained in a matrix with attributes.
 }
 \description{

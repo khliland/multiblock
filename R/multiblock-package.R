@@ -38,6 +38,17 @@
 #' * IFA - Interbattery Factor Analysis (\code{\link{ifa}})
 #' * GSVD - Generalized SVD (\code{\link{gsvd}})
 #' 
+#' __Datasets:__
+#' * Sensory assessment of candies (\code{\link{candies}})
+#' * Sensory, rheological, chemical and spectroscopic analysis of potatoes (\code{\link{potato}})
+#' * Cheese production process data (\code{\link{process}})
+#' * Data simulated to have certain characteristics (\code{\link{simulated}})
+#' * Wines of Val de Loire (\code{\link{wine}})
+#' 
+#' __Utility functions:__
+#' * Block-wise indexable data.frame (\code{\link{block.data.frame}})
+#' * Dummy-code a vector (\code{\link{dummycode}})
+#' 
 #' @seealso Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 #' @importFrom graphics abline arrows legend
 #' @importFrom stats coefficients qf

@@ -93,7 +93,7 @@ sopls <- function(formula, ncomp, max_comps = min(sum(ncomp), 20), data,
   
   ## Check components
   if(length(ncomp)==1 && length(X)>1){
-    max_comps <- ncomp
+#    max_comps <- ncomp
     ncomp <- rep(ncomp, length(X))
   }
   ncomp <- pmin(ncomp, max_comps)

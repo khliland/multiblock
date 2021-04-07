@@ -5,10 +5,9 @@
 #' @param object A \code{sopls} object.
 #' @param x A \code{sopls} object.
 #' @param newdata Optional new data with the same types of predictor blocks as the ones used for fitting the object.
-#' @param ncomp An \code{integer} giving the number of components to use apply.
+#' @param ncomp An \code{integer} giving the number of components to apply.
 #' @param comps An \code{integer} vector giving the exact components to apply.
-#' @param type A \code{character} indicating if responses or scores should be predicted (default = "response", or "scores")
-#' @param type Character indicating which type of explained variance to compute (default = "train", alternative = "CV").
+#' @param type A \code{character} for \code{predict} indicating if responses or scores should be predicted (default = "response", or "scores"), for \code{summary} indicating which type of explained variance to compute (default = "train", alternative = "CV").
 #' @param na.action Function determining what to do with missing values in \code{newdata}.
 #' @param intercept A \code{logical} indicating if coefficients for the intercept should be included (default = FALSE).
 #' @param what A \code{character} indicating if summary should include all, validation or training.
@@ -36,13 +35,11 @@
 #' #dim(coef(mod, ncomp=5)) # <variables x responses x components>
 #' print(mod)
 #' summary(mod)
-#' #blockexpl(mod)
-#' #print(blockexpl(mod), compwise=TRUE)
 #' 
 #' @seealso Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 #' @export
 predict.sopls <- function(object, newdata, ncomp = object$ncomp, comps = object$ncomp,
-                         type = c("response", "scores"), na.action = na.pass, ...){
+                          type = c("response", "scores"), na.action = na.pass, ...){
   if (missing(newdata) || is.null(newdata)){
     newdata <- object$data$X
   } else {
@@ -64,7 +61,7 @@ predict.sopls <- function(object, newdata, ncomp = object$ncomp, comps = object$
 #' @rdname sopls_object
 #' @export
 coef.sopls <- function(object, ncomp = object$ncomp, comps = object$ncomp, intercept = FALSE,
-                      ...)
+                       ...)
 {
   if(sum(comps) > object$max_comp)
     stop(paste0("Selected components (",paste(comps,collapse=","),") is outside range of fitted model."))
@@ -72,7 +69,7 @@ coef.sopls <- function(object, ncomp = object$ncomp, comps = object$ncomp, inter
   X <- object$data$X
   Y <- object$data$Y
   n    <- dim(X[[1]])[1]
-
+  
   nblock  <- length(X)
   nresp   <- dim(Y)[2]
   selComp <- pathComp(comps, object$decomp$compList)
@@ -89,7 +86,7 @@ coef.sopls <- function(object, ncomp = object$ncomp, comps = object$ncomp, inter
   Xconcat <- do.call(cbind, X)
   # XW(P'W)^-1, ie. WB without Q
   no_Q <- crossprod(Xconcat, object$decomp$Ry[,selComp$hits,drop=FALSE]) %*% solve(crossprodQ(object$decomp$T[,selComp$hits,drop=FALSE], Cr))
-
+  
   # Coefficients per response
   B <- array(0, c(ncol(Xconcat), nresp, tot_comp))  
   for(r in 1:nresp){
@@ -115,7 +112,7 @@ print.sopls <- function(x, ...) {
 #' @rdname sopls_object
 #' @export
 summary.sopls <- function(object, what = c("all", "validation", "training"),
-                         digits = 4, print.gap = 2, ...)
+                          digits = 4, print.gap = 2, ...)
 {
   what <- match.arg(what)
   if (what == "all") what <- c("validation", "training")
@@ -202,38 +199,6 @@ classify.sopls <- function(object, classes, newdata, ncomp, LQ = "LDA", ...){
 
 #' @rdname sopls_object
 #' @export
-loadings.sopls <- function(object, ncomp = "all", block = 1, ...){
-  selComp <- pathComp(ncomp, object$decomp$compList)
-  blocks  <- object$decomp$changeBlock[selComp$hits]
-  P <- crossprod(object$data$X[[block]], object$decomp$T[, selComp$hits[block==blocks, drop=FALSE]])
-  class(P) <- "loadings"
-  P
-}
-
-#' @rdname sopls_object
-#' @export
-loadingplot.sopls <- function(object, ncomp = "all", comps = c(1,2), block = 1, ...){
-  plot(loadings(object, ncomp, block), comps, ...)
-}
-
-#' @rdname sopls_object
-#' @export
-scores.sopls <- function(object, ncomp = "all", block = 1, ...){
-  selComp <- pathComp(ncomp, object$decomp$compList)
-  blocks  <- object$decomp$changeBlock[selComp$hits]
-  T <- object$decomp$T[, selComp$hits[block==blocks, drop=FALSE]]
-  class(T) <- "scores"
-  T
-}
-
-#' @rdname sopls_object
-#' @export
-scoreplot.sopls <- function(object, ncomp = "all", comps = c(1,2), block = 1, ...){
-  plot(scores(object, ncomp, block), comps, ...)
-}
-
-#' @rdname sopls_object
-#' @export
 R2.sopls <- function(object, estimate, newdata, ncomp = "all", individual = FALSE, ...){
   if (missing(estimate)) {
     ## Select the `best' available estimate
@@ -248,10 +213,10 @@ R2.sopls <- function(object, estimate, newdata, ncomp = "all", individual = FALS
     }
   }
   if(!(estimate %in% c("train","CV","test")))
-     stop(paste0("'estimate' = ", estimate, " not supported"))
+    stop(paste0("'estimate' = ", estimate, " not supported"))
   
   selComp <- pathComp(ncomp, object$decomp$compList)
-
+  
   if(estimate == "CV"){
     if(individual)
       return(object$validation$expl_var_ind[, selComp$hits])

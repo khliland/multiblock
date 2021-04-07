@@ -27,30 +27,30 @@ An \code{asca} object containing loadings, scores, explained variances, etc.
 \description{
 ASCA is a method which decomposes a multivariate response according to one or more design
 variables. ANOVA is used to split variation into contributions from factors, and PCA is performed
-on the corresponding least squares estimates, i.e., $Y = X1 B1 + X2 B2 + ... + E = T1 P1' + T2 P2' + ... + E$.
+on the corresponding least squares estimates, i.e., \code{Y = X1 B1 + X2 B2 + ... + E = T1 P1' + T2 P2' + ... + E}.
 }
 \examples{
-# Simulate data set
-dataset   <- data.frame(y = I(matrix(rnorm(24*10),ncol=10)), 
-                        x = factor(c(rep(2,8),rep(1,8),rep(0,8))), 
-                        z = factor(rep(c(1,0),12)), 
-                        w = rnorm(24))
-colnames(dataset$y) <- paste('Var', 1:10, sep=" ")
-rownames(dataset) <- paste('Obj', 1:24, sep=" ")
+# Load candies data
+data(candies)
 
 # Basic ASCA model with two factors
-mod <- asca(y~x+z, data=dataset)
+mod <- asca(assessment ~ candy + assessor, data=candies)
+print(mod)
+
+# ASCA model with interaction
+mod <- asca(assessment ~ candy * assessor, data=candies)
 print(mod)
 
 # Result plotting for first factor
-loadingplot(mod, scatter=TRUE)
+loadingplot(mod, scatter=TRUE, labels="names")
 scoreplot(mod)
 
 # ASCA model with compressed response using 5 principal components
-mod.pca <- asca(y~x+z, data=dataset, pca.in=5)
+mod.pca <- asca(assessment ~ candy + assessor, data=candies, pca.in=5)
 
-# Mixed Model ASCA
-mod <- asca(y~x+(1|z), data=dataset)
+# Mixed Model ASCA, random assessor
+mod.mix <- asca(assessment ~ candy + (1|assessor), data=candies)
+scoreplot(mod.mix)
 
 }
 \references{

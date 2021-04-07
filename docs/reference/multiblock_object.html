@@ -95,19 +95,22 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/vignette_asca.html">3. ASCA</a>
+      <a href="../articles/vignette_A_data.html">A. Data handling</a>
     </li>
     <li>
-      <a href="../articles/vignette_basic.html">1. Basic analysis</a>
+      <a href="../articles/vignette_B_basic.html">B. Basic analysis</a>
     </li>
     <li>
-      <a href="../articles/vignette_complex.html">5. Complex multiblock analysis</a>
+      <a href="../articles/vignette_C_unsupervised.html">C. Unsupervised multiblock analysis</a>
     </li>
     <li>
-      <a href="../articles/vignette_supervised.html">4. Supervised multiblock analysis</a>
+      <a href="../articles/vignette_D_asca.html">D. ASCA</a>
     </li>
     <li>
-      <a href="../articles/vignette_unsupervised.html">2. Unsupervised multiblock analysis</a>
+      <a href="../articles/vignette_E_supervised.html">E. Supervised multiblock analysis</a>
+    </li>
+    <li>
+      <a href="../articles/vignette_F_complex.html">F. Complex multiblock analysis</a>
     </li>
   </ul>
 </li>
@@ -133,7 +136,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Result Functions for Supervised and Multiblock Objects</h1>
-    <small class="dont-index">Source: <a href='https://github.com/khliland/multiblock/blob/master/R/unsupervised_results.R'><code>R/unsupervised_results.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/khliland/multiblock/blob/master/R/multiblock_object.R'><code>R/multiblock_object.R</code></a></small>
     <div class="hidden name"><code>multiblock_object.Rd</code></div>
     </div>
 
@@ -151,7 +154,44 @@
 <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for multiblock</span>
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='co'># S3 method for multiblock</span>
+<span class='fu'><a href='https://rdrr.io/pkg/pls/man/scoreplot.html'>scoreplot</a></span><span class='op'>(</span>
+  <span class='va'>object</span>,
+  comps <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span>,
+  block <span class='op'>=</span> <span class='fl'>0</span>,
+  <span class='va'>labels</span>,
+  identify <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  type <span class='op'>=</span> <span class='st'>"p"</span>,
+  <span class='va'>xlab</span>,
+  <span class='va'>ylab</span>,
+  <span class='va'>main</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span>
+
+<span class='co'># S3 method for multiblock</span>
+<span class='fu'><a href='https://rdrr.io/pkg/pls/man/scoreplot.html'>loadingplot</a></span><span class='op'>(</span>
+  <span class='va'>object</span>,
+  comps <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span>,
+  block <span class='op'>=</span> <span class='fl'>0</span>,
+  scatter <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  <span class='va'>labels</span>,
+  identify <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  <span class='va'>type</span>,
+  <span class='va'>lty</span>,
+  lwd <span class='op'>=</span> <span class='cn'>NULL</span>,
+  <span class='va'>pch</span>,
+  cex <span class='op'>=</span> <span class='cn'>NULL</span>,
+  <span class='va'>col</span>,
+  <span class='va'>legendpos</span>,
+  <span class='va'>xlab</span>,
+  <span class='va'>ylab</span>,
+  <span class='va'>main</span>,
+  pretty.xlabels <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  <span class='va'>xlim</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -171,6 +211,70 @@
     <tr>
       <th>x</th>
       <td><p><code>multiblock</code> object.</p></td>
+    </tr>
+    <tr>
+      <th>comps</th>
+      <td><p><code>integer</code> vector giving components, within block, to plot.</p></td>
+    </tr>
+    <tr>
+      <th>labels</th>
+      <td><p><code>character</code> indicating if "names" or "numbers" should be plot symbols (optional).</p></td>
+    </tr>
+    <tr>
+      <th>identify</th>
+      <td><p><code>logical</code> for activating <code>identify</code> to interactively identify points.</p></td>
+    </tr>
+    <tr>
+      <th>type</th>
+      <td><p><code>character</code> for selecting type of plot to make. Defaults to "p" (points) for scatter plots and "l" (lines) for line plots.</p></td>
+    </tr>
+    <tr>
+      <th>xlab</th>
+      <td><p><code>character</code> text for x labels.</p></td>
+    </tr>
+    <tr>
+      <th>ylab</th>
+      <td><p><code>character</code> text for y labels.</p></td>
+    </tr>
+    <tr>
+      <th>main</th>
+      <td><p><code>character</code> text for main header.</p></td>
+    </tr>
+    <tr>
+      <th>scatter</th>
+      <td><p><code>logical</code> indicating if a scatterplot of loadings should be made (default = TRUE).</p></td>
+    </tr>
+    <tr>
+      <th>lty</th>
+      <td><p>Vector of line type specifications (see <code><a href='https://rdrr.io/r/graphics/par.html'>par</a></code> for details).</p></td>
+    </tr>
+    <tr>
+      <th>lwd</th>
+      <td><p><code>numeric</code> vector of line width specifications.</p></td>
+    </tr>
+    <tr>
+      <th>pch</th>
+      <td><p>Vector of point specifications (see <code><a href='https://rdrr.io/r/graphics/points.html'>points</a></code> for details).</p></td>
+    </tr>
+    <tr>
+      <th>cex</th>
+      <td><p><code>numeric</code> vector of plot size expansions (see <code><a href='https://rdrr.io/r/graphics/par.html'>par</a></code> for details).</p></td>
+    </tr>
+    <tr>
+      <th>col</th>
+      <td><p><code>integer</code> vector of symbol/line colours (see <code><a href='https://rdrr.io/r/graphics/par.html'>par</a></code> for details).</p></td>
+    </tr>
+    <tr>
+      <th>legendpos</th>
+      <td><p><code>character</code> indicating legend position (if <code>scatter</code> is FALSE), e.g. <code>legendpos = "topright"</code>.</p></td>
+    </tr>
+    <tr>
+      <th>pretty.xlabels</th>
+      <td><p><code>logical</code> indicating if xlabels should be more nicely plotted (default = TRUE).</p></td>
+    </tr>
+    <tr>
+      <th>xlim</th>
+      <td><p><code>numeric</code> vector of length two, with the x limits of the plot (optional).</p></td>
     </tr>
     </table>
 

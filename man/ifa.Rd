@@ -7,7 +7,7 @@
 ifa(X, ncomp = 1, scale = FALSE, verbose = FALSE, ...)
 }
 \arguments{
-\item{X}{\code{matrix} of input data.}
+\item{X}{\code{list} of input data blocks.}
 
 \item{ncomp}{\code{integer} number of principal components to return.}
 
@@ -22,6 +22,12 @@ ifa(X, ncomp = 1, scale = FALSE, verbose = FALSE, ...)
 }
 \description{
 IFA rotates two matrices to align one or more factors against each other, maximising correlations.
+}
+\examples{
+data(potato)
+X <- potato$Chemical
+
+ifa.pot  <- ifa(potato[1:2])
 }
 \references{
 Tucker, L. R. (1958). An inter-battery method of factor analysis. Psychometrika, 23(2), 111-136.

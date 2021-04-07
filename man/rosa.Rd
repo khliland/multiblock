@@ -59,7 +59,7 @@ An object of classes \code{rosa} and \code{mvr} having several associated printi
 \description{
 ROSA is an opportunistic method sequentially selecting components from whichever block explains
 the response most effectively. It can be formulated as a PLS model on concatenated input block with block
-selection per component. This implementation add several options that are not described in the literature.
+selection per component. This implementation adds several options that are not described in the literature.
 Most importantly, it opens for internal validation in the block selection process, making this more
 robust. In addition it handles design blocks explicitly, enables classification and secondary responses (CPLS),
 and definition of common components.

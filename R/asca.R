@@ -15,7 +15,7 @@
 #' 
 #' @description ASCA is a method which decomposes a multivariate response according to one or more design
 #' variables. ANOVA is used to split variation into contributions from factors, and PCA is performed
-#' on the corresponding least squares estimates, i.e., $Y = X1 B1 + X2 B2 + ... + E = T1 P1' + T2 P2' + ... + E$.
+#' on the corresponding least squares estimates, i.e., \code{Y = X1 B1 + X2 B2 + ... + E = T1 P1' + T2 P2' + ... + E}.
 #' 
 #' @references 
 #' * Smilde, A., Jansen, J., Hoefsloot, H., Lamers,R., Van Der Greef, J., and Timmerman, M.(2005). ANOVA-Simultaneous Component Analysis (ASCA): A new tool for analyzing designed metabolomics data. Bioinformatics, 21(13), 3043–3048.
@@ -26,27 +26,27 @@
 #' @importFrom car ellipse dataEllipse
 #' @seealso Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 #' @examples
-#' # Simulate data set
-#' dataset   <- data.frame(y = I(matrix(rnorm(24*10),ncol=10)), 
-#'                         x = factor(c(rep(2,8),rep(1,8),rep(0,8))), 
-#'                         z = factor(rep(c(1,0),12)), 
-#'                         w = rnorm(24))
-#' colnames(dataset$y) <- paste('Var', 1:10, sep=" ")
-#' rownames(dataset) <- paste('Obj', 1:24, sep=" ")
+#' # Load candies data
+#' data(candies)
 #' 
 #' # Basic ASCA model with two factors
-#' mod <- asca(y~x+z, data=dataset)
+#' mod <- asca(assessment ~ candy + assessor, data=candies)
+#' print(mod)
+#' 
+#' # ASCA model with interaction
+#' mod <- asca(assessment ~ candy * assessor, data=candies)
 #' print(mod)
 #' 
 #' # Result plotting for first factor
-#' loadingplot(mod, scatter=TRUE)
+#' loadingplot(mod, scatter=TRUE, labels="names")
 #' scoreplot(mod)
 #' 
 #' # ASCA model with compressed response using 5 principal components
-#' mod.pca <- asca(y~x+z, data=dataset, pca.in=5)
+#' mod.pca <- asca(assessment ~ candy + assessor, data=candies, pca.in=5)
 #' 
-#' # Mixed Model ASCA
-#' mod <- asca(y~x+(1|z), data=dataset)
+#' # Mixed Model ASCA, random assessor
+#' mod.mix <- asca(assessment ~ candy + (1|assessor), data=candies)
+#' scoreplot(mod.mix)
 #' 
 #' @export
 asca <- function(formula, data, subset, weights, na.action, family, pca.in = FALSE){
@@ -157,6 +157,8 @@ asca <- function(formula, data, subset, weights, na.action, family, pca.in = FAL
   scores <- loadings <- projected <- singulars <- list()
   for(i in approved){
     maxDir <- min(sum(assign==i), p)
+    if(pca.in != 0)
+      maxDir <- min(maxDir, pca.in)
     udv <- svd(LS[[effs[i]]])
     scores[[effs[i]]]    <- (udv$u * rep(udv$d, each=N))[,1:maxDir, drop=FALSE]
     dimnames(scores[[effs[i]]]) <- list(rownames(LS[[effs[i]]]), paste("Comp", 1:maxDir, sep=" "))

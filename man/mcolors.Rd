@@ -2,7 +2,7 @@
 % Please edit documentation in R/utilities.R
 \name{mcolors}
 \alias{mcolors}
-\title{Color palette generation from matrix of RGB values}
+\title{Colour palette generation from matrix of RGB values}
 \usage{
 mcolors(
   n,
@@ -10,15 +10,15 @@ mcolors(
 )
 }
 \arguments{
-\item{n}{Integer number of colors to produce.}
+\item{n}{Integer number of colorus to produce.}
 
-\item{colmatrix}{A numeric \code{matrix} of three columns (R,G,B) to generate color palette from.}
+\item{colmatrix}{A numeric \code{matrix} of three columns (R,G,B) to generate colour palette from.}
 }
 \value{
-A vector of n colors in hexadecimal RGB format.
+A vector of n colours in hexadecimal RGB format.
 }
 \description{
-Color palette generation from matrix of RGB values
+Colour palette generation from matrix of RGB values
 }
 \examples{
 mcolors(5)

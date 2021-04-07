@@ -7,7 +7,7 @@
 gsvd(X)
 }
 \arguments{
-\item{X}{\code{matrix} of input data.}
+\item{X}{\code{list} of input data blocks.}
 }
 \value{
 \code{multiblock} object with associated with printing, scores, loadings, ...
@@ -15,6 +15,13 @@ gsvd(X)
 \description{
 GSVD is a generalisation of SVD to two variable-linked matrices where common loadings
 and block-wise scores are estimated.
+}
+\examples{
+data(potato)
+X <- potato$Chemical
+
+gsvd.pot <- gsvd(lapply(potato[3:4], t))
+
 }
 \references{
 Van Loan, C. (1976) Generalizing the singular value decomposition. SIAM Journal on Numerical Analysis, 13, 76–83.

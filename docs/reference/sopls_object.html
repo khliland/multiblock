@@ -95,19 +95,22 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/vignette_asca.html">3. ASCA</a>
+      <a href="../articles/vignette_A_data.html">A. Data handling</a>
     </li>
     <li>
-      <a href="../articles/vignette_basic.html">1. Basic analysis</a>
+      <a href="../articles/vignette_B_basic.html">B. Basic analysis</a>
     </li>
     <li>
-      <a href="../articles/vignette_complex.html">5. Complex multiblock analysis</a>
+      <a href="../articles/vignette_C_unsupervised.html">C. Unsupervised multiblock analysis</a>
     </li>
     <li>
-      <a href="../articles/vignette_supervised.html">4. Supervised multiblock analysis</a>
+      <a href="../articles/vignette_D_asca.html">D. ASCA</a>
     </li>
     <li>
-      <a href="../articles/vignette_unsupervised.html">2. Unsupervised multiblock analysis</a>
+      <a href="../articles/vignette_E_supervised.html">E. Supervised multiblock analysis</a>
+    </li>
+    <li>
+      <a href="../articles/vignette_F_complex.html">F. Complex multiblock analysis</a>
     </li>
   </ul>
 </li>
@@ -179,18 +182,6 @@
 <span class='fu'>classify</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>classes</span>, <span class='va'>newdata</span>, <span class='va'>ncomp</span>, LQ <span class='op'>=</span> <span class='st'>"LDA"</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for sopls</span>
-<span class='fu'><a href='https://rdrr.io/pkg/pls/man/scores.html'>loadings</a></span><span class='op'>(</span><span class='va'>object</span>, ncomp <span class='op'>=</span> <span class='st'>"all"</span>, block <span class='op'>=</span> <span class='fl'>1</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='co'># S3 method for sopls</span>
-<span class='fu'><a href='https://rdrr.io/pkg/pls/man/scoreplot.html'>loadingplot</a></span><span class='op'>(</span><span class='va'>object</span>, ncomp <span class='op'>=</span> <span class='st'>"all"</span>, comps <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>2</span><span class='op'>)</span>, block <span class='op'>=</span> <span class='fl'>1</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='co'># S3 method for sopls</span>
-<span class='fu'><a href='https://rdrr.io/pkg/pls/man/scores.html'>scores</a></span><span class='op'>(</span><span class='va'>object</span>, ncomp <span class='op'>=</span> <span class='st'>"all"</span>, block <span class='op'>=</span> <span class='fl'>1</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='co'># S3 method for sopls</span>
-<span class='fu'><a href='https://rdrr.io/pkg/pls/man/scoreplot.html'>scoreplot</a></span><span class='op'>(</span><span class='va'>object</span>, ncomp <span class='op'>=</span> <span class='st'>"all"</span>, comps <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>2</span><span class='op'>)</span>, block <span class='op'>=</span> <span class='fl'>1</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='co'># S3 method for sopls</span>
 <span class='fu'><a href='https://rdrr.io/pkg/pls/man/mvrVal.html'>R2</a></span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>estimate</span>, <span class='va'>newdata</span>, ncomp <span class='op'>=</span> <span class='st'>"all"</span>, individual <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for sopls</span>
@@ -209,7 +200,7 @@
     </tr>
     <tr>
       <th>ncomp</th>
-      <td><p>An <code>integer</code> giving the number of components to use apply.</p></td>
+      <td><p>An <code>integer</code> giving the number of components to apply.</p></td>
     </tr>
     <tr>
       <th>comps</th>
@@ -217,7 +208,7 @@
     </tr>
     <tr>
       <th>type</th>
-      <td><p>Character indicating which type of explained variance to compute (default = "train", alternative = "CV").</p></td>
+      <td><p>A <code>character</code> for <code>predict</code> indicating if responses or scores should be predicted (default = "response", or "scores"), for <code>summary</code> indicating which type of explained variance to compute (default = "train", alternative = "CV").</p></td>
     </tr>
     <tr>
       <th>na.action</th>
@@ -256,16 +247,16 @@
       <td><p>A <code>character</code> indicating if 'max' (maximum score value), 'lda' or 'qda' should be used when classifying.</p></td>
     </tr>
     <tr>
-      <th>block</th>
-      <td><p>An <code>integer</code> indicating which block to use.</p></td>
-    </tr>
-    <tr>
       <th>estimate</th>
       <td><p>A <code>character</code> indicating if 'train', 'CV' or 'test' results should be displayed.</p></td>
     </tr>
     <tr>
       <th>individual</th>
       <td><p>A <code>logical</code> indicating if results for individual responses should be displayed.</p></td>
+    </tr>
+    <tr>
+      <th>block</th>
+      <td><p>An <code>integer</code> indicating which block to use.</p></td>
     </tr>
     </table>
 
@@ -342,31 +333,80 @@ or scores depending on inputs, <code>coef.sopls</code> return regression coeffic
 </div><div class='output co'>#&gt; Data: 	X dimension: 20 0 
 #&gt; 	Y dimension: 20 1
 #&gt; Fit method: PKPLS
-#&gt; Number of components considered: 5
+#&gt; Number of components considered: 15
 #&gt; TRAINING: % variance explained
 #&gt;               0,0,0  0,0,1  0,0,2  0,0,3  0,0,4  0,0,5  0,1,0  0,1,1  0,1,2
 #&gt; X                 0  20.86  28.31  36.64  44.50  49.32  43.07  48.93  57.63
 #&gt; Sensory[, 1]      0  67.18  76.02  79.52  82.14  86.78  31.94  77.34  78.82
-#&gt;               0,1,3  0,1,4  0,2,0  0,2,1  0,2,2  0,2,3  0,3,0  0,3,1  0,3,2
-#&gt; X             64.80  72.01  53.34   58.2  63.49  70.46  64.51  67.17  68.88
-#&gt; Sensory[, 1]  81.95  85.33  57.59   79.4  84.80  86.19  64.12  85.01  86.62
-#&gt;               0,4,0  0,4,1  0,5,0  1,0,0  1,0,1  1,0,2  1,0,3  1,0,4  1,1,0
-#&gt; X             67.33  68.65  71.36  26.79  31.20  43.68  46.20  52.01  61.24
-#&gt; Sensory[, 1]  74.00  83.04  80.83  72.84  91.32  92.82  95.22  95.51  76.08
-#&gt;               1,1,1  1,1,2  1,1,3  1,2,0  1,2,1  1,2,2  1,3,0  1,3,1  1,4,0
-#&gt; X             66.52  71.52  74.07  67.65  73.86  76.42  77.02  78.22  78.39
-#&gt; Sensory[, 1]  88.73  93.14  95.49  79.16  88.85  93.93  81.81  93.93  85.47
-#&gt;               2,0,0  2,0,1  2,0,2  2,0,3  2,1,0  2,1,1  2,1,2  2,2,0  2,2,1
-#&gt; X             34.87  37.53  48.20  50.75  68.53  70.72  76.16  75.89  78.58
-#&gt; Sensory[, 1]  86.39  94.20  94.31  95.79  87.33  93.13  94.50  88.70  93.06
-#&gt;               2,3,0  3,0,0  3,0,1  3,0,2  3,1,0  3,1,1  3,2,0  4,0,0  4,0,1
-#&gt; X             79.17  59.03  60.65  67.95  69.06  71.96  78.92  70.41  72.12
-#&gt; Sensory[, 1]  92.41  87.55  94.19  94.84  88.70  93.08  90.25  88.65  95.40
-#&gt;               4,1,0  5,0,0
-#&gt; X             77.16  77.24
-#&gt; Sensory[, 1]  90.66  90.58</div><div class='input'><span class='co'>#blockexpl(mod)</span>
-<span class='co'>#print(blockexpl(mod), compwise=TRUE)</span>
-
+#&gt;               0,1,3  0,1,4  0,1,5  0,2,0  0,2,1  0,2,2  0,2,3  0,2,4  0,2,5
+#&gt; X             64.80  72.01  75.43  53.34   58.2  63.49  70.46  77.88  80.61
+#&gt; Sensory[, 1]  81.95  85.33  90.05  57.59   79.4  84.80  86.19  87.51  94.30
+#&gt;               0,3,0  0,3,1  0,3,2  0,3,3  0,3,4  0,3,5  0,4,0  0,4,1  0,4,2
+#&gt; X             64.51  67.17  68.88  75.52  80.49  83.06  67.33  68.65  71.70
+#&gt; Sensory[, 1]  64.12  85.01  86.62  87.59  93.18  94.14  74.00  83.04  87.33
+#&gt;               0,4,3  0,4,4  0,4,5  0,5,0  0,5,1  0,5,2  0,5,3  0,5,4  0,5,5
+#&gt; X             76.96  81.33  84.16  71.36  73.06  76.39  78.64  81.95  86.70
+#&gt; Sensory[, 1]  87.88  94.30  95.34  80.83  86.18  89.54  90.73  92.24  95.77
+#&gt;               1,0,0  1,0,1  1,0,2  1,0,3  1,0,4  1,0,5  1,1,0  1,1,1  1,1,2
+#&gt; X             26.79  31.20  43.68  46.20  52.01  55.18  61.24  66.52  71.52
+#&gt; Sensory[, 1]  72.84  91.32  92.82  95.22  95.51  96.93  76.08  88.73  93.14
+#&gt;               1,1,3  1,1,4  1,1,5  1,2,0  1,2,1  1,2,2  1,2,3  1,2,4  1,2,5
+#&gt; X             74.07  79.80  81.43  67.65  73.86  76.42  78.58  84.35  85.69
+#&gt; Sensory[, 1]  95.49  95.82  97.27  79.16  88.85  93.93  95.79  96.00  97.71
+#&gt;               1,3,0  1,3,1  1,3,2  1,3,3  1,3,4  1,3,5  1,4,0  1,4,1  1,4,2
+#&gt; X             77.02  78.22  79.95  83.57  86.14  88.56  78.39  79.69  80.67
+#&gt; Sensory[, 1]  81.81  93.93  94.20  95.89  96.11  97.76  85.47  91.35  94.63
+#&gt;               1,4,3  1,4,4  1,4,5  1,5,0  1,5,1  1,5,2  1,5,3  1,5,4  1,5,5
+#&gt; X             84.14  86.57  89.08  82.78  84.04  84.95  88.04  89.04  90.79
+#&gt; Sensory[, 1]  95.99  96.22  97.90  86.07  91.69  94.63  95.98  96.39  98.57
+#&gt;               2,0,0  2,0,1  2,0,2  2,0,3  2,0,4  2,0,5  2,1,0  2,1,1  2,1,2
+#&gt; X             34.87  37.53  48.20  50.75  55.97  59.45  68.53  70.72  76.16
+#&gt; Sensory[, 1]  86.39  94.20  94.31  95.79  96.04  97.41  87.33  93.13  94.50
+#&gt;               2,1,3  2,1,4  2,1,5  2,2,0  2,2,1  2,2,2  2,2,3  2,2,4  2,2,5
+#&gt; X             78.45  83.48  85.00  75.89  78.58  80.38  82.27  86.68  88.61
+#&gt; Sensory[, 1]  96.01  96.30  97.72  88.70  93.06  95.15  96.23  97.50  98.19
+#&gt;               2,3,0  2,3,1  2,3,2  2,3,3  2,3,4  2,3,5  2,4,0  2,4,1  2,4,2
+#&gt; X             79.17  80.67  83.25  85.01  87.84  90.11  82.09  82.98  84.07
+#&gt; Sensory[, 1]  92.41  93.82  95.29  96.23  96.73  98.47  92.65  94.89  95.63
+#&gt;               2,4,3  2,4,4  2,4,5  2,5,0  2,5,1  2,5,2  2,5,3  2,5,4  2,5,5
+#&gt; X             85.28  89.93  90.89  83.91  84.81  86.30  88.20  90.32  92.83
+#&gt; Sensory[, 1]  96.54  97.24  99.08  92.87  95.07  95.84  96.82  97.06  99.46
+#&gt;               3,0,0  3,0,1  3,0,2  3,0,3  3,0,4  3,0,5  3,1,0  3,1,1  3,1,2
+#&gt; X             59.03  60.65  67.95  70.92  75.78  78.19  69.06  71.96  73.84
+#&gt; Sensory[, 1]  87.55  94.19  94.84  96.29  96.67  98.11  88.70  93.08  95.30
+#&gt;               3,1,3  3,1,4  3,1,5  3,2,0  3,2,1  3,2,2  3,2,3  3,2,4  3,2,5
+#&gt; X             76.78  81.94  85.02  78.92  82.53  84.55  87.83  89.64  92.04
+#&gt; Sensory[, 1]  96.44  96.79  98.38  90.25  93.89  95.89  96.50  97.03  98.11
+#&gt;               3,3,0  3,3,1  3,3,2  3,3,3  3,3,4  3,3,5  3,4,0  3,4,1  3,4,2
+#&gt; X             85.24  86.31  88.93  91.19  92.91  94.53  87.57  88.49  89.60
+#&gt; Sensory[, 1]  92.87  94.71  95.90  96.52  97.17  98.90  93.39  95.41  96.33
+#&gt;               3,4,3  3,4,4  3,4,5  3,5,0  3,5,1  3,5,2  3,5,3  3,5,4  3,5,5
+#&gt; X             92.66  93.73  95.33  88.38  89.34  90.28  93.27  94.34  96.69
+#&gt; Sensory[, 1]  96.89  97.69  99.48  93.82  95.72  96.59  97.23  97.75  99.49
+#&gt;               4,0,0  4,0,1  4,0,2  4,0,3  4,0,4  4,0,5  4,1,0  4,1,1  4,1,2
+#&gt; X             70.41  72.12  74.08  79.57  81.18  83.20  77.16  78.39  79.70
+#&gt; Sensory[, 1]  88.65  95.40  96.30  96.76  97.29  97.98  90.66  96.72  97.05
+#&gt;               4,1,3  4,1,4  4,1,5  4,2,0  4,2,1  4,2,2  4,2,3  4,2,4  4,2,5
+#&gt; X             84.71  85.89  87.74  89.89  91.13  92.42  94.25  94.80  96.04
+#&gt; Sensory[, 1]  97.29  97.92  98.72  91.21  97.00  97.43  97.85  98.52  99.11
+#&gt;               4,3,0  4,3,1  4,3,2  4,3,3  4,3,4  4,3,5  4,4,0  4,4,1  4,4,2
+#&gt; X             91.46  92.59  92.95  94.13  94.93  96.32  92.88  93.93  94.29
+#&gt; Sensory[, 1]  94.59  95.99  97.39  97.76  99.11  99.26  95.17  96.24  97.51
+#&gt;               4,4,3  4,4,4  4,4,5  4,5,0  4,5,1  4,5,2  4,5,3  4,5,4  4,5,5
+#&gt; X             95.36  95.70  97.96  93.79  94.63  94.91  95.99  96.25  98.56
+#&gt; Sensory[, 1]  97.87  98.61  99.19  95.36  96.95  97.82  98.18  99.02  99.50
+#&gt;               5,0,0  5,0,1  5,0,2  5,0,3  5,0,4  5,0,5  5,1,0  5,1,1  5,1,2
+#&gt; X             77.24  78.66  81.59  89.61  91.01  92.56  86.22  87.57  90.46
+#&gt; Sensory[, 1]  90.58  94.51  96.27  96.80  97.36  98.45  92.18  95.85  96.90
+#&gt;               5,1,3  5,1,4  5,1,5  5,2,0  5,2,1  5,2,2  5,2,3  5,2,4  5,2,5
+#&gt; X             91.65  92.24  95.65  92.51  93.92  95.20  95.54  95.83  96.87
+#&gt; Sensory[, 1]  97.71  98.50  98.74  92.88  97.40  97.44  98.25  98.99  99.32
+#&gt;               5,3,0  5,3,1  5,3,2  5,3,3  5,3,4  5,3,5  5,4,0  5,4,1  5,4,2
+#&gt; X             93.67  95.09  95.47  96.08  96.43  97.46  95.04  96.33  96.72
+#&gt; Sensory[, 1]  95.76  96.58  97.44  98.65  99.22  99.46  96.35  96.90  97.52
+#&gt;               5,4,3  5,4,4  5,4,5  5,5,0  5,5,1  5,5,2  5,5,3  5,5,4  5,5,5
+#&gt; X             97.24  97.57  97.76  96.06  97.06  97.55  98.14  98.37  98.51
+#&gt; Sensory[, 1]  98.70  99.13  99.62  96.58  97.22  97.75  98.73  99.30  99.77</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

@@ -1,10 +1,10 @@
 ---
-title: "5. Complex multiblock analysis"
+title: "F. Complex multiblock analysis"
 output: 
   rmarkdown::html_vignette:
     toc: true
 vignette: >
-  %\VignetteIndexEntry{5. Complex multiblock analysis}
+  %\VignetteIndexEntry{F. Complex multiblock analysis}
   %\VignetteEncoding{UTF-8}
   %\VignetteEngine{knitr::rmarkdown}
 editor_options: 
@@ -32,9 +32,9 @@ knitr::opts_chunk$set(
 library(multiblock)
 ```
 
-# Complex methods
+# Complex  data structures
 
-The following complex methods are available in the _multiblock_ package (function names in parentheses):
+The following methods for complex data structures are available in the _multiblock_ package (function names in parentheses):
 
 * L-PLS - Partial Least Squares in L configuration (_lpls_)
 * SO-PLS-PM - Sequential and Orthogonalised PLS Path Modeling (_sopls_pm_)

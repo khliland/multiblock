@@ -9,10 +9,6 @@
 \alias{summary.sopls}
 \alias{classify}
 \alias{classify.sopls}
-\alias{loadings.sopls}
-\alias{loadingplot.sopls}
-\alias{scores.sopls}
-\alias{scoreplot.sopls}
 \alias{R2.sopls}
 \alias{RMSEP.sopls}
 \title{Result functions for SO-PLS models}
@@ -49,14 +45,6 @@ classify(object, ...)
 
 \method{classify}{sopls}(object, classes, newdata, ncomp, LQ = "LDA", ...)
 
-\method{loadings}{sopls}(object, ncomp = "all", block = 1, ...)
-
-\method{loadingplot}{sopls}(object, ncomp = "all", comps = c(1, 2), block = 1, ...)
-
-\method{scores}{sopls}(object, ncomp = "all", block = 1, ...)
-
-\method{scoreplot}{sopls}(object, ncomp = "all", comps = c(1, 2), block = 1, ...)
-
 \method{R2}{sopls}(object, estimate, newdata, ncomp = "all", individual = FALSE, ...)
 
 \method{RMSEP}{sopls}(object, estimate, newdata, ncomp = "all", individual = FALSE, ...)
@@ -66,11 +54,11 @@ classify(object, ...)
 
 \item{newdata}{Optional new data with the same types of predictor blocks as the ones used for fitting the object.}
 
-\item{ncomp}{An \code{integer} giving the number of components to use apply.}
+\item{ncomp}{An \code{integer} giving the number of components to apply.}
 
 \item{comps}{An \code{integer} vector giving the exact components to apply.}
 
-\item{type}{Character indicating which type of explained variance to compute (default = "train", alternative = "CV").}
+\item{type}{A \code{character} for \code{predict} indicating if responses or scores should be predicted (default = "response", or "scores"), for \code{summary} indicating which type of explained variance to compute (default = "train", alternative = "CV").}
 
 \item{na.action}{Function determining what to do with missing values in \code{newdata}.}
 
@@ -90,11 +78,11 @@ classify(object, ...)
 
 \item{LQ}{A \code{character} indicating if 'max' (maximum score value), 'lda' or 'qda' should be used when classifying.}
 
-\item{block}{An \code{integer} indicating which block to use.}
-
 \item{estimate}{A \code{character} indicating if 'train', 'CV' or 'test' results should be displayed.}
 
 \item{individual}{A \code{logical} indicating if results for individual responses should be displayed.}
+
+\item{block}{An \code{integer} indicating which block to use.}
 }
 \value{
 Returns depend on method used, e.g. \code{predict.sopls} returns predicted responses
@@ -111,8 +99,6 @@ predict(mod, testset, comps=c(2,1,2))
 #dim(coef(mod, ncomp=5)) # <variables x responses x components>
 print(mod)
 summary(mod)
-#blockexpl(mod)
-#print(blockexpl(mod), compwise=TRUE)
 
 }
 \references{

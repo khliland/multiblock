@@ -2,7 +2,7 @@
 % Please edit documentation in R/popls.R
 \name{popls}
 \alias{popls}
-\title{Parallel and Ortogonalised Partial Least Squares - PO-PLS}
+\title{Parallel and Orthogonalised Partial Least Squares - PO-PLS}
 \usage{
 popls(
   X,
@@ -30,7 +30,7 @@ popls(
 A \code{multiblock} object with block-wise, local and common loadings and scores.
 }
 \description{
-Parallel and Ortogonalised Partial Least Squares - PO-PLS
+Parallel and Orthogonalised Partial Least Squares - PO-PLS
 }
 \examples{
 data(potato)

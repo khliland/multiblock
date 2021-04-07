@@ -19,7 +19,7 @@ data(process)
 A dataset containing process data for 4 connected process (A,B,C,D) stages,
 three unconnected inputs (A,B,C) and a set of endpoint qualities (E).
 The stages A, B and C are influencing D and A, B, C and D are influencing E.
-This can be described as a directed asyclic graph (sketched below). \cr
+This can be described as a directed acyclic graph (sketched below). \cr
 
 \code{\Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} B --- }\cr
 \code{\Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \ \Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \ }\cr

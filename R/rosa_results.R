@@ -20,7 +20,7 @@
 #' @param ... Additional arguments. Currently not implemented.
 #'
 #' @return Returns depend on method used, e.g. \code{predict.rosa} returns predicted responses 
-#' or scores depending on inputs, \code{coef.rosa} return regression coefficients, \code{blockexpl}
+#' or scores depending on inputs, \code{coef.rosa} returns regression coefficients, \code{blockexpl}
 #' returns an object of class \code{rosaexpl} containing block-wise and component-wise explained variance contained in a matrix with attributes.
 #' 
 #' @description Standard result functions for ROSA (\code{\link{rosa}}).
@@ -329,17 +329,6 @@ explvar <- function(object)
          loadings = attr(object, "explvar"),
          rosa = 100 * object$Xvar / object$Xtotvar
   )
-
-dummycode <- function(Y, n){
-  nlev <- nlevels(Y)
-  lev  <- levels(Y)
-  X    <- model.matrix(~y-1,data.frame(y=Y))
-  ref  <- X[,nlev,drop=FALSE]
-  X    <- X[,-nlev,drop=FALSE]
-  attributes(X) <- list(dim = attributes(X)$dim)
-  X    <- X-ref%*%colSums(X)/sum(ref)
-  X
-}
 
 # model.matrix.rosa <- function (object, ...) {
 #   if (n_match <- match("X.concat", names(object), 0))
