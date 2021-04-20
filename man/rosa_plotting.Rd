@@ -55,7 +55,8 @@ No return.
 \description{
 Various plotting procedures for \code{\link{rosa}} objects. \code{image.rosa}
 makes an image plot of each candidate score's correlation to the winner or the block-wise
-response residual. \code{barplot.rosa} makes barplot of block and component explained variances.
+response residual. These plots can be used to find alternative block selection for tweaking
+the ROSA model. \code{barplot.rosa} makes barplot of block and component explained variances.
 \code{loadingweightsplot} is an adaptation of \code{pls::loadingplot} to plot loading weights.
 }
 \examples{

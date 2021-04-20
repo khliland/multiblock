@@ -11,8 +11,8 @@
 sopls_pm(
   X,
   Y,
-  comps,
-  max_comps = min(sum(comps), 20),
+  ncomp,
+  max_comps = min(sum(ncomp), 20),
   sel.comp = "opt",
   computeAdditional = FALSE,
   sequential = FALSE,
@@ -25,8 +25,8 @@ sopls_pm(
 
 sopls_pm_multiple(
   X,
-  comps,
-  max_comps = min(sum(comps), 20),
+  ncomp,
+  max_comps = min(sum(ncomp), 20),
   sel.comp = "opt",
   computeAdditional = FALSE,
   sequential = FALSE,
@@ -42,11 +42,11 @@ sopls_pm_multiple(
 
 \item{Y}{A \code{matrix} of response(s).}
 
-\item{comps}{An \code{integer} vector giving the number of components per block.}
+\item{ncomp}{An \code{integer} vector giving the number of components per block or a single integer for common number of components.}
 
 \item{max_comps}{Maximum total number of components.}
 
-\item{sel.comp}{A \code{character} or \code{integer} vector indicating the type ("opt" - minimum error / "chi" - chi-squared reduced) or number of components in selections.}
+\item{sel.comp}{A \code{character} or \code{integer} vector indicating the type ("opt" - minimum error / "chi" - chi-squared reduced) or exact number of components in selections.}
 
 \item{computeAdditional}{A \code{logical} indicating if additional components should be computed.}
 
@@ -70,20 +70,42 @@ sopls_pm_multiple(
 }
 \value{
 An object of type \code{SO_TDI} containing total, direct and indirect effects, plus
-possibly additional effects and standard deviations.
+possibly additional effects and standard deviations (estimated by bootstrapping).
 }
 \description{
-Total, direct, indirect and additional effects in SO-PLS-PM.
+sopls_pm computes 'total', 'direct', 'indirect' and 'additional' effects for the 'first' versus the
+'last' input block by cross-validated explained variances. 'total' is the explained variance when doing
+regression of 'first' -> 'last'. 'indirect' is the the same, but controlled for the intermediate blocks.
+'direct' is the left-over part of the 'total' explained variance when subtracting the 'indirect'. Finally,
+'additional' is the added explained variance of 'last' for each block following 'first'.
+
+sopls_pm_multiple is a wrapper fo sopls_pm that repeats the calculation for all pairs of blocks
+from 'first' to 'last'. Where sopls_pm has a separate response, Y, signifying the 'last' block,
+sopls_pm_multiple has multiple 'last' blocks, depending on subpath, thus collects the response(s)
+from the list of blocks X.
+}
+\details{
+When sel.comp = "opt", the number of components for all models are optimized using cross-validation
+within the ncomp and max_comps supplied. If sel.comp is "chi", an optimization is also performed,
+but parsimonious solutions are sought through a chi-square chriterion. When setting sel.comp to a
+numeric vector, exact selection of number of components is performed.
+
+When setting B to a number, e.g. 200, the procedures above are repeated B times using bootstrapping
+to estimate standard deviations of the cross-validated explained variances.
 }
 \examples{
-# Single path:
+# Single path for the potato data:
 data(potato)
 pot.pm <- sopls_pm(potato[1:3], potato[['Sensory']], c(5,5,5), computeAdditional=TRUE)
 pot.pm
 
-# All path in the forward direction:
+# Corresponding SO-PLS model:
+# so <- sopls(Sensory ~ ., data=potato[c(1,2,3,9)], ncomp=c(5,5,5), validation="CV", segments=10)
+# maageSeq(pot.so, compSeq = c(3,2,4))
+
+# All path in the forward direction for the wine data:
 data(wine)
-pot.pm.multiple <- sopls_pm_multiple(wine, comps = c(4,2,9,8))
+pot.pm.multiple <- sopls_pm_multiple(wine, ncomp = c(4,2,9,8))
 pot.pm.multiple
 }
 \references{

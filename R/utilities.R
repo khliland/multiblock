@@ -185,7 +185,7 @@ explvar <- function(object){
          mvr = 100 * object$Xvar / object$Xtotvar,
          princomp =,
          prcomp = 100 * object$sdev^2 / sum(object$sdev^2),
-         scores =,
+         scores = attr(object, "explvar"),
          loadings = attr(object, "explvar"),
          scores.multiblock = attr(object, "explvar")
   )}

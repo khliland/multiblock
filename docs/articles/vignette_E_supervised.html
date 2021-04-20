@@ -174,12 +174,12 @@
 <p>MB-PLS is implemented as a block-wise weighted concatenated ordinary PLSR. Therefore, all methods available for <em>plsr</em> are available for the global part of the MB-PL. In addition one can extrac <em>blockScores</em> and <em>blockLoadings</em>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">Tb1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/pls/man/scores.html">scores</a></span><span class="op">(</span><span class="va">mb</span>, block<span class="op">=</span><span class="fl">1</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">Tb1</span>, labels <span class="op">=</span> <span class="st">"names"</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/pkg/pls/man/scoreplot.html">scoreplot</a></span><span class="op">(</span><span class="va">mb</span>, block <span class="op">=</span> <span class="fl">1</span>, labels <span class="op">=</span> <span class="st">"names"</span><span class="op">)</span></code></pre></div>
 <p><img src="vignette_E_supervised_files/figure-html/unnamed-chunk-4-1.png" width="576"></p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 <span class="va">Pb2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/pls/man/scores.html">loadings</a></span><span class="op">(</span><span class="va">mb</span>, block<span class="op">=</span><span class="fl">2</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">Pb2</span>, main <span class="op">=</span> <span class="st">'Loadings for block 2'</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/pkg/pls/man/scoreplot.html">loadingplot</a></span><span class="op">(</span><span class="va">mb</span>, block <span class="op">=</span> <span class="fl">1</span>, labels <span class="op">=</span> <span class="st">"names"</span><span class="op">)</span></code></pre></div>
 <p><img src="vignette_E_supervised_files/figure-html/unnamed-chunk-4-2.png" width="576"></p>
 </div>
 </div>
@@ -658,12 +658,12 @@
 <p>Scores and loadings are stored per block. Common scores/loadings are found in each of the blocks’ list of components.</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Score plot for local (2,3) components</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/pls/man/scores.html">scores</a></span><span class="op">(</span><span class="va">pot.po.man</span>,<span class="fl">3</span><span class="op">)</span>, comps<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, labels<span class="op">=</span><span class="st">"names"</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/pkg/pls/man/scoreplot.html">scoreplot</a></span><span class="op">(</span><span class="va">pot.po.man</span>, block <span class="op">=</span> <span class="fl">3</span>, labels <span class="op">=</span> <span class="st">"names"</span><span class="op">)</span></code></pre></div>
 <p><img src="vignette_E_supervised_files/figure-html/unnamed-chunk-17-1.png" width="576"></p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 <span class="co"># Corresponding loadings</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/pls/man/scores.html">loadings</a></span><span class="op">(</span><span class="va">pot.po.man</span>,<span class="fl">3</span><span class="op">)</span>, comps<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, labels<span class="op">=</span><span class="st">"names"</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/pkg/pls/man/scoreplot.html">loadingplot</a></span><span class="op">(</span><span class="va">pot.po.man</span>, block <span class="op">=</span> <span class="fl">3</span>, labels<span class="op">=</span><span class="st">"names"</span>, scatter <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
 <p><img src="vignette_E_supervised_files/figure-html/unnamed-chunk-17-2.png" width="576"></p>
 </div>
 </div>
@@ -692,11 +692,11 @@
 <span class="co">#&gt; VALIDATION: RMSEP</span>
 <span class="co">#&gt; Cross-validated using 5 random segments.</span>
 <span class="co">#&gt;        (Intercept)  1 comps  2 comps  3 comps  4 comps  5 comps  6 comps</span>
-<span class="co">#&gt; CV           1.778    1.448    1.276    1.268    1.129    1.141    1.227</span>
-<span class="co">#&gt; adjCV        1.778    1.357    1.194    1.189    1.062    1.078    1.158</span>
+<span class="co">#&gt; CV           1.778    1.066   0.9258   0.9068   0.8021   0.9775    1.097</span>
+<span class="co">#&gt; adjCV        1.778    1.026   0.8888   0.8680   0.7769   0.9347    1.044</span>
 <span class="co">#&gt;        7 comps  8 comps  9 comps  10 comps</span>
-<span class="co">#&gt; CV       1.288    1.318    1.333     1.434</span>
-<span class="co">#&gt; adjCV    1.218    1.253    1.271     1.362</span>
+<span class="co">#&gt; CV       1.195    1.183    1.117     1.129</span>
+<span class="co">#&gt; adjCV    1.139    1.135    1.081     1.095</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; TRAINING: % variance explained</span>
 <span class="co">#&gt;          1 comps  2 comps  3 comps  4 comps  5 comps  6 comps  7 comps  8 comps</span>
@@ -749,9 +749,9 @@
 <code class="sourceCode R"><span class="co"># Cross-validation</span>
 <span class="fu"><a href="https://rdrr.io/pkg/pls/man/mvrVal.html">R2</a></span><span class="op">(</span><span class="va">ros.pot</span><span class="op">)</span>
 <span class="co">#&gt; (Intercept)      1 comps      2 comps      3 comps      4 comps      5 comps  </span>
-<span class="co">#&gt;     -0.0816       0.2828       0.4429       0.4501       0.5634       0.5541  </span>
+<span class="co">#&gt;     -0.0816       0.6113       0.7066       0.7186       0.7798       0.6730  </span>
 <span class="co">#&gt;     6 comps      7 comps      8 comps      9 comps     10 comps  </span>
-<span class="co">#&gt;      0.4847       0.4322       0.4057       0.3917       0.2964</span>
+<span class="co">#&gt;      0.5885       0.5114       0.5214       0.5728       0.5634</span>
 <span class="co"># Training</span>
 <span class="fu"><a href="https://rdrr.io/pkg/pls/man/mvrVal.html">R2</a></span><span class="op">(</span><span class="va">ros.pot</span>, <span class="st">'train'</span><span class="op">)</span>
 <span class="co">#&gt; (Intercept)      1 comps      2 comps      3 comps      4 comps      5 comps  </span>
@@ -767,11 +767,11 @@
 <code class="sourceCode R"><span class="co"># Cross-validation</span>
 <span class="fu"><a href="https://rdrr.io/pkg/pls/man/mvrVal.html">RMSEP</a></span><span class="op">(</span><span class="va">ros.pot</span><span class="op">)</span>
 <span class="co">#&gt;        (Intercept)  1 comps  2 comps  3 comps  4 comps  5 comps  6 comps</span>
-<span class="co">#&gt; CV           1.778    1.448    1.276    1.268    1.129    1.141    1.227</span>
-<span class="co">#&gt; adjCV        1.778    1.357    1.194    1.189    1.062    1.078    1.158</span>
+<span class="co">#&gt; CV           1.778    1.066   0.9258   0.9068   0.8021   0.9775    1.097</span>
+<span class="co">#&gt; adjCV        1.778    1.026   0.8888   0.8680   0.7769   0.9347    1.044</span>
 <span class="co">#&gt;        7 comps  8 comps  9 comps  10 comps</span>
-<span class="co">#&gt; CV       1.288    1.318    1.333     1.434</span>
-<span class="co">#&gt; adjCV    1.218    1.253    1.271     1.362</span>
+<span class="co">#&gt; CV       1.195    1.183    1.117     1.129</span>
+<span class="co">#&gt; adjCV    1.139    1.135    1.081     1.095</span>
 <span class="co"># Training</span>
 <span class="fu"><a href="https://rdrr.io/pkg/pls/man/mvrVal.html">RMSEP</a></span><span class="op">(</span><span class="va">ros.pot</span>, <span class="st">'train'</span><span class="op">)</span>
 <span class="co">#&gt; (Intercept)      1 comps      2 comps      3 comps      4 comps      5 comps  </span>
@@ -787,7 +787,7 @@
 <div id="image-plots" class="section level2">
 <h2 class="hasAnchor">
 <a href="#image-plots" class="anchor"></a>Image plots</h2>
-<p>Plots for evaluation of the block selection process in ROSA.</p>
+<p>These are plots for evaluation of the block selection process in ROSA. Correlation plots show how the different candidate scores (one candidate for each block for each component) correlate to the winning block’s scores. Residual response plots show how different choices of candidate scores would affect the RMSE of the residual response. One can for instance use these plots decide on a different block selection order than the one proposed automatically by ROSA.</p>
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Correlation to winning scores</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/image.html">image</a></span><span class="op">(</span><span class="va">ros.pot</span><span class="op">)</span></code></pre></div>
@@ -828,7 +828,13 @@
 <span class="co">#&gt; Warning in loadings.multiblock(mbr): No global/consensus loadings available.</span>
 <span class="co">#&gt; Returning block 1 loadings.</span>
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">lo_mbr</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; [1] -0.1180108</span>
+<span class="co">#&gt;           Comp 1      Comp 2     Comp 3     Comp 4     Comp 5</span>
+<span class="co">#&gt; PEU  -0.11801083  0.45883565 -1.7606202 -0.1936109 -2.3704052</span>
+<span class="co">#&gt; Sta.  1.02113965 -2.99539512  1.4968283  4.6426038 -7.6478047</span>
+<span class="co">#&gt; TotN  0.50084474 -1.40837541  1.0571404  1.8302797 -1.7127587</span>
+<span class="co">#&gt; Phy.  0.24298763  0.27655908  0.3695837  0.4462580 -0.7461178</span>
+<span class="co">#&gt; Ca    0.02050271 -0.04647818  0.1311656  0.6243666 -0.9713523</span>
+<span class="co">#&gt; Mg   -0.21159305  1.41437345 -0.6562877 -1.4166021  2.0111970</span>
 <span class="co"># Plot scores</span>
 <span class="fu"><a href="https://rdrr.io/pkg/pls/man/scoreplot.html">scoreplot</a></span><span class="op">(</span><span class="va">mbr</span>, labels <span class="op">=</span> <span class="st">"names"</span><span class="op">)</span></code></pre></div>
 <p><img src="vignette_E_supervised_files/figure-html/unnamed-chunk-26-1.png" width="576"></p>

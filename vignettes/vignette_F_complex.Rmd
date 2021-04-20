@@ -162,7 +162,7 @@ sub-paths are estimated.
 data(wine)
 
 # All path in the forward direction
-pot.pm.multiple <- sopls_pm_multiple(wine, comps = c(4,2,9,8))
+pot.pm.multiple <- sopls_pm_multiple(wine, ncomp = c(4,2,9,8))
 
 # Report of direct, indirect and total explained variance per sub-path.
 # Bootstrapping can be enabled to assess stability.

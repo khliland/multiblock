@@ -1,7 +1,7 @@
 #' @name rosa_object
 #' @title Result functions for ROSA models
 #'
-#' @aliases predict.rosa rosa.classify coef.rosa print.rosa summary.rosa blockexpl print.rosaexpl
+#' @aliases predict.rosa rosa.classify coef.rosa print.rosa summary.rosa blockexpl print.rosaexpl scores.rosa loadings.rosa
 #' @param object A \code{rosa} object.
 #' @param x A \code{rosa} object.
 #' @param newdata Optional new data with the same types of predictor blocks as the ones used for fitting the object.
@@ -315,20 +315,22 @@ rosa.classify <- function(object, classes, newdata, ncomp, LQ){
   }
 }
 
+#' @rdname rosa_object
+#' @export
+scores.rosa <- function(object, ...) {
+  object$scores
+}
+
+#' @rdname rosa_object
+#' @export
+loadings.rosa <- function(object, ...) {
+  object$loadings
+}
+
 
 ################
 # Undocumented #
 ################
-
-explvar <- function(object)
-  switch(class(object)[1],
-         mvr = 100 * object$Xvar / object$Xtotvar,
-         princomp =,
-         prcomp = 100 * object$sdev^2 / sum(object$sdev^2),
-         scores =,
-         loadings = attr(object, "explvar"),
-         rosa = 100 * object$Xvar / object$Xtotvar
-  )
 
 # model.matrix.rosa <- function (object, ...) {
 #   if (n_match <- match("X.concat", names(object), 0))

@@ -236,20 +236,25 @@
 <span class="co">#&gt; [5] "call"</span>
 <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">pot.sca</span><span class="op">)</span>
 <span class="co">#&gt; Simultaneous Component Analysis </span>
+<span class="co">#&gt; =============================== </span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; Score type:  Common scores </span>
-<span class="co">#&gt; Block loadings type:  Block loadings</span>
+<span class="co">#&gt; $scores: Common scores (26x2)</span>
+<span class="co">#&gt; $blockLoadings: Block loadings:</span>
+<span class="co">#&gt; - Chemical (14x2), Compression (12x2), Sensory (9x2)</span>
 <span class="co"># MFA stores individual PCA scores and loadings as block elements:</span>
 <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">pot.mfa</span><span class="op">)</span>
 <span class="co">#&gt; [1] "scores"        "loadings"      "blockScores"   "blockLoadings"</span>
 <span class="co">#&gt; [5] "info"          "MFA"           "call"</span>
 <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">pot.mfa</span><span class="op">)</span>
 <span class="co">#&gt; Multiple Factor Analysis </span>
+<span class="co">#&gt; ======================== </span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; Score type:  Global scores </span>
-<span class="co">#&gt; Loadings type:  Global loadings </span>
-<span class="co">#&gt; Block scores type:  Individual PCA scores </span>
-<span class="co">#&gt; Block loadings type:  Individual PCA loadings</span></code></pre></div>
+<span class="co">#&gt; $scores: Global scores (26x5)</span>
+<span class="co">#&gt; $loadings: Global loadings (35x5)</span>
+<span class="co">#&gt; $blockScores: Individual PCA scores:</span>
+<span class="co">#&gt; - Chemical (26x5), Compression (26x5), Sensory (26x5)</span>
+<span class="co">#&gt; $blockLoadings: Individual PCA loadings:</span>
+<span class="co">#&gt; - Chemical (14x5), Compression (12x5), Sensory (9x5)</span></code></pre></div>
 </div>
 <div id="scores-and-loadings" class="section level2">
 <h2 class="hasAnchor">
@@ -257,11 +262,11 @@
 <p>Functions for accessing scores and loadings are based on functions from the <em>pls</em> package, but extended with a <em>block</em> parameter to allow extraction of common/global scores/loadings and their block counterparts. The default block is 0, corresponding to the common/global block. Block scores/loadings can be accessed by number or name.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Global scores plotted with object labels</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/pls/man/scores.html">scores</a></span><span class="op">(</span><span class="va">pot.sca</span><span class="op">)</span>, labels <span class="op">=</span> <span class="st">"names"</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/pkg/pls/man/scoreplot.html">scoreplot</a></span><span class="op">(</span><span class="va">pot.sca</span>, labels <span class="op">=</span> <span class="st">"names"</span><span class="op">)</span></code></pre></div>
 <p><img src="vignette_C_unsupervised_files/figure-html/unnamed-chunk-6-1.png" width="576"></p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Block loadings for Sensory block with variable labels in scatter format</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/pls/man/scores.html">loadings</a></span><span class="op">(</span><span class="va">pot.sca</span>, <span class="st">"Sensory"</span><span class="op">)</span>, labels <span class="op">=</span> <span class="st">"names"</span>, scatter <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/pkg/pls/man/scoreplot.html">loadingplot</a></span><span class="op">(</span><span class="va">pot.sca</span>, block <span class="op">=</span> <span class="st">"Sensory"</span>, labels <span class="op">=</span> <span class="st">"names"</span><span class="op">)</span></code></pre></div>
 <p><img src="vignette_C_unsupervised_files/figure-html/unnamed-chunk-7-1.png" width="576"></p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Non-existing elements are swapped with existing ones with a warning.</span>

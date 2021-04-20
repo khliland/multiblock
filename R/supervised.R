@@ -134,15 +134,28 @@ mbrda <- function(X, Y, ncomp=1, ...){
   # MBRedundancyAnalysis
   Xd  <- lapply(X,as.data.frame)
   Xk  <- ktab.list.df(Xd)
-  Y   <- dudi.pca(Y, scannf = FALSE, nf = 1)
+  Y   <- dudi.pca(Y, scannf = FALSE, nf = ncol(Y))
   res <- mbpcaiv(Y, Xk, scale = TRUE, scannf = FALSE, nf = ncomp, ...)
   
   varT <- diag(crossprod(res$lX * res$lw, res$lX))
   covarTY <- diag(tcrossprod(crossprod(res$lX * res$lw, 
                                        as.matrix(res$tabY))))
   varExplTY <- (covarTY/varT)/sum(covarTY/varT) * 100
+  vars <- cumsum(unlist(lapply(X, ncol))); v <- 1
+  blockScores <- blockLoadings <- list()
+  for(i in 1:length(vars)){
+    blockLoadings[[i]] <- res$Tfa[v:vars[i],]
+    blockScores[[i]] <- res$Tl1[(i-1)*nrow(X[[i]])+(1:nrow(X[[i]])),]
+    v <- vars[i]+1
+  }
+  names(blockLoadings) <- names(X)
+  for(i in 1:length(X)){
+    rownames(blockLoadings[[i]]) <- colnames(X[[i]])
+    rownames(blockScores[[i]])   <- rownames(X[[i]])
+    colnames(blockScores[[i]])   <- colnames(blockLoadings[[i]]) <- paste0("Comp ", 1:ncomp)
+  }
   #                     u                 v
-  mod <- list(Yscores=res$lY, Yloadings=res$Yc1, scores=res$lX, blockLoadings=res$Tfa, blockScores=res$Tl1, varT=varT, covarTY=covarTY, varExplTY=varExplTY, mbpcaiv=res)
+  mod <- list(Yscores=res$lY, Yloadings=res$Yc1, scores=res$lX, blockLoadings=blockLoadings, blockScores=blockScores, varT=varT, covarTY=covarTY, varExplTY=varExplTY, mbpcaiv=res)
   mod$info <- list(method = "Multiblock RDA", 
                    scores = "Scores", loadings = "Not used",
                    blockScores = "Block scores", blockLoadings = "Block loadings") # t_m, w_m

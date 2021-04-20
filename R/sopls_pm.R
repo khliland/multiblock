@@ -1,7 +1,7 @@
 ########################################################
 # Total, direct, indirect, additional, overall effects #
 ########################################################
-# ... of first on last block given intermediates
+# ... between first and last block given intermediates
 
 #' @name SO_TDI
 #' @aliases sopls_pm print.SO_TDI
@@ -9,9 +9,9 @@
 #'
 #' @param X A \code{list} of input blocks (of type \code{matrix}).
 #' @param Y A \code{matrix} of response(s).
-#' @param comps An \code{integer} vector giving the number of components per block.
+#' @param ncomp An \code{integer} vector giving the number of components per block or a single integer for common number of components.
 #' @param max_comps Maximum total number of components.
-#' @param sel.comp A \code{character} or \code{integer} vector indicating the type ("opt" - minimum error / "chi" - chi-squared reduced) or number of components in selections.
+#' @param sel.comp A \code{character} or \code{integer} vector indicating the type ("opt" - minimum error / "chi" - chi-squared reduced) or exact number of components in selections.
 #' @param computeAdditional A \code{logical} indicating if additional components should be computed.
 #' @param sequential A \code{logical} indicating if sequential component optimization should be applied.
 #' @param B An \code{integer} giving the number of bootstrap replicates for variation estimation.
@@ -22,27 +22,51 @@
 #' @param heading A \code{character} giving the heading of the print.
 #' @param digits An \code{integer} for selecting number of digits in print.
 #' @param ... Not implemented
+#' 
+#' @description sopls_pm computes 'total', 'direct', 'indirect' and 'additional' effects for the 'first' versus the 
+#' 'last' input block by cross-validated explained variances. 'total' is the explained variance when doing
+#' regression of 'first' -> 'last'. 'indirect' is the the same, but controlled for the intermediate blocks.
+#' 'direct' is the left-over part of the 'total' explained variance when subtracting the 'indirect'. Finally,
+#' 'additional' is the added explained variance of 'last' for each block following 'first'.
+#' 
+#' sopls_pm_multiple is a wrapper fo sopls_pm that repeats the calculation for all pairs of blocks
+#' from 'first' to 'last'. Where sopls_pm has a separate response, Y, signifying the 'last' block, 
+#' sopls_pm_multiple has multiple 'last' blocks, depending on subpath, thus collects the response(s)
+#' from the list of blocks X.
+#' 
+#' @details
+#' When sel.comp = "opt", the number of components for all models are optimized using cross-validation
+#' within the ncomp and max_comps supplied. If sel.comp is "chi", an optimization is also performed,
+#' but parsimonious solutions are sought through a chi-square chriterion. When setting sel.comp to a
+#' numeric vector, exact selection of number of components is performed.
+#' 
+#' When setting B to a number, e.g. 200, the procedures above are repeated B times using bootstrapping
+#' to estimate standard deviations of the cross-validated explained variances.
 #'
 #' @return An object of type \code{SO_TDI} containing total, direct and indirect effects, plus
-#' possibly additional effects and standard deviations.
+#' possibly additional effects and standard deviations (estimated by bootstrapping).
 #' 
 #' @references 
 #' * Menichelli, E., Almøy, T., Tomic, O., Olsen, N. V., & Næs, T. (2014). SO-PLS as an exploratory tool for path modelling. Food quality and preference, 36, 122-134.
 #' * Næs, T., Romano, R., Tomic, O., Måge, I., Smilde, A., & Liland, K. H. (2020). Sequential and orthogonalized PLS (SO‐PLS) regression for path analysis: Order of blocks and relations between effects. Journal of Chemometrics, e3243.
 #'
 #' @examples
-#' # Single path:
+#' # Single path for the potato data:
 #' data(potato)
 #' pot.pm <- sopls_pm(potato[1:3], potato[['Sensory']], c(5,5,5), computeAdditional=TRUE)
 #' pot.pm
 #' 
-#' # All path in the forward direction:
+#' # Corresponding SO-PLS model:
+#' # so <- sopls(Sensory ~ ., data=potato[c(1,2,3,9)], ncomp=c(5,5,5), validation="CV", segments=10)
+#' # maageSeq(pot.so, compSeq = c(3,2,4))
+#' 
+#' # All path in the forward direction for the wine data:
 #' data(wine)
-#' pot.pm.multiple <- sopls_pm_multiple(wine, comps = c(4,2,9,8))
+#' pot.pm.multiple <- sopls_pm_multiple(wine, ncomp = c(4,2,9,8))
 #' pot.pm.multiple
 #' @seealso Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 #' @export
-sopls_pm <- function(X, Y, comps, max_comps = min(sum(comps), 20), sel.comp = "opt", computeAdditional = FALSE, sequential = FALSE, B = NULL, k = 10, type = "consecutive"){#validation = "LOO", ...){
+sopls_pm <- function(X, Y, ncomp, max_comps = min(sum(ncomp), 20), sel.comp = "opt", computeAdditional = FALSE, sequential = FALSE, B = NULL, k = 10, type = "consecutive"){#validation = "LOO", ...){
   Y <- as.matrix(Y)
   n      <- dim(Y)[1]
   nresp  <- dim(Y)[2]
@@ -53,6 +77,11 @@ sopls_pm <- function(X, Y, comps, max_comps = min(sum(comps), 20), sel.comp = "o
   if(is.numeric(sel.comp) && sum(sel.comp)>max_comps){
     stop(paste0("'sel.comp' is outside bounds set by 'max_comps'. Suggested max_comp = ", sum(sel.comp)))
   }
+  ## Check components
+  if(length(ncomp)==1 && length(X)>1){
+    ncomp <- rep(ncomp, length(X))
+  }
+  comps <- pmin(ncomp, max_comps)
   if(is.numeric(sel.comp) && any(sel.comp>comps)){
     stop("'sel.comp' is larger than 'comps'")
   }
@@ -313,9 +342,15 @@ print.SO_TDI <- function(x, showComp=TRUE, heading="SO-PLS path effects", digits
 # Multiple calls for each sequential version
 #' @rdname SO_TDI
 #' @export
-sopls_pm_multiple <- function(X, comps, max_comps = min(sum(comps), 20), sel.comp = "opt", computeAdditional = FALSE, sequential = FALSE, B = NULL, k = 10, type = "consecutive"){
+sopls_pm_multiple <- function(X, ncomp, max_comps = min(sum(ncomp), 20), sel.comp = "opt", computeAdditional = FALSE, sequential = FALSE, B = NULL, k = 10, type = "consecutive"){
   nblock <- length(X)
   
+  ## Check components
+  if(length(ncomp)==1 && length(X)>1){
+    ncomp <- rep(ncomp, length(X))
+  }
+  comps <- pmin(ncomp, max_comps)
+
   if(is.null(X_names <- names(X)))
     X_names <- paste0('Block ', 1:nblock)
   models <- list()

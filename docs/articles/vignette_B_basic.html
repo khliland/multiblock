@@ -173,17 +173,20 @@
 <span class="co">#&gt; [1] "loadings" "scores"   "Xmeans"   "explvar"  "PCA"      "info"     "call"</span>
 <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">pot.pca</span><span class="op">)</span>
 <span class="co">#&gt; Principal Component Analysis </span>
+<span class="co">#&gt; ============================ </span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; Score type:  Scores </span>
-<span class="co">#&gt; Loadings type:  Loadings</span>
+<span class="co">#&gt; $scores: Scores (26x2)</span>
+<span class="co">#&gt; $loadings: Loadings (14x2)</span>
 <span class="co"># GSVD returns block scores and common loadings:</span>
 <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">pot.gsvd</span><span class="op">)</span>
 <span class="co">#&gt; [1] "loadings"    "blockScores" "GSVD"        "info"        "call"</span>
 <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">pot.gsvd</span><span class="op">)</span>
 <span class="co">#&gt; Generalized Singular Value Decomposition </span>
+<span class="co">#&gt; ======================================== </span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; Loadings type:  Loadings </span>
-<span class="co">#&gt; Block scores type:  Block scores</span></code></pre></div>
+<span class="co">#&gt; $loadings: Loadings (26x26)</span>
+<span class="co">#&gt; $blockScores: Block scores:</span>
+<span class="co">#&gt; - NIRraw (1050x1050), NIRcooked (1050x1050)</span></code></pre></div>
 </div>
 <div id="scores-and-loadings" class="section level2">
 <h2 class="hasAnchor">
@@ -191,11 +194,11 @@
 <p>Functions for accessing scores and loadings are based on functions from the <em>pls</em> package, but extended with a <em>block</em> parameter to allow extraction of common/global scores/loadings and their block counterparts. The default value for <em>block</em> is 0, corresponding to the common/global block. Block scores/loadings can be accessed by setting <em>block</em> to a number or name.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Global scores plotted with object labels</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/pls/man/scores.html">scores</a></span><span class="op">(</span><span class="va">pot.pca</span><span class="op">)</span>, labels <span class="op">=</span> <span class="st">"names"</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/pkg/pls/man/scoreplot.html">scoreplot</a></span><span class="op">(</span><span class="va">pot.pca</span>, labels <span class="op">=</span> <span class="st">"names"</span><span class="op">)</span></code></pre></div>
 <p><img src="vignette_B_basic_files/figure-html/unnamed-chunk-5-1.png" width="576"></p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Block loadings for Chemical block with variable labels in scatter format</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/pls/man/scores.html">loadings</a></span><span class="op">(</span><span class="va">pot.cca</span>, <span class="st">"Chemical"</span><span class="op">)</span>, labels <span class="op">=</span> <span class="st">"names"</span>, scatter <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/pkg/pls/man/scoreplot.html">loadingplot</a></span><span class="op">(</span><span class="va">pot.cca</span>, block <span class="op">=</span> <span class="st">"Chemical"</span>, labels <span class="op">=</span> <span class="st">"names"</span><span class="op">)</span></code></pre></div>
 <p><img src="vignette_B_basic_files/figure-html/unnamed-chunk-6-1.png" width="576"></p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Non-existing elements are swapped with existing ones with a warning.</span>

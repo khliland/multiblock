@@ -338,10 +338,3 @@ loadingplot.multiblock <- function(object, comps = 1:2, block = 0, scatter = TRU
                labels = paste(c(col(L)), rownames(L), sep = ": "))
   }                                   # if (isTRUE(scatter))
 }
-
-# scoreplot    with explained variances
-# loadingplot   --------- || ---------
-# explvar      simple extract
-
-
-

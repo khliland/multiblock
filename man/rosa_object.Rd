@@ -9,6 +9,8 @@
 \alias{summary.rosa}
 \alias{blockexpl}
 \alias{print.rosaexpl}
+\alias{scores.rosa}
+\alias{loadings.rosa}
 \title{Result functions for ROSA models}
 \usage{
 \method{predict}{rosa}(
@@ -38,6 +40,10 @@ blockexpl(object, ncomp = object$ncomp, type = c("train", "CV"))
 \method{print}{rosaexpl}(x, digits = 3, compwise = FALSE, ...)
 
 rosa.classify(object, classes, newdata, ncomp, LQ)
+
+\method{scores}{rosa}(object, ...)
+
+\method{loadings}{rosa}(object, ...)
 }
 \arguments{
 \item{object}{A \code{rosa} object.}

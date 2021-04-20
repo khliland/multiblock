@@ -518,13 +518,17 @@ rosa.fit <- function(X, X.concat, y, Y.add, ncomp, common.comp, weights, fixed.o
   # colnames(A) <- compnames
   class(T) <- "scores"
   class(P) <- class(W) <- class(q) <- "loadings"
+  
+  # Explained variance for X
+  Xvar <- colSums(P*P); Xtotvar <- sum(X.concat * X.concat)
+  attr(T, 'explvar') <- attr(P, 'explvar') <- attr(W, 'explvar') <- Xvar/Xtotvar*100
 
   list(coefficients=beta, loading.weights=W, loadings=P, scores=T,
        Yloadings = q, projection=R, PtW=PtW, block.loadings=Wb,
        order=order, count=count, candidate.correlation=C, candidate.RMSE=F,
        Xmeans=Xmeans, Ymeans=Ymeans,
        ncomp=ncomp, X.concat=X.concat, X.orig = X.orig,
-       Xvar=colSums(P*P), Xtotvar = sum(X.concat * X.concat),
+       Xvar=Xvar, Xtotvar = Xtotvar,
        fitted.values = fitted, residuals = residuals)
 }
 
