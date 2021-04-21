@@ -7,17 +7,17 @@
 #' the ROSA model. \code{barplot.rosa} makes barplot of block and component explained variances.
 #' \code{loadingweightsplot} is an adaptation of \code{pls::loadingplot} to plot loading weights.
 #'
-#' @aliases image.rosa barplot.rosa loadingweightplot
+#' @aliases image.rosa barplot.rosa
 #' @param x A \code{rosa} object
 #' @param object A \code{rosa} object.
 #' @param height A \code{rosa} object.
 #' @param ncomp Integer to control the number of components to plot (if fewer than the fitted number of components).
 #' @param type An optional \code{character} for selecting the plot type. For \code{image.rosa} the options are: "correlation" (default), "residual" or "order". For \code{barplot.rosa} the options indicate: explained variance should be based on training data ("train") or cross-validation ("CV").
-#' @param col Colors used for the image and bar plot, defaulting to mcolors(128).
+#' @param col Colours used for the image and bar plot, defaulting to mcolors(128).
 #' @param legend Logical indicating if a legend should be included (default = TRUE) for \code{image.rosa}.
 #' @param mar Figure margins, default = c(5,6,4,7) for \code{image.rosa}.
 #' @param las Axis text direction, default = 1 for \code{image.rosa}.
-#' @param ... Additional parameters passed to \code{loadingplot}, \code{image} or \code{barplot}
+#' @param ... Additional parameters passed to \code{loadingplot}, \code{image} or \code{barplot}.
 #'
 #' @return No return.
 #' @references Liland, K.H., Næs, T., and Indahl, U.G. (2016). ROSA - a fast extension of partial least squares regression for multiblock data analysis. Journal of Chemometrics, 30, 651–662, doi:10.1002/cem.2824.
@@ -102,16 +102,5 @@ barplot.rosa <- function(height, type = c("train","CV"), ncomp = height$ncomp, c
   }
   colnames(mat) <- nam
   barplot(mat, col = col, ...)
-}
-
-
-#' @export
-#' @rdname rosa_plotting
-loadingweightplot <- function(object, ...){
-  mf <- match.call(expand.dots = FALSE)
-  if(is.na(match("ylab", names(mf))))
-    ylab <- "loading weight"
-  object$loadings <- object$loading.weights
-  loadingplot(object, ylab = ylab, ...)
 }
 

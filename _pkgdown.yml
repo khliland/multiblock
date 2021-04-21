@@ -3,9 +3,11 @@ reference:
   desc: A common object type for many multiblock methods.
 - contents:
   - multiblock_object
+  - multiblock
 - title: "Basic methods"
   desc: Single- and two-block methods
 - contents:
+  - basic
   - pca
   - pcr
   - plsr
@@ -14,6 +16,7 @@ reference:
   - gsvd
 - title: "Unsupervised methods"
 - contents:
+  - unsupervised
   - sca
   - gca
   - gpa
@@ -27,9 +30,13 @@ reference:
   - hogsvd
 - title: "Supervised methods"
 - contents:
+  - supervised
   - mbpls
+  - smbpls
   - sopls
   - sopls_object
+  - sopls_plot
+  - maage
   - popls
   - rosa
   - rosa_object
@@ -37,8 +44,10 @@ reference:
   - mbrda
 - title: "Complex methods"
 - contents:
+  - complex
   - lpls
   - lpls_object
+  - lplsData
   - sopls_pm
 - title: "ASCA"
 - contents:
@@ -46,8 +55,10 @@ reference:
   - asca_object
 - title: "Utility functions"
 - contents:
-  - lplsData
-  - maage
+  - block.data.frame
+  - compnames
+  - dummycode
+  - explvar
   - mcolors
   - reexports
   - unique_combos

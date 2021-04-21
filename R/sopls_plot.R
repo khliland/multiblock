@@ -1,16 +1,18 @@
 #' @name sopls_plot
 #' @title Scores, loadings and plots for sopls objects
 #'
-#' @aliases loadings.sopls scores.sopls loadingplot.sopls scoreplot.sopls
+#' @aliases loadings.sopls scores.sopls loadingplot.sopls scoreplot.sopls biplot.sopls
 #'
 #' @param object \code{sopls} object
 #' @param comps \code{integer} vector giving components, within block, to plot.
 #' @param ncomp \code{integer} vector giving components from all blocks before \code{block} (see next argument).
 #' @param block \code{integer} indicating which block to extract components from.
+#' @param y \code{logical} extract Y loadings/scores instead of X loadings/scores (default = FALSE).
 #' @param scatter \code{logical} indicating if a scatterplot of loadings should be made (default = TRUE).
 #' @param labels \code{character} indicating if "names" or "numbers" should be plot symbols (optional).
 #' @param identify \code{logical} for activating \code{identify} to interactively identify points.
 #' @param type \code{character} for selecting type of plot to make. Defaults to "p" (points) for scatter plots and "l" (lines) for line plots.
+#' @param which \code{character} for selecting type of biplot ("x" = default, "y", "scores", "loadings").
 #' @param xlab \code{character} text for x labels.
 #' @param ylab \code{character} text for y labels.
 #' @param lty Vector of line type specifications (see \code{\link{par}} for details).
@@ -54,7 +56,7 @@
 #' # Scatterplot matrix
 #' loadingplot(so, ncomp=c(3,2), block=3, comps=1:3, scatter=TRUE)
 #' @export
-loadings.sopls <- function(object, ncomp = "all", block = 1, ...){
+loadings.sopls <- function(object, ncomp = "all", block = 1, y = FALSE, ...){
   if(is.numeric(ncomp) && length(ncomp)!=(block-1))
     stop("Length of 'ncomp' must be one less than 'block'.")
   if(is.character(ncomp))
@@ -69,16 +71,18 @@ loadings.sopls <- function(object, ncomp = "all", block = 1, ...){
   Xcat <- scale(do.call(cbind,object$data$X), scale=FALSE)
   Pcat <- crossprod(Xcat, T)
   xve <- 100 * apply(Pcat^2,2,sum)/sum(Xcat^2)
+  if(y)
+    P <- object$decomp$Q[, hits[block==blocks],drop=FALSE]
   attr(P, "explvar") <- xve
   xvei <- 100 * apply(P^2,2,sum)/sum(X^2)
   attr(P, "explvar_block") <- xvei
   class(P) <- c("loadings.multiblock","loadings")
-  P
+  return(P)
 }
 
 #' @rdname sopls_plot
 #' @export
-scores.sopls <- function(object, ncomp = "all", block = 1, ...){
+scores.sopls <- function(object, ncomp = "all", block = 1, y = FALSE, ...){
   if(is.numeric(ncomp) && length(ncomp)!=(block-1))
     stop("Length of 'ncomp' must be one less than 'block'.")
   if(is.character(ncomp))
@@ -92,6 +96,13 @@ scores.sopls <- function(object, ncomp = "all", block = 1, ...){
   Xcat <- scale(do.call(cbind,object$data$X), scale=FALSE)
   Pcat <- crossprod(Xcat, T)
   xve <- 100 * apply(Pcat^2,2,sum)/sum(Xcat^2)
+  if(y){
+    U <- object$data$Y %*% object$decomp$Q[, hits[block==blocks],drop=FALSE]
+    if(sum(block==blocks) > 1)
+      for(a in 2:sum(block==blocks))
+        U[,a] <- U[,a] - T[,1:a] %*% crossprod(T[,1:a], U[,a])
+    T <- U
+  }
   attr(T, "explvar") <- xve
   class(T) <- c("scores.multiblock","scores")
   T
@@ -298,4 +309,53 @@ loadingplot.sopls <- function(object, comps = 1:2, ncomp = "all", block = 1, sca
       identify(c(row(L)), c(L),
                labels = paste(c(col(L)), rownames(L), sep = ": "))
   }                                   # if (isTRUE(scatter))
+}
+
+
+#' @export
+#' @rdname multiblock_object
+biplot.sopls <- function(x, comps = 1:2, ncomp = "all", block = 1, which = c("x", "y", "scores", "loadings"),
+                              var.axes = FALSE, xlabs, ylabs, main, ...)
+{
+  if (length(comps) != 2) stop("Exactly 2 components must be selected.")
+  which <- match.arg(which)
+  switch(which,
+         x = {
+           objects <- scores(x, ncomp = ncomp, block = block)
+           vars <- loadings(x, ncomp = ncomp, block = block)
+           title <- "X scores and X loadings"
+         },
+         y = {
+           objects <- scores(x, ncomp = ncomp, block = block, y=TRUE)
+           vars <- loadings(x, ncomp = ncomp, block = block, y=TRUE)
+           title <- "Y scores and Y loadings"
+         },
+         scores = {
+           objects <- scores(x, ncomp = ncomp, block = block)
+           vars <- scores(x, ncomp = ncomp, block = block, y=TRUE)
+           title <- "X scores and Y scores"
+         },
+         loadings = {
+           objects <- loadings(x, ncomp = ncomp, block = block)
+           vars <- loadings(x, ncomp = ncomp, block = block, y=TRUE)
+           title <- "X loadings and Y loadings"
+         }
+  )
+  if (is.null(objects) || is.null(vars))
+    stop("'x' lacks the required scores/loadings.")
+  ## Build a call to `biplot'
+  mc <- match.call()
+  mc$comps <- mc$which <- NULL
+  mc$x <- objects[,comps, drop = FALSE]
+  mc$y <- vars[,comps, drop = FALSE]
+  mc$block <- mc$ncomp <- NULL
+  if (missing(main)) mc$main <- title
+  if (missing(var.axes)) mc$var.axes = FALSE
+  if (!missing(xlabs) && isFALSE(xlabs))
+    mc$xlabs <- rep("o", nrow(objects))
+  if (!missing(ylabs) && isFALSE(ylabs))
+    mc$ylabs <- rep("o", nrow(vars))
+  mc[[1]] <- as.name("biplot")
+  ## Evaluate the call:
+  eval(mc, parent.frame())
 }

@@ -171,9 +171,7 @@ the ROSA model. <code>barplot.rosa</code> makes barplot of block and component e
   ncomp <span class='op'>=</span> <span class='va'>height</span><span class='op'>$</span><span class='va'>ncomp</span>,
   col <span class='op'>=</span> <span class='fu'><a href='mcolors.html'>mcolors</a></span><span class='op'>(</span><span class='va'>ncomp</span><span class='op'>)</span>,
   <span class='va'>...</span>
-<span class='op'>)</span>
-
-<span class='fu'>loadingweightplot</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -192,7 +190,7 @@ the ROSA model. <code>barplot.rosa</code> makes barplot of block and component e
     </tr>
     <tr>
       <th>col</th>
-      <td><p>Colors used for the image and bar plot, defaulting to mcolors(128).</p></td>
+      <td><p>Colours used for the image and bar plot, defaulting to mcolors(128).</p></td>
     </tr>
     <tr>
       <th>legend</th>
@@ -208,7 +206,7 @@ the ROSA model. <code>barplot.rosa</code> makes barplot of block and component e
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Additional parameters passed to <code>loadingplot</code>, <code>image</code> or <code>barplot</code></p></td>
+      <td><p>Additional parameters passed to <code>loadingplot</code>, <code>image</code> or <code>barplot</code>.</p></td>
     </tr>
     <tr>
       <th>height</th>
@@ -235,7 +233,7 @@ the ROSA model. <code>barplot.rosa</code> makes barplot of block and component e
 <span class='va'>mod</span> <span class='op'>&lt;-</span> <span class='fu'><a href='rosa.html'>rosa</a></span><span class='op'>(</span><span class='va'>Sensory</span><span class='op'>[</span>,<span class='fl'>1</span><span class='op'>]</span> <span class='op'>~</span> <span class='va'>.</span>, data <span class='op'>=</span> <span class='va'>potato</span>, ncomp <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/image.html'>image</a></span><span class='op'>(</span><span class='va'>mod</span><span class='op'>)</span>
 </div><div class='img'><img src='rosa_plotting-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/barplot.html'>barplot</a></span><span class='op'>(</span><span class='va'>mod</span><span class='op'>)</span>
-</div><div class='img'><img src='rosa_plotting-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>loadingweightplot</span><span class='op'>(</span><span class='va'>mod</span><span class='op'>)</span>
+</div><div class='img'><img src='rosa_plotting-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='multiblock_object.html'>loadingweightplot</a></span><span class='op'>(</span><span class='va'>mod</span><span class='op'>)</span>
 </div><div class='img'><img src='rosa_plotting-3.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>

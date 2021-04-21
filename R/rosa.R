@@ -213,7 +213,7 @@ rosa <- function(formula, ncomp, Y.add, common.comp = 1, data,
   object$model        <- mf
   object$X            <- X
   object$terms        <- mt
-  class(object) <- c('rosa','mvr')
+  class(object) <- c('rosa','mvr','multiblock')
   if(response.type == "categorical"){
     object$classes <- rosa.classify(object, Y, X, ncomp, 'lda')
   }
@@ -479,6 +479,10 @@ rosa.fit <- function(X, X.concat, y, Y.add, ncomp, common.comp, weights, fixed.o
   PtW <- crossprod(P,W); PtW[lower.tri(PtW)] <- 0 # The W-coordinates of (the projected) P.
   R   <- mrdivide(W,PtW)        # The "SIMPLS weights"
   q   <- crossprod(y.orig,T)    # Regression coeffs (Y-loadings) for the orthogonal scores
+  U   <- y.orig %*% q / rep(colSums(q^2), each=nresp)
+  if(ncomp > 1)
+    for(a in 2:ncomp)
+      U[,a] <- U[,a] - T[,1:a] %*% crossprod(T[,1:a], U[,a])
 
   # Coefficients
   beta <- array(0, dim = c(npred, ncomp, nresp))
@@ -506,7 +510,7 @@ rosa.fit <- function(X, X.concat, y, Y.add, ncomp, common.comp, weights, fixed.o
   respnames <- dnY[[2]]
   compnames <- paste("Comp", 1:ncomp)
   nCompnames <- paste(1:ncomp, "comps")
-  dimnames(T) <- list(objnames, compnames)
+  dimnames(T) <- dimnames(U) <- list(objnames, compnames)
   dimnames(W) <- dimnames(P) <-
     list(prednames, compnames)
   dimnames(q) <- list(respnames, compnames)
@@ -516,7 +520,7 @@ rosa.fit <- function(X, X.concat, y, Y.add, ncomp, common.comp, weights, fixed.o
   if(ncomb == nblock)
     dimnames(C) <- dimnames(F) <- list(names(X), compnames)
   # colnames(A) <- compnames
-  class(T) <- "scores"
+  class(T) <- class(U) <- "scores"
   class(P) <- class(W) <- class(q) <- "loadings"
   
   # Explained variance for X
@@ -524,7 +528,7 @@ rosa.fit <- function(X, X.concat, y, Y.add, ncomp, common.comp, weights, fixed.o
   attr(T, 'explvar') <- attr(P, 'explvar') <- attr(W, 'explvar') <- Xvar/Xtotvar*100
 
   list(coefficients=beta, loading.weights=W, loadings=P, scores=T,
-       Yloadings = q, projection=R, PtW=PtW, block.loadings=Wb,
+       Yloadings = q, Yscores = U, projection=R, PtW=PtW, block.loadings=Wb,
        order=order, count=count, candidate.correlation=C, candidate.RMSE=F,
        Xmeans=Xmeans, Ymeans=Ymeans,
        ncomp=ncomp, X.concat=X.concat, X.orig = X.orig,

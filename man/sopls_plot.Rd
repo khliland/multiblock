@@ -6,11 +6,12 @@
 \alias{scores.sopls}
 \alias{loadingplot.sopls}
 \alias{scoreplot.sopls}
+\alias{biplot.sopls}
 \title{Scores, loadings and plots for sopls objects}
 \usage{
-\method{loadings}{sopls}(object, ncomp = "all", block = 1, ...)
+\method{loadings}{sopls}(object, ncomp = "all", block = 1, y = FALSE, ...)
 
-\method{scores}{sopls}(object, ncomp = "all", block = 1, ...)
+\method{scores}{sopls}(object, ncomp = "all", block = 1, y = FALSE, ...)
 
 \method{scoreplot}{sopls}(
   object,
@@ -54,6 +55,8 @@
 
 \item{block}{\code{integer} indicating which block to extract components from.}
 
+\item{y}{\code{logical} extract Y loadings/scores instead of X loadings/scores (default = FALSE).}
+
 \item{...}{further arguments sent to the underlying plot function(s)}
 
 \item{comps}{\code{integer} vector giving components, within block, to plot.}
@@ -85,6 +88,8 @@
 \item{pretty.xlabels}{\code{logical} indicating if xlabels should be more nicely plotted (default = TRUE).}
 
 \item{xlim}{\code{numeric} vector of length two, with the x limits of the plot (optional).}
+
+\item{which}{\code{character} for selecting type of biplot ("x" = default, "y", "scores", "loadings").}
 }
 \value{
 The functions return whatever the underlying plot function (or identify) returns.

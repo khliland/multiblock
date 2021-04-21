@@ -127,6 +127,7 @@
 <p>The following supervised methods are available in the <em>multiblock</em> package (function names in parentheses):</p>
 <ul>
 <li>MB-PLS - Multiblock Partial Least Squares (<em>mbpls</em>)</li>
+<li>sMB-PLS - Sparse Multiblock Partial Least Squares (<em>smbpls</em>)</li>
 <li>SO-PLS - Sequential and Orthogonalised PLS (<em>sopls</em>)</li>
 <li>PO-PLS - Parallel and Orthogonalised PLS (<em>popls</em>)</li>
 <li>ROSA - Response Oriented Sequential Alternation (<em>rosa</em>)</li>
@@ -183,15 +184,50 @@
 <p><img src="vignette_E_supervised_files/figure-html/unnamed-chunk-4-2.png" width="576"></p>
 </div>
 </div>
+<div id="sparse-multiblock-partial-least-squares---smb-pls" class="section level1">
+<h1 class="hasAnchor">
+<a href="#sparse-multiblock-partial-least-squares---smb-pls" class="anchor"></a>Sparse Multiblock Partial Least Squares - sMB-PLS</h1>
+<p>Sparse MB-PLS is presented briefly using the <em>potato</em> data.</p>
+<div id="modelling-1" class="section level2">
+<h2 class="hasAnchor">
+<a href="#modelling-1" class="anchor"></a>Modelling</h2>
+<p>A multi-response two-block sMB-PLS model with up to 10 components in total is cross-validated with 10 random segments. Here, the Soft-Threshold version is used (Truncation version also available) with paramter <em>shrink = 0.6</em> means the loading weights have 60% of the largest values subtracted before setting negative values to 0.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">potato</span><span class="op">)</span>
+<span class="va">smb</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/smbpls.html">smbpls</a></span><span class="op">(</span><span class="va">potato</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'Chemical'</span>,<span class="st">'Compression'</span><span class="op">)</span><span class="op">]</span>, <span class="va">potato</span><span class="op">[[</span><span class="st">'Sensory'</span><span class="op">]</span><span class="op">]</span>, ncomp <span class="op">=</span> <span class="fl">10</span>,
+            max_comps<span class="op">=</span><span class="fl">10</span>, shrink <span class="op">=</span> <span class="fl">0.6</span>, validation<span class="op">=</span><span class="st">"CV"</span>, segments<span class="op">=</span><span class="fl">10</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">smb</span><span class="op">)</span>
+<span class="co">#&gt; Sparse Multiblock PLS (Soft-Threshold) </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Call:</span>
+<span class="co">#&gt; smbpls(X = potato[c("Chemical", "Compression")], Y = potato[["Sensory"]],     ncomp = 10, shrink = 0.6, max_comps = 10, validation = "CV",     segments = 10)</span></code></pre></div>
+</div>
+<div id="plotting" class="section level2">
+<h2 class="hasAnchor">
+<a href="#plotting" class="anchor"></a>Plotting</h2>
+<p>We demonstrate the effect of shrinkage on scores and sparseness in loading weights by plotting results for three values of the shrinkage parameter. In the loading weight plots we can follow the shrinkage toward the origin of each variable, while the score plots show the effect on the sample scores.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">old.par</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">2</span><span class="op">)</span>, mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3.5</span>,<span class="fl">3.5</span>,<span class="fl">1.5</span>,<span class="fl">1</span><span class="op">)</span>, mgp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">1</span>,<span class="fl">0</span><span class="op">)</span><span class="op">)</span>
+<span class="kw">for</span><span class="op">(</span><span class="va">shrink</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.2</span>, <span class="fl">0.5</span>, <span class="fl">0.8</span><span class="op">)</span><span class="op">)</span><span class="op">{</span>
+  <span class="va">smb</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/smbpls.html">smbpls</a></span><span class="op">(</span><span class="va">potato</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'Chemical'</span>,<span class="st">'Compression'</span><span class="op">)</span><span class="op">]</span>, <span class="va">potato</span><span class="op">[[</span><span class="st">'Sensory'</span><span class="op">]</span><span class="op">]</span>, ncomp <span class="op">=</span> <span class="fl">10</span>,
+            max_comps<span class="op">=</span><span class="fl">10</span>, shrink <span class="op">=</span> <span class="va">shrink</span><span class="op">)</span>
+  <span class="fu"><a href="https://rdrr.io/pkg/pls/man/scoreplot.html">scoreplot</a></span><span class="op">(</span><span class="va">smb</span>, labels <span class="op">=</span> <span class="st">"names"</span>, main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"Superscores, shrink="</span>, <span class="va">shrink</span><span class="op">)</span><span class="op">)</span>
+  <span class="fu"><a href="../reference/multiblock_object.html">loadingweightplot</a></span><span class="op">(</span><span class="va">smb</span>, labels <span class="op">=</span> <span class="st">"names"</span>, main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"Super-loading weights, shrink="</span>, <span class="va">shrink</span><span class="op">)</span><span class="op">)</span>
+<span class="op">}</span></code></pre></div>
+<p><img src="vignette_E_supervised_files/figure-html/unnamed-chunk-6-1.png" width="576"></p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span><span class="va">old.par</span><span class="op">)</span></code></pre></div>
+</div>
+</div>
 <div id="sequential-and-orthogonalised-pls---so-pls" class="section level1">
 <h1 class="hasAnchor">
 <a href="#sequential-and-orthogonalised-pls---so-pls" class="anchor"></a>Sequential and orthogonalised PLS - SO-PLS</h1>
 <p>The following example uses the <em>potato</em> data to showcase some of the functions available for SO-PLS analyses.</p>
-<div id="modelling-1" class="section level2">
+<div id="modelling-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#modelling-1" class="anchor"></a>Modelling</h2>
+<a href="#modelling-2" class="anchor"></a>Modelling</h2>
 <p>A multi-response two-block SO-PLS model with up to 10 components in total is cross-validated with 10 random segments.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Load potato data and fit SO-PLS model</span>
 <span class="va">so.pot</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sopls.html">sopls</a></span><span class="op">(</span><span class="va">Sensory</span> <span class="op">~</span> <span class="va">Chemical</span> <span class="op">+</span> <span class="va">Compression</span>, data<span class="op">=</span><span class="va">potato</span>, 
             ncomp<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">10</span>,<span class="fl">10</span><span class="op">)</span>, max_comps<span class="op">=</span><span class="fl">10</span>, validation<span class="op">=</span><span class="st">"CV"</span>, segments<span class="op">=</span><span class="fl">10</span><span class="op">)</span>
@@ -307,31 +343,31 @@
 <a href="#m%C3%A5ge-plot" class="anchor"></a>Måge plot</h2>
 <p>Full Måge plot for all combinations of components for all blocks. This can be used for a global search for the best fitting cross-validated model.</p>
 <p>Each point in the figure below is accompanied by a sequence of four numbers referring to the number of components used for each of the four blocks. Horizontal location is given by the total number of components used across all blocks, while vertical location indicates validated explained variance in percentage.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Load Wine data and model with SO-PLS</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">wine</span><span class="op">)</span>
 <span class="va">ncomp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">wine</span>, <span class="va">ncol</span><span class="op">)</span><span class="op">)</span><span class="op">[</span><span class="op">-</span><span class="fl">5</span><span class="op">]</span>
 <span class="va">so.wine</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sopls.html">sopls</a></span><span class="op">(</span><span class="va">`Global quality`</span> <span class="op">~</span> <span class="va">.</span>, data<span class="op">=</span><span class="va">wine</span>, ncomp<span class="op">=</span><span class="va">ncomp</span>, 
              max_comps<span class="op">=</span><span class="fl">6</span>, validation<span class="op">=</span><span class="st">"CV"</span>, segments<span class="op">=</span><span class="fl">10</span><span class="op">)</span>
 <span class="fu"><a href="../reference/maage.html">maage</a></span><span class="op">(</span><span class="va">so.wine</span><span class="op">)</span></code></pre></div>
-<p><img src="vignette_E_supervised_files/figure-html/unnamed-chunk-6-1.png" width="576"></p>
+<p><img src="vignette_E_supervised_files/figure-html/unnamed-chunk-8-1.png" width="576"></p>
 <p>A sequential Måge plot can be used for a sequential search for the optimal model.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Sequential search for optimal number of components per block</span>
 <span class="va">old.par</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span>, mar<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">3</span>,<span class="fl">0.5</span>,<span class="fl">1</span><span class="op">)</span>, mgp<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">0.7</span>,<span class="fl">0</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="../reference/maage.html">maageSeq</a></span><span class="op">(</span><span class="va">so.wine</span><span class="op">)</span>
 <span class="fu"><a href="../reference/maage.html">maageSeq</a></span><span class="op">(</span><span class="va">so.wine</span>, <span class="fl">2</span><span class="op">)</span>
 <span class="fu"><a href="../reference/maage.html">maageSeq</a></span><span class="op">(</span><span class="va">so.wine</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="../reference/maage.html">maageSeq</a></span><span class="op">(</span><span class="va">so.wine</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<p><img src="vignette_E_supervised_files/figure-html/unnamed-chunk-7-1.png" width="576"></p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<p><img src="vignette_E_supervised_files/figure-html/unnamed-chunk-9-1.png" width="576"></p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span><span class="va">old.par</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="loadings" class="section level2">
 <h2 class="hasAnchor">
 <a href="#loadings" class="anchor"></a>Loadings</h2>
 <p>One set of loadings is printed and two sets are plotted to show how to select specific components from specific blocks.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Display loadings for first block</span>
 <span class="fu"><a href="https://rdrr.io/pkg/pls/man/scores.html">loadings</a></span><span class="op">(</span><span class="va">so.pot</span>, block <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
 <span class="co">#&gt; </span>
@@ -375,20 +411,20 @@
 <span class="co">#&gt; SS loadings     6.470</span>
 <span class="co">#&gt; Proportion Var  0.462</span>
 <span class="co">#&gt; Cumulative Var 24.910</span></code></pre></div>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Plot loadings from block 1 and 2</span>
 <span class="va">old.par</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/pkg/pls/man/scoreplot.html">loadingplot</a></span><span class="op">(</span><span class="va">so.pot</span>, comps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">3</span><span class="op">)</span>, block <span class="op">=</span> <span class="fl">1</span>, main <span class="op">=</span> <span class="st">"Block 1"</span>, labels <span class="op">=</span> <span class="st">"names"</span>, cex <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/pkg/pls/man/scoreplot.html">loadingplot</a></span><span class="op">(</span><span class="va">so.pot</span>, ncomp <span class="op">=</span> <span class="fl">4</span>, block <span class="op">=</span> <span class="fl">2</span>, main <span class="op">=</span> <span class="st">"Block 2"</span>, labels <span class="op">=</span> <span class="st">"names"</span>, cex <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span></code></pre></div>
-<p><img src="vignette_E_supervised_files/figure-html/unnamed-chunk-9-1.png" width="576"></p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<p><img src="vignette_E_supervised_files/figure-html/unnamed-chunk-11-1.png" width="576"></p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span><span class="va">old.par</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="scores" class="section level2">
 <h2 class="hasAnchor">
 <a href="#scores" class="anchor"></a>Scores</h2>
 <p>One set of scores is printed and two sets are plotted to show how to select specific components from specific blocks.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Display scores for first block</span>
 <span class="fu"><a href="https://rdrr.io/pkg/pls/man/scores.html">scores</a></span><span class="op">(</span><span class="va">so.pot</span>, block <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
 <span class="co">#&gt;             1,0         2,0          3,0         4,0         5,0          6,0</span>
@@ -452,20 +488,20 @@
 <span class="co">#&gt;  2.674759  1.582372 </span>
 <span class="co">#&gt; attr(,"class")</span>
 <span class="co">#&gt; [1] "scores.multiblock" "scores"</span></code></pre></div>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Plot scores from block 1 and 2</span>
 <span class="va">old.par</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/pkg/pls/man/scoreplot.html">scoreplot</a></span><span class="op">(</span><span class="va">so.pot</span>, comps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">3</span><span class="op">)</span>, block <span class="op">=</span> <span class="fl">1</span>, main <span class="op">=</span> <span class="st">"Block 1"</span>, labels <span class="op">=</span> <span class="st">"names"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/pkg/pls/man/scoreplot.html">scoreplot</a></span><span class="op">(</span><span class="va">so.pot</span>, ncomp <span class="op">=</span> <span class="fl">4</span>, block <span class="op">=</span> <span class="fl">2</span>, main <span class="op">=</span> <span class="st">"Block 2"</span>, labels <span class="op">=</span> <span class="st">"names"</span><span class="op">)</span></code></pre></div>
-<p><img src="vignette_E_supervised_files/figure-html/unnamed-chunk-11-1.png" width="576"></p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<p><img src="vignette_E_supervised_files/figure-html/unnamed-chunk-13-1.png" width="576"></p>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span><span class="va">old.par</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="prediction" class="section level2">
 <h2 class="hasAnchor">
 <a href="#prediction" class="anchor"></a>Prediction</h2>
 <p>A three block model is fitted using a single response, 5 components and a subset of the data. The remaining data are used as test set for prediction.</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Modify data to contain a single response</span>
 <span class="va">potato1</span> <span class="op">&lt;-</span> <span class="va">potato</span>; <span class="va">potato1</span><span class="op">$</span><span class="va">Sensory</span> <span class="op">&lt;-</span> <span class="va">potato1</span><span class="op">$</span><span class="va">Sensory</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span>
 <span class="co"># Model 20 first objects with SO-PLS</span>
@@ -527,7 +563,7 @@
 <h2 class="hasAnchor">
 <a href="#validation" class="anchor"></a>Validation</h2>
 <p>Compute validation statistics; explained variance - R<span class="math inline">\(^2\)</span> and Root Mean Squared Error - RMSE(P/CV).</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Cross-validation</span>
 <span class="fu"><a href="https://rdrr.io/pkg/pls/man/mvrVal.html">R2</a></span><span class="op">(</span><span class="va">so.pot</span>, ncomp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">5</span>,<span class="fl">5</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt;        1,0        2,0        3,0        4,0        5,0        5,1        5,2 </span>
@@ -566,7 +602,7 @@
 <span class="fu"><a href="https://rdrr.io/pkg/pls/man/mvrVal.html">R2</a></span><span class="op">(</span><span class="va">so.pot20</span>, newdata <span class="op">=</span> <span class="va">testset</span>, ncomp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt;      1,0,0      2,0,0      2,1,0      2,1,1      2,1,2 </span>
 <span class="co">#&gt;  0.5217279  0.7330829  0.7208834  0.4494703 -0.2607736</span></code></pre></div>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Cross-validation</span>
 <span class="fu"><a href="https://rdrr.io/pkg/pls/man/mvrVal.html">RMSEP</a></span><span class="op">(</span><span class="va">so.pot</span>, ncomp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">5</span>,<span class="fl">5</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt;       1,0       2,0       3,0       4,0       5,0       5,1       5,2       5,3 </span>
@@ -611,11 +647,11 @@
 <h1 class="hasAnchor">
 <a href="#parallel-and-orthgonalised-partial-least-squares---po-pls" class="anchor"></a>Parallel and Orthgonalised Partial Least Squares - PO-PLS</h1>
 <p>PO-PLS is presented briefly using the <em>potato</em> data.</p>
-<div id="modelling-2" class="section level2">
+<div id="modelling-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#modelling-2" class="anchor"></a>Modelling</h2>
+<a href="#modelling-3" class="anchor"></a>Modelling</h2>
 <p>There are many choices with regard to numbers of components and possible local and common components. Using automatic selection, the user selects the highest number of blocks to combine into local/common components, minimum explained variance and minimum squared correlation to the response. Manual selection is limited to setting the number of initial components from the blocks and maximum number of local/common components.</p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Automatic analysis</span>
 <span class="va">pot.po.auto</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/popls.html">popls</a></span><span class="op">(</span><span class="va">potato</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>, <span class="va">potato</span><span class="op">[[</span><span class="st">'Sensory'</span><span class="op">]</span><span class="op">]</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span>, commons <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
 
@@ -630,7 +666,7 @@
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $NIRraw</span>
 <span class="co">#&gt; named numeric(0)</span></code></pre></div>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Manual choice of up to 5 components for each block and 1, 0, and 2 blocks,</span>
 <span class="co"># respectively from the (1,2), (1,3) and (2,3) combinations of blocks.</span>
 <span class="va">pot.po.man</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/popls.html">popls</a></span><span class="op">(</span><span class="va">potato</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>, <span class="va">potato</span><span class="op">[[</span><span class="st">'Sensory'</span><span class="op">]</span><span class="op">]</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span>, commons <span class="op">=</span> <span class="fl">2</span>,
@@ -656,26 +692,26 @@
 <h2 class="hasAnchor">
 <a href="#scores-and-loadings" class="anchor"></a>Scores and loadings</h2>
 <p>Scores and loadings are stored per block. Common scores/loadings are found in each of the blocks’ list of components.</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Score plot for local (2,3) components</span>
 <span class="fu"><a href="https://rdrr.io/pkg/pls/man/scoreplot.html">scoreplot</a></span><span class="op">(</span><span class="va">pot.po.man</span>, block <span class="op">=</span> <span class="fl">3</span>, labels <span class="op">=</span> <span class="st">"names"</span><span class="op">)</span></code></pre></div>
-<p><img src="vignette_E_supervised_files/figure-html/unnamed-chunk-17-1.png" width="576"></p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<p><img src="vignette_E_supervised_files/figure-html/unnamed-chunk-19-1.png" width="576"></p>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 <span class="co"># Corresponding loadings</span>
 <span class="fu"><a href="https://rdrr.io/pkg/pls/man/scoreplot.html">loadingplot</a></span><span class="op">(</span><span class="va">pot.po.man</span>, block <span class="op">=</span> <span class="fl">3</span>, labels<span class="op">=</span><span class="st">"names"</span>, scatter <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
-<p><img src="vignette_E_supervised_files/figure-html/unnamed-chunk-17-2.png" width="576"></p>
+<p><img src="vignette_E_supervised_files/figure-html/unnamed-chunk-19-2.png" width="576"></p>
 </div>
 </div>
 <div id="response-oriented-sequential-alternation---rosa" class="section level1">
 <h1 class="hasAnchor">
 <a href="#response-oriented-sequential-alternation---rosa" class="anchor"></a>Response Oriented Sequential Alternation - ROSA</h1>
 <p>The following example uses the <em>potato</em> data to showcase some of the functions available for ROSA analyses.</p>
-<div id="modelling-3" class="section level2">
+<div id="modelling-4" class="section level2">
 <h2 class="hasAnchor">
-<a href="#modelling-3" class="anchor"></a>Modelling</h2>
+<a href="#modelling-4" class="anchor"></a>Modelling</h2>
 <p>A multi-response two-block ROSA model with up to 10 components in total is cross-validated with 10 random segments.</p>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Model all eight potato blocks with ROSA</span>
 <span class="va">ros.pot</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/rosa.html">rosa</a></span><span class="op">(</span><span class="va">Sensory</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">potato1</span>, ncomp <span class="op">=</span> <span class="fl">10</span>, validation <span class="op">=</span> <span class="st">"CV"</span>, segments <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">ros.pot</span><span class="op">)</span>
@@ -692,11 +728,11 @@
 <span class="co">#&gt; VALIDATION: RMSEP</span>
 <span class="co">#&gt; Cross-validated using 5 random segments.</span>
 <span class="co">#&gt;        (Intercept)  1 comps  2 comps  3 comps  4 comps  5 comps  6 comps</span>
-<span class="co">#&gt; CV           1.778    1.066   0.9258   0.9068   0.8021   0.9775    1.097</span>
-<span class="co">#&gt; adjCV        1.778    1.026   0.8888   0.8680   0.7769   0.9347    1.044</span>
+<span class="co">#&gt; CV           1.778   0.9750   0.8845   0.9595   0.9390    1.118    1.284</span>
+<span class="co">#&gt; adjCV        1.778   0.9621   0.8679   0.9246   0.9034    1.062    1.214</span>
 <span class="co">#&gt;        7 comps  8 comps  9 comps  10 comps</span>
-<span class="co">#&gt; CV       1.195    1.183    1.117     1.129</span>
-<span class="co">#&gt; adjCV    1.139    1.135    1.081     1.095</span>
+<span class="co">#&gt; CV       1.480    1.395    1.592     1.656</span>
+<span class="co">#&gt; adjCV    1.391    1.323    1.495     1.556</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; TRAINING: % variance explained</span>
 <span class="co">#&gt;          1 comps  2 comps  3 comps  4 comps  5 comps  6 comps  7 comps  8 comps</span>
@@ -710,25 +746,25 @@
 <h2 class="hasAnchor">
 <a href="#loadings-1" class="anchor"></a>Loadings</h2>
 <p>Extract loadings (not used further) and plot two first vectors of loadings.</p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">loads</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/pls/man/scores.html">loadings</a></span><span class="op">(</span><span class="va">ros.pot</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/pkg/pls/man/scoreplot.html">loadingplot</a></span><span class="op">(</span><span class="va">ros.pot</span>, comps <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span></code></pre></div>
-<p><img src="vignette_E_supervised_files/figure-html/unnamed-chunk-19-1.png" width="576"></p>
+<p><img src="vignette_E_supervised_files/figure-html/unnamed-chunk-21-1.png" width="576"></p>
 </div>
 <div id="scores-1" class="section level2">
 <h2 class="hasAnchor">
 <a href="#scores-1" class="anchor"></a>Scores</h2>
 <p>Extract scores (not used further) and plot two first vectors of scores.</p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">sco</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/pls/man/scores.html">scores</a></span><span class="op">(</span><span class="va">ros.pot</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/pkg/pls/man/scoreplot.html">scoreplot</a></span><span class="op">(</span><span class="va">ros.pot</span>, comps <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, labels <span class="op">=</span> <span class="st">"names"</span><span class="op">)</span></code></pre></div>
-<p><img src="vignette_E_supervised_files/figure-html/unnamed-chunk-20-1.png" width="576"></p>
+<p><img src="vignette_E_supervised_files/figure-html/unnamed-chunk-22-1.png" width="576"></p>
 </div>
 <div id="prediction-1" class="section level2">
 <h2 class="hasAnchor">
 <a href="#prediction-1" class="anchor"></a>Prediction</h2>
 <p>A three block model is fitted using a single response, 5 components and a subset of the data. The remaining data are used as test set for prediction.</p>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Model 20 first objects of three potato blocks</span>
 <span class="va">rosT</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/rosa.html">rosa</a></span><span class="op">(</span><span class="va">Sensory</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">potato1</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>,<span class="fl">9</span><span class="op">)</span><span class="op">]</span>, ncomp <span class="op">=</span> <span class="fl">5</span>, subset <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">20</span><span class="op">)</span>
 <span class="va">testset</span> <span class="op">&lt;-</span> <span class="va">potato1</span><span class="op">[</span><span class="op">-</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">20</span><span class="op">)</span>,<span class="op">]</span>; <span class="co"># testset$Sensory &lt;- NULL</span>
@@ -745,13 +781,13 @@
 <h2 class="hasAnchor">
 <a href="#validation-1" class="anchor"></a>Validation</h2>
 <p>Compute validation statistics; explained variance - R<span class="math inline">\(^2\)</span> and Root Mean Squared Error - RMSE(P/CV).</p>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Cross-validation</span>
 <span class="fu"><a href="https://rdrr.io/pkg/pls/man/mvrVal.html">R2</a></span><span class="op">(</span><span class="va">ros.pot</span><span class="op">)</span>
 <span class="co">#&gt; (Intercept)      1 comps      2 comps      3 comps      4 comps      5 comps  </span>
-<span class="co">#&gt;     -0.0816       0.6113       0.7066       0.7186       0.7798       0.6730  </span>
+<span class="co">#&gt;    -0.08160      0.67460      0.73224      0.68486      0.69819      0.57225  </span>
 <span class="co">#&gt;     6 comps      7 comps      8 comps      9 comps     10 comps  </span>
-<span class="co">#&gt;      0.5885       0.5114       0.5214       0.5728       0.5634</span>
+<span class="co">#&gt;     0.43548      0.25037      0.33398      0.13296      0.06081</span>
 <span class="co"># Training</span>
 <span class="fu"><a href="https://rdrr.io/pkg/pls/man/mvrVal.html">R2</a></span><span class="op">(</span><span class="va">ros.pot</span>, <span class="st">'train'</span><span class="op">)</span>
 <span class="co">#&gt; (Intercept)      1 comps      2 comps      3 comps      4 comps      5 comps  </span>
@@ -763,15 +799,15 @@
 <span class="fu"><a href="https://rdrr.io/pkg/pls/man/mvrVal.html">R2</a></span><span class="op">(</span><span class="va">rosT</span>, <span class="st">'test'</span>, newdata <span class="op">=</span> <span class="va">testset</span><span class="op">)</span>
 <span class="co">#&gt; (Intercept)      1 comps      2 comps      3 comps      4 comps      5 comps  </span>
 <span class="co">#&gt;     -0.1609       0.3158       0.3289       0.4673       0.4634       0.4574</span></code></pre></div>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Cross-validation</span>
 <span class="fu"><a href="https://rdrr.io/pkg/pls/man/mvrVal.html">RMSEP</a></span><span class="op">(</span><span class="va">ros.pot</span><span class="op">)</span>
 <span class="co">#&gt;        (Intercept)  1 comps  2 comps  3 comps  4 comps  5 comps  6 comps</span>
-<span class="co">#&gt; CV           1.778    1.066   0.9258   0.9068   0.8021   0.9775    1.097</span>
-<span class="co">#&gt; adjCV        1.778    1.026   0.8888   0.8680   0.7769   0.9347    1.044</span>
+<span class="co">#&gt; CV           1.778   0.9750   0.8845   0.9595   0.9390    1.118    1.284</span>
+<span class="co">#&gt; adjCV        1.778   0.9621   0.8679   0.9246   0.9034    1.062    1.214</span>
 <span class="co">#&gt;        7 comps  8 comps  9 comps  10 comps</span>
-<span class="co">#&gt; CV       1.195    1.183    1.117     1.129</span>
-<span class="co">#&gt; adjCV    1.139    1.135    1.081     1.095</span>
+<span class="co">#&gt; CV       1.480    1.395    1.592     1.656</span>
+<span class="co">#&gt; adjCV    1.391    1.323    1.495     1.556</span>
 <span class="co"># Training</span>
 <span class="fu"><a href="https://rdrr.io/pkg/pls/man/mvrVal.html">RMSEP</a></span><span class="op">(</span><span class="va">ros.pot</span>, <span class="st">'train'</span><span class="op">)</span>
 <span class="co">#&gt; (Intercept)      1 comps      2 comps      3 comps      4 comps      5 comps  </span>
@@ -788,25 +824,25 @@
 <h2 class="hasAnchor">
 <a href="#image-plots" class="anchor"></a>Image plots</h2>
 <p>These are plots for evaluation of the block selection process in ROSA. Correlation plots show how the different candidate scores (one candidate for each block for each component) correlate to the winning block’s scores. Residual response plots show how different choices of candidate scores would affect the RMSE of the residual response. One can for instance use these plots decide on a different block selection order than the one proposed automatically by ROSA.</p>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Correlation to winning scores</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/image.html">image</a></span><span class="op">(</span><span class="va">ros.pot</span><span class="op">)</span></code></pre></div>
-<p><img src="vignette_E_supervised_files/figure-html/unnamed-chunk-24-1.png" width="576"></p>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<p><img src="vignette_E_supervised_files/figure-html/unnamed-chunk-26-1.png" width="576"></p>
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Residual response given candidate scores</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/image.html">image</a></span><span class="op">(</span><span class="va">ros.pot</span>, <span class="st">"residual"</span><span class="op">)</span></code></pre></div>
-<p><img src="vignette_E_supervised_files/figure-html/unnamed-chunk-24-2.png" width="576"></p>
+<p><img src="vignette_E_supervised_files/figure-html/unnamed-chunk-26-2.png" width="576"></p>
 </div>
 </div>
 <div id="multiblock-redundancy-analysis---mbrda" class="section level1">
 <h1 class="hasAnchor">
 <a href="#multiblock-redundancy-analysis---mbrda" class="anchor"></a>Multiblock Redundancy Analysis - mbRDA</h1>
 <p>The following example uses the <em>potato</em> data to showcase some of the functions available for mbRDA analyses.</p>
-<div id="modelling-4" class="section level2">
+<div id="modelling-5" class="section level2">
 <h2 class="hasAnchor">
-<a href="#modelling-4" class="anchor"></a>Modelling</h2>
+<a href="#modelling-5" class="anchor"></a>Modelling</h2>
 <p>This implementation uses a wrapper for the <em>mbpcaiv</em> function in the <em>ade4</em> package to perform mbRDA. A multi-response 5 component model is fitted.</p>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Convert data.frame with AsIs objects to list of matrices</span>
 <span class="va">potatoList</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">potato</span>, <span class="va">unclass</span><span class="op">)</span>
 
@@ -822,7 +858,7 @@
 <h2 class="hasAnchor">
 <a href="#loadings-and-scores" class="anchor"></a>Loadings and scores</h2>
 <p>The <em>mbpcaiv</em> wrapper extracts key elements for inspection using the same format as the rest of this package. The full fitted <em>mbpcaiv</em> object is also available, e.g. through <em>mbr$mbpcaivObject</em>.</p>
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Extract and view loadings</span>
 <span class="va">lo_mbr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/pls/man/scores.html">loadings</a></span><span class="op">(</span><span class="va">mbr</span><span class="op">)</span>
 <span class="co">#&gt; Warning in loadings.multiblock(mbr): No global/consensus loadings available.</span>
@@ -837,7 +873,7 @@
 <span class="co">#&gt; Mg   -0.21159305  1.41437345 -0.6562877 -1.4166021  2.0111970</span>
 <span class="co"># Plot scores</span>
 <span class="fu"><a href="https://rdrr.io/pkg/pls/man/scoreplot.html">scoreplot</a></span><span class="op">(</span><span class="va">mbr</span>, labels <span class="op">=</span> <span class="st">"names"</span><span class="op">)</span></code></pre></div>
-<p><img src="vignette_E_supervised_files/figure-html/unnamed-chunk-26-1.png" width="576"></p>
+<p><img src="vignette_E_supervised_files/figure-html/unnamed-chunk-28-1.png" width="576"></p>
 </div>
 </div>
   </div>

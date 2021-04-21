@@ -36,6 +36,7 @@ library(multiblock)
 The following supervised methods are available in the _multiblock_ package (function names in parentheses):
 
 * MB-PLS - Multiblock Partial Least Squares (_mbpls_)
+* sMB-PLS - Sparse Multiblock Partial Least Squares (_smbpls_)
 * SO-PLS - Sequential and Orthogonalised PLS (_sopls_)
 * PO-PLS - Parallel and Orthogonalised PLS (_popls_)
 * ROSA - Response Oriented Sequential Alternation (_rosa_)
@@ -86,6 +87,42 @@ scoreplot(mb, block = 1, labels = "names")
 Pb2 <- loadings(mb, block=2)
 loadingplot(mb, block = 1, labels = "names")
 ```
+
+
+# Sparse Multiblock Partial Least Squares - sMB-PLS
+
+Sparse MB-PLS is presented briefly using the _potato_ data.
+
+## Modelling
+
+A multi-response two-block sMB-PLS model with up to 10 components in total is cross-validated with 10 random segments.
+Here, the Soft-Threshold version is used (Truncation version also available) with paramter _shrink = 0.6_ means
+the loading weights have 60% of the largest values subtracted before setting negative values to 0.
+
+```{r}
+data(potato)
+smb <- smbpls(potato[c('Chemical','Compression')], potato[['Sensory']], ncomp = 10,
+            max_comps=10, shrink = 0.6, validation="CV", segments=10)
+print(smb)
+```
+
+## Plotting
+
+We demonstrate the effect of shrinkage on scores and sparseness in loading weights by plotting results for three values
+of the shrinkage parameter. In the loading weight plots we can follow the shrinkage toward the origin of each variable, 
+while the score plots show the effect on the sample scores.
+
+```{r}
+old.par <- par(mfrow = c(3,2), mar = c(3.5,3.5,1.5,1), mgp = c(2,1,0))
+for(shrink in c(0.2, 0.5, 0.8)){
+  smb <- smbpls(potato[c('Chemical','Compression')], potato[['Sensory']], ncomp = 10,
+            max_comps=10, shrink = shrink)
+  scoreplot(smb, labels = "names", main = paste0("Superscores, shrink=", shrink))
+  loadingweightplot(smb, labels = "names", main = paste0("Super-loading weights, shrink=", shrink))
+}
+par(old.par)
+```
+
 
 
 # Sequential and orthogonalised PLS - SO-PLS

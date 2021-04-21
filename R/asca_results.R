@@ -106,11 +106,12 @@ scoreplot.asca <- function(object, factor = 1, comps = 1:2, pch.scores = 19, pch
                 max(max(scors[,comps[2]]), max(projs[,comps[2]])))
   else
     ylim <- c(0.5, nlev+0.5)
+  evar <- attr(scors, 'explvar')
   if(missing(xlab))
-    xlab <- paste("Comp", comps[1])
+    xlab <- paste0("Comp ", comps[1], " (",format(evar[comps[1]], digits = 2, trim = TRUE), " %)")
   if(missing(ylab))
     if(length(comps)>1)
-      ylab <- paste("Comp", comps[2])
+      ylab <- paste0("Comp ", comps[2], " (",format(evar[comps[2]], digits = 2, trim = TRUE), " %)")
   else
     ylab <- 'Level'
   

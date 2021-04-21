@@ -143,6 +143,7 @@ sca <- function(X, ncomp=2, scale=FALSE, samplelinked = 'auto', ...){
       attr(mod$blockLoadings[[i]],'explvar') <- diff(c(0,explI))
     }
   }
+  mod$explvar <- PCA$explvar
   mod$call <- match.call()
   class(mod) <- c('multiblock','list')
   return(mod)
@@ -349,7 +350,7 @@ mfa <- function(X, type = rep("c", length(X)), graph = FALSE, ...){
               info = info, MFA = ret, call = match.call())
   colnames(obj$scores) <- colnames(obj$loadings) <- paste0('Comp ', 1:ncol(obj$scores))
   rownames(obj$loadings) <- unlist(lapply(blockLoadings, rownames))
-  attr(obj$scores, 'explvar') <- attr(obj$loadings, 'explvar') <- 100*(ret$global.pca$svd$vs^2/sum(ret$global.pca$svd$vs))
+  obj$explvar <- attr(obj$scores, 'explvar') <- attr(obj$loadings, 'explvar') <- 100*(ret$global.pca$svd$vs^2/sum(ret$global.pca$svd$vs))
   for(i in 1:length(X)){
     explvar <- 100*(ret$separate.analyses[[i]]$svd$vs^2/sum(ret$separate.analyses[[i]]$svd$vs^2))
     attr(obj$blockScores[[i]], 'explvar') <- attr(obj$blockLoadings[[i]], 'explvar') <- explvar
@@ -571,7 +572,7 @@ disco <- function(X, ncomp = 2, ...){
   for(i in 1:length(X)){
     attr(obj$blockLoadings[[i]], 'explvar') <- diff(c(0,obj$DISCOsca$propExp_component[[1]][i,]))/xFro[[i]]*100
   }
-  attr(obj$scores, "explvar") <- attr(obj$loadings, "explvar") <- diff(c(0,diag(crossprod(obj$loadings))))/sum(xFro)*100
+  obj$explvar <- attr(obj$scores, "explvar") <- attr(obj$loadings, "explvar") <- diff(c(0,diag(crossprod(obj$loadings))))/sum(xFro)*100
   class(obj) <- c("multiblock","list")
   return(obj)
 }
@@ -626,6 +627,7 @@ hpca <- function(X, ncomp=2, scale=FALSE, verbose=FALSE, ...){
   for(i in 1:n_block){
     attr(obj$blockScores[[i]], "explvar") <- attr(obj$blockLoadings[[i]], "explvar") <- obj$rgcca$AVE$AVE_X[[i]]
   }
+  obj$explvar <- res$AVE_outer_model
   class(obj) <- c("multiblock","list")
   return(obj)
 }
@@ -683,6 +685,7 @@ mcoa <- function(X, ncomp=2, scale=FALSE, verbose=FALSE, ...){
   for(i in 1:n_block){
     attr(obj$blockScores[[i]], "explvar") <- attr(obj$blockLoadings[[i]], "explvar") <- obj$rgcca$AVE$AVE_X[[i]]
   }
+  obj$explvar <- res$AVE_outer_model
   class(obj) <- c("multiblock","list")
   return(obj)
 }
@@ -773,7 +776,7 @@ statis <- function(X, ncomp = 3, scannf = FALSE, tol = 1e-07, ...){
 #' data(candies)
 #' candyList <- lapply(1:nlevels(candies$candy),function(x)candies$assessment[candies$candy==x,])
 #' can.hogsvd <- hogsvd(candyList)
-#' plot(scores(can.hogsvd, block=1), labels="names")
+#' scoreplot(can.hogsvd, block=1, labels="names")
 #' 
 #' @seealso Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 #' @export
@@ -818,6 +821,7 @@ hogsvd  <- function(X){
                blockScores = "Block scores", blockLoadings = "Not used")
   obj <- list(loadings=V, blockScores=blockScores, bSnorm1=U, sigmas=sigmas, eigen_values=eigen_values,
               info = info, call = match.call())
+  obj$explvar <- eigen_values^2/sum(eigen_values^2)*100
   class(obj) <- c("multiblock","list")
   return(obj)
 }

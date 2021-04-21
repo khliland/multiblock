@@ -93,7 +93,6 @@ sopls <- function(formula, ncomp, max_comps = min(sum(ncomp), 20), data,
   
   ## Check components
   if(length(ncomp)==1 && length(X)>1){
-#    max_comps <- ncomp
     ncomp <- rep(ncomp, length(X))
   }
   ncomp <- pmin(ncomp, max_comps)
@@ -144,7 +143,7 @@ sopls <- function(formula, ncomp, max_comps = min(sum(ncomp), 20), data,
   object$terms        <- mt
   object$ncomp        <- ncomp
   object$max_comps    <- max_comps
-  class(object) <- c('sopls','mvr')
+  class(object) <- c('sopls','mvr','multiblock')
   if(response.type == "categorical"){
     # object$classes <- sopls.classify(object, Y, X, ncomp, 'lda')
   }

@@ -21,6 +21,7 @@
 #' 
 #' __Supervised methods:__
 #' * MB-PLS - Multiblock Partial Least Squares (\code{\link{mbpls}})
+#' * sMB-PLS - Sparse Multiblock Partial Least Squares (\code{\link{smbpls}})
 #' * SO-PLS - Sequential and Orthogonalized PLS (\code{\link{sopls}})
 #' * PO-PLS - Parallel and Orthogonalized PLS (\code{\link{popls}})
 #' * ROSA - Response Oriented Sequential Alternation (\code{\link{rosa}})

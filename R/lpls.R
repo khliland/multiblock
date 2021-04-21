@@ -63,7 +63,7 @@ lpls <- function(X1,X2,X3, ncomp = 2, doublecenter = TRUE, scale = c(FALSE,FALSE
   X3 <- t(X3)
   
   #The three matrices are assumed positioned in this manner
-  #         Sæbø et al.               |       Smilde, Liland and Næs 2021
+  #         Sæbø et al.               |       Smilde, Næs and Liland 2021
   #                 _________         |         _______ 
   #                |         |        |        |       |
   #                |         |        |        |       |

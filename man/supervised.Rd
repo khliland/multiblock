@@ -7,6 +7,7 @@
 Collection of supervised multiblock methods:
 \itemize{
 \item MB-PLS - Multiblock Partial Least Squares (\code{\link{mbpls}})
+\item sMB-PLS - Sparse Multiblock Partial Least Squares (\code{\link{smbpls}})
 \item SO-PLS - Sequential and Orthogonalized PLS (\code{\link{sopls}})
 \item PO-PLS - Parallel and Orthogonalized PLS (\code{\link{popls}})
 \item ROSA - Response Oriented Sequential Alternation (\code{\link{rosa}})

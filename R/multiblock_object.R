@@ -1,6 +1,6 @@
 #' @name multiblock_object
 #' @title Result Functions for Supervised and Multiblock Objects
-#' @aliases scores.multiblock loadings.multiblock print.multiblock summary.multiblock scoreplot.multiblock loadingplot.multiblock
+#' @aliases scores.multiblock loadings.multiblock print.multiblock summary.multiblock scoreplot.multiblock loadingplot.multiblock loadingweightplot
 #' 
 #' @param object \code{multiblock} object.
 #' @param x \code{multiblock} object.
@@ -337,4 +337,60 @@ loadingplot.multiblock <- function(object, comps = 1:2, block = 0, scatter = TRU
       identify(c(row(L)), c(L),
                labels = paste(c(col(L)), rownames(L), sep = ": "))
   }                                   # if (isTRUE(scatter))
+}
+
+#' @export
+#' @rdname multiblock_object
+loadingweightplot <- function(object, main = "Loading weights", ...){
+  mf <- match.call(expand.dots = FALSE)
+  object$loadings <- object$loading.weights
+  loadingplot(object, main = main, ...)
+}
+
+
+#' @export
+#' @rdname multiblock_object
+biplot.multiblock <- function(x, block = 0, comps = 1:2, which = c("x", "y", "scores", "loadings"),
+         var.axes = FALSE, xlabs, ylabs, main, ...)
+{
+  if (length(comps) != 2) stop("Exactly 2 components must be selected.")
+  which <- match.arg(which)
+  switch(which,
+         x = {
+           objects <- scores(x, block = block)
+           vars <- loadings(x, block = block)
+           title <- "X scores and X loadings"
+         },
+         y = {
+           objects <- x$Yscores
+           vars <- x$Yloadings
+           title <- "Y scores and Y loadings"
+         },
+         scores = {
+           objects <- scores(x, block = block)
+           vars <- x$Yscores
+           title <- "X scores and Y scores"
+         },
+         loadings = {
+           objects <- loadings(x, block = block)
+           vars <- x$Yloadings
+           title <- "X loadings and Y loadings"
+         }
+  )
+  if (is.null(objects) || is.null(vars))
+    stop("'x' lacks the required scores/loadings.")
+  ## Build a call to `biplot'
+  mc <- match.call()
+  mc$comps <- mc$which <- NULL
+  mc$x <- objects[,comps, drop = FALSE]
+  mc$y <- vars[,comps, drop = FALSE]
+  if (missing(main)) mc$main <- title
+  if (missing(var.axes)) mc$var.axes = FALSE
+  if (!missing(xlabs) && isFALSE(xlabs))
+    mc$xlabs <- rep("o", nrow(objects))
+  if (!missing(ylabs) && isFALSE(ylabs))
+    mc$ylabs <- rep("o", nrow(vars))
+  mc[[1]] <- as.name("biplot")
+  ## Evaluate the call:
+  eval(mc, parent.frame())
 }

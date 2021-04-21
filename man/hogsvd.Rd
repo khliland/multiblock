@@ -20,7 +20,7 @@ of loadings across blocks and individual sets of scores per block.
 data(candies)
 candyList <- lapply(1:nlevels(candies$candy),function(x)candies$assessment[candies$candy==x,])
 can.hogsvd <- hogsvd(candyList)
-plot(scores(can.hogsvd, block=1), labels="names")
+scoreplot(can.hogsvd, block=1, labels="names")
 
 }
 \references{

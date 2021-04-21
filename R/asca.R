@@ -160,6 +160,7 @@ asca <- function(formula, data, subset, weights, na.action, family, pca.in = FAL
     if(pca.in != 0)
       maxDir <- min(maxDir, pca.in)
     udv <- svd(LS[[effs[i]]])
+    expli <- (udv$d^2/sum(udv$d^2)*100)[1:maxDir]
     scores[[effs[i]]]    <- (udv$u * rep(udv$d, each=N))[,1:maxDir, drop=FALSE]
     dimnames(scores[[effs[i]]]) <- list(rownames(LS[[effs[i]]]), paste("Comp", 1:maxDir, sep=" "))
     loadings[[effs[i]]]  <- udv$v[,1:maxDir, drop=FALSE]
@@ -168,6 +169,7 @@ asca <- function(formula, data, subset, weights, na.action, family, pca.in = FAL
     dimnames(projected[[effs[i]]]) <- list(rownames(LS[[effs[i]]]), paste("Comp", 1:maxDir, sep=" "))
     singulars[[effs[i]]] <- udv$d[1:maxDir]
     names(singulars[[effs[i]]]) <- paste("Comp", 1:maxDir, sep=" ")
+    attr(scores[[effs[i]]], 'explvar') <- attr(loadings[[effs[i]]], 'explvar') <- attr(projected[[effs[i]]], 'explvar') <- expli
     if(pca.in!=0){ # Transform back if PCA on Y has been performed
       loadings[[effs[i]]] <- Yudv$v[,1:pca.in,drop=FALSE] %*% loadings[[effs[i]]]
       dimnames(loadings[[effs[i]]]) <- list(colnames(LS[[effs[i]]]), paste("Comp", 1:maxDir, sep=" "))

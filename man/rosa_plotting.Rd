@@ -4,7 +4,6 @@
 \alias{rosa_plotting}
 \alias{image.rosa}
 \alias{barplot.rosa}
-\alias{loadingweightplot}
 \title{Plotting functions for ROSA models}
 \usage{
 \method{image}{rosa}(
@@ -25,8 +24,6 @@
   col = mcolors(ncomp),
   ...
 )
-
-loadingweightplot(object, ...)
 }
 \arguments{
 \item{x}{A \code{rosa} object}
@@ -35,7 +32,7 @@ loadingweightplot(object, ...)
 
 \item{ncomp}{Integer to control the number of components to plot (if fewer than the fitted number of components).}
 
-\item{col}{Colors used for the image and bar plot, defaulting to mcolors(128).}
+\item{col}{Colours used for the image and bar plot, defaulting to mcolors(128).}
 
 \item{legend}{Logical indicating if a legend should be included (default = TRUE) for \code{image.rosa}.}
 
@@ -43,7 +40,7 @@ loadingweightplot(object, ...)
 
 \item{las}{Axis text direction, default = 1 for \code{image.rosa}.}
 
-\item{...}{Additional parameters passed to \code{loadingplot}, \code{image} or \code{barplot}}
+\item{...}{Additional parameters passed to \code{loadingplot}, \code{image} or \code{barplot}.}
 
 \item{height}{A \code{rosa} object.}
 
