@@ -47,6 +47,19 @@
   xlim,
   ...
 )
+
+\method{biplot}{sopls}(
+  x,
+  comps = 1:2,
+  ncomp = "all",
+  block = 1,
+  which = c("x", "y", "scores", "loadings"),
+  var.axes = FALSE,
+  xlabs,
+  ylabs,
+  main,
+  ...
+)
 }
 \arguments{
 \item{object}{\code{sopls} object}
@@ -89,7 +102,17 @@
 
 \item{xlim}{\code{numeric} vector of length two, with the x limits of the plot (optional).}
 
+\item{x}{\code{sopls} object}
+
 \item{which}{\code{character} for selecting type of biplot ("x" = default, "y", "scores", "loadings").}
+
+\item{var.axes}{\code{logical} indicating if second axes of a biplot should have arrows.}
+
+\item{xlabs}{\code{character} vector for labelling first set of biplot points (optional).}
+
+\item{ylabs}{\code{character} vector for labelling second set of biplot points (optional).}
+
+\item{main}{\code{character} for setting the main title of a plot.}
 }
 \value{
 The functions return whatever the underlying plot function (or identify) returns.

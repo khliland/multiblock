@@ -728,11 +728,11 @@
 <span class="co">#&gt; VALIDATION: RMSEP</span>
 <span class="co">#&gt; Cross-validated using 5 random segments.</span>
 <span class="co">#&gt;        (Intercept)  1 comps  2 comps  3 comps  4 comps  5 comps  6 comps</span>
-<span class="co">#&gt; CV           1.778   0.9750   0.8845   0.9595   0.9390    1.118    1.284</span>
-<span class="co">#&gt; adjCV        1.778   0.9621   0.8679   0.9246   0.9034    1.062    1.214</span>
+<span class="co">#&gt; CV           1.778   1.0280   0.8705   0.8632   0.8363    1.074    1.125</span>
+<span class="co">#&gt; adjCV        1.778   0.9911   0.8380   0.8282   0.8055    1.020    1.070</span>
 <span class="co">#&gt;        7 comps  8 comps  9 comps  10 comps</span>
-<span class="co">#&gt; CV       1.480    1.395    1.592     1.656</span>
-<span class="co">#&gt; adjCV    1.391    1.323    1.495     1.556</span>
+<span class="co">#&gt; CV       1.284    1.549     1.58     1.587</span>
+<span class="co">#&gt; adjCV    1.216    1.448     1.48     1.489</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; TRAINING: % variance explained</span>
 <span class="co">#&gt;          1 comps  2 comps  3 comps  4 comps  5 comps  6 comps  7 comps  8 comps</span>
@@ -785,9 +785,9 @@
 <code class="sourceCode R"><span class="co"># Cross-validation</span>
 <span class="fu"><a href="https://rdrr.io/pkg/pls/man/mvrVal.html">R2</a></span><span class="op">(</span><span class="va">ros.pot</span><span class="op">)</span>
 <span class="co">#&gt; (Intercept)      1 comps      2 comps      3 comps      4 comps      5 comps  </span>
-<span class="co">#&gt;    -0.08160      0.67460      0.73224      0.68486      0.69819      0.57225  </span>
+<span class="co">#&gt;     -0.0816       0.6383       0.7406       0.7449       0.7606       0.6052  </span>
 <span class="co">#&gt;     6 comps      7 comps      8 comps      9 comps     10 comps  </span>
-<span class="co">#&gt;     0.43548      0.25037      0.33398      0.13296      0.06081</span>
+<span class="co">#&gt;      0.5670       0.4356       0.1782       0.1459       0.1385</span>
 <span class="co"># Training</span>
 <span class="fu"><a href="https://rdrr.io/pkg/pls/man/mvrVal.html">R2</a></span><span class="op">(</span><span class="va">ros.pot</span>, <span class="st">'train'</span><span class="op">)</span>
 <span class="co">#&gt; (Intercept)      1 comps      2 comps      3 comps      4 comps      5 comps  </span>
@@ -803,11 +803,11 @@
 <code class="sourceCode R"><span class="co"># Cross-validation</span>
 <span class="fu"><a href="https://rdrr.io/pkg/pls/man/mvrVal.html">RMSEP</a></span><span class="op">(</span><span class="va">ros.pot</span><span class="op">)</span>
 <span class="co">#&gt;        (Intercept)  1 comps  2 comps  3 comps  4 comps  5 comps  6 comps</span>
-<span class="co">#&gt; CV           1.778   0.9750   0.8845   0.9595   0.9390    1.118    1.284</span>
-<span class="co">#&gt; adjCV        1.778   0.9621   0.8679   0.9246   0.9034    1.062    1.214</span>
+<span class="co">#&gt; CV           1.778   1.0280   0.8705   0.8632   0.8363    1.074    1.125</span>
+<span class="co">#&gt; adjCV        1.778   0.9911   0.8380   0.8282   0.8055    1.020    1.070</span>
 <span class="co">#&gt;        7 comps  8 comps  9 comps  10 comps</span>
-<span class="co">#&gt; CV       1.480    1.395    1.592     1.656</span>
-<span class="co">#&gt; adjCV    1.391    1.323    1.495     1.556</span>
+<span class="co">#&gt; CV       1.284    1.549     1.58     1.587</span>
+<span class="co">#&gt; adjCV    1.216    1.448     1.48     1.489</span>
 <span class="co"># Training</span>
 <span class="fu"><a href="https://rdrr.io/pkg/pls/man/mvrVal.html">RMSEP</a></span><span class="op">(</span><span class="va">ros.pot</span>, <span class="st">'train'</span><span class="op">)</span>
 <span class="co">#&gt; (Intercept)      1 comps      2 comps      3 comps      4 comps      5 comps  </span>

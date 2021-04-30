@@ -43,8 +43,6 @@
 \item{...}{Additional parameters passed to \code{loadingplot}, \code{image} or \code{barplot}.}
 
 \item{height}{A \code{rosa} object.}
-
-\item{object}{A \code{rosa} object.}
 }
 \value{
 No return.

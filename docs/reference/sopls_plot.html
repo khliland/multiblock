@@ -145,10 +145,10 @@
     </div>
 
     <pre class="usage"><span class='co'># S3 method for sopls</span>
-<span class='fu'><a href='https://rdrr.io/pkg/pls/man/scores.html'>loadings</a></span><span class='op'>(</span><span class='va'>object</span>, ncomp <span class='op'>=</span> <span class='st'>"all"</span>, block <span class='op'>=</span> <span class='fl'>1</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/pkg/pls/man/scores.html'>loadings</a></span><span class='op'>(</span><span class='va'>object</span>, ncomp <span class='op'>=</span> <span class='st'>"all"</span>, block <span class='op'>=</span> <span class='fl'>1</span>, y <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for sopls</span>
-<span class='fu'><a href='https://rdrr.io/pkg/pls/man/scores.html'>scores</a></span><span class='op'>(</span><span class='va'>object</span>, ncomp <span class='op'>=</span> <span class='st'>"all"</span>, block <span class='op'>=</span> <span class='fl'>1</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/pkg/pls/man/scores.html'>scores</a></span><span class='op'>(</span><span class='va'>object</span>, ncomp <span class='op'>=</span> <span class='st'>"all"</span>, block <span class='op'>=</span> <span class='fl'>1</span>, y <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for sopls</span>
 <span class='fu'><a href='https://rdrr.io/pkg/pls/man/scoreplot.html'>scoreplot</a></span><span class='op'>(</span>
@@ -201,6 +201,10 @@
     <tr>
       <th>block</th>
       <td><p><code>integer</code> indicating which block to extract components from.</p></td>
+    </tr>
+    <tr>
+      <th>y</th>
+      <td><p><code>logical</code> extract Y loadings/scores instead of X loadings/scores (default = FALSE).</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -265,6 +269,10 @@
     <tr>
       <th>xlim</th>
       <td><p><code>numeric</code> vector of length two, with the x limits of the plot (optional).</p></td>
+    </tr>
+    <tr>
+      <th>which</th>
+      <td><p><code>character</code> for selecting type of biplot ("x" = default, "y", "scores", "loadings").</p></td>
     </tr>
     </table>
 

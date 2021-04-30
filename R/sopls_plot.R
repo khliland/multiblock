@@ -4,6 +4,7 @@
 #' @aliases loadings.sopls scores.sopls loadingplot.sopls scoreplot.sopls biplot.sopls
 #'
 #' @param object \code{sopls} object
+#' @param x \code{sopls} object
 #' @param comps \code{integer} vector giving components, within block, to plot.
 #' @param ncomp \code{integer} vector giving components from all blocks before \code{block} (see next argument).
 #' @param block \code{integer} indicating which block to extract components from.
@@ -13,6 +14,9 @@
 #' @param identify \code{logical} for activating \code{identify} to interactively identify points.
 #' @param type \code{character} for selecting type of plot to make. Defaults to "p" (points) for scatter plots and "l" (lines) for line plots.
 #' @param which \code{character} for selecting type of biplot ("x" = default, "y", "scores", "loadings").
+#' @param var.axes \code{logical} indicating if second axes of a biplot should have arrows.
+#' @param xlabs \code{character} vector for labelling first set of biplot points (optional).
+#' @param ylabs \code{character} vector for labelling second set of biplot points (optional).
 #' @param xlab \code{character} text for x labels.
 #' @param ylab \code{character} text for y labels.
 #' @param lty Vector of line type specifications (see \code{\link{par}} for details).
@@ -23,6 +27,7 @@
 #' @param legendpos \code{character} indicating legend position (if \code{scatter} is FALSE), e.g. \code{legendpos = "topright"}.
 #' @param pretty.xlabels \code{logical} indicating if xlabels should be more nicely plotted (default = TRUE).
 #' @param xlim \code{numeric} vector of length two, with the x limits of the plot (optional).
+#' @param main \code{character} for setting the main title of a plot.
 #' @param ... further arguments sent to the underlying plot function(s)
 #'
 #' @description Adaptation of \code{scoreplot} from package \code{pls} for \code{sopls} objects.
@@ -313,7 +318,7 @@ loadingplot.sopls <- function(object, comps = 1:2, ncomp = "all", block = 1, sca
 
 
 #' @export
-#' @rdname multiblock_object
+#' @rdname sopls_plot
 biplot.sopls <- function(x, comps = 1:2, ncomp = "all", block = 1, which = c("x", "y", "scores", "loadings"),
                               var.axes = FALSE, xlabs, ylabs, main, ...)
 {
@@ -326,18 +331,18 @@ biplot.sopls <- function(x, comps = 1:2, ncomp = "all", block = 1, which = c("x"
            title <- "X scores and X loadings"
          },
          y = {
-           objects <- scores(x, ncomp = ncomp, block = block, y=TRUE)
-           vars <- loadings(x, ncomp = ncomp, block = block, y=TRUE)
+           objects <- scores(x, ncomp = ncomp, block = block, y = TRUE)
+           vars <- loadings(x, ncomp = ncomp, block = block, y = TRUE)
            title <- "Y scores and Y loadings"
          },
          scores = {
            objects <- scores(x, ncomp = ncomp, block = block)
-           vars <- scores(x, ncomp = ncomp, block = block, y=TRUE)
+           vars <- scores(x, ncomp = ncomp, block = block, y = TRUE)
            title <- "X scores and Y scores"
          },
          loadings = {
            objects <- loadings(x, ncomp = ncomp, block = block)
-           vars <- loadings(x, ncomp = ncomp, block = block, y=TRUE)
+           vars <- loadings(x, ncomp = ncomp, block = block, y = TRUE)
            title <- "X loadings and Y loadings"
          }
   )

@@ -4,9 +4,9 @@
 #' @aliases predict.sopls sopls.classify coef.sopls print.sopls summary.sopls
 #' @param object A \code{sopls} object.
 #' @param x A \code{sopls} object.
+#' @param block \code{numeric} or \code{character} indicating block choice.
 #' @param newdata Optional new data with the same types of predictor blocks as the ones used for fitting the object.
-#' @param ncomp An \code{integer} giving the number of components to apply.
-#' @param comps An \code{integer} vector giving the exact components to apply.
+#' @param ncomp An \code{integer} vector giving the exact components to apply.
 #' @param type A \code{character} for \code{predict} indicating if responses or scores should be predicted (default = "response", or "scores"), for \code{summary} indicating which type of explained variance to compute (default = "train", alternative = "CV").
 #' @param na.action Function determining what to do with missing values in \code{newdata}.
 #' @param intercept A \code{logical} indicating if coefficients for the intercept should be included (default = FALSE).
@@ -15,7 +15,6 @@
 #' @param print.gap Gap between columns when printing.
 #' @param classes A \code{character} vector of class labels.
 #' @param LQ A \code{character} indicating if 'max' (maximum score value), 'lda' or 'qda' should be used when classifying.
-#' @param block An \code{integer} indicating which block to use.
 #' @param estimate A \code{character} indicating if 'train', 'CV' or 'test' results should be displayed.
 #' @param individual A \code{logical} indicating if results for individual responses should be displayed.
 #' @param ... Additional arguments. Currently not implemented.
@@ -23,7 +22,9 @@
 #' @return Returns depend on method used, e.g. \code{predict.sopls} returns predicted responses 
 #' or scores depending on inputs, \code{coef.sopls} return regression coefficients.
 #' 
-#' @description Standard result functions for SO-PLS (\code{\link{sopls}}).
+#' @description Standard result functions for SO-PLS (\code{\link{sopls}}). The parameter \code{ncomp} controls
+#' which components to apply/extract, resulting in the sequence of components leading up to the specific choice, i.e.
+#' \code{ncomp = c(2,2,1)} results in the sequence 1,0,0; 2,0,0; 2,1,0; 2,2,0; 2,2,1.
 #' 
 #' @references Jørgensen K, Mevik BH, Næs T. Combining designed experiments with several blocks of spectroscopic data. Chemometr Intell Lab Syst. 2007;88(2): 154–166.
 #'
@@ -31,14 +32,15 @@
 #' data(potato)
 #' mod <- sopls(Sensory[,1] ~ ., data = potato[c(1:3,9)], ncomp = 5, subset = 1:20)
 #' testset <- potato[-(1:20),]; testset$Sensory <- testset$Sensory[,1,drop=FALSE]
-#' predict(mod, testset, comps=c(2,1,2))
-#' #dim(coef(mod, ncomp=5)) # <variables x responses x components>
+#' predict(mod, testset, ncomp=c(2,1,2))
+#' dim(coef(mod, ncomp=c(3,0,1))) # <variables x responses x components>
+#' R2(mod, ncomp = c(4,1,2))
 #' print(mod)
 #' summary(mod)
 #' 
 #' @seealso Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 #' @export
-predict.sopls <- function(object, newdata, ncomp = object$ncomp, comps = object$ncomp,
+predict.sopls <- function(object, newdata, ncomp = object$ncomp,
                           type = c("response", "scores"), na.action = na.pass, ...){
   if (missing(newdata) || is.null(newdata)){
     newdata <- object$data$X
@@ -49,22 +51,22 @@ predict.sopls <- function(object, newdata, ncomp = object$ncomp, comps = object$
   
   type <- match.arg(type)
   
-  if(!is.character(comps) && sum(comps) > object$max_comp)
-    stop(paste0("Selected components (",paste(comps,collapse=","),") is outside range of fitted model."))
+  if(!is.character(ncomp) && sum(ncomp) > object$max_comp)
+    stop(paste0("Selected components (",paste(ncomp,collapse=","),") is outside range of fitted model."))
   if (type == "response") {
-    return(sopls_prediction(object, newdata, comps, FALSE))
+    return(sopls_prediction(object, newdata, ncomp, FALSE))
   } else {
-    return(sopls_prediction(object, newdata, comps, TRUE))
+    return(sopls_prediction(object, newdata, ncomp, TRUE))
   }
 }
 
 #' @rdname sopls_object
 #' @export
-coef.sopls <- function(object, ncomp = object$ncomp, comps = object$ncomp, intercept = FALSE,
+coef.sopls <- function(object, ncomp = object$ncomp, intercept = FALSE,
                        ...)
 {
-  if(sum(comps) > object$max_comp)
-    stop(paste0("Selected components (",paste(comps,collapse=","),") is outside range of fitted model."))
+  if(sum(ncomp) > object$max_comp)
+    stop(paste0("Selected components (",paste(ncomp,collapse=","),") is outside range of fitted model."))
   
   X <- object$data$X
   Y <- object$data$Y
@@ -72,12 +74,12 @@ coef.sopls <- function(object, ncomp = object$ncomp, comps = object$ncomp, inter
   
   nblock  <- length(X)
   nresp   <- dim(Y)[2]
-  selComp <- pathComp(comps, object$decomp$compList)
+  selComp <- pathComp(ncomp, object$decomp$compList)
   tot_comp <- nrow(selComp$path)
   
   Cr <- Crval <- 0
   for(i in 1:nblock){
-    if(comps[i]>0){
+    if(ncomp[i]>0){
       X[[i]]    <- as.matrix(X[[i]])
       X[[i]]    <- X[[i]]    - rep(colMeans(X[[i]]), each = n)
       Cr    <- Cr    + tcrossprodQ(X[[i]], X[[i]])    %*% object$decomp$Ry[, selComp$hits, drop=FALSE]
@@ -237,7 +239,7 @@ R2.sopls <- function(object, estimate, newdata, ncomp = "all", individual = FALS
     } else {
       # estimate = "test"
       newdata <- model.frame(formula(object), data = newdata)
-      preds <- predict(object, newdata, ncomp = object$ncomp, comps = ncomp)
+      preds <- predict(object, newdata, ncomp = ncomp)
       y <- t(as.matrix(model.response(newdata)))
       yc <- array(t(y), c(dim(preds)))
       sst <- rowSums((y - rowMeans(y))^2)
@@ -291,7 +293,7 @@ RMSEP.sopls <- function(object, estimate, newdata, ncomp = "all", individual = F
         return(rmsep[selComp$hits, drop=FALSE])}
     } else {
       # estimate = "test"
-      preds <- predict(object, newdata, ncomp = object$ncomp, comps = ncomp)
+      preds <- predict(object, newdata, ncomp = object$ncomp, ncomp = ncomp)
       newdata <- model.frame(formula(object), data = newdata)
       y <- t(as.matrix(model.response(newdata)))
       yc <- array(t(y), c(dim(preds)))

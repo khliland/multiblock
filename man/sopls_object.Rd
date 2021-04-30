@@ -17,19 +17,12 @@
   object,
   newdata,
   ncomp = object$ncomp,
-  comps = object$ncomp,
   type = c("response", "scores"),
   na.action = na.pass,
   ...
 )
 
-\method{coef}{sopls}(
-  object,
-  ncomp = object$ncomp,
-  comps = object$ncomp,
-  intercept = FALSE,
-  ...
-)
+\method{coef}{sopls}(object, ncomp = object$ncomp, intercept = FALSE, ...)
 
 \method{print}{sopls}(x, ...)
 
@@ -54,9 +47,7 @@ classify(object, ...)
 
 \item{newdata}{Optional new data with the same types of predictor blocks as the ones used for fitting the object.}
 
-\item{ncomp}{An \code{integer} giving the number of components to apply.}
-
-\item{comps}{An \code{integer} vector giving the exact components to apply.}
+\item{ncomp}{An \code{integer} vector giving the exact components to apply.}
 
 \item{type}{A \code{character} for \code{predict} indicating if responses or scores should be predicted (default = "response", or "scores"), for \code{summary} indicating which type of explained variance to compute (default = "train", alternative = "CV").}
 
@@ -82,21 +73,24 @@ classify(object, ...)
 
 \item{individual}{A \code{logical} indicating if results for individual responses should be displayed.}
 
-\item{block}{An \code{integer} indicating which block to use.}
+\item{block}{\code{numeric} or \code{character} indicating block choice.}
 }
 \value{
 Returns depend on method used, e.g. \code{predict.sopls} returns predicted responses
 or scores depending on inputs, \code{coef.sopls} return regression coefficients.
 }
 \description{
-Standard result functions for SO-PLS (\code{\link{sopls}}).
+Standard result functions for SO-PLS (\code{\link{sopls}}). The parameter \code{ncomp} controls
+which components to apply/extract, resulting in the sequence of components leading up to the specific choice, i.e.
+\code{ncomp = c(2,2,1)} results in the sequence 1,0,0; 2,0,0; 2,1,0; 2,2,0; 2,2,1.
 }
 \examples{
 data(potato)
 mod <- sopls(Sensory[,1] ~ ., data = potato[c(1:3,9)], ncomp = 5, subset = 1:20)
 testset <- potato[-(1:20),]; testset$Sensory <- testset$Sensory[,1,drop=FALSE]
-predict(mod, testset, comps=c(2,1,2))
-#dim(coef(mod, ncomp=5)) # <variables x responses x components>
+predict(mod, testset, ncomp=c(2,1,2))
+dim(coef(mod, ncomp=c(3,0,1))) # <variables x responses x components>
+R2(mod, ncomp = c(4,1,2))
 print(mod)
 summary(mod)
 

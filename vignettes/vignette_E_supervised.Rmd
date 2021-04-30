@@ -96,7 +96,7 @@ Sparse MB-PLS is presented briefly using the _potato_ data.
 ## Modelling
 
 A multi-response two-block sMB-PLS model with up to 10 components in total is cross-validated with 10 random segments.
-Here, the Soft-Threshold version is used (Truncation version also available) with paramter _shrink = 0.6_ means
+Here, the Soft-Threshold version is used (Truncation version also available) with parameter _shrink = 0.6_ means
 the loading weights have 60% of the largest values subtracted before setting negative values to 0.
 
 ```{r}
@@ -173,7 +173,7 @@ par(old.par)
 
 ## Loadings
 
-One set of loadings is printed and two sets are plotted to show how to select specific components from specific blocks.
+One set of loadings is printed and two sets are plotted to show how to select specific components from specific blocks. When extracting or plotting loadings for the second or later blocks, one must specify how many components have been used in the previous block as this will affect the choice of loadings.
 
 ```{r}
 # Display loadings for first block
@@ -189,7 +189,7 @@ par(old.par)
 
 ## Scores
 
-One set of scores is printed and two sets are plotted to show how to select specific components from specific blocks.
+One set of scores is printed and two sets are plotted to show how to select specific components from specific blocks. Specification of component use in preceding blocks follows the same pattern as with loadings.
 
 ```{r}
 # Display scores for first block
@@ -310,7 +310,7 @@ Extract loadings (not used further) and plot two first vectors of loadings.
 
 ```{r}
 loads <- loadings(ros.pot)
-loadingplot(ros.pot, comps = 1:2)
+loadingplot(ros.pot, comps = 1:2, scatter = FALSE)
 ```
 
 ## Scores

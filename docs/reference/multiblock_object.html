@@ -136,7 +136,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Result Functions for Supervised and Multiblock Objects</h1>
-    <small class="dont-index">Source: <a href='https://github.com/khliland/multiblock/blob/master/R/multiblock_object.R'><code>R/multiblock_object.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/khliland/multiblock/blob/master/R/multiblock_object.R'><code>R/multiblock_object.R</code></a>, <a href='https://github.com/khliland/multiblock/blob/master/R/sopls_plot.R'><code>R/sopls_plot.R</code></a></small>
     <div class="hidden name"><code>multiblock_object.Rd</code></div>
     </div>
 
@@ -198,7 +198,22 @@
 <span class='co'># S3 method for multiblock</span>
 <span class='fu'><a href='https://rdrr.io/r/stats/biplot.html'>biplot</a></span><span class='op'>(</span>
   <span class='va'>x</span>,
+  block <span class='op'>=</span> <span class='fl'>0</span>,
   comps <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span>,
+  which <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"x"</span>, <span class='st'>"y"</span>, <span class='st'>"scores"</span>, <span class='st'>"loadings"</span><span class='op'>)</span>,
+  var.axes <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  <span class='va'>xlabs</span>,
+  <span class='va'>ylabs</span>,
+  <span class='va'>main</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span>
+
+<span class='co'># S3 method for sopls</span>
+<span class='fu'><a href='https://rdrr.io/r/stats/biplot.html'>biplot</a></span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  comps <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span>,
+  ncomp <span class='op'>=</span> <span class='st'>"all"</span>,
+  block <span class='op'>=</span> <span class='fl'>1</span>,
   which <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"x"</span>, <span class='st'>"y"</span>, <span class='st'>"scores"</span>, <span class='st'>"loadings"</span><span class='op'>)</span>,
   var.axes <span class='op'>=</span> <span class='cn'>FALSE</span>,
   <span class='va'>xlabs</span>,

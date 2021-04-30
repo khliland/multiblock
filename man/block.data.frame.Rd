@@ -10,6 +10,8 @@ block.data.frame(X, block_inds = NULL, to.matrix = TRUE)
 \item{X}{Either a single \code{data.frame} to index or a \code{list} of matrices/data.frames}
 
 \item{block_inds}{Named \code{list} of indexes if \code{X} is a single \code{data.frame}, otherwise \code{NULL}.}
+
+\item{to.matrix}{\code{logical} indicating if input list elements should be converted to matrices.}
 }
 \value{
 A \code{data.frame} which can be indexed block-wise.

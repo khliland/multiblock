@@ -63,7 +63,7 @@ Before analysis, various types of pre-processing may be needed. Centring
 and standardising/scaling may be considered the most basic. In R, these
 operations are performed column-wise by default, leading to autoscaling.
 If these operations are performed on the rows, we perform the standard
-normal variate (SNV).
+normal variate (SNV) instead.
 
 ```{r}
 # Column-centring

@@ -141,13 +141,15 @@ mbpls <- function(X, Y, ncomp=1, scale=FALSE, ...){
 #' 
 #' # Truncation MB-PLS 
 #' # Loading weights inside 60% confidence intervals around the median are set to 0.
-#' tmb <- smbpls(potato[c('Chemical','Compression')], potato[['Sensory']], ncomp = 5, truncation = "Lenth", trunc.width = 0.6)
+#' tmb <- smbpls(potato[c('Chemical','Compression')], potato[['Sensory']], ncomp = 5, 
+#'               truncation = "Lenth", trunc.width = 0.6)
 #' scoreplot(tmb, labels="names") # Exploiting mvr object structure from pls package
 #' loadingweightplot(tmb, labels="names")
 #' 
 #' # Soft-Threshold / Sparse MB-PLS 
 #' # Loading weights are subtracted by 60% of maximum value.
-#' smb <- smbpls(potato[c('Chemical','Compression')], potato[['Sensory']], ncomp = 5, shrink = 0.6)
+#' smb <- smbpls(potato[c('Chemical','Compression')], potato[['Sensory']], 
+#'               ncomp = 5, shrink = 0.6)
 #' print(smb)
 #' scoreplot(smb, labels="names") # Exploiting mvr object structure from pls package
 #' loadingweightplot(smb, labels="names")

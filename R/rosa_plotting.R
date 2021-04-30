@@ -9,7 +9,6 @@
 #'
 #' @aliases image.rosa barplot.rosa
 #' @param x A \code{rosa} object
-#' @param object A \code{rosa} object.
 #' @param height A \code{rosa} object.
 #' @param ncomp Integer to control the number of components to plot (if fewer than the fitted number of components).
 #' @param type An optional \code{character} for selecting the plot type. For \code{image.rosa} the options are: "correlation" (default), "residual" or "order". For \code{barplot.rosa} the options indicate: explained variance should be based on training data ("train") or cross-validation ("CV").

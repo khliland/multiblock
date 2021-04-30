@@ -105,6 +105,7 @@ whichMins <- function(short, long){
 #'
 #' @param X Either a single \code{data.frame} to index or a \code{list} of matrices/data.frames
 #' @param block_inds Named \code{list} of indexes if \code{X} is a single \code{data.frame}, otherwise \code{NULL}.
+#' @param to.matrix \code{logical} indicating if input list elements should be converted to matrices.
 #'
 #' @return A \code{data.frame} which can be indexed block-wise.
 #' @examples

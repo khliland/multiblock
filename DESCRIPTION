@@ -9,7 +9,13 @@ Authors@R:
              family = "Liland",
              role = c("aut", "cre"),
              email = "kristian.liland@nmbu.no",
-             comment = c(ORCID = "0000-0001-6468-9423")))
+             comment = c(ORCID = "0000-0001-6468-9423")),
+      person(given = "Solve",
+             family = "Sæbø",
+             role = c("ctb")),
+      person(given = "Stefan",
+             family = "Schrunner",
+             role = c("rev")))
 Description: Analysis of multiple blocks of data, e.g., where the same samples have been measured using various instruments or conditions.
 License: GPL (>= 2)
 URL: https://khliland.github.io/multiblock, https://github.com/khliland/multiblock

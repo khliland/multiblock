@@ -10,6 +10,10 @@
 #' @param labels \code{character} indicating if "names" or "numbers" should be plot symbols (optional).
 #' @param identify \code{logical} for activating \code{identify} to interactively identify points.
 #' @param type \code{character} for selecting type of plot to make. Defaults to "p" (points) for scatter plots and "l" (lines) for line plots.
+#' @param which \code{character} for selecting type of biplot ("x" = default, "y", "scores", "loadings").
+#' @param var.axes \code{logical} indicating if second axes of a biplot should have arrows.
+#' @param xlabs \code{character} vector for labelling first set of biplot points (optional).
+#' @param ylabs \code{character} vector for labelling second set of biplot points (optional).
 #' @param xlab \code{character} text for x labels.
 #' @param ylab \code{character} text for y labels.
 #' @param main \code{character} text for main header.
@@ -30,6 +34,7 @@
 #' plot(loadings(sc, block = 1), labels = "names", scatter = TRUE)
 #' 
 #' @seealso Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+#' @importFrom graphics axTicks matplot pairs
 #' @export
 scores.multiblock <- function(object, block = 0, ...){
   if(block==0 && is.null(object$scores)){
