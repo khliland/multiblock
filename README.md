@@ -3,7 +3,7 @@
 <!-- badges: start -->
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-blue.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![CRAN Status](https://www.r-pkg.org/badges/version/multiblock)](https://cran.r-project.org/package=multiblock)
-[![R build status](https://github.com/khliland/multiblock/workflows/check-standard/badge.svg)](https://github.com/khliland/multiblock/actions)
+[![R-CMD-check](https://github.com/khliland/multiblock/workflows/check-standard/badge.svg)](https://github.com/khliland/multiblock/actions)
 <!-- badges: end -->
 
 ## Installation
