@@ -426,7 +426,7 @@ component_combos <- function(comps, max_comps){
 pathComp <- function(comps, compList){
   if(length(comps)==1 && comps=="all"){
     nb <- ncol(compList)
-    ord <- order(as.numeric(apply(compList[,nb:1],1,paste, collapse="")))[-1]
+    ord <- order(as.numeric(apply(compList[, nb:1, drop=FALSE],1,paste, collapse="")))[-1]
     return(list(path = compList[ord,,drop=FALSE], hits = ord))
   }
   if(length(comps)==1 && comps=="raw"){
