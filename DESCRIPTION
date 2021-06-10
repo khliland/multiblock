@@ -25,6 +25,7 @@ Imports: ade4,
   car,
   FactoMineR,
   geigen,
+  knitr,
   lme4,
   MASS,
   MFAg,
@@ -43,6 +44,4 @@ Imports: ade4,
 LinkingTo: Rcpp, RcppEigen
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
-Suggests: 
-    knitr
 VignetteBuilder: knitr

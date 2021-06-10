@@ -4,7 +4,6 @@
 #' @aliases predict.sopls sopls.classify coef.sopls print.sopls summary.sopls
 #' @param object A \code{sopls} object.
 #' @param x A \code{sopls} object.
-#' @param block \code{numeric} or \code{character} indicating block choice.
 #' @param newdata Optional new data with the same types of predictor blocks as the ones used for fitting the object.
 #' @param ncomp An \code{integer} vector giving the exact components to apply.
 #' @param type A \code{character} for \code{predict} indicating if responses or scores should be predicted (default = "response", or "scores"), for \code{summary} indicating which type of explained variance to compute (default = "train", alternative = "CV").
@@ -293,7 +292,7 @@ RMSEP.sopls <- function(object, estimate, newdata, ncomp = "all", individual = F
         return(rmsep[selComp$hits, drop=FALSE])}
     } else {
       # estimate = "test"
-      preds <- predict(object, newdata, ncomp = object$ncomp, ncomp = ncomp)
+      preds <- predict(object, newdata, ncomp = ncomp)
       newdata <- model.frame(formula(object), data = newdata)
       y <- t(as.matrix(model.response(newdata)))
       yc <- array(t(y), c(dim(preds)))
