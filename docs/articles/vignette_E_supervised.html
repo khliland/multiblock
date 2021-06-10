@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">multiblock</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.0</span>
       </span>
     </div>
 
@@ -91,7 +91,7 @@
 
       
 
-      </header><script src="vignette_E_supervised_files/header-attrs-2.6/header-attrs.js"></script><div class="row">
+      </header><script src="vignette_E_supervised_files/header-attrs-2.8/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>E. Supervised multiblock analysis</h1>
@@ -191,7 +191,7 @@
 <div id="modelling-1" class="section level2">
 <h2 class="hasAnchor">
 <a href="#modelling-1" class="anchor"></a>Modelling</h2>
-<p>A multi-response two-block sMB-PLS model with up to 10 components in total is cross-validated with 10 random segments. Here, the Soft-Threshold version is used (Truncation version also available) with paramter <em>shrink = 0.6</em> means the loading weights have 60% of the largest values subtracted before setting negative values to 0.</p>
+<p>A multi-response two-block sMB-PLS model with up to 10 components in total is cross-validated with 10 random segments. Here, the Soft-Threshold version is used (Truncation version also available) with parameter <em>shrink = 0.6</em> means the loading weights have 60% of the largest values subtracted before setting negative values to 0.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">potato</span><span class="op">)</span>
 <span class="va">smb</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/smbpls.html">smbpls</a></span><span class="op">(</span><span class="va">potato</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'Chemical'</span>,<span class="st">'Compression'</span><span class="op">)</span><span class="op">]</span>, <span class="va">potato</span><span class="op">[[</span><span class="st">'Sensory'</span><span class="op">]</span><span class="op">]</span>, ncomp <span class="op">=</span> <span class="fl">10</span>,
@@ -366,7 +366,7 @@
 <div id="loadings" class="section level2">
 <h2 class="hasAnchor">
 <a href="#loadings" class="anchor"></a>Loadings</h2>
-<p>One set of loadings is printed and two sets are plotted to show how to select specific components from specific blocks.</p>
+<p>One set of loadings is printed and two sets are plotted to show how to select specific components from specific blocks. When extracting or plotting loadings for the second or later blocks, one must specify how many components have been used in the previous block as this will affect the choice of loadings.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Display loadings for first block</span>
 <span class="fu"><a href="https://rdrr.io/pkg/pls/man/scores.html">loadings</a></span><span class="op">(</span><span class="va">so.pot</span>, block <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
@@ -423,7 +423,7 @@
 <div id="scores" class="section level2">
 <h2 class="hasAnchor">
 <a href="#scores" class="anchor"></a>Scores</h2>
-<p>One set of scores is printed and two sets are plotted to show how to select specific components from specific blocks.</p>
+<p>One set of scores is printed and two sets are plotted to show how to select specific components from specific blocks. Specification of component use in preceding blocks follows the same pattern as with loadings.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Display scores for first block</span>
 <span class="fu"><a href="https://rdrr.io/pkg/pls/man/scores.html">scores</a></span><span class="op">(</span><span class="va">so.pot</span>, block <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
@@ -512,52 +512,152 @@
 <span class="co">#&gt; , , 1,0,0</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;       Sensory</span>
-<span class="co">#&gt; [1,] 3.922829</span>
-<span class="co">#&gt; [2,] 3.801854</span>
-<span class="co">#&gt; [3,] 6.409450</span>
-<span class="co">#&gt; [4,] 2.960830</span>
-<span class="co">#&gt; [5,] 4.433857</span>
-<span class="co">#&gt; [6,] 3.223006</span>
+<span class="co">#&gt; [1,] 3.710097</span>
+<span class="co">#&gt; [2,] 3.508955</span>
+<span class="co">#&gt; [3,] 6.066989</span>
+<span class="co">#&gt; [4,] 3.521423</span>
+<span class="co">#&gt; [5,] 4.944123</span>
+<span class="co">#&gt; [6,] 3.539052</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; , , 2,0,0</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;       Sensory</span>
-<span class="co">#&gt; [1,] 4.062985</span>
-<span class="co">#&gt; [2,] 4.238679</span>
-<span class="co">#&gt; [3,] 7.178207</span>
-<span class="co">#&gt; [4,] 2.477011</span>
-<span class="co">#&gt; [5,] 3.319856</span>
-<span class="co">#&gt; [6,] 2.904183</span>
+<span class="co">#&gt; [1,] 3.636431</span>
+<span class="co">#&gt; [2,] 3.610855</span>
+<span class="co">#&gt; [3,] 6.429357</span>
+<span class="co">#&gt; [4,] 3.393957</span>
+<span class="co">#&gt; [5,] 4.062585</span>
+<span class="co">#&gt; [6,] 3.449857</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; , , 2,1,0</span>
+<span class="co">#&gt; , , 3,0,0</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;       Sensory</span>
-<span class="co">#&gt; [1,] 4.169790</span>
-<span class="co">#&gt; [2,] 4.471989</span>
-<span class="co">#&gt; [3,] 7.282654</span>
-<span class="co">#&gt; [4,] 2.426714</span>
-<span class="co">#&gt; [5,] 3.273465</span>
-<span class="co">#&gt; [6,] 2.898753</span>
+<span class="co">#&gt; [1,] 3.688660</span>
+<span class="co">#&gt; [2,] 3.685508</span>
+<span class="co">#&gt; [3,] 6.480693</span>
+<span class="co">#&gt; [4,] 3.211579</span>
+<span class="co">#&gt; [5,] 3.956964</span>
+<span class="co">#&gt; [6,] 3.464106</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; , , 2,1,1</span>
+<span class="co">#&gt; , , 4,0,0</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt;         Sensory</span>
-<span class="co">#&gt; [1,]  5.2214087</span>
-<span class="co">#&gt; [2,]  5.1427034</span>
-<span class="co">#&gt; [3,]  9.7861678</span>
-<span class="co">#&gt; [4,] -0.7742392</span>
-<span class="co">#&gt; [5,]  0.9645707</span>
-<span class="co">#&gt; [6,]  2.2666501</span>
+<span class="co">#&gt;       Sensory</span>
+<span class="co">#&gt; [1,] 3.746689</span>
+<span class="co">#&gt; [2,] 3.545318</span>
+<span class="co">#&gt; [3,] 6.342659</span>
+<span class="co">#&gt; [4,] 2.980819</span>
+<span class="co">#&gt; [5,] 3.631846</span>
+<span class="co">#&gt; [6,] 3.419858</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; , , 2,1,2</span>
+<span class="co">#&gt; , , 5,0,0</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt;         Sensory</span>
-<span class="co">#&gt; [1,]  5.4727706</span>
-<span class="co">#&gt; [2,]  5.5669734</span>
-<span class="co">#&gt; [3,] 11.3237645</span>
-<span class="co">#&gt; [4,] -2.3105720</span>
-<span class="co">#&gt; [5,]  0.2755925</span>
-<span class="co">#&gt; [6,]  2.1649361</span></code></pre></div>
+<span class="co">#&gt;       Sensory</span>
+<span class="co">#&gt; [1,] 3.741608</span>
+<span class="co">#&gt; [2,] 3.034433</span>
+<span class="co">#&gt; [3,] 6.123613</span>
+<span class="co">#&gt; [4,] 2.363783</span>
+<span class="co">#&gt; [5,] 2.979181</span>
+<span class="co">#&gt; [6,] 3.078927</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; , , 5,1,0</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;       Sensory</span>
+<span class="co">#&gt; [1,] 3.636086</span>
+<span class="co">#&gt; [2,] 2.582345</span>
+<span class="co">#&gt; [3,] 6.196188</span>
+<span class="co">#&gt; [4,] 1.914878</span>
+<span class="co">#&gt; [5,] 2.804766</span>
+<span class="co">#&gt; [6,] 3.092452</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; , , 5,2,0</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;       Sensory</span>
+<span class="co">#&gt; [1,] 3.847071</span>
+<span class="co">#&gt; [2,] 3.105369</span>
+<span class="co">#&gt; [3,] 6.731938</span>
+<span class="co">#&gt; [4,] 1.914845</span>
+<span class="co">#&gt; [5,] 2.913156</span>
+<span class="co">#&gt; [6,] 3.201600</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; , , 5,3,0</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;       Sensory</span>
+<span class="co">#&gt; [1,] 4.339639</span>
+<span class="co">#&gt; [2,] 3.956609</span>
+<span class="co">#&gt; [3,] 8.709663</span>
+<span class="co">#&gt; [4,] 2.405164</span>
+<span class="co">#&gt; [5,] 3.544869</span>
+<span class="co">#&gt; [6,] 3.771154</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; , , 5,4,0</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;       Sensory</span>
+<span class="co">#&gt; [1,] 4.791787</span>
+<span class="co">#&gt; [2,] 4.211071</span>
+<span class="co">#&gt; [3,] 8.738256</span>
+<span class="co">#&gt; [4,] 2.547092</span>
+<span class="co">#&gt; [5,] 3.635783</span>
+<span class="co">#&gt; [6,] 3.771432</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; , , 5,5,0</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;       Sensory</span>
+<span class="co">#&gt; [1,] 4.896776</span>
+<span class="co">#&gt; [2,] 4.273363</span>
+<span class="co">#&gt; [3,] 9.041290</span>
+<span class="co">#&gt; [4,] 2.462006</span>
+<span class="co">#&gt; [5,] 3.738154</span>
+<span class="co">#&gt; [6,] 3.987452</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; , , 5,5,1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;       Sensory</span>
+<span class="co">#&gt; [1,] 5.127082</span>
+<span class="co">#&gt; [2,] 4.593908</span>
+<span class="co">#&gt; [3,] 9.859248</span>
+<span class="co">#&gt; [4,] 2.409637</span>
+<span class="co">#&gt; [5,] 4.392888</span>
+<span class="co">#&gt; [6,] 4.321865</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; , , 5,5,2</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;       Sensory</span>
+<span class="co">#&gt; [1,] 4.893680</span>
+<span class="co">#&gt; [2,] 4.293595</span>
+<span class="co">#&gt; [3,] 8.950756</span>
+<span class="co">#&gt; [4,] 2.643839</span>
+<span class="co">#&gt; [5,] 4.549016</span>
+<span class="co">#&gt; [6,] 3.825176</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; , , 5,5,3</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;       Sensory</span>
+<span class="co">#&gt; [1,] 4.809765</span>
+<span class="co">#&gt; [2,] 3.407967</span>
+<span class="co">#&gt; [3,] 8.351415</span>
+<span class="co">#&gt; [4,] 1.533916</span>
+<span class="co">#&gt; [5,] 3.098735</span>
+<span class="co">#&gt; [6,] 2.980523</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; , , 5,5,4</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;        Sensory</span>
+<span class="co">#&gt; [1,]  5.206516</span>
+<span class="co">#&gt; [2,]  3.827037</span>
+<span class="co">#&gt; [3,] 10.217326</span>
+<span class="co">#&gt; [4,]  1.880369</span>
+<span class="co">#&gt; [5,]  5.232344</span>
+<span class="co">#&gt; [6,]  4.708891</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; , , 5,5,5</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;        Sensory</span>
+<span class="co">#&gt; [1,]  4.910730</span>
+<span class="co">#&gt; [2,]  3.410653</span>
+<span class="co">#&gt; [3,] 11.063789</span>
+<span class="co">#&gt; [4,]  1.817420</span>
+<span class="co">#&gt; [5,]  6.038563</span>
+<span class="co">#&gt; [6,]  6.823995</span></code></pre></div>
 </div>
 <div id="validation" class="section level2">
 <h2 class="hasAnchor">
@@ -728,11 +828,11 @@
 <span class="co">#&gt; VALIDATION: RMSEP</span>
 <span class="co">#&gt; Cross-validated using 5 random segments.</span>
 <span class="co">#&gt;        (Intercept)  1 comps  2 comps  3 comps  4 comps  5 comps  6 comps</span>
-<span class="co">#&gt; CV           1.778   1.0280   0.8705   0.8632   0.8363    1.074    1.125</span>
-<span class="co">#&gt; adjCV        1.778   0.9911   0.8380   0.8282   0.8055    1.020    1.070</span>
+<span class="co">#&gt; CV           1.778    1.047   0.9371   0.9403   0.8398   1.0006    1.240</span>
+<span class="co">#&gt; adjCV        1.778    1.009   0.8995   0.8988   0.8122   0.9578    1.175</span>
 <span class="co">#&gt;        7 comps  8 comps  9 comps  10 comps</span>
-<span class="co">#&gt; CV       1.284    1.549     1.58     1.587</span>
-<span class="co">#&gt; adjCV    1.216    1.448     1.48     1.489</span>
+<span class="co">#&gt; CV       1.355    1.415    1.463     1.591</span>
+<span class="co">#&gt; adjCV    1.276    1.330    1.370     1.487</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; TRAINING: % variance explained</span>
 <span class="co">#&gt;          1 comps  2 comps  3 comps  4 comps  5 comps  6 comps  7 comps  8 comps</span>
@@ -748,7 +848,7 @@
 <p>Extract loadings (not used further) and plot two first vectors of loadings.</p>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">loads</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/pls/man/scores.html">loadings</a></span><span class="op">(</span><span class="va">ros.pot</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/pkg/pls/man/scoreplot.html">loadingplot</a></span><span class="op">(</span><span class="va">ros.pot</span>, comps <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/pkg/pls/man/scoreplot.html">loadingplot</a></span><span class="op">(</span><span class="va">ros.pot</span>, comps <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, scatter <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
 <p><img src="vignette_E_supervised_files/figure-html/unnamed-chunk-21-1.png" width="576"></p>
 </div>
 <div id="scores-1" class="section level2">
@@ -785,9 +885,9 @@
 <code class="sourceCode R"><span class="co"># Cross-validation</span>
 <span class="fu"><a href="https://rdrr.io/pkg/pls/man/mvrVal.html">R2</a></span><span class="op">(</span><span class="va">ros.pot</span><span class="op">)</span>
 <span class="co">#&gt; (Intercept)      1 comps      2 comps      3 comps      4 comps      5 comps  </span>
-<span class="co">#&gt;     -0.0816       0.6383       0.7406       0.7449       0.7606       0.6052  </span>
+<span class="co">#&gt;     -0.0816       0.6249       0.6994       0.6973       0.7586       0.6573  </span>
 <span class="co">#&gt;     6 comps      7 comps      8 comps      9 comps     10 comps  </span>
-<span class="co">#&gt;      0.5670       0.4356       0.1782       0.1459       0.1385</span>
+<span class="co">#&gt;      0.4735       0.3717       0.3144       0.2677       0.1331</span>
 <span class="co"># Training</span>
 <span class="fu"><a href="https://rdrr.io/pkg/pls/man/mvrVal.html">R2</a></span><span class="op">(</span><span class="va">ros.pot</span>, <span class="st">'train'</span><span class="op">)</span>
 <span class="co">#&gt; (Intercept)      1 comps      2 comps      3 comps      4 comps      5 comps  </span>
@@ -803,11 +903,11 @@
 <code class="sourceCode R"><span class="co"># Cross-validation</span>
 <span class="fu"><a href="https://rdrr.io/pkg/pls/man/mvrVal.html">RMSEP</a></span><span class="op">(</span><span class="va">ros.pot</span><span class="op">)</span>
 <span class="co">#&gt;        (Intercept)  1 comps  2 comps  3 comps  4 comps  5 comps  6 comps</span>
-<span class="co">#&gt; CV           1.778   1.0280   0.8705   0.8632   0.8363    1.074    1.125</span>
-<span class="co">#&gt; adjCV        1.778   0.9911   0.8380   0.8282   0.8055    1.020    1.070</span>
+<span class="co">#&gt; CV           1.778    1.047   0.9371   0.9403   0.8398   1.0006    1.240</span>
+<span class="co">#&gt; adjCV        1.778    1.009   0.8995   0.8988   0.8122   0.9578    1.175</span>
 <span class="co">#&gt;        7 comps  8 comps  9 comps  10 comps</span>
-<span class="co">#&gt; CV       1.284    1.549     1.58     1.587</span>
-<span class="co">#&gt; adjCV    1.216    1.448     1.48     1.489</span>
+<span class="co">#&gt; CV       1.355    1.415    1.463     1.591</span>
+<span class="co">#&gt; adjCV    1.276    1.330    1.370     1.487</span>
 <span class="co"># Training</span>
 <span class="fu"><a href="https://rdrr.io/pkg/pls/man/mvrVal.html">RMSEP</a></span><span class="op">(</span><span class="va">ros.pot</span>, <span class="st">'train'</span><span class="op">)</span>
 <span class="co">#&gt; (Intercept)      1 comps      2 comps      3 comps      4 comps      5 comps  </span>

@@ -40,7 +40,9 @@
 
 
 <meta property="og:title" content="Result functions for SO-PLS models — sopls_object" />
-<meta property="og:description" content="Standard result functions for SO-PLS (sopls)." />
+<meta property="og:description" content="Standard result functions for SO-PLS (sopls). The parameter ncomp controls
+which components to apply/extract, resulting in the sequence of components leading up to the specific choice, i.e.
+ncomp = c(2,2,1) results in the sequence 1,0,0; 2,0,0; 2,1,0; 2,2,0; 2,2,1." />
 
 
 
@@ -72,7 +74,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">multiblock</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.0</span>
       </span>
     </div>
 
@@ -136,12 +138,14 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Result functions for SO-PLS models</h1>
-    <small class="dont-index">Source: <a href='https://github.com/khliland/multiblock/blob/master/R/sopls_results.R'><code>R/sopls_results.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/khliland/multiblock/blob/master/R/sopls_object.R'><code>R/sopls_object.R</code></a></small>
     <div class="hidden name"><code>sopls_object.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Standard result functions for SO-PLS (<code><a href='sopls.html'>sopls</a></code>).</p>
+    <p>Standard result functions for SO-PLS (<code><a href='sopls.html'>sopls</a></code>). The parameter <code>ncomp</code> controls
+which components to apply/extract, resulting in the sequence of components leading up to the specific choice, i.e.
+<code>ncomp = c(2,2,1)</code> results in the sequence 1,0,0; 2,0,0; 2,1,0; 2,2,0; 2,2,1.</p>
     </div>
 
     <pre class="usage"><span class='co'># S3 method for sopls</span>
@@ -149,20 +153,13 @@
   <span class='va'>object</span>,
   <span class='va'>newdata</span>,
   ncomp <span class='op'>=</span> <span class='va'>object</span><span class='op'>$</span><span class='va'>ncomp</span>,
-  comps <span class='op'>=</span> <span class='va'>object</span><span class='op'>$</span><span class='va'>ncomp</span>,
   type <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"response"</span>, <span class='st'>"scores"</span><span class='op'>)</span>,
   na.action <span class='op'>=</span> <span class='va'>na.pass</span>,
   <span class='va'>...</span>
 <span class='op'>)</span>
 
 <span class='co'># S3 method for sopls</span>
-<span class='fu'><a href='https://rdrr.io/r/stats/coef.html'>coef</a></span><span class='op'>(</span>
-  <span class='va'>object</span>,
-  ncomp <span class='op'>=</span> <span class='va'>object</span><span class='op'>$</span><span class='va'>ncomp</span>,
-  comps <span class='op'>=</span> <span class='va'>object</span><span class='op'>$</span><span class='va'>ncomp</span>,
-  intercept <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  <span class='va'>...</span>
-<span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/stats/coef.html'>coef</a></span><span class='op'>(</span><span class='va'>object</span>, ncomp <span class='op'>=</span> <span class='va'>object</span><span class='op'>$</span><span class='va'>ncomp</span>, intercept <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for sopls</span>
 <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
@@ -200,10 +197,6 @@
     </tr>
     <tr>
       <th>ncomp</th>
-      <td><p>An <code>integer</code> giving the number of components to apply.</p></td>
-    </tr>
-    <tr>
-      <th>comps</th>
       <td><p>An <code>integer</code> vector giving the exact components to apply.</p></td>
     </tr>
     <tr>
@@ -254,10 +247,6 @@
       <th>individual</th>
       <td><p>A <code>logical</code> indicating if results for individual responses should be displayed.</p></td>
     </tr>
-    <tr>
-      <th>block</th>
-      <td><p>An <code>integer</code> indicating which block to use.</p></td>
-    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -275,7 +264,7 @@ or scores depending on inputs, <code>coef.sopls</code> return regression coeffic
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>potato</span><span class='op'>)</span>
 <span class='va'>mod</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sopls.html'>sopls</a></span><span class='op'>(</span><span class='va'>Sensory</span><span class='op'>[</span>,<span class='fl'>1</span><span class='op'>]</span> <span class='op'>~</span> <span class='va'>.</span>, data <span class='op'>=</span> <span class='va'>potato</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>,<span class='fl'>9</span><span class='op'>)</span><span class='op'>]</span>, ncomp <span class='op'>=</span> <span class='fl'>5</span>, subset <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>20</span><span class='op'>)</span>
 <span class='va'>testset</span> <span class='op'>&lt;-</span> <span class='va'>potato</span><span class='op'>[</span><span class='op'>-</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>20</span><span class='op'>)</span>,<span class='op'>]</span>; <span class='va'>testset</span><span class='op'>$</span><span class='va'>Sensory</span> <span class='op'>&lt;-</span> <span class='va'>testset</span><span class='op'>$</span><span class='va'>Sensory</span><span class='op'>[</span>,<span class='fl'>1</span>,drop<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>]</span>
-<span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span><span class='op'>(</span><span class='va'>mod</span>, <span class='va'>testset</span>, comps<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>,<span class='fl'>1</span>,<span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span><span class='op'>(</span><span class='va'>mod</span>, <span class='va'>testset</span>, ncomp<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>,<span class='fl'>1</span>,<span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; , , 1,0,0
 #&gt; 
 #&gt;      Sensory[, 1]
@@ -325,8 +314,10 @@ or scores depending on inputs, <code>coef.sopls</code> return regression coeffic
 #&gt; [4,]   -2.3105720
 #&gt; [5,]    0.2755925
 #&gt; [6,]    2.1649361
-#&gt; </div><div class='input'><span class='co'>#dim(coef(mod, ncomp=5)) # &lt;variables x responses x components&gt;</span>
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>mod</span><span class='op'>)</span>
+#&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/coef.html'>coef</a></span><span class='op'>(</span><span class='va'>mod</span>, ncomp<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>,<span class='fl'>0</span>,<span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='co'># &lt;variables x responses x components&gt;</span>
+</div><div class='output co'>#&gt; [1] 1076    1    4</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/pls/man/mvrVal.html'>R2</a></span><span class='op'>(</span><span class='va'>mod</span>, ncomp <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>4</span>,<span class='fl'>1</span>,<span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;     1,0,0     2,0,0     3,0,0     4,0,0     4,1,0     4,1,1     4,1,2 
+#&gt; 0.7283653 0.8638657 0.8754625 0.8865483 0.9065776 0.9672131 0.9705168 </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>mod</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Sequential and Orthogonalized Partial Least Squares, fitted with the PKPLS algorithm.
 #&gt; Call:
 #&gt; sopls(formula = Sensory[, 1] ~ ., ncomp = 5, data = potato[c(1:3,     9)], subset = 1:20)</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>mod</span><span class='op'>)</span>

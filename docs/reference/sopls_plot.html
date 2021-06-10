@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">multiblock</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.0</span>
       </span>
     </div>
 
@@ -185,6 +185,20 @@
   pretty.xlabels <span class='op'>=</span> <span class='cn'>TRUE</span>,
   <span class='va'>xlim</span>,
   <span class='va'>...</span>
+<span class='op'>)</span>
+
+<span class='co'># S3 method for sopls</span>
+<span class='fu'><a href='https://rdrr.io/r/stats/biplot.html'>biplot</a></span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  comps <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span>,
+  ncomp <span class='op'>=</span> <span class='st'>"all"</span>,
+  block <span class='op'>=</span> <span class='fl'>1</span>,
+  which <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"x"</span>, <span class='st'>"y"</span>, <span class='st'>"scores"</span>, <span class='st'>"loadings"</span><span class='op'>)</span>,
+  var.axes <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  <span class='va'>xlabs</span>,
+  <span class='va'>ylabs</span>,
+  <span class='va'>main</span>,
+  <span class='va'>...</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -271,8 +285,28 @@
       <td><p><code>numeric</code> vector of length two, with the x limits of the plot (optional).</p></td>
     </tr>
     <tr>
+      <th>x</th>
+      <td><p><code>sopls</code> object</p></td>
+    </tr>
+    <tr>
       <th>which</th>
       <td><p><code>character</code> for selecting type of biplot ("x" = default, "y", "scores", "loadings").</p></td>
+    </tr>
+    <tr>
+      <th>var.axes</th>
+      <td><p><code>logical</code> indicating if second axes of a biplot should have arrows.</p></td>
+    </tr>
+    <tr>
+      <th>xlabs</th>
+      <td><p><code>character</code> vector for labelling first set of biplot points (optional).</p></td>
+    </tr>
+    <tr>
+      <th>ylabs</th>
+      <td><p><code>character</code> vector for labelling second set of biplot points (optional).</p></td>
+    </tr>
+    <tr>
+      <th>main</th>
+      <td><p><code>character</code> for setting the main title of a plot.</p></td>
     </tr>
     </table>
 

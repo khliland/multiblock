@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">multiblock</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.0</span>
       </span>
     </div>
 
@@ -91,7 +91,7 @@
 
       
 
-      </header><script src="vignette_A_data_files/header-attrs-2.6/header-attrs.js"></script><div class="row">
+      </header><script src="vignette_A_data_files/header-attrs-2.8/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>A. Data handling</h1>
@@ -166,7 +166,7 @@
 <div id="data-pre-processing" class="section level1">
 <h1 class="hasAnchor">
 <a href="#data-pre-processing" class="anchor"></a>Data pre-processing</h1>
-<p>Before analysis, various types of pre-processing may be needed. Centring and standardising/scaling may be considered the most basic. In R, these operations are performed column-wise by default, leading to autoscaling. If these operations are performed on the rows, we perform the standard normal variate (SNV).</p>
+<p>Before analysis, various types of pre-processing may be needed. Centring and standardising/scaling may be considered the most basic. In R, these operations are performed column-wise by default, leading to autoscaling. If these operations are performed on the rows, we perform the standard normal variate (SNV) instead.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Column-centring</span>
 <span class="va">genes_centred</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/scale.html">scale</a></span><span class="op">(</span><span class="va">genes</span>, scale<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span>
