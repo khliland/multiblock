@@ -20,13 +20,13 @@ A dataset containing simulated data for 4 connected events where A is the
 starting point and D is the end point. This can be described as a directed
 acyclic graph (sketched below, moving left->right). \cr
 
-\code{\Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} C    }\cr
-\code{\Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} /^\   }\cr
-\code{\Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} / \Sexpr{"\u200B"}| \  }\cr
-\code{\Sexpr{"\u200B"} \Sexpr{"\u200B"} A--+->D }\cr
-\code{\Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \ \Sexpr{"\u200B"}| /  }\cr
-\code{\Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \|/   }\cr
-\code{\Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} B    }\cr
+\code{\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}C}\cr
+\code{\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}/^\ }\cr
+\code{\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}/\Sexpr{"\u00A0"}|\Sexpr{"\u00A0"}\ }\cr
+\code{\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}A--+->D}\cr
+\code{\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\ | /}\cr
+\code{\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\|/}\cr
+\code{\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}B}\cr
 
 Subpaths include: ABD, AD, ABCD, ACD
 }

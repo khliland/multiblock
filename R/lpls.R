@@ -24,19 +24,19 @@
 #' of the model then the non-orthogonal \code{exo} type L-PLS should be chosen for which the 
 #' predict function has prediction implemented. \cr
 #' \cr
-#'\code{\Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} ______N\Sexpr{"\u200B"} }\cr
-#'\code{\Sexpr{"\u200B"} \Sexpr{"\u200B"} |\Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} |}\cr
-#'\code{\Sexpr{"\u200B"} \Sexpr{"\u200B"} |\Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} |}\cr
-#'\code{\Sexpr{"\u200B"} \Sexpr{"\u200B"} |\Sexpr{"\u200B"} \Sexpr{"\u200B"} X3\Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} |}\cr
-#'\code{\Sexpr{"\u200B"} \Sexpr{"\u200B"} |\Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} |}\cr
-#'\code{\Sexpr{"\u200B"} K|_______|}\cr
-#'\code{\Sexpr{"\u200B"} }\cr
-#'\code{\Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} ______N\Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} ________J\Sexpr{"\u200B"} }\cr
-#'\code{\Sexpr{"\u200B"} \Sexpr{"\u200B"} |\Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} |\Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} |\Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} |}\cr
-#'\code{\Sexpr{"\u200B"} \Sexpr{"\u200B"} |\Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} |\Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} |\Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} |}\cr
-#'\code{\Sexpr{"\u200B"} \Sexpr{"\u200B"} |\Sexpr{"\u200B"} \Sexpr{"\u200B"} X1\Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} |\Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} |\Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} X2\Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} |}\cr
-#'\code{\Sexpr{"\u200B"} \Sexpr{"\u200B"} |\Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} |\Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} |\Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} |}\cr
-#'\code{\Sexpr{"\u200B"} I|_______|\Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"}I|_________|}\cr
+#'\code{\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}______N\Sexpr{"\u00A0"}}\cr
+#'\code{\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}|\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}|}\cr
+#'\code{\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}|\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}|}\cr
+#'\code{\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}|\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}X3\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}|}\cr
+#'\code{\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}|\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}|}\cr
+#'\code{\Sexpr{"\u00A0"}K|_______|}\cr
+#'\code{\Sexpr{"\u00A0"}}\cr
+#'\code{\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}______N\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}________J\Sexpr{"\u00A0"}}\cr
+#'\code{\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}|\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}|\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}|\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}|}\cr
+#'\code{\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}|\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}|\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}|\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}|}\cr
+#'\code{\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}|\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}X1\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}|\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}|\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}X2\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}|}\cr
+#'\code{\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}|\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}|\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}|\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}|}\cr
+#'\code{\Sexpr{"\u00A0"}I|_______|\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}I|_________|}\cr
 #'
 #' @author Solve Sæbø (adapted by Kristian Hovde Liland)
 #' 

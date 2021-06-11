@@ -21,13 +21,13 @@ three unconnected inputs (A,B,C) and a set of endpoint qualities (E).
 The stages A, B and C are influencing D and A, B, C and D are influencing E.
 This can be described as a directed acyclic graph (sketched below). \cr
 
-\code{\Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} B --- }\cr
-\code{\Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \ \Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \ }\cr
-\code{\Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} --+-- \Sexpr{"\u200B"} | }\cr
-\code{\Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} /\Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} |\Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \| }\cr
-\code{\Sexpr{"\u200B"} \Sexpr{"\u200B"} A --- D -- E }\cr
-\code{\Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} /\Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} / }\cr
-\code{\Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} \Sexpr{"\u200B"} C --- }\cr
+\code{\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"} B --- }\cr
+\code{\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"} \ \Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\ }\cr
+\code{\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"} --+-- \Sexpr{"\u00A0"}| }\cr
+\code{\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"} /\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}|\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\| }\cr
+\code{\Sexpr{"\u00A0"}\Sexpr{"\u00A0"} A --- D -- E }\cr
+\code{\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"} /\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}/ }\cr
+\code{\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"} C --- }\cr
 
 Subpaths include: ADE, AE, BDE, BE, CDE, and CE, and SO-PLS-PM models model
 A+B+C->D and A+B+C+D->E.
