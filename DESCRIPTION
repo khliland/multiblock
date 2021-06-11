@@ -1,7 +1,7 @@
 Encoding: UTF-8
 Package: multiblock
 Type: Package
-Title: Multiblock Data Analysis
+Title: Data Analysis for Multiple Blocks
 Version: 0.7.0
 Date: 2021-06-09
 Authors@R: 
@@ -35,8 +35,7 @@ Imports: ade4,
   pracma,
   progress,
   r.jive,
-  Rcpp (>= 1.0.0), 
-  RcppEigen (>= 0.3.3.5.0),
+  Rcpp,
   RegularizedSCA,
   RGCCA,
   RSpectra,
