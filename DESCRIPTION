@@ -41,6 +41,7 @@ Imports: ade4,
   RGCCA,
   RSpectra,
   SSBtools
+Suggests: rmarkdown
 LinkingTo: Rcpp, RcppEigen
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
