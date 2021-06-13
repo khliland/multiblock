@@ -18,8 +18,8 @@ Authors@R:
              role = c("rev")))
 Description: Functions and datasets to support Smilde, Næs and Liland 2021: "Multiblock Data Fusion in Statistics and Machine Learning - Applications in the Natural and Life Sciences".
 License: GPL (>= 2)
-URL: https://khliland.github.io/multiblock, https://github.com/khliland/multiblock
-BugReports: https://github.com/khliland/multiblock/issues
+URL: https://khliland.github.io/multiblock/, https://github.com/khliland/multiblock/
+BugReports: https://github.com/khliland/multiblock/issues/
 Depends: R (>= 3.5.0)
 Imports: ade4,
   car,

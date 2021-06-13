@@ -48,7 +48,7 @@
 #' 
 #' @references 
 #' * Menichelli, E., Almøy, T., Tomic, O., Olsen, N. V., & Næs, T. (2014). SO-PLS as an exploratory tool for path modelling. Food quality and preference, 36, 122-134.
-#' * Næs, T., Romano, R., Tomic, O., Måge, I., Smilde, A., & Liland, K. H. (2020). Sequential and orthogonalized PLS (SO‐PLS) regression for path analysis: Order of blocks and relations between effects. Journal of Chemometrics, e3243.
+#' * Næs, T., Romano, R., Tomic, O., Måge, I., Smilde, A., & Liland, K. H. (2020). Sequential and orthogonalized PLS (SO-PLS) regression for path analysis: Order of blocks and relations between effects. Journal of Chemometrics, e3243.
 #'
 #' @examples
 #' # Single path for the potato data:

@@ -111,7 +111,7 @@ pot.pm.multiple
 \references{
 \itemize{
 \item Menichelli, E., Almøy, T., Tomic, O., Olsen, N. V., & Næs, T. (2014). SO-PLS as an exploratory tool for path modelling. Food quality and preference, 36, 122-134.
-\item Næs, T., Romano, R., Tomic, O., Måge, I., Smilde, A., & Liland, K. H. (2020). Sequential and orthogonalized PLS (SO‐PLS) regression for path analysis: Order of blocks and relations between effects. Journal of Chemometrics, e3243.
+\item Næs, T., Romano, R., Tomic, O., Måge, I., Smilde, A., & Liland, K. H. (2020). Sequential and orthogonalized PLS (SO-PLS) regression for path analysis: Order of blocks and relations between effects. Journal of Chemometrics, e3243.
 }
 }
 \seealso{

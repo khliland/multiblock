@@ -21,5 +21,5 @@ by 11 trained assessors.
 }
 \references{
 Luciano G, Næs T. Interpreting sensory data by combining principal
-component analysis and analysis of variance. Food Qual Prefer. 2009;20(3):167‐175.
+component analysis and analysis of variance. Food Qual Prefer. 2009;20(3):167-175.
 }
