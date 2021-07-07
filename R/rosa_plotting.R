@@ -16,7 +16,7 @@
 #' @param legend Logical indicating if a legend should be included (default = TRUE) for \code{image.rosa}.
 #' @param mar Figure margins, default = c(5,6,4,7) for \code{image.rosa}.
 #' @param las Axis text direction, default = 1 for \code{image.rosa}.
-#' @param ... Additional parameters passed to \code{loadingplot}, \code{image} or \code{barplot}.
+#' @param ... Additional parameters passed to \code{loadingplot}, \code{image}, \code{axis}, \code{color.legend}, or \code{barplot}.
 #'
 #' @return No return.
 #' @references Liland, K.H., Næs, T., and Indahl, U.G. (2016). ROSA - a fast extension of partial least squares regression for multiblock data analysis. Journal of Chemometrics, 30, 651–662, doi:10.1002/cem.2824.
@@ -70,8 +70,8 @@ image.rosa <- function(x, type = c("correlation","residual","order"), ncomp = x$
 
   pars <- par(mar = mar, las = las)
   image(im, axes = FALSE, col = col, zlim = zlim, main = main, ...)
-  axis(1, at = (0:(ncomp-1))/(ncomp-1), 1:ncomp)
-  axis(2, at = (0:(nresp-1))/(nresp-1), colnames(im))
+  axis(1, at = (0:(ncomp-1))/(ncomp-1), 1:ncomp, ...)
+  axis(2, at = (0:(nresp-1))/(nresp-1), colnames(im), ...)
   box()
   for(i in 1:ncomp){
     w <- x$order[[i]]
@@ -79,7 +79,7 @@ image.rosa <- function(x, type = c("correlation","residual","order"), ncomp = x$
     points(rep((i-1)/(ncomp-1), length(w)), (w-1)/(nresp-1))
   }
   if(type[1] == "residual") col <- rev(col)
-  color.legend(1.14,0,1.19,1, rect.col = col, gradient = TRUE, legend = legs)
+  color.legend(1.14,0,1.19,1, rect.col = col, gradient = TRUE, legend = legs, ...)
   par(pars)
 }
 

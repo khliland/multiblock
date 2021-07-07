@@ -40,7 +40,7 @@
 
 \item{las}{Axis text direction, default = 1 for \code{image.rosa}.}
 
-\item{...}{Additional parameters passed to \code{loadingplot}, \code{image} or \code{barplot}.}
+\item{...}{Additional parameters passed to \code{loadingplot}, \code{image}, \code{axis}, \code{color.legend}, or \code{barplot}.}
 
 \item{height}{A \code{rosa} object.}
 }
