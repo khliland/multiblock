@@ -43,7 +43,7 @@ rosa(
 
 \item{validation}{Optional cross-validation strategy "CV" or "LOO".}
 
-\item{internal.validation}{Optional cross-validation for block selection process, "LOO" or vector of integers.}
+\item{internal.validation}{Optional cross-validation for block selection process, "LOO", "CV3", "CV5", "CV10" (CV-number of segments), or vector of integers.}
 
 \item{fixed.block}{integer vector with block numbers for each component (0 = not fixed) or list of length <= ncomp (element length 0 = not fixed).}
 

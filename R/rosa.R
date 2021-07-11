@@ -11,7 +11,7 @@
 #' @param scale Optionally scale predictor variables by their individual standard deviations.
 #' @param weights Optional object weights.
 #' @param validation Optional cross-validation strategy "CV" or "LOO".
-#' @param internal.validation Optional cross-validation for block selection process, "LOO" or vector of integers.
+#' @param internal.validation Optional cross-validation for block selection process, "LOO", "CV3", "CV5", "CV10" (CV-number of segments), or vector of integers.
 #' @param fixed.block integer vector with block numbers for each component (0 = not fixed) or list of length <= ncomp (element length 0 = not fixed).
 #' @param design.block integer vector containing block numbers of design blocks
 #' @param canonical logical indicating if canonical correlation should be use when calculating loading weights (default), enabling B/W maximization, common components, etc. Alternatively (FALSE) a PLS2 strategy, e.g. for spectra response, is used.
@@ -175,8 +175,22 @@ rosa <- function(formula, ncomp, Y.add, common.comp = 1, data,
     if(isTRUE(internal.validation) || any(internal.validation == "LOO"))
       internal.validation <- 1:nobj
     else {
-      if(length(internal.validation) != nobj)
-        stop('Internal validaiton vector must match number of objects.')
+      if(any(c("CV3","CV5","CV10")%in%internal.validation)){
+        if(internal.validation == "CV3"){
+          internal.validation <- rep(1:3,each=ceiling(nobj/3))[1:nobj]
+        } else {
+          if(internal.validation == "CV5"){
+            internal.validation <- rep(1:5,each=ceiling(nobj/5))[1:nobj]
+          } else {
+            if(internal.validation == "CV10"){
+              internal.validation <- rep(1:10,each=ceiling(nobj/10))[1:nobj]
+            }
+          }
+        }
+      } else {
+        if(length(internal.validation) != nobj)
+          stop('Internal validaiton vector must match number of objects.')
+      }
     }
   }
   
