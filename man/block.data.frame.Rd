@@ -17,7 +17,8 @@ block.data.frame(X, block_inds = NULL, to.matrix = TRUE)
 A \code{data.frame} which can be indexed block-wise.
 }
 \description{
-Block-wise indexable data.frame
+This is a convenience function for making \code{data.frame}s that are easily
+indexed on a block-wise basis.
 }
 \examples{
 # Random data

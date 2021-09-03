@@ -15,12 +15,15 @@ ifa(X, ncomp = 1, scale = FALSE, verbose = FALSE, ...)
 
 \item{verbose}{\code{logical} indicating if intermediate results should be printed.}
 
-\item{...}{additional arguments to \code{pls:pcr}.}
+\item{...}{additional arguments to \code{RGCCA::rgcca}.}
 }
 \value{
 \code{multiblock} object with associated with printing, scores, loadings, ...
 }
 \description{
+This is a wrapper for the \code{RGCCA::rgcca} function for computing IFA.
+}
+\details{
 IFA rotates two matrices to align one or more factors against each other, maximising correlations.
 }
 \examples{
@@ -34,4 +37,5 @@ Tucker, L. R. (1958). An inter-battery method of factor analysis. Psychometrika,
 }
 \seealso{
 Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+Common functions for computation and extraction of results and plotting are found in \code{\link{multiblock_results}} and \code{\link{multiblock_plots}}, respectively.
 }

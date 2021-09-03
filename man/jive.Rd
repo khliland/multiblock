@@ -15,6 +15,9 @@ jive(X, ...)
 \code{multiblock} object including relevant scores and loadings.
 }
 \description{
+This is a wrapper for the \code{r.jive::jive} function for computing JIVE.
+}
+\details{
 Jive performs a decomposition of the variation in two or more blocks into
 low-dimensional representations of individual and joint variation plus residual variation.
 }

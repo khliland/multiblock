@@ -13,6 +13,7 @@
 #' @importFrom ade4 mbpcaiv ktab.list.df dudi.pca
 #' 
 #' @seealso Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+#' Common functions for computation and extraction of results and plotting are found in \code{\link{multiblock_results}} and \code{\link{multiblock_plots}}, respectively.
 #'  
 #' @examples
 #' data(potato)
@@ -35,7 +36,10 @@ NULL
 #' @param scale \code{logical} for autoscaling inputs (default = FALSE).
 #' @param ... additional arguments to pls::plsr.
 #' 
-#' @description MB-PLS is the prototypical component based supervised multiblock method.
+#' @description A function computing MB-PLS scores, loadings, etc. on the super-level and 
+#' block-level.
+#' 
+#' @details MB-PLS is the prototypical component based supervised multiblock method.
 #' It was originally formulated as a two-level method with a block-level and a super-level,
 #' but it was later discovered that it could be expressed as an ordinary PLS on concatenated
 #' weighted X blocks followed by a simple loop for calculating block-level loading weights,
@@ -121,7 +125,9 @@ mbpls <- function(X, Y, ncomp=1, scale=FALSE, ...){
 #' @param ... additional arguments to pls::plsr.
 #' 
 #' @description sMB-PLS is an adaptation of MB-PLS (\code{\link{mbpls}}) that enforces sparseness in loading weights
-#' when computing PLS components in the global model. Two versions are supplied: Soft-Threshold PLS, also
+#' when computing PLS components in the global model. 
+#' 
+#' @details Two versions of sparseness are supplied: Soft-Threshold PLS, also
 #' known as Sparse PLS, and Truncation PLS. The former uses L1 shrinkage of loading weights, while the latter
 #' comes in two flavours, both estimating inliers and outliers. The "Lenth" method uses asymmetric confidence
 #' intervals around the median of a loading weigh vector to estimate inliers. The "quantile" method uses
@@ -227,7 +233,9 @@ smbpls <- function(X, Y, ncomp=1, scale=FALSE, shrink=NULL, truncation=NULL, tru
 #' 
 #' @return \code{mbrda,mvr} object containing elements corresponding to a \code{pls} object, with all its result and plot possibilities plus block-wise loadings, loading weights and scores.
 #' 
-#' @description mbRDA is a multiblock formulation of Redundancy (Data) Analysis. RDA is theoretically
+#' @description This is a wrapper for the \code{ade4::mbpcaiv} function for computing mbRDA.
+#' 
+#' @details mbRDA is a multiblock formulation of Redundancy (Data) Analysis. RDA is theoretically
 #' between PLS and GCA. Like GCA, RDA does not consider correlations within X, but like
 #' PLS it does consider correlations within Y. RDA can also be viewed as a PCR of Y constrained to
 #' have scores that are also linear combinations of X. If the \code{adegraphics} package is attached,

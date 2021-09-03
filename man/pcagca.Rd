@@ -31,7 +31,10 @@ pcagca(
 }
 \description{
 PCA-GCA is a methods which aims at estimating subspaces of common, local and
-distinct variation from two or more blocks. The name comes from the process of first applying
+distinct variation from two or more blocks.
+}
+\details{
+The name PCA-GCA comes from the process of first applying
 PCA to each block, then using GCA to estimate local and common components, and finally
 orthogonalising the block-wise scores on the local/common ones and re-estimating these to
 obtain distinct components. The procedure is highly similar to the supervised method
@@ -49,4 +52,5 @@ Smilde, A., Måge, I., Naes, T., Hankemeier, T.,Lips, M., Kiers, H., Acar, E., a
 }
 \seealso{
 Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+Common functions for computation and extraction of results and plotting are found in \code{\link{multiblock_results}} and \code{\link{multiblock_plots}}, respectively.
 }

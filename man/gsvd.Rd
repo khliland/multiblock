@@ -13,6 +13,9 @@ gsvd(X)
 \code{multiblock} object with associated with printing, scores, loadings, ...
 }
 \description{
+This is a wrapper for the \code{geigen::gsvd} function for computing GSVD.
+}
+\details{
 GSVD is a generalisation of SVD to two variable-linked matrices where common loadings
 and block-wise scores are estimated.
 }
@@ -28,4 +31,5 @@ Van Loan, C. (1976) Generalizing the singular value decomposition. SIAM Journal 
 }
 \seealso{
 Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+Common functions for computation and extraction of results and plotting are found in \code{\link{multiblock_results}} and \code{\link{multiblock_plots}}, respectively.
 }

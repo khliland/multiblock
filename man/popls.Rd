@@ -30,7 +30,11 @@ popls(
 A \code{multiblock} object with block-wise, local and common loadings and scores.
 }
 \description{
-Parallel and Orthogonalised Partial Least Squares - PO-PLS
+This is a basic implementation of PO-PLS with manual and automatic component selections.
+}
+\details{
+PO-PLS decomposes a set of input data blocks into common, local and distinct components
+through a process involving \code{\link{pls}} and \code{\link{gca}}.
 }
 \examples{
 data(potato)
@@ -57,4 +61,5 @@ plot(scores(pot.po.man,3), comps=1:2, labels="names")
 }
 \seealso{
 Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+Common functions for computation and extraction of results and plotting are found in \code{\link{multiblock_results}} and \code{\link{multiblock_plots}}, respectively.
 }

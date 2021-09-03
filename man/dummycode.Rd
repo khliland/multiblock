@@ -17,7 +17,8 @@ dummycode(Y, contrast = "contr.sum", drop = TRUE)
 \code{matrix} made by dummy-coding input vector.
 }
 \description{
-Dummy-coding of a single vector
+Flexible dummy-coding allowing for all R's built-in types of contrasts
+and optional dropping of a factor level to reduce rank defficiency probability.
 }
 \examples{
 vec <- c("a","a","b","b","c","c")

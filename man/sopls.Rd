@@ -52,12 +52,15 @@ An \code{sopls, mvr} object with scores, loadings, etc.
 associated with printing and plotting methods.
 }
 \description{
+Function for computing standard SO-PLS based on the interface of the \code{pls} package.
+
+
+}
+\details{
 SO-PLS is a method which handles two or more input blocks by sequentially performing
 PLS on blocks against a response and orthogonalising the remaining blocks on the extracted components.
 Component number optimisation can either be done globally (best combination across blocks) or sequentially
 (determine for one block, move to next, etc.).
-
-
 }
 \examples{
 data(potato)
@@ -69,5 +72,6 @@ summary(so)
 Jørgensen K, Mevik BH, Næs T. Combining designed experiments with several blocks of spectroscopic data. Chemometr Intell Lab Syst. 2007;88(2): 154–166.
 }
 \seealso{
+SO-PLS result functions, \code{\link{sopls_results}}, SO-PLS plotting functions, \code{\link{sopls_plots}}, SO-PLS Måge plot, \code{\link{maage}}, and SO-PLS path-modelling, \code{\link{SO_TDI}}.
 Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 }

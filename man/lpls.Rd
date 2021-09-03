@@ -45,11 +45,13 @@ lpls(
 \item{...}{Additional arguments, not used.}
 }
 \description{
-Simultaneous decomposition of three blocks connected in an L pattern. Two versions of L-PLS
-are available: exo- and endo-L-PLS which assume an outward or inward relationship between the
-main block X1 and the two other blocks X2 and X3.
+Simultaneous decomposition of three blocks connected in an L pattern.
 }
 \details{
+Two versions of L-PLS
+are available: exo- and endo-L-PLS which assume an outward or inward relationship between the
+main block X1 and the two other blocks X2 and X3.
+
 The \code{exo_ort} algorithm returns orthogonal scores and should be chosen for visual
 exploration in correlation loading plots. If exo-L-PLS with prediction is the main purpose
 of the model then the non-orthogonal \code{exo} type L-PLS should be chosen for which the
@@ -85,6 +87,7 @@ lp  <- lpls(X1,X2,X3) # exo-L-PLS
 }
 \seealso{
 Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+Functions for computation and extraction of results and plotting are found in \code{\link{lpls_results}}.
 }
 \author{
 Solve Sæbø (adapted by Kristian Hovde Liland)

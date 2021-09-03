@@ -2,8 +2,9 @@ reference:
 - title: "Multiblock object"
   desc: A common object type for many multiblock methods.
 - contents:
-  - multiblock_object
   - multiblock
+  - multiblock_results
+  - multiblock_plots
 - title: "Basic methods"
   desc: Single- and two-block methods
 - contents:
@@ -34,13 +35,13 @@ reference:
   - mbpls
   - smbpls
   - sopls
-  - sopls_object
-  - sopls_plot
+  - sopls_results
+  - sopls_plots
   - maage
   - popls
   - rosa
-  - rosa_object
-  - rosa_plotting
+  - rosa_results
+  - rosa_plots
   - mbrda
 - title: "Complex methods"
 - contents:
@@ -52,7 +53,8 @@ reference:
 - title: "ASCA"
 - contents:
   - asca
-  - asca_object
+  - asca_results
+  - asca_plots
 - title: "Utility functions"
 - contents:
   - block.data.frame

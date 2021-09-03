@@ -23,6 +23,10 @@ gca(X, ncomp = 2, svd = TRUE, tol = 10^-12, corrs = TRUE, ...)
 \code{multiblock} object including relevant scores and loadings.
 }
 \description{
+This is an interface to both SVD-based (default) and RGCCA-based GCA (wrapping the
+\code{RGCCA::rgcca} function)
+}
+\details{
 GCA is a generalisation of Canonical Correlation Analysis to handle three or more
 blocks. There are several ways to generalise, and two of these are available through \code{gca}.
 The default is an SVD based approach estimating a common subspace and measuring mean squared
@@ -43,4 +47,5 @@ plot(scores(pot.gca), labels="names")
 }
 \seealso{
 Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+Common functions for computation and extraction of results and plotting are found in \code{\link{multiblock_results}} and \code{\link{multiblock_plots}}, respectively.
 }

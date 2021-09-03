@@ -21,6 +21,9 @@ statis(X, ncomp = 3, scannf = FALSE, tol = 1e-07, ...)
 \code{multiblock} object including relevant scores and loadings.
 }
 \description{
+This is a wrapper for the \code{ade4::statis} function for computing STATIS.
+}
+\details{
 STATIS is a method, related to MFA, for analysing two or more blocks. It also
 decomposes the data into a low-dimensional subspace but uses a different scaling of the
 individual blocks.
@@ -37,4 +40,5 @@ Lavit, C.; Escoufier, Y.; Sabatier, R.; Traissac, P. (1994). The ACT (STATIS met
 }
 \seealso{
 Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+Common functions for computation and extraction of results and plotting are found in \code{\link{multiblock_results}} and \code{\link{multiblock_plots}}, respectively.
 }

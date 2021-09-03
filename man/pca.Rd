@@ -19,6 +19,9 @@ pca(X, scale = FALSE, ncomp = 1, ...)
 \code{multiblock} object with scores, loadings, mean X values and explained variances.
 }
 \description{
+This is a wrapper for the \code{pls::PCR} function for computing PCA.
+}
+\details{
 PCA is a method for decomposing a matrix into subspace components with sample scores and
 variable loadings. It can be formulated in various ways, but the standard formulation uses singular
 value decomposition to create scores and loadings. PCA is guaranteed to be the optimal way of extracting
@@ -36,4 +39,5 @@ Pearson, K. (1901) On lines and planes of closest fit to points in space. Philos
 }
 \seealso{
 Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+Common functions for computation and extraction of results and plotting are found in \code{\link{multiblock_results}} and \code{\link{multiblock_plots}}, respectively.
 }

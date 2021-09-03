@@ -19,6 +19,11 @@ compnames(object, comps, explvar = FALSE, ...)
 \code{character} vector of component names.
 }
 \description{
-Copy of \code{compnames} from \code{pls} package to work with
+Convenience function for creating a vector
+of component names based on the dimensions the input object
+(\code{matrix} or object having a \code{score} function).
+}
+\details{
+This is a copy of \code{compnames} from the \code{pls} package to work with
 \code{multiblock} objects.
 }

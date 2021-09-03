@@ -1,4 +1,10 @@
 #' @title Parallel and Orthogonalised Partial Least Squares - PO-PLS
+#' 
+#' @description This is a basic implementation of PO-PLS with manual and automatic component selections.
+#' 
+#' @details PO-PLS decomposes a set of input data blocks into common, local and distinct components
+#' through a process involving \code{\link{pls}} and \code{\link{gca}}.
+#' 
 #' @param X \code{list} of input blocks
 #' @param Y \code{matrix} of response variable(s)
 #' @param commons \code{numeric} giving the highest number of blocks to combine when calculating local or common scores.
@@ -29,6 +35,7 @@
 #' plot(scores(pot.po.man,3), comps=1:2, labels="names")
 #' 
 #' @seealso Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+#' Common functions for computation and extraction of results and plotting are found in \code{\link{multiblock_results}} and \code{\link{multiblock_plots}}, respectively.
 #' @export
 popls <- function(X, Y, commons=2, auto=TRUE, auto.par=list(explVarLim=40, rLim=0.8),
                    manual.par=list(ncomp=rep(0,length(X)), ncommon=list())){

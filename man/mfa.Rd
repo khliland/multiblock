@@ -19,6 +19,9 @@ mfa(X, type = rep("c", length(X)), graph = FALSE, ...)
 \code{multiblock} object including relevant scores and loadings.
 }
 \description{
+This is a wrapper for the \code{FactoMineR::MFA} function for computing MFA.
+}
+\details{
 MFA is a methods typically used to compare several equally sized matrices. It is
 often used in sensory analyses, where matrices consist of sensory characteristics and products,
 and each assessor generates one matrix each. In its basic form, MFA scales all matrices by their
@@ -40,4 +43,5 @@ Pagès, J. (2005). Collection and analysis of perceived product inter-distances 
 }
 \seealso{
 Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+Common functions for computation and extraction of results and plotting are found in \code{\link{multiblock_results}} and \code{\link{multiblock_plots}}, respectively.
 }

@@ -17,6 +17,9 @@ gpa(X, graph = FALSE, ...)
 \code{multiblock} object including relevant scores and loadings.
 }
 \description{
+This is a wrapper for the \code{FactoMineR::GPA} function for computing GPA.
+}
+\details{
 GPA is a generalisation of Procrustes analysis, where one matrix is scaled and
 rotated to be as similar as possible to another one. Through the generalisation, individual
 scaling and rotation of each input matrix is performed against a common
@@ -34,4 +37,5 @@ Gower, J. C. (1975). Generalized procrustes analysis. Psychometrika. 40: 33–51
 }
 \seealso{
 Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+Common functions for computation and extraction of results and plotting are found in \code{\link{multiblock_results}} and \code{\link{multiblock_plots}}, respectively.
 }

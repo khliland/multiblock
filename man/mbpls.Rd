@@ -21,6 +21,10 @@ mbpls(X, Y, ncomp = 1, scale = FALSE, ...)
 \code{mbpls} object containing the underlying \code{pls} object, with all its result and plot possibilities plus block-wise loadings, loading weights and scores.
 }
 \description{
+A function computing MB-PLS scores, loadings, etc. on the super-level and
+block-level.
+}
+\details{
 MB-PLS is the prototypical component based supervised multiblock method.
 It was originally formulated as a two-level method with a block-level and a super-level,
 but it was later discovered that it could be expressed as an ordinary PLS on concatenated

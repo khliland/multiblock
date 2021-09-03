@@ -13,7 +13,8 @@ explvar(object)
 Component-wise explained variances for predictors
 }
 \description{
-Explained predictor variance
+Extraction and/or computation of explained variances for various
+object classes in the \code{multiblock} package.
 }
 \examples{
 data(potato)

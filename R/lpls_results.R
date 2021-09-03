@@ -1,9 +1,9 @@
-#' @name lpls_object
+#' @name lpls_results
 #' @title Result functions for L-PLS objects (\code{lpls})
 #' @aliases plot.lpls predict.lpls lplsCV
 #' 
 #' @description Correlation loading plot, prediction and cross-validation for L-PLS
-#' models with class \code{lpls}.
+#' models with class \code{\link{lpls}}.
 #'
 #' @param x \code{lpls} object
 #' @param comps \code{integer} vector of components.
@@ -106,7 +106,7 @@ plot.lpls <- function(x, comps=c(1,2), doplot=c(TRUE,TRUE,TRUE), level=c(2,2,2),
   }
 }
 
-#' @rdname lpls_object 
+#' @rdname lpls_results 
 #' @export
 predict.lpls <- function(object, X1new = NULL, X2new = NULL, X3new = NULL, exo.direction = c("X2", "X3"), ...){
 
@@ -210,7 +210,7 @@ predict.lpls <- function(object, X1new = NULL, X2new = NULL, X3new = NULL, exo.d
   res
 }
 
-#' @rdname lpls_object 
+#' @rdname lpls_results 
 #' @export
 lplsCV <- function(object, segments1 = NULL, segments2 = NULL, trace = TRUE){
   X1 <- object$data$X1

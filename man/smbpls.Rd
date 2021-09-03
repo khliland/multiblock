@@ -40,7 +40,10 @@ or quantile in "quantile plot" approach. Default = 0.95.}
 }
 \description{
 sMB-PLS is an adaptation of MB-PLS (\code{\link{mbpls}}) that enforces sparseness in loading weights
-when computing PLS components in the global model. Two versions are supplied: Soft-Threshold PLS, also
+when computing PLS components in the global model.
+}
+\details{
+Two versions of sparseness are supplied: Soft-Threshold PLS, also
 known as Sparse PLS, and Truncation PLS. The former uses L1 shrinkage of loading weights, while the latter
 comes in two flavours, both estimating inliers and outliers. The "Lenth" method uses asymmetric confidence
 intervals around the median of a loading weigh vector to estimate inliers. The "quantile" method uses

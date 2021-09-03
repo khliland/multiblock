@@ -15,8 +15,11 @@
 #' @param col.block Line colours for blocks (default = c('red','blue','darkgreen','purple','black'))
 #' @param ... Additional arguments to \code{plot}.
 #' 
-#' @description Måge plot for SO-PLS (\code{\link{sopls}}) cross-validation visualisation. This can either be used 
+#' @description Måge plot for SO-PLS (\code{\link{sopls}}) cross-validation visualisation. 
+#' 
+#' @details This function can either be used 
 #' for global optimisation across blocks or sequential optimisation, using \code{maageSeq}.
+#' The examples below show typical usage.
 #'
 #' @examples
 #' data(wine)

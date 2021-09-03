@@ -23,18 +23,20 @@
 #' @param digits An \code{integer} for selecting number of digits in print.
 #' @param ... Not implemented
 #' 
-#' @description sopls_pm computes 'total', 'direct', 'indirect' and 'additional' effects for the 'first' versus the 
+#' @description SO-PLS-PM is the use of SO-PLS for path-modelling. This particular function
+#' is used to compute effects (explained variances) in sub-paths of the directed acyclic graph.
+#' 
+#' @details \code{sopls_pm} computes 'total', 'direct', 'indirect' and 'additional' effects for the 'first' versus the 
 #' 'last' input block by cross-validated explained variances. 'total' is the explained variance when doing
 #' regression of 'first' -> 'last'. 'indirect' is the the same, but controlled for the intermediate blocks.
 #' 'direct' is the left-over part of the 'total' explained variance when subtracting the 'indirect'. Finally,
 #' 'additional' is the added explained variance of 'last' for each block following 'first'.
 #' 
-#' sopls_pm_multiple is a wrapper fo sopls_pm that repeats the calculation for all pairs of blocks
-#' from 'first' to 'last'. Where sopls_pm has a separate response, Y, signifying the 'last' block, 
-#' sopls_pm_multiple has multiple 'last' blocks, depending on subpath, thus collects the response(s)
+#' \code{sopls_pm_multiple} is a wrapper for \code{sopls_pm} that repeats the calculation for all pairs of blocks
+#' from 'first' to 'last'. Where \code{sopls_pm} has a separate response, Y, signifying the 'last' block, 
+#' \code{sopls_pm_multiple} has multiple 'last' blocks, depending on sub-path, thus collects the response(s)
 #' from the list of blocks X.
 #' 
-#' @details
 #' When sel.comp = "opt", the number of components for all models are optimized using cross-validation
 #' within the ncomp and max_comps supplied. If sel.comp is "chi", an optimization is also performed,
 #' but parsimonious solutions are sought through a chi-square chriterion. When setting sel.comp to a

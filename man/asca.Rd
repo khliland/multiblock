@@ -25,9 +25,14 @@ asca(formula, data, subset, weights, na.action, family, pca.in = FALSE)
 An \code{asca} object containing loadings, scores, explained variances, etc.
 }
 \description{
+This is a quite general and flexible implementation of ASCA.
+}
+\details{
 ASCA is a method which decomposes a multivariate response according to one or more design
 variables. ANOVA is used to split variation into contributions from factors, and PCA is performed
 on the corresponding least squares estimates, i.e., \code{Y = X1 B1 + X2 B2 + ... + E = T1 P1' + T2 P2' + ... + E}.
+This version of ASCA encompasses LiMM-PCA, generalized ASCA and covariates ASCA. It includes
+confidence ellipsoids for the balanced fixed effect ASCA.
 }
 \examples{
 # Load candies data
@@ -62,4 +67,5 @@ scoreplot(mod.mix)
 }
 \seealso{
 Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+Common functions for computation and extraction of results and plotting are found in \code{\link{asca_results}} and \code{\link{asca_plots}}, respectively.
 }

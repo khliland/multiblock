@@ -8,6 +8,10 @@
 #' @param n_block \code{integer} number of input blocks.
 #' @param max_level \code{integer} maximum number of blocks per combination.
 #' @param min_level \code{integer} minimum number of blocks per combination.
+#' 
+#' @details This function is used for minimal redundancy implementations of
+#' \code{\link{rosa}} and \code{\link{sopls}} and for lookups into computed
+#' components.
 #'
 #' @return A list of combinations.
 #'
@@ -102,6 +106,9 @@ whichMins <- function(short, long){
 }
 
 #' @title Block-wise indexable data.frame
+#' 
+#' @description This is a convenience function for making \code{data.frame}s that are easily
+#' indexed on a block-wise basis.
 #'
 #' @param X Either a single \code{data.frame} to index or a \code{list} of matrices/data.frames
 #' @param block_inds Named \code{list} of indexes if \code{X} is a single \code{data.frame}, otherwise \code{NULL}.
@@ -142,6 +149,9 @@ block.data.frame <- function(X, block_inds = NULL, to.matrix = TRUE){
 
 
 #' Dummy-coding of a single vector
+#' 
+#' @description Flexible dummy-coding allowing for all R's built-in types of contrasts
+#' and optional dropping of a factor level to reduce rank defficiency probability.
 #'
 #' @param Y \code{vector} to dummy code.
 #' @param contrast Contrast type, default = "contr.sum".
@@ -168,6 +178,9 @@ dummycode <- function(Y, contrast = "contr.sum", drop = TRUE){
 
 
 #' Explained predictor variance
+#' 
+#' @description Extraction and/or computation of explained variances for various
+#' object classes in the \code{multiblock} package.
 #'
 #' @param object An object fitted using a method from the multiblock package
 #'
@@ -193,6 +206,10 @@ explvar <- function(object){
 
 #' Vector of component names
 #'
+#' @description Convenience function for creating a vector
+#' of component names based on the dimensions the input object
+#' (\code{matrix} or object having a \code{score} function).
+#'
 #' @param object An object fitted using the multiblock package.
 #' @param comps \code{integer} vector of components.
 #' @param explvar \code{logical} indicating if explained variances should be included.
@@ -200,7 +217,7 @@ explvar <- function(object){
 #'
 #' @return \code{character} vector of component names.
 #' 
-#' @description Copy of \code{compnames} from \code{pls} package to work with
+#' @details This is a copy of \code{compnames} from the \code{pls} package to work with
 #' \code{multiblock} objects.
 #' @export
 compnames <- function(object, comps, explvar = FALSE, ...) {

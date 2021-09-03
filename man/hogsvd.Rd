@@ -13,6 +13,9 @@ hogsvd(X)
 \code{multiblock} object including relevant scores and loadings.
 }
 \description{
+This is a simple implementation for computing HOGSVD
+}
+\details{
 HOGSVD is a generalisation of SVD to two or more blocks. It finds a common set
 of loadings across blocks and individual sets of scores per block.
 }
@@ -28,4 +31,5 @@ Ponnapalli, S. P., Saunders, M. A., Van Loan, C. F., & Alter, O. (2011). A highe
 }
 \seealso{
 Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+Common functions for computation and extraction of results and plotting are found in \code{\link{multiblock_results}} and \code{\link{multiblock_plots}}, respectively.
 }

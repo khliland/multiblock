@@ -13,6 +13,9 @@ cca(X)
 \code{multiblock} object with associated with printing, scores, loadings, ...
 }
 \description{
+This is a wrapper for the \code{stats::cancor} function for computing CCA.
+}
+\details{
 CCA is a method which maximises correlation between linear combinations of the columns of
 two blocks, i.e. max(cor(X1 x a, X2 x b)). This is done sequentially with deflation in between, such
 that a sequence of correlations and weight vectors a and b are associated with a pair of matrices.
@@ -28,4 +31,5 @@ Hotelling, H. (1936) Relations between two sets of variates. Biometrika, 28, 321
 }
 \seealso{
 Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+Common functions for computation and extraction of results and plotting are found in \code{\link{multiblock_results}} and \code{\link{multiblock_plots}}, respectively.
 }

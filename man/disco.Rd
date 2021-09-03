@@ -17,6 +17,9 @@ disco(X, ncomp = 2, ...)
 \code{multiblock} object including relevant scores and loadings.
 }
 \description{
+This is a wrapper for the \code{RegularizedSCA::DISCOsca} function for computing DISCO.
+}
+\details{
 DISCO is a restriction of SCA where Alternating Least Squares is used for
 estimation of loadings and scores. The loadings (in variable linked mode) are filled with
 zeros for each iteration in a pattern forcing distinct, local and common components.

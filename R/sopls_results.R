@@ -1,7 +1,7 @@
-#' @name sopls_object
+#' @name sopls_results
 #' @title Result functions for SO-PLS models
 #'
-#' @aliases predict.sopls sopls.classify coef.sopls print.sopls summary.sopls
+#' @aliases predict.sopls coef.sopls print.sopls summary.sopls pcp.sopls R2.sopls classify.sopls RMSEP.sopls
 #' @param object A \code{sopls} object.
 #' @param x A \code{sopls} object.
 #' @param newdata Optional new data with the same types of predictor blocks as the ones used for fitting the object.
@@ -21,9 +21,17 @@
 #' @return Returns depend on method used, e.g. \code{predict.sopls} returns predicted responses 
 #' or scores depending on inputs, \code{coef.sopls} return regression coefficients.
 #' 
-#' @description Standard result functions for SO-PLS (\code{\link{sopls}}). The parameter \code{ncomp} controls
+#' @description Standard result functions for SO-PLS (\code{\link{sopls}}).
+#' 
+#' @details The parameter \code{ncomp} controls
 #' which components to apply/extract, resulting in the sequence of components leading up to the specific choice, i.e.
 #' \code{ncomp = c(2,2,1)} results in the sequence 1,0,0; 2,0,0; 2,1,0; 2,2,0; 2,2,1.
+#' Usage of the functions are shown using generics in the examples below. 
+#' Prediction, regression coefficients, object printing and summary are available through: 
+#' \code{predict.sopls}, \code{coef.sopls}, \code{print.sopls} and \code{summary.sopls}.
+#' Explained variances and RMSEP are available through \code{R2.sopls} and \code{RMSEP.sopls}.
+#' Principal components of predictions are available through \code{pcp.sopls}. Finally, there is work in progress on classifcation
+#' support through \code{classify.sopls}.
 #' 
 #' @references Jørgensen K, Mevik BH, Næs T. Combining designed experiments with several blocks of spectroscopic data. Chemometr Intell Lab Syst. 2007;88(2): 154–166.
 #'
@@ -37,7 +45,13 @@
 #' print(mod)
 #' summary(mod)
 #' 
+#' # Multiresponse for PCP
+#' modMulti <- sopls(Sensory ~ ., data = potato[c(1:3,9)], ncomp = 5, validation = "CV", segment = 5)
+#' (PCP <- pcp(modMulti, c(2,1,2)))
+#' scoreplot(PCP)
+#' 
 #' @seealso Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+#' Common functions for plotting are found in \code{\link{sopls_plots}}.
 #' @export
 predict.sopls <- function(object, newdata, ncomp = object$ncomp,
                           type = c("response", "scores"), na.action = na.pass, ...){
@@ -59,7 +73,7 @@ predict.sopls <- function(object, newdata, ncomp = object$ncomp,
   }
 }
 
-#' @rdname sopls_object
+#' @rdname sopls_results
 #' @export
 coef.sopls <- function(object, ncomp = object$ncomp, intercept = FALSE,
                        ...)
@@ -97,7 +111,7 @@ coef.sopls <- function(object, ncomp = object$ncomp, intercept = FALSE,
   return(B)
 }
 
-#' @rdname sopls_object
+#' @rdname sopls_results
 #' @export
 print.sopls <- function(x, ...) {
   ana <- "Sequential and Orthogonalized Partial Least Squares"
@@ -110,7 +124,7 @@ print.sopls <- function(x, ...) {
   invisible(x)
 }
 
-#' @rdname sopls_object
+#' @rdname sopls_results
 #' @export
 summary.sopls <- function(object, what = c("all", "validation", "training"),
                           digits = 4, print.gap = 2, ...)
@@ -155,11 +169,11 @@ summary.sopls <- function(object, what = c("all", "validation", "training"),
 }
 
 
-#' @rdname sopls_object
+#' @rdname sopls_results
 #' @export
 classify <- function(object, ...) UseMethod("classify")
 
-#' @rdname sopls_object
+#' @rdname sopls_results
 #' @importFrom MASS lda qda
 #' @export
 classify.sopls <- function(object, classes, newdata, ncomp, LQ = "LDA", ...){
@@ -198,7 +212,7 @@ classify.sopls <- function(object, classes, newdata, ncomp, LQ = "LDA", ...){
 }
 
 
-#' @rdname sopls_object
+#' @rdname sopls_results
 #' @export
 R2.sopls <- function(object, estimate, newdata, ncomp = "all", individual = FALSE, ...){
   if (missing(estimate)) {
@@ -254,7 +268,7 @@ R2.sopls <- function(object, estimate, newdata, ncomp = "all", individual = FALS
 }
 
 
-#' @rdname sopls_object
+#' @rdname sopls_results
 #' @export
 RMSEP.sopls <- function(object, estimate, newdata, ncomp = "all", individual = FALSE, ...){
   if (missing(estimate)) {
@@ -305,4 +319,32 @@ RMSEP.sopls <- function(object, estimate, newdata, ncomp = "all", individual = F
         return(rmsep)}
     }
   }
+}
+
+#' @rdname sopls_results
+#' @export
+pcp <- function (object, ...) {
+  UseMethod("pcp", object)
+}
+
+#' @rdname sopls_results
+#' @export
+pcp.sopls <- function(object, ncomp, ...){
+  if(is.null(object$validation))
+    stop("The 'sopls' object has been created without validation")
+
+  compName <- paste0(ncomp, collapse = ",")
+  preds <- object$validation$Ypred[,,compName,drop=FALSE]
+  dim(preds) <- dim(object$validation$Ypred)[1:2]
+  PCP <- pca(preds, ncomp = min(ncol(preds),nrow(preds)-1))
+  PCP$loadings <- PCP$loadings * rep(sqrt(colSums(PCP$scores^2)),each=nrow(PCP$loadings))
+  PCP$scores <- PCP$scores / rep(sqrt(colSums(PCP$scores^2)),each=nrow(PCP$scores))
+  PCP$blockLoadings <- lapply(lapply(object$data$X, function(x)x-rep(colMeans(x),each=nrow(x))),function(x)crossprod(x,PCP$scores))
+  PCP$info <- list(method = "Principal Components of Predictions", 
+                   scores = "Scores", loadings = "Loadings",
+                   blockScores = "not used", blockLoadings = "Block loadings")
+  PCP$call <- match.call()
+  class(PCP) <- c('multiblock','list')
+  return(PCP)
+  
 }

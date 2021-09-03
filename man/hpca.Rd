@@ -21,6 +21,9 @@ hpca(X, ncomp = 2, scale = FALSE, verbose = FALSE, ...)
 \code{multiblock} object including relevant scores and loadings.
 }
 \description{
+This is a wrapper for the \code{RGCCA::rgcca} function for computing HPCA.
+}
+\details{
 HPCA is a hierarchical PCA analysis which combines two or more blocks
 into a two-level decomposition with block-wise loadings and scores and superlevel
 common loadings and scores. The method is closely related to the supervised method MB-PLS
@@ -38,4 +41,5 @@ Westerhuis, J.A., Kourti, T., and MacGregor,J.F. (1998). Analysis of multiblock 
 }
 \seealso{
 Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+Common functions for computation and extraction of results and plotting are found in \code{\link{multiblock_results}} and \code{\link{multiblock_plots}}, respectively.
 }

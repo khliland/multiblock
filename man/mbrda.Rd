@@ -19,6 +19,9 @@ mbrda(X, Y, ncomp = 1, ...)
 \code{mbrda,mvr} object containing elements corresponding to a \code{pls} object, with all its result and plot possibilities plus block-wise loadings, loading weights and scores.
 }
 \description{
+This is a wrapper for the \code{ade4::mbpcaiv} function for computing mbRDA.
+}
+\details{
 mbRDA is a multiblock formulation of Redundancy (Data) Analysis. RDA is theoretically
 between PLS and GCA. Like GCA, RDA does not consider correlations within X, but like
 PLS it does consider correlations within Y. RDA can also be viewed as a PCR of Y constrained to

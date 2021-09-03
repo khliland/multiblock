@@ -1,7 +1,9 @@
-#' @name rosa_plotting
+#' @name rosa_plots
 #' @title Plotting functions for ROSA models
 #' 
-#' @description Various plotting procedures for \code{\link{rosa}} objects. \code{image.rosa}
+#' @description Various plotting procedures for \code{\link{rosa}} objects. 
+#' 
+#' @details Usage of the functions are shown using generics in the examples below. \code{image.rosa}
 #' makes an image plot of each candidate score's correlation to the winner or the block-wise
 #' response residual. These plots can be used to find alternative block selection for tweaking
 #' the ROSA model. \code{barplot.rosa} makes barplot of block and component explained variances.
@@ -31,6 +33,7 @@
 #' loadingweightplot(mod)
 #' 
 #' @seealso Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+#' Common functions for computation and extraction of results in \code{\link{rosa_results}}.
 #' @export
 image.rosa <- function(x, type = c("correlation","residual","order"), ncomp = x$ncomp,
                        col = mcolors(128), legend = TRUE, mar = c(5,6,4,7), las = 1, ...){
@@ -85,7 +88,7 @@ image.rosa <- function(x, type = c("correlation","residual","order"), ncomp = x$
 
 
 #' @export
-#' @rdname rosa_plotting
+#' @rdname rosa_plots
 barplot.rosa <- function(height, type = c("train","CV"), ncomp = height$ncomp, col = mcolors(ncomp),  ...){
   nums <- attr(numsb <- blockexpl(height, type = type[1], ncomp = ncomp), "compwise")
   nums <- nums[nrow(nums),,drop=FALSE]

@@ -1,6 +1,11 @@
-#' @name multiblock_object
-#' @title Result Functions for Supervised and Multiblock Objects
-#' @aliases scores.multiblock loadings.multiblock print.multiblock summary.multiblock scoreplot.multiblock loadingplot.multiblock loadingweightplot
+#' @name multiblock_plots
+#' @title Plot Functions for Multiblock Objects
+#' @aliases scoreplot.multiblock loadingplot.multiblock loadingweightplot
+#' 
+#' @description Plotting procedures for \code{multiblock} objects.
+#' 
+#' @details Plot functions for \code{scores}, \code{loadings} and \code{loading.weights} based
+#' on the functions found in the \code{pls} package.
 #' 
 #' @param object \code{multiblock} object.
 #' @param x \code{multiblock} object.
@@ -30,91 +35,14 @@
 #' @examples 
 #' data(wine)
 #' sc <- sca(wine[c('Smell at rest', 'View', 'Smell after shaking')], ncomp = 4)
-#' print(sc)
 #' plot(loadings(sc, block = 1), labels = "names", scatter = TRUE)
 #' 
 #' @seealso Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+#' Common functions for computation and extraction of results are found in \code{\link{multiblock_results}}.
 #' @importFrom graphics axTicks matplot pairs
 #' @export
-scores.multiblock <- function(object, block = 0, ...){
-  if(block==0 && is.null(object$scores)){
-    warning('No global/consensus scores. Returning block 1 scores.')
-    block <- 1
-  }
-  if(block!=0 && is.null(object$blockScores)){
-    warning('No block scores. Returning global/consensus scores.')
-    block <- 0
-  }
-  if(block==0){
-    s <- object$scores
-    attr(s, 'info') <- object$info$scores
-  } else {
-    s <- object$blockScores[[block]]
-    attr(s, 'info') <- object$info$blockScores
-  }
-  class(s) <- list('scores.multiblock','scores')
-  return(s)
-}
-
-#' @rdname multiblock_object 
-#' @export
-loadings.multiblock <- function(object, block = 0, ...){
-  if(block==0 && is.null(object$loadings)){
-    warning('No global/consensus loadings available. Returning block 1 loadings.')
-    block <- 1
-  }
-  if(block!=0 && is.null(object$blockLoadings)){
-    warning('No block loadings available. Returning global/consensus loadings.')
-    block <- 0
-  }
-  if(block==0){
-    l <- object$loadings
-    attr(l, 'info') <- object$info$loadings
-  } else {
-    l <- object$blockLoadings[[block]]
-    attr(l, 'info') <- object$info$blockLoadings
-  }
-  class(l) <- list('loadings.multiblock','loadings')
-  return(l)
-}
-
-#' @rdname multiblock_object 
-#' @export
-print.multiblock <- function(x, ...){
-  cat(x$info$method, "\n")
-  cat("\nCall:\n", deparse(x$call), "\n", sep = "")
-  invisible(x)
-}
-
-#' @rdname multiblock_object 
-#' @export
-summary.multiblock <- function(object, ...){
-  cat(object$info$method, "\n")
-  cat(paste0(rep("=", nchar(object$info$method)), collapse=""), "\n\n")
-  if(!is.null(object$scores)){
-    cat("$scores: ", object$info$scores, " (",nrow(object$scores),"x",ncol(object$scores),")", "\n", sep="")
-  }
-  if(!is.null(object$loadings)){
-    cat("$loadings: ", object$info$loadings, " (",nrow(object$loadings),"x",ncol(object$loadings),")", "\n", sep="")
-  }
-  if(!is.null(object$blockScores)){
-    cat("$blockScores: ", object$info$blockScores, ":\n", sep="")
-    bs <- lapply(lapply(object$blockScores, dim), function(x)paste0("(",x[1],"x",x[2],")"))
-    cat("- ", paste(apply(cbind(names(bs), unlist(bs)), 1, paste, collapse=" "), collapse = ", "), "\n", sep="")
-  }
-  if(!is.null(object$blockLoadings)){
-    cat("$blockLoadings: ", object$info$blockLoadings, ":\n", sep="")
-    bl <- lapply(lapply(object$blockLoadings, dim), function(x)paste0("(",x[1],"x",x[2],")"))
-    cat("- ", paste(apply(cbind(names(bl), unlist(bl)), 1, paste, collapse=" "), collapse = ", "), "\n", sep="")
-  }
-  invisible(object)
-  # Extend with dimensions and number of blocks
-}
-
-#' @rdname multiblock_object 
-#' @export
 scoreplot.multiblock <- function(object, comps = 1:2, block = 0, labels, identify = FALSE,
-                              type = "p", xlab, ylab, main, ...){
+                                 type = "p", xlab, ylab, main, ...){
   ## Check arguments
   nComps <- length(comps)
   if (nComps == 0) stop("At least one component must be selected.")
@@ -130,8 +58,8 @@ scoreplot.multiblock <- function(object, comps = 1:2, block = 0, labels, identif
       if(!is.null(bn <- names(object$blockScores)))
         if(is.numeric(block))
           scoreType <- paste0(scoreType, ", ", bn[block])
-        else
-          scoreType <- paste0(scoreType, ", ", block)
+      else
+        scoreType <- paste0(scoreType, ", ", block)
     }
     else
       scoreType <- object$info$scores
@@ -186,12 +114,12 @@ scoreplot.multiblock <- function(object, comps = 1:2, block = 0, labels, identif
   }
 }
 
-#' @rdname multiblock_object 
+#' @rdname multiblock_plots 
 #' @export
 loadingplot.multiblock <- function(object, comps = 1:2, block = 0, scatter = TRUE, labels,
-                              identify = FALSE, type, lty, lwd = NULL, pch,
-                              cex = NULL, col, legendpos, xlab, ylab, main,
-                              pretty.xlabels = TRUE, xlim, ...)
+                                   identify = FALSE, type, lty, lwd = NULL, pch,
+                                   cex = NULL, col, legendpos, xlab, ylab, main,
+                                   pretty.xlabels = TRUE, xlim, ...)
 {
   ## Check arguments
   nComps <- length(comps)
@@ -225,7 +153,7 @@ loadingplot.multiblock <- function(object, comps = 1:2, block = 0, scatter = TRU
     varlab <- colnames(L)
   else
     varlab <- paste(colnames(L), " (", format(evar, digits = 2, trim = TRUE),
-                  " %)", sep = "")
+                    " %)", sep = "")
   if(missing(main))
     main <- ifelse(loadingType != "Not used", loadingType, "")
   if (isTRUE(scatter)) {
@@ -345,7 +273,7 @@ loadingplot.multiblock <- function(object, comps = 1:2, block = 0, scatter = TRU
 }
 
 #' @export
-#' @rdname multiblock_object
+#' @rdname multiblock_plots
 loadingweightplot <- function(object, main = "Loading weights", ...){
   mf <- match.call(expand.dots = FALSE)
   object$loadings <- object$loading.weights
@@ -354,9 +282,9 @@ loadingweightplot <- function(object, main = "Loading weights", ...){
 
 
 #' @export
-#' @rdname multiblock_object
+#' @rdname multiblock_plots
 biplot.multiblock <- function(x, block = 0, comps = 1:2, which = c("x", "y", "scores", "loadings"),
-         var.axes = FALSE, xlabs, ylabs, main, ...)
+                              var.axes = FALSE, xlabs, ylabs, main, ...)
 {
   if (length(comps) != 2) stop("Exactly 2 components must be selected.")
   which <- match.arg(which)

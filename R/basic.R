@@ -34,7 +34,9 @@ NULL
 #' @param ncomp \code{integer} number of principal components to return.
 #' @param ... additional arguments to \code{pls:pcr}.
 #' 
-#' @description PCA is a method for decomposing a matrix into subspace components with sample scores and
+#' @description This is a wrapper for the \code{pls::PCR} function for computing PCA.
+#' 
+#' @details PCA is a method for decomposing a matrix into subspace components with sample scores and
 #' variable loadings. It can be formulated in various ways, but the standard formulation uses singular
 #' value decomposition to create scores and loadings. PCA is guaranteed to be the optimal way of extracting
 #' orthogonal subspaces from a matrix with regard to the amount of explained variance per component.
@@ -42,6 +44,7 @@ NULL
 #' @return \code{multiblock} object with scores, loadings, mean X values and explained variances.
 #' @references Pearson, K. (1901) On lines and planes of closest fit to points in space. Philosophical Magazine, 2, 559–572.
 #' @seealso Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+#' Common functions for computation and extraction of results and plotting are found in \code{\link{multiblock_results}} and \code{\link{multiblock_plots}}, respectively.
 #' @examples 
 #' data(potato)
 #' X <- potato$Chemical
@@ -68,12 +71,16 @@ pca <- function(X, scale=FALSE, ncomp=1, ...){
 #' Canonical Correlation Analysis - CCA
 #' @param X \code{list} of input data blocks.
 #' @return \code{multiblock} object with associated with printing, scores, loadings, ...
-#' @description CCA is a method which maximises correlation between linear combinations of the columns of 
+#' 
+#' @description This is a wrapper for the \code{stats::cancor} function for computing CCA.
+#' 
+#' @details CCA is a method which maximises correlation between linear combinations of the columns of 
 #' two blocks, i.e. max(cor(X1 x a, X2 x b)). This is done sequentially with deflation in between, such
 #' that a sequence of correlations and weight vectors a and b are associated with a pair of matrices.
 #' @importFrom stats cancor
 #' @references Hotelling, H. (1936) Relations between two sets of variates. Biometrika, 28, 321–377.
 #' @seealso Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+#' Common functions for computation and extraction of results and plotting are found in \code{\link{multiblock_results}} and \code{\link{multiblock_plots}}, respectively.
 #' @examples 
 #' data(potato)
 #' X <- potato$Chemical
@@ -81,7 +88,7 @@ pca <- function(X, scale=FALSE, ncomp=1, ...){
 #' cca.pot  <- cca(potato[1:2])
 #' @export
 cca <- function(X){
-  cc <- cancor(X[[1]], X[[2]])
+  cc <- stats::cancor(X[[1]], X[[2]])
   loadings <- cc[c('xcoef','ycoef')]
   scores   <- list((X[[1]]-rep(cc$xcenter, each=nrow(X[[1]])))%*%loadings[[1]],
                    (X[[2]]-rep(cc$ycenter, each=nrow(X[[2]])))%*%loadings[[2]])
@@ -103,12 +110,16 @@ cca <- function(X){
 #' @param ncomp \code{integer} number of principal components to return.
 #' @param scale \code{logical} indicating if variables should be standardised (default=FALSE).
 #' @param verbose \code{logical} indicating if intermediate results should be printed.
-#' @param ... additional arguments to \code{pls:pcr}.
+#' @param ... additional arguments to \code{RGCCA::rgcca}.
 #'
 #' @return \code{multiblock} object with associated with printing, scores, loadings, ...
-#' @description IFA rotates two matrices to align one or more factors against each other, maximising correlations.
+#' 
+#' @description This is a wrapper for the \code{RGCCA::rgcca} function for computing IFA.
+#' 
+#' @details IFA rotates two matrices to align one or more factors against each other, maximising correlations.
 #' @references Tucker, L. R. (1958). An inter-battery method of factor analysis. Psychometrika, 23(2), 111-136.
 #' @seealso Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+#' Common functions for computation and extraction of results and plotting are found in \code{\link{multiblock_results}} and \code{\link{multiblock_plots}}, respectively.
 #' @examples 
 #' data(potato)
 #' X <- potato$Chemical
@@ -142,11 +153,15 @@ ifa <- function(X, ncomp=1, scale=FALSE, verbose=FALSE, ...){
 #' Generalised Singular Value Decomposition - GSVD
 #' @param X \code{list} of input data blocks.
 #' @return \code{multiblock} object with associated with printing, scores, loadings, ...
-#' @description GSVD is a generalisation of SVD to two variable-linked matrices where common loadings 
+#' 
+#' @description This is a wrapper for the \code{geigen::gsvd} function for computing GSVD.
+#' 
+#' @details  GSVD is a generalisation of SVD to two variable-linked matrices where common loadings 
 #' and block-wise scores are estimated.
 #' @importFrom stats cancor
 #' @references Van Loan, C. (1976) Generalizing the singular value decomposition. SIAM Journal on Numerical Analysis, 13, 76–83.
 #' @seealso Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+#' Common functions for computation and extraction of results and plotting are found in \code{\link{multiblock_results}} and \code{\link{multiblock_plots}}, respectively.
 #' @examples 
 #' data(potato)
 #' X <- potato$Chemical

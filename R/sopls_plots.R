@@ -1,4 +1,4 @@
-#' @name sopls_plot
+#' @name sopls_plots
 #' @title Scores, loadings and plots for sopls objects
 #'
 #' @aliases loadings.sopls scores.sopls loadingplot.sopls scoreplot.sopls biplot.sopls
@@ -30,8 +30,11 @@
 #' @param main \code{character} for setting the main title of a plot.
 #' @param ... further arguments sent to the underlying plot function(s)
 #'
-#' @description Adaptation of \code{scoreplot} from package \code{pls} for \code{sopls} objects.
+#' @description Extraction of \code{scores} and \code{loadings} and adaptation of \code{scoreplot},
+#' \code{loadingplot} and \code{biplot} from package \code{pls} for \code{sopls} objects.
 #'
+#' @seealso Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+#' Common functions for computation and extraction of results are found in \code{\link{sopls_results}}.
 #' @return The functions return whatever the underlying plot function (or identify) returns.
 #' @examples
 #' data(potato)
@@ -60,6 +63,9 @@
 #' 
 #' # Scatterplot matrix
 #' loadingplot(so, ncomp=c(3,2), block=3, comps=1:3, scatter=TRUE)
+#' 
+#' # Default plot from first block
+#' biplot(so)
 #' @export
 loadings.sopls <- function(object, ncomp = "all", block = 1, y = FALSE, ...){
   if(is.numeric(ncomp) && length(ncomp)!=(block-1))
@@ -85,7 +91,7 @@ loadings.sopls <- function(object, ncomp = "all", block = 1, y = FALSE, ...){
   return(P)
 }
 
-#' @rdname sopls_plot
+#' @rdname sopls_plots
 #' @export
 scores.sopls <- function(object, ncomp = "all", block = 1, y = FALSE, ...){
   if(is.numeric(ncomp) && length(ncomp)!=(block-1))
@@ -113,7 +119,7 @@ scores.sopls <- function(object, ncomp = "all", block = 1, y = FALSE, ...){
   T
 }
 
-#' @rdname sopls_plot
+#' @rdname sopls_plots
 #' @export
 scoreplot.sopls <- function(object, comps = 1:2, ncomp = "all", block = 1, labels, identify = FALSE,
                             type = "p", xlab, ylab, ...){
@@ -173,7 +179,7 @@ scoreplot.sopls <- function(object, comps = 1:2, ncomp = "all", block = 1, label
   }
 }
 
-#' @rdname sopls_plot
+#' @rdname sopls_plots
 #' @export
 loadingplot.sopls <- function(object, comps = 1:2, ncomp = "all", block = 1, scatter = TRUE, labels,
                               identify = FALSE, type, lty, lwd = NULL, pch,
@@ -318,7 +324,7 @@ loadingplot.sopls <- function(object, comps = 1:2, ncomp = "all", block = 1, sca
 
 
 #' @export
-#' @rdname sopls_plot
+#' @rdname sopls_plots
 biplot.sopls <- function(x, comps = 1:2, ncomp = "all", block = 1, which = c("x", "y", "scores", "loadings"),
                               var.axes = FALSE, xlabs, ylabs, main, ...)
 {

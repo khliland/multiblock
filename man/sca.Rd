@@ -21,6 +21,10 @@ sca(X, ncomp = 2, scale = FALSE, samplelinked = "auto", ...)
 \code{multiblock} object including relevant scores and loadings.
 }
 \description{
+This is a basic implementation of the SCA-P algorithm (least restricted SCA) with support for both
+sample- and variable-linked modes.
+}
+\details{
 SCA, in its original variable-linked version, calculates common loadings and block-wise
 scores. There are many possible constraints and specialisations. This implementations uses
 PCA as the backbone, thus resulting in deterministic, ordered components. A parameter controls
@@ -46,4 +50,5 @@ Levin, J. (1966) Simultaneous factor analysis of several gramian matrices. Psych
 }
 \seealso{
 Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+Common functions for computation and extraction of results and plotting are found in \code{\link{multiblock_results}} and \code{\link{multiblock_plots}}, respectively.
 }

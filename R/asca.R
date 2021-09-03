@@ -13,9 +13,13 @@
 #'
 #' @return An \code{asca} object containing loadings, scores, explained variances, etc.
 #' 
-#' @description ASCA is a method which decomposes a multivariate response according to one or more design
+#' @description This is a quite general and flexible implementation of ASCA.
+#' 
+#' @details ASCA is a method which decomposes a multivariate response according to one or more design
 #' variables. ANOVA is used to split variation into contributions from factors, and PCA is performed
 #' on the corresponding least squares estimates, i.e., \code{Y = X1 B1 + X2 B2 + ... + E = T1 P1' + T2 P2' + ... + E}.
+#' This version of ASCA encompasses LiMM-PCA, generalized ASCA and covariates ASCA. It includes
+#' confidence ellipsoids for the balanced fixed effect ASCA.
 #' 
 #' @references 
 #' * Smilde, A., Jansen, J., Hoefsloot, H., Lamers,R., Van Der Greef, J., and Timmerman, M.(2005). ANOVA-Simultaneous Component Analysis (ASCA): A new tool for analyzing designed metabolomics data. Bioinformatics, 21(13), 3043–3048.
@@ -25,6 +29,7 @@
 #' @importFrom lme4 lmer
 #' @importFrom car ellipse dataEllipse
 #' @seealso Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+#' Common functions for computation and extraction of results and plotting are found in \code{\link{asca_results}} and \code{\link{asca_plots}}, respectively.
 #' @examples
 #' # Load candies data
 #' data(candies)
@@ -137,21 +142,36 @@ asca <- function(formula, data, subset, weights, na.action, family, pca.in = FAL
   modFra <- model.frame(ano)
   
   # Exclude numeric effects and their interactions
-  nums   <- names(which(unlist(lapply(modFra, class)) == "numeric"))
+  nums   <- names(unlist(lapply(modFra, class)))[which(unlist(lapply(modFra, class)) %in% c("numeric","integer"))]
   if(length(nums)>0){
     exclude  <- match(nums, rownames(attr(terms(ano), "factors")))
     approved <- which(colSums(attr(terms(ano), "factors")[exclude,,drop=FALSE])==0)
   } else {
     approved <- 1:max(assign)
   }
+  if(length(approved)==0)
+    stop('No factors in model')
+
+  # Effect loop
   LS <- effects <- ssq <- list()
-  for(i in approved){
-    LS[[effs[i]]] <- M[, assign==i, drop=FALSE] %*% coefs[assign==i,]
-    residuals <- residuals - LS[[effs[i]]]
-    effects[[effs[i]]] <- modFra[[effs[i]]]
-    ssq[[effs[i]]] <- sum(LS[[effs[i]]]^2)
+  for(i in 1:length(approved)){
+    a <- approved[i]
+    LS[[effs[a]]] <- M[, assign==a, drop=FALSE] %*% coefs[assign==a,]
+    effects[[effs[a]]] <- modFra[[effs[a]]]
+
+    if(i == 1){
+      residuals <- Y - LS[[effs[i]]]
+      ssq[[effs[a]]] <- sum(LS[[effs[a]]]^2)
+    } else {
+      LSseq <- M[, assign%in%approved[1:i], drop=FALSE] %*% coefs[assign%in%approved[1:i],]
+      residuals <- Y - LSseq
+      ssq[[effs[a]]] <- sum(LSseq^2)
+    }
   }
-  ssq$res <- sum(residuals^2)
+  ssq$res <- ssqY
+  ssq <- unlist(ssq)
+  ssq <- c(ssq[1],diff(ssq))
+  # ssq$res <- sum(residuals^2)
 
   # SCAs
   scores <- loadings <- projected <- singulars <- list()
@@ -179,8 +199,8 @@ asca <- function(formula, data, subset, weights, na.action, family, pca.in = FAL
   # Reset options
   options(opt)
   obj <- list(scores=scores, loadings=loadings, projected=projected, singulars=singulars, 
-              LS=LS, effects=effects, Y=Y, X=M, residuals=residuals,
-              ssq=unlist(ssq), ssqY=ssqY, explvar=unlist(ssq)/ssqY,
+              LS=LS, effects=effects, coefficients=coefs, Y=Y, X=M, residuals=residuals,
+              ssq=ssq, ssqY=ssqY, explvar=ssq/ssqY,
               call=match.call(), fit.type=fit.type)
   if(pca.in!=0){
     obj$Ypca <- list(svd=Yudv, ncomp=pca.in)

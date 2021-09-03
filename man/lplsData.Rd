@@ -21,7 +21,7 @@ lplsData(I = 30, N = 20, J = 5, K = 6, ncomp = 2)
 A \code{list} of three matrices.
 }
 \description{
-Three data blocks are simulated to express covariance in an exo-L-PLS direction.
+Three data blocks are simulated to express covariance in an exo-L-PLS direction (see \code{\link{lpls}}.
 Dimensionality and number of underlying components can be controlled.
 }
 \examples{

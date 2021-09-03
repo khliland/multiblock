@@ -1,4 +1,4 @@
-#' @name rosa_object
+#' @name rosa_results
 #' @title Result functions for ROSA models
 #'
 #' @aliases predict.rosa rosa.classify coef.rosa print.rosa summary.rosa blockexpl print.rosaexpl scores.rosa loadings.rosa
@@ -23,7 +23,15 @@
 #' or scores depending on inputs, \code{coef.rosa} returns regression coefficients, \code{blockexpl}
 #' returns an object of class \code{rosaexpl} containing block-wise and component-wise explained variance contained in a matrix with attributes.
 #' 
-#' @description Standard result functions for ROSA (\code{\link{rosa}}).
+#' @description Standard result computation and extraction functions for ROSA (\code{\link{rosa}}).
+#' 
+#' @details Usage of the functions are shown using generics in the examples below.
+#' Prediction, regression coefficients, object printing and summary are available through: 
+#' \code{predict.rosa},  \code{coef.rosa}, \code{print.rosa} and \code{summary.rosa}.
+#' Explained variances are available (block-wise and global) through \code{blockexpl} and \code{print.rosaexpl}.
+#' Scores and loadings have their own extensions of \code{scores()} and \code{loadings()} throught
+#' \code{scores.rosa} and \code{loadings.rosa}. Finally, there is work in progress on classifcation
+#' support through \code{rosa.classify}.
 #' 
 #' @references Liland, K.H., Næs, T., and Indahl, U.G. (2016). ROSA - a fast extension of partial least squares regression for multiblock data analysis. Journal of Chemometrics, 30, 651–662, doi:10.1002/cem.2824.
 #'
@@ -39,6 +47,7 @@
 #' print(blockexpl(mod), compwise=TRUE)
 #' 
 #' @seealso Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+#' Common functions for computation and extraction of results and plotting are found in \code{\link{rosa_results}} and \code{\link{rosa_plots}}, respectively.
 #' @export
 predict.rosa <- function(object, newdata, ncomp = 1:object$ncomp, comps,
                          type = c("response", "scores"), na.action = na.pass, ...){
@@ -104,7 +113,7 @@ predict.rosa <- function(object, newdata, ncomp = 1:object$ncomp, comps,
   }
 }
 
-#' @rdname rosa_object
+#' @rdname rosa_results
 #' @export
 coef.rosa <- function(object, ncomp = object$ncomp, comps, intercept = FALSE,
                      ...)
@@ -137,7 +146,7 @@ coef.rosa <- function(object, ncomp = object$ncomp, comps, intercept = FALSE,
   return(B)
 }
 
-#' @rdname rosa_object
+#' @rdname rosa_results
 #' @export
 print.rosa <- function(x, ...) {
      ana <- "Response Orinented Sequential Alternation"
@@ -150,7 +159,7 @@ print.rosa <- function(x, ...) {
   invisible(x)
 }
 
-#' @rdname rosa_object
+#' @rdname rosa_results
 #' @export
 summary.rosa <- function(object, what = c("all", "validation", "training"),
                         digits = 4, print.gap = 2, ...)
@@ -186,7 +195,7 @@ summary.rosa <- function(object, what = c("all", "validation", "training"),
   }
 }
 
-#' @rdname rosa_object
+#' @rdname rosa_results
 #' @export
 blockexpl <- function(object, ncomp = object$ncomp, type = c("train","CV")){
   nblock  <- length(object$X)
@@ -261,7 +270,7 @@ blockexpl <- function(object, ncomp = object$ncomp, type = c("train","CV")){
   res
 }
 
-#' @rdname rosa_object
+#' @rdname rosa_results
 #' @export
 print.rosaexpl <- function(x, digits = 3, compwise = FALSE, ...){
   if(compwise){
@@ -277,7 +286,7 @@ print.rosaexpl <- function(x, digits = 3, compwise = FALSE, ...){
 }
 
 # TODO: S3 object of rosa.classify #' @method pls ER
-#' @rdname rosa_object
+#' @rdname rosa_results
 #' @importFrom MASS lda qda
 #' @export
 rosa.classify <- function(object, classes, newdata, ncomp, LQ){
@@ -315,13 +324,13 @@ rosa.classify <- function(object, classes, newdata, ncomp, LQ){
   }
 }
 
-#' @rdname rosa_object
+#' @rdname rosa_results
 #' @export
 scores.rosa <- function(object, ...) {
   object$scores
 }
 
-#' @rdname rosa_object
+#' @rdname rosa_results
 #' @export
 loadings.rosa <- function(object, ...) {
   object$loadings

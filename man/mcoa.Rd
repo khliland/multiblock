@@ -21,6 +21,9 @@ mcoa(X, ncomp = 2, scale = FALSE, verbose = FALSE, ...)
 \code{multiblock} object including relevant scores and loadings.
 }
 \description{
+This is a wrapper for the \code{RGCCA::rgcca} function for computing MCOA.
+}
+\details{
 MCOA resembles GCA and MFA in that it creates a set of reference scores, for which each
 block's individual scores should correlate maximally too, but also the variance within
 each block should be taken into account. A single component solution is equivalent to a
@@ -41,4 +44,5 @@ plot(scores(pot.mcoa), labels="names")
 }
 \seealso{
 Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+Common functions for computation and extraction of results and plotting are found in \code{\link{multiblock_results}} and \code{\link{multiblock_plots}}, respectively.
 }

@@ -19,7 +19,9 @@
 #' @param progress Logical indicating if a progress bar should be displayed while cross-validating.
 #' @param ... Additional arguments to underlying methods.
 #' 
-#' @description SO-PLS is a method which handles two or more input blocks by sequentially performing
+#' @description Function for computing standard SO-PLS based on the interface of the \code{pls} package.
+#' 
+#' @details SO-PLS is a method which handles two or more input blocks by sequentially performing
 #' PLS on blocks against a response and orthogonalising the remaining blocks on the extracted components.
 #' Component number optimisation can either be done globally (best combination across blocks) or sequentially
 #' (determine for one block, move to next, etc.).
@@ -36,7 +38,8 @@
 #' so <- sopls(Sensory ~ Chemical + Compression, data=potato, ncomp=c(10,10), 
 #'             max_comps=10, validation="CV", segments=10)
 #' summary(so)
-#' @seealso Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+#' @seealso SO-PLS result functions, \code{\link{sopls_results}}, SO-PLS plotting functions, \code{\link{sopls_plots}}, SO-PLS Måge plot, \code{\link{maage}}, and SO-PLS path-modelling, \code{\link{SO_TDI}}.
+#' Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 #' @export
 sopls <- function(formula, ncomp, max_comps = min(sum(ncomp), 20), data, 
                   subset, na.action, scale = FALSE, validation = c("none", "CV", "LOO"), 
@@ -327,7 +330,7 @@ sopls_worker <- function(C, Y, comps, max_comps, Cval = NULL, both = FALSE){
     if(comp_curr > 1){ # Orthogonalize on previous
       t <- t - T_curr[,1:(comp_curr-1),drop=FALSE] %*% crossprodQ(T_curr[,1:(comp_curr-1),drop=FALSE],t)
     }
-    t <- t/sqrt(sum(t*t))
+    t <- t/sqrt(sum(t*t)) # FIXME: Save sum(t*t) for easy translation between ||t||=1 and ordinary t.
     if(nresp > 1){
       ry <- Y_curr %*% w
     } else {

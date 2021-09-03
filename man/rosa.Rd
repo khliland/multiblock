@@ -57,6 +57,9 @@ rosa(
 An object of classes \code{rosa} and \code{mvr} having several associated printing and plotting methods.
 }
 \description{
+Formula based interface to the ROSA algorithm following the style of the \code{pls} package.
+}
+\details{
 ROSA is an opportunistic method sequentially selecting components from whichever block explains
 the response most effectively. It can be formulated as a PLS model on concatenated input block with block
 selection per component. This implementation adds several options that are not described in the literature.
@@ -74,4 +77,5 @@ Liland, K.H., Næs, T., and Indahl, U.G. (2016). ROSA - a fast extension of part
 }
 \seealso{
 Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+Common functions for computation and extraction of results and plotting are found in \code{\link{rosa_results}} and \code{\link{rosa_plots}}, respectively.
 }

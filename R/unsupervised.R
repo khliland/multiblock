@@ -36,6 +36,7 @@
 #' can.statis <- statis(candyList)
 #' plot(can.statis$statis)
 #' @seealso Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+#' Common functions for computation and extraction of results and plotting are found in \code{\link{multiblock_results}} and \code{\link{multiblock_plots}}, respectively.
 #
 # Include also Penalized Exponential SCA (SLIDE, penalty-based)?????????
 # 
@@ -48,7 +49,10 @@ NULL
 #' @param samplelinked \code{character/logical} indicating if blocks are linked by samples (TRUE) or variables (FALSE). Using 'auto' (default), this will be determined automatically.
 #' @param ... additional arguments (not used).
 #' 
-#' @description SCA, in its original variable-linked version, calculates common loadings and block-wise
+#' @description This is a basic implementation of the SCA-P algorithm (least restricted SCA) with support for both
+#' sample- and variable-linked modes.
+#' 
+#' @details SCA, in its original variable-linked version, calculates common loadings and block-wise
 #' scores. There are many possible constraints and specialisations. This implementations uses
 #' PCA as the backbone, thus resulting in deterministic, ordered components. A parameter controls
 #' the linking mode, but if left untouched an attempt is made at automatically determining
@@ -72,6 +76,7 @@ NULL
 #' pot.sca
 #'
 #' @seealso Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+#' Common functions for computation and extraction of results and plotting are found in \code{\link{multiblock_results}} and \code{\link{multiblock_plots}}, respectively.
 #' @export
 sca <- function(X, ncomp=2, scale=FALSE, samplelinked = 'auto', ...){
   # SVD/PCA based SVD-P with block-centring (and global scaling)
@@ -157,7 +162,10 @@ sca <- function(X, ncomp=2, scale=FALSE, samplelinked = 'auto', ...){
 #' @param corrs \code{logical} indicating if correlations should be calculated for RGCCA based approach.
 #' @param ... additional arguments for RGCCA approach.
 #' 
-#' @description GCA is a generalisation of Canonical Correlation Analysis to handle three or more
+#' @description This is an interface to both SVD-based (default) and RGCCA-based GCA (wrapping the
+#' \code{RGCCA::rgcca} function)
+#' 
+#' @details GCA is a generalisation of Canonical Correlation Analysis to handle three or more
 #' blocks. There are several ways to generalise, and two of these are available through \code{gca}.
 #' The default is an SVD based approach estimating a common subspace and measuring mean squared
 #' correlation to this. An alternative approach is available through RGCCA.
@@ -175,6 +183,7 @@ sca <- function(X, ncomp=2, scale=FALSE, samplelinked = 'auto', ...){
 #' plot(scores(pot.gca), labels="names")
 #'
 #' @seealso Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+#' Common functions for computation and extraction of results and plotting are found in \code{\link{multiblock_results}} and \code{\link{multiblock_plots}}, respectively.
 #' @export
 gca <- function(X, ncomp=2, svd=TRUE, tol=10^-12, corrs=TRUE, ...){
   if(svd){
@@ -262,7 +271,9 @@ gca.svd <- function(X, tol=10^-12){
 #' @param graph \code{logical} indicating if decomposition should be plotted.
 #' @param ... additional arguments for RGCCA approach.
 #' 
-#' @description GPA is a generalisation of Procrustes analysis, where one matrix is scaled and 
+#' @description This is a wrapper for the \code{FactoMineR::GPA} function for computing GPA.
+#' 
+#' @details GPA is a generalisation of Procrustes analysis, where one matrix is scaled and 
 #' rotated to be as similar as possible to another one. Through the generalisation, individual
 #' scaling and rotation of each input matrix is performed against a common
 #' representation which is estimated in an iterative manner.
@@ -278,6 +289,7 @@ gca.svd <- function(X, tol=10^-12){
 #' plot(scores(pot.gpa), labels="names")
 #'
 #' @seealso Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+#' Common functions for computation and extraction of results and plotting are found in \code{\link{multiblock_results}} and \code{\link{multiblock_plots}}, respectively.
 #' @export
 gpa <- function(X, graph = FALSE, ...){
   Xcat <- as.data.frame(do.call(cbind,X))
@@ -313,7 +325,9 @@ gpa <- function(X, graph = FALSE, ...){
 #' @param graph \code{logical} indicating if decomposition should be plotted.
 #' @param ... additional arguments for RGCCA approach.
 #' 
-#' @description MFA is a methods typically used to compare several equally sized matrices. It is
+#' @description This is a wrapper for the \code{FactoMineR::MFA} function for computing MFA.
+#' 
+#' @details MFA is a methods typically used to compare several equally sized matrices. It is
 #' often used in sensory analyses, where matrices consist of sensory characteristics and products,
 #' and each assessor generates one matrix each. In its basic form, MFA scales all matrices by their
 #' largest eigenvalue, concatenates them and performs PCA on the result. There are several
@@ -333,6 +347,7 @@ gpa <- function(X, graph = FALSE, ...){
 #' }
 #'
 #' @seealso Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+#' Common functions for computation and extraction of results and plotting are found in \code{\link{multiblock_results}} and \code{\link{multiblock_plots}}, respectively.
 #' @export
 mfa <- function(X, type = rep("c", length(X)), graph = FALSE, ...){
   ret <- FactoMineR::MFA(as.data.frame(do.call(cbind,X)), unlist(lapply(X,ncol)), type = type, graph = graph, ...)
@@ -371,7 +386,9 @@ mfa <- function(X, type = rep("c", length(X)), graph = FALSE, ...){
 #' @return \code{multiblock} object including relevant scores and loadings.
 #' 
 #' @description PCA-GCA is a methods which aims at estimating subspaces of common, local and
-#' distinct variation from two or more blocks. The name comes from the process of first applying
+#' distinct variation from two or more blocks. 
+#' 
+#' @details The name PCA-GCA comes from the process of first applying
 #' PCA to each block, then using GCA to estimate local and common components, and finally
 #' orthogonalising the block-wise scores on the local/common ones and re-estimating these to
 #' obtain distinct components. The procedure is highly similar to the supervised method
@@ -386,6 +403,7 @@ mfa <- function(X, type = rep("c", length(X)), graph = FALSE, ...){
 #' plot(scores(pot.pcagca, block=2), comps=1, labels="names")
 #'
 #' @seealso Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+#' Common functions for computation and extraction of results and plotting are found in \code{\link{multiblock_results}} and \code{\link{multiblock_plots}}, respectively.
 #' @export
 pcagca <- function(X, commons=2, auto=TRUE, auto.par=list(explVarLim=40, rLim=0.8),
                    manual.par=list(ncomp=0, ncommon=0), tol=10^-12){
@@ -525,7 +543,9 @@ pcagca <- function(X, commons=2, auto=TRUE, auto.par=list(explVarLim=40, rLim=0.
 #' 
 #' @return \code{multiblock} object including relevant scores and loadings.
 #' 
-#' @description DISCO is a restriction of SCA where Alternating Least Squares is used for
+#' @description This is a wrapper for the \code{RegularizedSCA::DISCOsca} function for computing DISCO.
+#' 
+#' @details DISCO is a restriction of SCA where Alternating Least Squares is used for
 #' estimation of loadings and scores. The loadings (in variable linked mode) are filled with 
 #' zeros for each iteration in a pattern forcing distinct, local and common components.
 #' When used in sample linked mode and only selecting distinct components, it shares a 
@@ -584,7 +604,9 @@ disco <- function(X, ncomp = 2, ...){
 #' @param verbose \code{logical} indicating if diagnostic information should be printed.
 #' @param ... additional arguments for RGCCA.
 #' 
-#' @description HPCA is a hierarchical PCA analysis which combines two or more blocks
+#' @description This is a wrapper for the \code{RGCCA::rgcca} function for computing HPCA.
+#' 
+#' @details HPCA is a hierarchical PCA analysis which combines two or more blocks
 #' into a two-level decomposition with block-wise loadings and scores and superlevel
 #' common loadings and scores. The method is closely related to the supervised method MB-PLS
 #' in structure.
@@ -600,6 +622,7 @@ disco <- function(X, ncomp = 2, ...){
 #' plot(scores(pot.hpca), labels="names")
 #'
 #' @seealso Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+#' Common functions for computation and extraction of results and plotting are found in \code{\link{multiblock_results}} and \code{\link{multiblock_plots}}, respectively.
 #' @export
 hpca <- function(X, ncomp=2, scale=FALSE, verbose=FALSE, ...){
   n_block <- length(X)
@@ -641,7 +664,9 @@ hpca <- function(X, ncomp=2, scale=FALSE, verbose=FALSE, ...){
 #' 
 #' @return \code{multiblock} object including relevant scores and loadings.
 #' 
-#' @description MCOA resembles GCA and MFA in that it creates a set of reference scores, for which each
+#' @description This is a wrapper for the \code{RGCCA::rgcca} function for computing MCOA.
+#' 
+#' @details MCOA resembles GCA and MFA in that it creates a set of reference scores, for which each
 #' block's individual scores should correlate maximally too, but also the variance within
 #' each block should be taken into account. A single component solution is equivalent to a
 #' PCA on concatenated blocks scaled by the so called inverse inertia.
@@ -657,6 +682,7 @@ hpca <- function(X, ncomp=2, scale=FALSE, verbose=FALSE, ...){
 #' plot(scores(pot.mcoa), labels="names")
 #'
 #' @seealso Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+#' Common functions for computation and extraction of results and plotting are found in \code{\link{multiblock_results}} and \code{\link{multiblock_plots}}, respectively.
 #' @export
 mcoa <- function(X, ncomp=2, scale=FALSE, verbose=FALSE, ...){
   n_block <- length(X)
@@ -696,7 +722,9 @@ mcoa <- function(X, ncomp=2, scale=FALSE, verbose=FALSE, ...){
 #' 
 #' @return \code{multiblock} object including relevant scores and loadings.
 #' 
-#' @description Jive performs a decomposition of the variation in two or more blocks into
+#' @description This is a wrapper for the \code{r.jive::jive} function for computing JIVE.
+#' 
+#' @details Jive performs a decomposition of the variation in two or more blocks into
 #' low-dimensional representations of individual and joint variation plus residual variation.
 #' 
 #' @references Lock, E., Hoadley, K., Marron, J., and Nobel, A. (2013) Joint and individual variation explained (JIVE) for integrated analysis of multiple data types. Ann Appl Stat, 7 (1), 523–542.
@@ -724,7 +752,9 @@ jive <- function(X, ...){
 #' 
 #' @return \code{multiblock} object including relevant scores and loadings.
 #' 
-#' @description STATIS is a method, related to MFA, for analysing two or more blocks. It also
+#' @description This is a wrapper for the \code{ade4::statis} function for computing STATIS.
+#' 
+#' @details STATIS is a method, related to MFA, for analysing two or more blocks. It also
 #' decomposes the data into a low-dimensional subspace but uses a different scaling of the
 #' individual blocks.
 #' 
@@ -737,6 +767,7 @@ jive <- function(X, ...){
 #' plot(scores(can.statis), labels="names")
 #'
 #' @seealso Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+#' Common functions for computation and extraction of results and plotting are found in \code{\link{multiblock_results}} and \code{\link{multiblock_plots}}, respectively.
 #' @export
 statis <- function(X, ncomp = 3, scannf = FALSE, tol = 1e-07, ...){
   X_frame  <- as.data.frame(do.call(rbind, X))
@@ -767,7 +798,9 @@ statis <- function(X, ncomp = 3, scannf = FALSE, tol = 1e-07, ...){
 #' 
 #' @return \code{multiblock} object including relevant scores and loadings.
 #' 
-#' @description HOGSVD is a generalisation of SVD to two or more blocks. It finds a common set
+#' @description This is a simple implementation for computing HOGSVD
+#' 
+#' @details HOGSVD is a generalisation of SVD to two or more blocks. It finds a common set
 #' of loadings across blocks and individual sets of scores per block.
 #' 
 #' @references Ponnapalli, S. P., Saunders, M. A., Van Loan, C. F., & Alter, O. (2011). A higher-order generalized singular value decomposition for comparison of global mRNA expression from multiple organisms. PloS one, 6(12), e28072.
@@ -779,6 +812,7 @@ statis <- function(X, ncomp = 3, scannf = FALSE, tol = 1e-07, ...){
 #' scoreplot(can.hogsvd, block=1, labels="names")
 #' 
 #' @seealso Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
+#' Common functions for computation and extraction of results and plotting are found in \code{\link{multiblock_results}} and \code{\link{multiblock_plots}}, respectively.
 #' @export
 hogsvd  <- function(X){
   # Assumes equal number of variables

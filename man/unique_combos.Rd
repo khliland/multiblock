@@ -21,6 +21,11 @@ Compute a list of all possible block combinations where
 the number of blocks in each combination is limited by parameters
 \code{min_level} and \code{max_level}.
 }
+\details{
+This function is used for minimal redundancy implementations of
+\code{\link{rosa}} and \code{\link{sopls}} and for lookups into computed
+components.
+}
 \examples{
 unique_combos(3, 2)
 
