@@ -40,11 +40,7 @@
 
 
 <meta property="og:title" content="Distinctive and Common Components with SCA - DISCO — disco" />
-<meta property="og:description" content="DISCO is a restriction of SCA where Alternating Least Squares is used for
-estimation of loadings and scores. The loadings (in variable linked mode) are filled with
-zeros for each iteration in a pattern forcing distinct, local and common components.
-When used in sample linked mode and only selecting distinct components, it shares a
-resemblance to SO-PLS, only in an unsupervised setting." />
+<meta property="og:description" content="This is a wrapper for the RegularizedSCA::DISCOsca function for computing DISCO." />
 
 
 
@@ -76,7 +72,7 @@ resemblance to SO-PLS, only in an unsupervised setting." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">multiblock</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.0</span>
       </span>
     </div>
 
@@ -145,11 +141,7 @@ resemblance to SO-PLS, only in an unsupervised setting." />
     </div>
 
     <div class="ref-description">
-    <p>DISCO is a restriction of SCA where Alternating Least Squares is used for
-estimation of loadings and scores. The loadings (in variable linked mode) are filled with
-zeros for each iteration in a pattern forcing distinct, local and common components.
-When used in sample linked mode and only selecting distinct components, it shares a
-resemblance to SO-PLS, only in an unsupervised setting.</p>
+    <p>This is a wrapper for the <code><a href='https://rdrr.io/pkg/RegularizedSCA/man/DISCOsca.html'>RegularizedSCA::DISCOsca</a></code> function for computing DISCO.</p>
     </div>
 
     <pre class="usage"><span class='fu'>disco</span><span class='op'>(</span><span class='va'>X</span>, ncomp <span class='op'>=</span> <span class='fl'>2</span>, <span class='va'>...</span><span class='op'>)</span></pre>
@@ -174,6 +166,13 @@ resemblance to SO-PLS, only in an unsupervised setting.</p>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p><code>multiblock</code> object including relevant scores and loadings.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>DISCO is a restriction of SCA where Alternating Least Squares is used for
+estimation of loadings and scores. The loadings (in variable linked mode) are filled with
+zeros for each iteration in a pattern forcing distinct, local and common components.
+When used in sample linked mode and only selecting distinct components, it shares a
+resemblance to SO-PLS, only in an unsupervised setting.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Schouteden, M., Van Deun, K., Wilderjans, T. F., &amp; Van Mechelen, I. (2014). Performing DISCO-SCA to search for distinctive and common information in linked data. Behavior research methods, 46(2), 576-587.</p>

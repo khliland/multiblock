@@ -40,9 +40,7 @@
 
 
 <meta property="og:title" content="Canonical Correlation Analysis - CCA — cca" />
-<meta property="og:description" content="CCA is a method which maximises correlation between linear combinations of the columns of
-two blocks, i.e. max(cor(X1 x a, X2 x b)). This is done sequentially with deflation in between, such
-that a sequence of correlations and weight vectors a and b are associated with a pair of matrices." />
+<meta property="og:description" content="This is a wrapper for the stats::cancor function for computing CCA." />
 
 
 
@@ -74,7 +72,7 @@ that a sequence of correlations and weight vectors a and b are associated with a
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">multiblock</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.0</span>
       </span>
     </div>
 
@@ -143,9 +141,7 @@ that a sequence of correlations and weight vectors a and b are associated with a
     </div>
 
     <div class="ref-description">
-    <p>CCA is a method which maximises correlation between linear combinations of the columns of
-two blocks, i.e. max(cor(X1 x a, X2 x b)). This is done sequentially with deflation in between, such
-that a sequence of correlations and weight vectors a and b are associated with a pair of matrices.</p>
+    <p>This is a wrapper for the <code><a href='https://rdrr.io/r/stats/cancor.html'>stats::cancor</a></code> function for computing CCA.</p>
     </div>
 
     <pre class="usage"><span class='fu'>cca</span><span class='op'>(</span><span class='va'>X</span><span class='op'>)</span></pre>
@@ -162,12 +158,18 @@ that a sequence of correlations and weight vectors a and b are associated with a
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p><code>multiblock</code> object with associated with printing, scores, loadings, ...</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>CCA is a method which maximises correlation between linear combinations of the columns of
+two blocks, i.e. max(cor(X1 x a, X2 x b)). This is done sequentially with deflation in between, such
+that a sequence of correlations and weight vectors a and b are associated with a pair of matrices.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Hotelling, H. (1936) Relations between two sets of variates. Biometrika, 28, 321–377.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Overviews of available methods, <code><a href='multiblock.html'>multiblock</a></code>, and methods organised by main structure: <code><a href='basic.html'>basic</a></code>, <code><a href='unsupervised.html'>unsupervised</a></code>, <code><a href='asca.html'>asca</a></code>, <code><a href='supervised.html'>supervised</a></code> and <code><a href='complex.html'>complex</a></code>.</p></div>
+    <div class='dont-index'><p>Overviews of available methods, <code><a href='multiblock.html'>multiblock</a></code>, and methods organised by main structure: <code><a href='basic.html'>basic</a></code>, <code><a href='unsupervised.html'>unsupervised</a></code>, <code><a href='asca.html'>asca</a></code>, <code><a href='supervised.html'>supervised</a></code> and <code><a href='complex.html'>complex</a></code>.
+Common functions for computation and extraction of results and plotting are found in <code><a href='multiblock_results.html'>multiblock_results</a></code> and <code><a href='multiblock_plots.html'>multiblock_plots</a></code>, respectively.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>potato</span><span class='op'>)</span>

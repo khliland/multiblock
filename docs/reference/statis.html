@@ -40,9 +40,7 @@
 
 
 <meta property="og:title" content="Structuration des Tableaux à Trois Indices de la Statistique - STATIS — statis" />
-<meta property="og:description" content="STATIS is a method, related to MFA, for analysing two or more blocks. It also
-decomposes the data into a low-dimensional subspace but uses a different scaling of the
-individual blocks." />
+<meta property="og:description" content="This is a wrapper for the ade4::statis function for computing STATIS." />
 
 
 
@@ -74,7 +72,7 @@ individual blocks." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">multiblock</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.0</span>
       </span>
     </div>
 
@@ -143,9 +141,7 @@ individual blocks." />
     </div>
 
     <div class="ref-description">
-    <p>STATIS is a method, related to MFA, for analysing two or more blocks. It also
-decomposes the data into a low-dimensional subspace but uses a different scaling of the
-individual blocks.</p>
+    <p>This is a wrapper for the <code><a href='https://rdrr.io/pkg/ade4/man/statis.html'>ade4::statis</a></code> function for computing STATIS.</p>
     </div>
 
     <pre class="usage"><span class='fu'>statis</span><span class='op'>(</span><span class='va'>X</span>, ncomp <span class='op'>=</span> <span class='fl'>3</span>, scannf <span class='op'>=</span> <span class='cn'>FALSE</span>, tol <span class='op'>=</span> <span class='fl'>1e-07</span>, <span class='va'>...</span><span class='op'>)</span></pre>
@@ -178,12 +174,18 @@ individual blocks.</p>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p><code>multiblock</code> object including relevant scores and loadings.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>STATIS is a method, related to MFA, for analysing two or more blocks. It also
+decomposes the data into a low-dimensional subspace but uses a different scaling of the
+individual blocks.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Lavit, C.; Escoufier, Y.; Sabatier, R.; Traissac, P. (1994). The ACT (STATIS method). Computational Statistics &amp; Data Analysis. 18: 97</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Overviews of available methods, <code><a href='multiblock.html'>multiblock</a></code>, and methods organised by main structure: <code><a href='basic.html'>basic</a></code>, <code><a href='unsupervised.html'>unsupervised</a></code>, <code><a href='asca.html'>asca</a></code>, <code><a href='supervised.html'>supervised</a></code> and <code><a href='complex.html'>complex</a></code>.</p></div>
+    <div class='dont-index'><p>Overviews of available methods, <code><a href='multiblock.html'>multiblock</a></code>, and methods organised by main structure: <code><a href='basic.html'>basic</a></code>, <code><a href='unsupervised.html'>unsupervised</a></code>, <code><a href='asca.html'>asca</a></code>, <code><a href='supervised.html'>supervised</a></code> and <code><a href='complex.html'>complex</a></code>.
+Common functions for computation and extraction of results and plotting are found in <code><a href='multiblock_results.html'>multiblock_results</a></code> and <code><a href='multiblock_plots.html'>multiblock_plots</a></code>, respectively.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>candies</span><span class='op'>)</span>

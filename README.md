@@ -3,9 +3,10 @@
 <!-- badges: start -->
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-blue.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![CRAN Status](https://www.r-pkg.org/badges/version/multiblock)](https://cran.r-project.org/package=multiblock)
-[![R-CMD-check](https://github.com/khliland/multiblock/workflows/check-standard/badge.svg)](https://github.com/khliland/multiblock/actions)
 <!-- badges: end -->
 
+<!-- A badge for later?: [![R-CMD-check](https://github.com/khliland/multiblock/workflows/check-standard/badge.svg)](https://github.com/khliland/multiblock/actions) -->
+ 
 ## Installation
 
 ``` r
@@ -22,7 +23,7 @@ This package contains a large variety of the methods described in Age K. Smilde,
 _Multiblock Data Fusion in Statistics and Machine Learning_  
  _- Applications in the Natural and Life Sciences_ .  
 
-The book is in preparation and its title may be subject to adjustments. Submission to Wiley for publication is planned for September 2021.
+Submitted to Wiley September 2021 for publication.
 
 ## Contents
 

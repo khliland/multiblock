@@ -113,7 +113,7 @@ pred.endo.X1 <- predict(lp.endo, X2new = X2, X3new = X3)
 ## L-PLS cross-validation
 
 Cross-validation comes with choices of directions when applying this to L-PLS since we have both sample
-and variable links. The cross-validation routines compute RMSECV values and does cross-validated predictions.
+and variable links. The cross-validation routines compute RMSECV values and perform cross-validated predictions.
 
 ```{r}
 # LOO cross-validation horizontally

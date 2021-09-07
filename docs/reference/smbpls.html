@@ -41,12 +41,7 @@
 
 <meta property="og:title" content="Sparse Multiblock Partial Least Squares - sMB-PLS — smbpls" />
 <meta property="og:description" content="sMB-PLS is an adaptation of MB-PLS (mbpls) that enforces sparseness in loading weights
-when computing PLS components in the global model. Two versions are supplied: Soft-Threshold PLS, also
-known as Sparse PLS, and Truncation PLS. The former uses L1 shrinkage of loading weights, while the latter
-comes in two flavours, both estimating inliers and outliers. The &quot;Lenth&quot; method uses asymmetric confidence
-intervals around the median of a loading weigh vector to estimate inliers. The &quot;quantile&quot; method uses
-a quantile plot approach to estimate outliers as deviations from the estimated quantile line. As with
-ordinary MB-PLS scaled input blocks (1/sqrt(ncol)) are used." />
+when computing PLS components in the global model." />
 
 
 
@@ -78,7 +73,7 @@ ordinary MB-PLS scaled input blocks (1/sqrt(ncol)) are used." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">multiblock</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.0</span>
       </span>
     </div>
 
@@ -148,12 +143,7 @@ ordinary MB-PLS scaled input blocks (1/sqrt(ncol)) are used." />
 
     <div class="ref-description">
     <p>sMB-PLS is an adaptation of MB-PLS (<code><a href='mbpls.html'>mbpls</a></code>) that enforces sparseness in loading weights
-when computing PLS components in the global model. Two versions are supplied: Soft-Threshold PLS, also
-known as Sparse PLS, and Truncation PLS. The former uses L1 shrinkage of loading weights, while the latter
-comes in two flavours, both estimating inliers and outliers. The "Lenth" method uses asymmetric confidence
-intervals around the median of a loading weigh vector to estimate inliers. The "quantile" method uses
-a quantile plot approach to estimate outliers as deviations from the estimated quantile line. As with
-ordinary MB-PLS scaled input blocks (1/sqrt(ncol)) are used.</p>
+when computing PLS components in the global model.</p>
     </div>
 
     <pre class="usage"><span class='fu'>smbpls</span><span class='op'>(</span>
@@ -210,6 +200,14 @@ or quantile in "quantile plot" approach. Default = 0.95.</p></td>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p><code>mbpls</code> object containing the underlying <code>pls</code> object, with all its result and plot possibilities plus block-wise loadings, loading weights and scores.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>Two versions of sparseness are supplied: Soft-Threshold PLS, also
+known as Sparse PLS, and Truncation PLS. The former uses L1 shrinkage of loading weights, while the latter
+comes in two flavours, both estimating inliers and outliers. The "Lenth" method uses asymmetric confidence
+intervals around the median of a loading weigh vector to estimate inliers. The "quantile" method uses
+a quantile plot approach to estimate outliers as deviations from the estimated quantile line. As with
+ordinary MB-PLS scaled input blocks (1/sqrt(ncol)) are used.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     
@@ -232,7 +230,7 @@ or quantile in "quantile plot" approach. Default = 0.95.</p></td>
 <span class='va'>tmb</span> <span class='op'>&lt;-</span> <span class='fu'>smbpls</span><span class='op'>(</span><span class='va'>potato</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'Chemical'</span>,<span class='st'>'Compression'</span><span class='op'>)</span><span class='op'>]</span>, <span class='va'>potato</span><span class='op'>[[</span><span class='st'>'Sensory'</span><span class='op'>]</span><span class='op'>]</span>, ncomp <span class='op'>=</span> <span class='fl'>5</span>, 
               truncation <span class='op'>=</span> <span class='st'>"Lenth"</span>, trunc.width <span class='op'>=</span> <span class='fl'>0.6</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/pkg/pls/man/scoreplot.html'>scoreplot</a></span><span class='op'>(</span><span class='va'>tmb</span>, labels<span class='op'>=</span><span class='st'>"names"</span><span class='op'>)</span> <span class='co'># Exploiting mvr object structure from pls package</span>
-</div><div class='img'><img src='smbpls-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='multiblock_object.html'>loadingweightplot</a></span><span class='op'>(</span><span class='va'>tmb</span>, labels<span class='op'>=</span><span class='st'>"names"</span><span class='op'>)</span>
+</div><div class='img'><img src='smbpls-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='multiblock_plots.html'>loadingweightplot</a></span><span class='op'>(</span><span class='va'>tmb</span>, labels<span class='op'>=</span><span class='st'>"names"</span><span class='op'>)</span>
 </div><div class='img'><img src='smbpls-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Soft-Threshold / Sparse MB-PLS </span>
 <span class='co'># Loading weights are subtracted by 60% of maximum value.</span>
@@ -243,7 +241,7 @@ or quantile in "quantile plot" approach. Default = 0.95.</p></td>
 #&gt; 
 #&gt; Call:
 #&gt; smbpls(X = potato[c("Chemical", "Compression")], Y = potato[["Sensory"]],     ncomp = 5, shrink = 0.6)</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/pls/man/scoreplot.html'>scoreplot</a></span><span class='op'>(</span><span class='va'>smb</span>, labels<span class='op'>=</span><span class='st'>"names"</span><span class='op'>)</span> <span class='co'># Exploiting mvr object structure from pls package</span>
-</div><div class='img'><img src='smbpls-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='multiblock_object.html'>loadingweightplot</a></span><span class='op'>(</span><span class='va'>smb</span>, labels<span class='op'>=</span><span class='st'>"names"</span><span class='op'>)</span>
+</div><div class='img'><img src='smbpls-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='multiblock_plots.html'>loadingweightplot</a></span><span class='op'>(</span><span class='va'>smb</span>, labels<span class='op'>=</span><span class='st'>"names"</span><span class='op'>)</span>
 </div><div class='img'><img src='smbpls-4.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

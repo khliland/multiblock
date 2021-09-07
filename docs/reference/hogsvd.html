@@ -40,8 +40,7 @@
 
 
 <meta property="og:title" content="Higher Order Generalized SVD - HOGSVD — hogsvd" />
-<meta property="og:description" content="HOGSVD is a generalisation of SVD to two or more blocks. It finds a common set
-of loadings across blocks and individual sets of scores per block." />
+<meta property="og:description" content="This is a simple implementation for computing HOGSVD" />
 
 
 
@@ -73,7 +72,7 @@ of loadings across blocks and individual sets of scores per block." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">multiblock</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.0</span>
       </span>
     </div>
 
@@ -142,8 +141,7 @@ of loadings across blocks and individual sets of scores per block." />
     </div>
 
     <div class="ref-description">
-    <p>HOGSVD is a generalisation of SVD to two or more blocks. It finds a common set
-of loadings across blocks and individual sets of scores per block.</p>
+    <p>This is a simple implementation for computing HOGSVD</p>
     </div>
 
     <pre class="usage"><span class='fu'>hogsvd</span><span class='op'>(</span><span class='va'>X</span><span class='op'>)</span></pre>
@@ -160,12 +158,17 @@ of loadings across blocks and individual sets of scores per block.</p>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p><code>multiblock</code> object including relevant scores and loadings.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>HOGSVD is a generalisation of SVD to two or more blocks. It finds a common set
+of loadings across blocks and individual sets of scores per block.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Ponnapalli, S. P., Saunders, M. A., Van Loan, C. F., &amp; Alter, O. (2011). A higher-order generalized singular value decomposition for comparison of global mRNA expression from multiple organisms. PloS one, 6(12), e28072.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Overviews of available methods, <code><a href='multiblock.html'>multiblock</a></code>, and methods organised by main structure: <code><a href='basic.html'>basic</a></code>, <code><a href='unsupervised.html'>unsupervised</a></code>, <code><a href='asca.html'>asca</a></code>, <code><a href='supervised.html'>supervised</a></code> and <code><a href='complex.html'>complex</a></code>.</p></div>
+    <div class='dont-index'><p>Overviews of available methods, <code><a href='multiblock.html'>multiblock</a></code>, and methods organised by main structure: <code><a href='basic.html'>basic</a></code>, <code><a href='unsupervised.html'>unsupervised</a></code>, <code><a href='asca.html'>asca</a></code>, <code><a href='supervised.html'>supervised</a></code> and <code><a href='complex.html'>complex</a></code>.
+Common functions for computation and extraction of results and plotting are found in <code><a href='multiblock_results.html'>multiblock_results</a></code> and <code><a href='multiblock_plots.html'>multiblock_plots</a></code>, respectively.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>candies</span><span class='op'>)</span>

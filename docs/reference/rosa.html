@@ -40,12 +40,7 @@
 
 
 <meta property="og:title" content="Response Oriented Sequential Alternation - ROSA — rosa" />
-<meta property="og:description" content="ROSA is an opportunistic method sequentially selecting components from whichever block explains
-the response most effectively. It can be formulated as a PLS model on concatenated input block with block
-selection per component. This implementation adds several options that are not described in the literature.
-Most importantly, it opens for internal validation in the block selection process, making this more
-robust. In addition it handles design blocks explicitly, enables classification and secondary responses (CPLS),
-and definition of common components." />
+<meta property="og:description" content="Formula based interface to the ROSA algorithm following the style of the pls package." />
 
 
 
@@ -77,7 +72,7 @@ and definition of common components." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">multiblock</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.0</span>
       </span>
     </div>
 
@@ -146,12 +141,7 @@ and definition of common components." />
     </div>
 
     <div class="ref-description">
-    <p>ROSA is an opportunistic method sequentially selecting components from whichever block explains
-the response most effectively. It can be formulated as a PLS model on concatenated input block with block
-selection per component. This implementation adds several options that are not described in the literature.
-Most importantly, it opens for internal validation in the block selection process, making this more
-robust. In addition it handles design blocks explicitly, enables classification and secondary responses (CPLS),
-and definition of common components.</p>
+    <p>Formula based interface to the ROSA algorithm following the style of the <code>pls</code> package.</p>
     </div>
 
     <pre class="usage"><span class='fu'>rosa</span><span class='op'>(</span>
@@ -240,12 +230,21 @@ and definition of common components.</p>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>An object of classes <code>rosa</code> and <code>mvr</code> having several associated printing and plotting methods.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>ROSA is an opportunistic method sequentially selecting components from whichever block explains
+the response most effectively. It can be formulated as a PLS model on concatenated input block with block
+selection per component. This implementation adds several options that are not described in the literature.
+Most importantly, it opens for internal validation in the block selection process, making this more
+robust. In addition it handles design blocks explicitly, enables classification and secondary responses (CPLS),
+and definition of common components.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Liland, K.H., Næs, T., and Indahl, U.G. (2016). ROSA - a fast extension of partial least squares regression for multiblock data analysis. Journal of Chemometrics, 30, 651–662, doi:10.1002/cem.2824.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Overviews of available methods, <code><a href='multiblock.html'>multiblock</a></code>, and methods organised by main structure: <code><a href='basic.html'>basic</a></code>, <code><a href='unsupervised.html'>unsupervised</a></code>, <code><a href='asca.html'>asca</a></code>, <code><a href='supervised.html'>supervised</a></code> and <code><a href='complex.html'>complex</a></code>.</p></div>
+    <div class='dont-index'><p>Overviews of available methods, <code><a href='multiblock.html'>multiblock</a></code>, and methods organised by main structure: <code><a href='basic.html'>basic</a></code>, <code><a href='unsupervised.html'>unsupervised</a></code>, <code><a href='asca.html'>asca</a></code>, <code><a href='supervised.html'>supervised</a></code> and <code><a href='complex.html'>complex</a></code>.
+Common functions for computation and extraction of results and plotting are found in <code><a href='rosa_results.html'>rosa_results</a></code> and <code><a href='rosa_plots.html'>rosa_plots</a></code>, respectively.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>potato</span><span class='op'>)</span>
@@ -259,11 +258,11 @@ and definition of common components.</p>
 #&gt; VALIDATION: RMSEP
 #&gt; Cross-validated using 5 random segments.
 #&gt;        (Intercept)  1 comps  2 comps  3 comps  4 comps  5 comps  6 comps
-#&gt; CV           1.778    1.068   1.0064    1.013   0.8680    1.075    1.208
-#&gt; adjCV        1.778    1.030   0.9657    0.968   0.8353    1.020    1.140
+#&gt; CV           1.778    1.017   0.8809   0.8413   0.7511   0.9024   0.9908
+#&gt; adjCV        1.778    0.981   0.8483   0.8110   0.7329   0.8726   0.9562
 #&gt;        7 comps  8 comps  9 comps  10 comps
-#&gt; CV       1.260    1.237    1.513     1.642
-#&gt; adjCV    1.192    1.185    1.425     1.537
+#&gt; CV       1.049    1.100    1.431     1.657
+#&gt; adjCV    1.019    1.064    1.350     1.558
 #&gt; 
 #&gt; TRAINING: % variance explained
 #&gt;               1 comps  2 comps  3 comps  4 comps  5 comps  6 comps  7 comps

@@ -96,7 +96,7 @@ Sparse MB-PLS is presented briefly using the _potato_ data.
 ## Modelling
 
 A multi-response two-block sMB-PLS model with up to 10 components in total is cross-validated with 10 random segments.
-Here, the Soft-Threshold version is used (Truncation version also available) with parameter _shrink = 0.6_ means
+Here, the Soft-Threshold version is used (Truncation version also available) with parameter _shrink = 0.6_ which means
 the loading weights have 60% of the largest values subtracted before setting negative values to 0.
 
 ```{r}
@@ -143,7 +143,7 @@ summary(so.pot)
 
 ## Måge plot
 
-Full Måge plot for all combinations of components for all blocks. This
+A full Måge plot for all combinations of components for all blocks is produced. This
 can be used for a global search for the best fitting cross-validated model.
 
 Each point in the figure below is accompanied by a sequence of four numbers referring to the number of components used for each of the four blocks. Horizontal location is given by the total number of components used across all blocks, while vertical location indicates validated explained variance in percentage.
@@ -173,7 +173,7 @@ par(old.par)
 
 ## Loadings
 
-One set of loadings is printed and two sets are plotted to show how to select specific components from specific blocks. When extracting or plotting loadings for the second or later blocks, one must specify how many components have been used in the previous block as this will affect the choice of loadings.
+One set of loadings is printed and two sets are plotted to show how to select specific components from specific blocks. When extracting or plotting loadings for the second or later blocks, one must specify how many components have been used in the previous block(s) (_ncomp_) as this will affect the choice of loadings. In addition one can specify which components in the current block should be extracted (_comps_).
 
 ```{r}
 # Display loadings for first block
@@ -219,7 +219,7 @@ predict(so.pot20, testset, comps=c(2,1,2))
 
 ## Validation
 
-Compute validation statistics; explained variance - R$^2$ and Root Mean Squared Error - RMSE(P/CV).
+Compute validation statistics; explained variance - R$^2$, and Root Mean Squared Error - RMSE(P/CV).
 
 ```{r}
 # Cross-validation
@@ -243,9 +243,36 @@ RMSEP(so.pot, 'train', ncomp = c(5,5))
 RMSEP(so.pot20, newdata = testset, ncomp = c(2,1,2))
 ```
 
+## Principal Components of Predictions
+
+A PCA is computed from the cross-validated predictions to get an overview of the SO-PLS model across all involved blocks. The blocks are projected onto the scores to form block-loadings to see how these relate to the solution.
+
+```{r}
+# PCP from so.pot object
+PCP <- pcp(so.pot, c(3,2))
+summary(PCP)
+scoreplot(PCP)
+```
+
+## CVANOVA
+
+A CVANOVA model compares absolute or squared cross-validated residuals from two or more prediction models using ANOVA with _Model_ and _Object_ as effects. Tukey's pair-wise testing is automatically computed in this implementation.
+
+```{r}
+# CVANOVA
+so.pot1 <- sopls(Sensory[,1] ~ Chemical + Compression + NIRraw, data=potato, 
+            ncomp=c(10,10,10), max_comps=10, validation="CV", segments=10)
+cva <- cvanova(so.pot1, "2,1,2")
+summary(cva)
+old.par <- par(mar = c(4,6,4,2))
+plot(cva)
+par(old.par)
+```
+
+
 # Parallel and Orthgonalised Partial Least Squares - PO-PLS
 
-PO-PLS is presented briefly using the _potato_ data. 
+PO-PLS is presented briefly using the _potato_ data. It is a method for separating predictive information into common, local and distinct parts.
 
 ## Modelling
 
@@ -253,7 +280,7 @@ There are many choices
 with regard to numbers of components and possible local and common components.
 Using automatic selection, the user selects the highest number of blocks to 
 combine into local/common components, minimum explained variance and minimum
-squared correlation to the response. Manual selection is limited to setting
+squared correlation to the response. Manual selection can be done by setting
 the number of initial components from the blocks and maximum number of 
 local/common components.
 
@@ -359,7 +386,7 @@ RMSEP(rosT, newdata = testset)
 
 ## Image plots
 
-These are plots for evaluation of the block selection process in ROSA. Correlation plots show how the different candidate scores (one candidate for each block for each component) correlate to the winning block's scores. Residual response plots show how different choices of candidate scores would affect the RMSE of the residual response. One can for instance use these plots decide on a different block selection order than the one proposed automatically by ROSA.
+These are plots for evaluation of the block selection process in ROSA. Correlation plots show how the different candidate scores (one candidate for each block for each component) correlate to the winning block's scores. Residual response plots show how different choices of candidate scores would affect the RMSE of the residual response. One can for instance use these plots to decide on a different block selection order than the one proposed automatically by ROSA.
 
 ```{r}
 # Correlation to winning scores

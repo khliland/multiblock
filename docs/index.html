@@ -5,14 +5,14 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Data Analysis for Multiple Blocks • multiblock</title>
+<title>A Companion Package for the Book "Multiblock Data Fusion in Statistics and Machine Learning" • multiblock</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="bootstrap-toc.css">
 <script src="bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
-<script src="pkgdown.js"></script><meta property="og:title" content="Data Analysis for Multiple Blocks">
-<meta property="og:description" content='Functions and datasets to support Smilde, Næs and Liland 2021: "Multiblock Data Fusion in Statistics and Machine Learning - Applications in the Natural and Life Sciences".'>
+<script src="pkgdown.js"></script><meta property="og:title" content="A Companion Package for the Book " multiblock data fusion in statistics and machine learning>
+<meta property="og:description" content='Functions and datasets to support Smilde, Næs and Liland, "Multiblock Data Fusion in Statistics and Machine Learning - Applications in the Natural and Life Sciences", John Wiley, ISBN 978-1-119-60096-1.'>
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">multiblock</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.0</span>
       </span>
     </div>
 
@@ -98,6 +98,7 @@
 <a href="#multiblock" class="anchor"></a>multiblock</h1></div>
 <!-- badges: start -->
 
+<!-- A badge for later?: [![R-CMD-check](https://github.com/khliland/multiblock/workflows/check-standard/badge.svg)](https://github.com/khliland/multiblock/actions) -->
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
@@ -113,7 +114,7 @@
 </h2>
 <p>This package contains a large variety of the methods described in Age K. Smilde, Tormod Næs and Kristian Hovde Liland’s book:</p>
 <p><em>Multiblock Data Fusion in Statistics and Machine Learning</em><br><em>- Applications in the Natural and Life Sciences</em> .</p>
-<p>The book is in preparation and its title may be subject to adjustments. Submission to Wiley for publication is planned for July 2021.</p>
+<p>Submitted to Wiley September 2021 for publication.</p>
 </div>
 <div id="contents" class="section level2">
 <h2 class="hasAnchor">
@@ -165,7 +166,6 @@
 <ul class="list-unstyled">
 <li><a href="https://www.tidyverse.org/lifecycle/#experimental"><img src="https://img.shields.io/badge/lifecycle-experimental-blue.svg" alt="Lifecycle: experimental"></a></li>
 <li><a href="https://cran.r-project.org/package=multiblock"><img src="https://www.r-pkg.org/badges/version/multiblock" alt="CRAN Status"></a></li>
-<li><a href="https://github.com/khliland/multiblock/actions"><img src="https://github.com/khliland/multiblock/workflows/check-standard/badge.svg" alt="R-CMD-check"></a></li>
 </ul>
 </div>
 </div>

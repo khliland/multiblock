@@ -10,8 +10,15 @@
 \alias{R2.sopls}
 \alias{classify.sopls}
 \alias{RMSEP.sopls}
+\alias{cvanova.sopls}
+\alias{cvanova}
 \alias{classify}
 \alias{pcp}
+\alias{pcp.default}
+\alias{cvanova.default}
+\alias{print.cvanova}
+\alias{summary.cvanova}
+\alias{plot.cvanova}
 \title{Result functions for SO-PLS models}
 \usage{
 \method{predict}{sopls}(
@@ -46,6 +53,20 @@ classify(object, ...)
 pcp(object, ...)
 
 \method{pcp}{sopls}(object, ncomp, ...)
+
+\method{pcp}{default}(object, X, ...)
+
+cvanova(pred, ...)
+
+\method{cvanova}{default}(pred, true, absRes = TRUE, ...)
+
+\method{cvanova}{sopls}(pred, comps, absRes = TRUE, ...)
+
+\method{print}{cvanova}(x, ...)
+
+\method{summary}{cvanova}(object, ...)
+
+\method{plot}{cvanova}(x, ...)
 }
 \arguments{
 \item{object}{A \code{sopls} object.}
@@ -77,6 +98,16 @@ pcp(object, ...)
 \item{estimate}{A \code{character} indicating if 'train', 'CV' or 'test' results should be displayed.}
 
 \item{individual}{A \code{logical} indicating if results for individual responses should be displayed.}
+
+\item{X}{A \code{list} of data blocks.}
+
+\item{pred}{An object holding the CV-predicted values (\code{sopls}, \code{matrix} or \code{list} of vectors)}
+
+\item{true}{A \code{numeric} of true response values for CVANOVA.}
+
+\item{absRes}{A \code{logical} indicating if absolute (TRUE) or squared (FALSE) residuals should be computed.}
+
+\item{comps}{An \code{integer} vector giving the exact components to apply.}
 }
 \value{
 Returns depend on method used, e.g. \code{predict.sopls} returns predicted responses
@@ -106,10 +137,19 @@ R2(mod, ncomp = c(4,1,2))
 print(mod)
 summary(mod)
 
-# Multiresponse for PCP
+# PCP from sopls object
 modMulti <- sopls(Sensory ~ ., data = potato[c(1:3,9)], ncomp = 5, validation = "CV", segment = 5)
 (PCP <- pcp(modMulti, c(2,1,2)))
 scoreplot(PCP)
+
+# PCP from matrices
+preds <- modMulti$validation$Ypred[,,"2,1,2"]
+PCP_default <- pcp(preds, potato[1:3])
+
+# CVANOVA
+modCV <- sopls(Sensory[,1] ~ ., data = potato[c(1:3,9)], ncomp = 5, validation = "CV", segment = 5)
+summary(cva <- cvanova(modCV, "2,1,2"))
+plot(cva)
 
 }
 \references{

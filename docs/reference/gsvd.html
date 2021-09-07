@@ -40,8 +40,7 @@
 
 
 <meta property="og:title" content="Generalised Singular Value Decomposition - GSVD — gsvd" />
-<meta property="og:description" content="GSVD is a generalisation of SVD to two variable-linked matrices where common loadings
-and block-wise scores are estimated." />
+<meta property="og:description" content="This is a wrapper for the geigen::gsvd function for computing GSVD." />
 
 
 
@@ -73,7 +72,7 @@ and block-wise scores are estimated." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">multiblock</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.0</span>
       </span>
     </div>
 
@@ -142,8 +141,7 @@ and block-wise scores are estimated." />
     </div>
 
     <div class="ref-description">
-    <p>GSVD is a generalisation of SVD to two variable-linked matrices where common loadings
-and block-wise scores are estimated.</p>
+    <p>This is a wrapper for the <code><a href='https://rdrr.io/pkg/geigen/man/gsvd.html'>geigen::gsvd</a></code> function for computing GSVD.</p>
     </div>
 
     <pre class="usage"><span class='fu'>gsvd</span><span class='op'>(</span><span class='va'>X</span><span class='op'>)</span></pre>
@@ -160,12 +158,17 @@ and block-wise scores are estimated.</p>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p><code>multiblock</code> object with associated with printing, scores, loadings, ...</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>GSVD is a generalisation of SVD to two variable-linked matrices where common loadings
+and block-wise scores are estimated.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Van Loan, C. (1976) Generalizing the singular value decomposition. SIAM Journal on Numerical Analysis, 13, 76–83.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Overviews of available methods, <code><a href='multiblock.html'>multiblock</a></code>, and methods organised by main structure: <code><a href='basic.html'>basic</a></code>, <code><a href='unsupervised.html'>unsupervised</a></code>, <code><a href='asca.html'>asca</a></code>, <code><a href='supervised.html'>supervised</a></code> and <code><a href='complex.html'>complex</a></code>.</p></div>
+    <div class='dont-index'><p>Overviews of available methods, <code><a href='multiblock.html'>multiblock</a></code>, and methods organised by main structure: <code><a href='basic.html'>basic</a></code>, <code><a href='unsupervised.html'>unsupervised</a></code>, <code><a href='asca.html'>asca</a></code>, <code><a href='supervised.html'>supervised</a></code> and <code><a href='complex.html'>complex</a></code>.
+Common functions for computation and extraction of results and plotting are found in <code><a href='multiblock_results.html'>multiblock_results</a></code> and <code><a href='multiblock_plots.html'>multiblock_plots</a></code>, respectively.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>potato</span><span class='op'>)</span>

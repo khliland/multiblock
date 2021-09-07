@@ -40,10 +40,8 @@
 
 
 <meta property="og:title" content="Generalized Canonical Analysis - GCA — gca" />
-<meta property="og:description" content="GCA is a generalisation of Canonical Correlation Analysis to handle three or more
-blocks. There are several ways to generalise, and two of these are available through gca.
-The default is an SVD based approach estimating a common subspace and measuring mean squared
-correlation to this. An alternative approach is available through RGCCA." />
+<meta property="og:description" content="This is an interface to both SVD-based (default) and RGCCA-based GCA (wrapping the
+RGCCA::rgcca function)" />
 
 
 
@@ -75,7 +73,7 @@ correlation to this. An alternative approach is available through RGCCA." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">multiblock</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.0</span>
       </span>
     </div>
 
@@ -144,10 +142,8 @@ correlation to this. An alternative approach is available through RGCCA." />
     </div>
 
     <div class="ref-description">
-    <p>GCA is a generalisation of Canonical Correlation Analysis to handle three or more
-blocks. There are several ways to generalise, and two of these are available through <code>gca</code>.
-The default is an SVD based approach estimating a common subspace and measuring mean squared
-correlation to this. An alternative approach is available through RGCCA.</p>
+    <p>This is an interface to both SVD-based (default) and RGCCA-based GCA (wrapping the
+<code><a href='https://rdrr.io/pkg/RGCCA/man/rgcca.html'>RGCCA::rgcca</a></code> function)</p>
     </div>
 
     <pre class="usage"><span class='fu'>gca</span><span class='op'>(</span><span class='va'>X</span>, ncomp <span class='op'>=</span> <span class='fl'>2</span>, svd <span class='op'>=</span> <span class='cn'>TRUE</span>, tol <span class='op'>=</span> <span class='fl'>10</span><span class='op'>^</span><span class='op'>-</span><span class='fl'>12</span>, corrs <span class='op'>=</span> <span class='cn'>TRUE</span>, <span class='va'>...</span><span class='op'>)</span></pre>
@@ -184,6 +180,12 @@ correlation to this. An alternative approach is available through RGCCA.</p>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p><code>multiblock</code> object including relevant scores and loadings.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>GCA is a generalisation of Canonical Correlation Analysis to handle three or more
+blocks. There are several ways to generalise, and two of these are available through <code>gca</code>.
+The default is an SVD based approach estimating a common subspace and measuring mean squared
+correlation to this. An alternative approach is available through RGCCA.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     
@@ -194,7 +196,8 @@ correlation to this. An alternative approach is available through RGCCA.</p>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Overviews of available methods, <code><a href='multiblock.html'>multiblock</a></code>, and methods organised by main structure: <code><a href='basic.html'>basic</a></code>, <code><a href='unsupervised.html'>unsupervised</a></code>, <code><a href='asca.html'>asca</a></code>, <code><a href='supervised.html'>supervised</a></code> and <code><a href='complex.html'>complex</a></code>.</p></div>
+    <div class='dont-index'><p>Overviews of available methods, <code><a href='multiblock.html'>multiblock</a></code>, and methods organised by main structure: <code><a href='basic.html'>basic</a></code>, <code><a href='unsupervised.html'>unsupervised</a></code>, <code><a href='asca.html'>asca</a></code>, <code><a href='supervised.html'>supervised</a></code> and <code><a href='complex.html'>complex</a></code>.
+Common functions for computation and extraction of results and plotting are found in <code><a href='multiblock_results.html'>multiblock_results</a></code> and <code><a href='multiblock_plots.html'>multiblock_plots</a></code>, respectively.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>potato</span><span class='op'>)</span>

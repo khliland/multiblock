@@ -1,7 +1,7 @@
 #' @name sopls_results
 #' @title Result functions for SO-PLS models
 #'
-#' @aliases predict.sopls coef.sopls print.sopls summary.sopls pcp.sopls R2.sopls classify.sopls RMSEP.sopls
+#' @aliases predict.sopls coef.sopls print.sopls summary.sopls pcp.sopls R2.sopls classify.sopls RMSEP.sopls cvanova.sopls cvanova
 #' @param object A \code{sopls} object.
 #' @param x A \code{sopls} object.
 #' @param newdata Optional new data with the same types of predictor blocks as the ones used for fitting the object.
@@ -16,6 +16,11 @@
 #' @param LQ A \code{character} indicating if 'max' (maximum score value), 'lda' or 'qda' should be used when classifying.
 #' @param estimate A \code{character} indicating if 'train', 'CV' or 'test' results should be displayed.
 #' @param individual A \code{logical} indicating if results for individual responses should be displayed.
+#' @param X A \code{list} of data blocks.
+#' @param pred An object holding the CV-predicted values (\code{sopls}, \code{matrix} or \code{list} of vectors)
+#' @param true A \code{numeric} of true response values for CVANOVA.
+#' @param absRes A \code{logical} indicating if absolute (TRUE) or squared (FALSE) residuals should be computed.
+#' @param comps An \code{integer} vector giving the exact components to apply.
 #' @param ... Additional arguments. Currently not implemented.
 #'
 #' @return Returns depend on method used, e.g. \code{predict.sopls} returns predicted responses 
@@ -45,13 +50,24 @@
 #' print(mod)
 #' summary(mod)
 #' 
-#' # Multiresponse for PCP
+#' # PCP from sopls object
 #' modMulti <- sopls(Sensory ~ ., data = potato[c(1:3,9)], ncomp = 5, validation = "CV", segment = 5)
 #' (PCP <- pcp(modMulti, c(2,1,2)))
 #' scoreplot(PCP)
 #' 
+#' # PCP from matrices
+#' preds <- modMulti$validation$Ypred[,,"2,1,2"]
+#' PCP_default <- pcp(preds, potato[1:3])
+#' 
+#' # CVANOVA
+#' modCV <- sopls(Sensory[,1] ~ ., data = potato[c(1:3,9)], ncomp = 5, validation = "CV", segment = 5)
+#' summary(cva <- cvanova(modCV, "2,1,2"))
+#' plot(cva)
+#' 
 #' @seealso Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 #' Common functions for plotting are found in \code{\link{sopls_plots}}.
+#' @importFrom mixlm simple.glht cld
+#' @importFrom stats anova lm
 #' @export
 predict.sopls <- function(object, newdata, ncomp = object$ncomp,
                           type = c("response", "scores"), na.action = na.pass, ...){
@@ -347,4 +363,88 @@ pcp.sopls <- function(object, ncomp, ...){
   class(PCP) <- c('multiblock','list')
   return(PCP)
   
+}
+
+#' @rdname sopls_results
+#' @export
+pcp.default <- function(object, X, ...){
+  # Assumes object to be a matrix/data.frame of predictions (possibly CV)
+  PCP <- pca(object, ncomp = min(ncol(object),nrow(object)-1))
+  PCP$loadings <- PCP$loadings * rep(sqrt(colSums(PCP$scores^2)),each=nrow(PCP$loadings))
+  PCP$scores <- PCP$scores / rep(sqrt(colSums(PCP$scores^2)),each=nrow(PCP$scores))
+  PCP$info <- list(method = "Principal Components of Predictions", 
+                   scores = "Scores", loadings = "Loadings",
+                   blockScores = "not used", blockLoadings = "not used")
+  if(!missing(X)){
+    PCP$blockLoadings <- lapply(lapply(X, function(x)x-rep(colMeans(x),each=nrow(x))),function(x)crossprod(x,PCP$scores))
+    PCP$info$blockLoadings <- "Block loadings"
+  }
+  PCP$call <- match.call()
+  class(PCP) <- c('multiblock','list')
+  return(PCP)
+}
+
+#' @rdname sopls_results
+#' @export
+cvanova <- function (pred, ...) {
+  UseMethod("cvanova", pred)
+}
+
+#' @rdname sopls_results
+#' @export
+cvanova.default <- function(pred, true, absRes = TRUE, ...){
+  if(!is.null(dim(true)) && dim(true)[2]>1)
+    stop("'cvanova' only supports single response models")
+  if(inherits(pred, 'list'))
+    pred <- do.call(cbind, pred)
+  modNames <- 1:ncol(pred)
+  if(!is.null(colnames(pred)))
+    modNames <- colnames(pred)
+  DF <- data.frame('Model' = factor(rep(modNames, each=length(true))), 'Object' = factor(1:length(true)), 'Residual' = c(abs(true-pred)))
+  if(!absRes)
+    DF[['Residual']] <- DF[['Residual']]^2
+  mod <- list()
+  mod$lm <- lm(Residual ~ Model + Object, data = DF)
+  mod$anova <- anova(mod$lm)
+  mod$tukey <- simple.glht(mod$lm,'Model')
+  class(mod) <- c('cvanova','list')
+  return(mod)
+}
+
+#' @rdname sopls_results
+#' @export
+cvanova.sopls <- function(pred, comps, absRes = TRUE, ...){
+  if(is.null(pred$validation))
+    stop("The 'sopls' object has been created without validation")
+  if(!is.null(dim(pred$data$Y)) && dim(pred$data$Y)[2]>1)
+    stop("'cvanova' only supports single response models")
+  compSplit <- strsplit(comps, ",")[[1]]
+  nBlock <- length(compSplit)
+  compVec <- character(nBlock)
+  for(i in 1:nBlock){
+    zeros <- rep("0", nBlock-i)
+    compVec[i] <- paste0(c(compSplit[1:i],zeros), collapse = ",")
+  }
+  preds <- pred$validation$Ypred[,1,compVec]
+  trues <- c(pred$data$Y)
+  return(cvanova(preds, trues, absRes))
+}
+
+#' @rdname sopls_results
+#' @export
+print.cvanova <- function(x, ...){
+  print(x$lm)
+}
+
+#' @rdname sopls_results
+#' @export
+summary.cvanova <- function(object, ...){
+  print(object$anova)
+  print(cld(object$tukey))
+}
+
+#' @rdname sopls_results
+#' @export
+plot.cvanova <- function(x, ...){
+  plot(x$tukey)
 }

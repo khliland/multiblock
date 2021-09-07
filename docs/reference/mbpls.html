@@ -40,13 +40,8 @@
 
 
 <meta property="og:title" content="Multiblock Partial Least Squares - MB-PLS — mbpls" />
-<meta property="og:description" content="MB-PLS is the prototypical component based supervised multiblock method.
-It was originally formulated as a two-level method with a block-level and a super-level,
-but it was later discovered that it could be expressed as an ordinary PLS on concatenated
-weighted X blocks followed by a simple loop for calculating block-level loading weights,
-loadings and scores. This implementation uses the plsr function on the
-scaled input blocks (1/sqrt(ncol)) enabling all summaries and plots from the pls
-package." />
+<meta property="og:description" content="A function computing MB-PLS scores, loadings, etc. on the super-level and
+block-level." />
 
 
 
@@ -78,7 +73,7 @@ package." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">multiblock</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.0</span>
       </span>
     </div>
 
@@ -147,13 +142,8 @@ package." />
     </div>
 
     <div class="ref-description">
-    <p>MB-PLS is the prototypical component based supervised multiblock method.
-It was originally formulated as a two-level method with a block-level and a super-level,
-but it was later discovered that it could be expressed as an ordinary PLS on concatenated
-weighted X blocks followed by a simple loop for calculating block-level loading weights,
-loadings and scores. This implementation uses the <code><a href='https://rdrr.io/pkg/pls/man/mvr.html'>plsr</a></code> function on the
-scaled input blocks (1/sqrt(ncol)) enabling all summaries and plots from the <code>pls</code>
-package.</p>
+    <p>A function computing MB-PLS scores, loadings, etc. on the super-level and
+block-level.</p>
     </div>
 
     <pre class="usage"><span class='fu'>mbpls</span><span class='op'>(</span><span class='va'>X</span>, <span class='va'>Y</span>, ncomp <span class='op'>=</span> <span class='fl'>1</span>, scale <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span></pre>
@@ -186,6 +176,15 @@ package.</p>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p><code>mbpls</code> object containing the underlying <code>pls</code> object, with all its result and plot possibilities plus block-wise loadings, loading weights and scores.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>MB-PLS is the prototypical component based supervised multiblock method.
+It was originally formulated as a two-level method with a block-level and a super-level,
+but it was later discovered that it could be expressed as an ordinary PLS on concatenated
+weighted X blocks followed by a simple loop for calculating block-level loading weights,
+loadings and scores. This implementation uses the <code><a href='https://rdrr.io/pkg/pls/man/mvr.html'>plsr</a></code> function on the
+scaled input blocks (1/sqrt(ncol)) enabling all summaries and plots from the <code>pls</code>
+package.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     

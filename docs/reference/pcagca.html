@@ -41,11 +41,7 @@
 
 <meta property="og:title" content="PCA-GCA — pcagca" />
 <meta property="og:description" content="PCA-GCA is a methods which aims at estimating subspaces of common, local and
-distinct variation from two or more blocks. The name comes from the process of first applying
-PCA to each block, then using GCA to estimate local and common components, and finally
-orthogonalising the block-wise scores on the local/common ones and re-estimating these to
-obtain distinct components. The procedure is highly similar to the supervised method
-PO-PLS, where the PCA steps are exchanged with PLS." />
+distinct variation from two or more blocks." />
 
 
 
@@ -77,7 +73,7 @@ PO-PLS, where the PCA steps are exchanged with PLS." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">multiblock</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.0</span>
       </span>
     </div>
 
@@ -147,11 +143,7 @@ PO-PLS, where the PCA steps are exchanged with PLS." />
 
     <div class="ref-description">
     <p>PCA-GCA is a methods which aims at estimating subspaces of common, local and
-distinct variation from two or more blocks. The name comes from the process of first applying
-PCA to each block, then using GCA to estimate local and common components, and finally
-orthogonalising the block-wise scores on the local/common ones and re-estimating these to
-obtain distinct components. The procedure is highly similar to the supervised method
-PO-PLS, where the PCA steps are exchanged with PLS.</p>
+distinct variation from two or more blocks.</p>
     </div>
 
     <pre class="usage"><span class='fu'>pcagca</span><span class='op'>(</span>
@@ -195,12 +187,20 @@ PO-PLS, where the PCA steps are exchanged with PLS.</p>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p><code>multiblock</code> object including relevant scores and loadings.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>The name PCA-GCA comes from the process of first applying
+PCA to each block, then using GCA to estimate local and common components, and finally
+orthogonalising the block-wise scores on the local/common ones and re-estimating these to
+obtain distinct components. The procedure is highly similar to the supervised method
+PO-PLS, where the PCA steps are exchanged with PLS.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Smilde, A., Måge, I., Naes, T., Hankemeier, T.,Lips, M., Kiers, H., Acar, E., and Bro, R.(2017). Common and distinct components in data fusion. Journal of Chemometrics, 31(7), e2900.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Overviews of available methods, <code><a href='multiblock.html'>multiblock</a></code>, and methods organised by main structure: <code><a href='basic.html'>basic</a></code>, <code><a href='unsupervised.html'>unsupervised</a></code>, <code><a href='asca.html'>asca</a></code>, <code><a href='supervised.html'>supervised</a></code> and <code><a href='complex.html'>complex</a></code>.</p></div>
+    <div class='dont-index'><p>Overviews of available methods, <code><a href='multiblock.html'>multiblock</a></code>, and methods organised by main structure: <code><a href='basic.html'>basic</a></code>, <code><a href='unsupervised.html'>unsupervised</a></code>, <code><a href='asca.html'>asca</a></code>, <code><a href='supervised.html'>supervised</a></code> and <code><a href='complex.html'>complex</a></code>.
+Common functions for computation and extraction of results and plotting are found in <code><a href='multiblock_results.html'>multiblock_results</a></code> and <code><a href='multiblock_plots.html'>multiblock_plots</a></code>, respectively.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>potato</span><span class='op'>)</span>
