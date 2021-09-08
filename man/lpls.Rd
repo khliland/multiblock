@@ -55,21 +55,9 @@ main block X1 and the two other blocks X2 and X3.
 The \code{exo_ort} algorithm returns orthogonal scores and should be chosen for visual
 exploration in correlation loading plots. If exo-L-PLS with prediction is the main purpose
 of the model then the non-orthogonal \code{exo} type L-PLS should be chosen for which the
-predict function has prediction implemented. \cr
-\cr
-\code{\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}______N\Sexpr{"\u00A0"}}\cr
-\code{\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}|\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}|}\cr
-\code{\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}|\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}|}\cr
-\code{\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}|\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}X3\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}|}\cr
-\code{\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}|\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}|}\cr
-\code{\Sexpr{"\u00A0"}K|_______|}\cr
-\code{\Sexpr{"\u00A0"}}\cr
-\code{\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}______N\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}________J\Sexpr{"\u00A0"}}\cr
-\code{\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}|\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}|\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}|\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}|}\cr
-\code{\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}|\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}|\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}|\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}|}\cr
-\code{\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}|\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}X1\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}|\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}|\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}X2\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}|}\cr
-\code{\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}|\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}|\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}|\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}|}\cr
-\code{\Sexpr{"\u00A0"}I|_______|\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}I|_________|}\cr
+predict function has prediction implemented.
+
+\figure{LPLS_small.png}{L-PLS diagram}
 }
 \examples{
 # Simulate data set

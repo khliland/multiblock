@@ -1,33 +1,3 @@
-#' @name process
-#' @title Cheese production process data.
-#'
-#' @description A dataset containing process data for 4 connected process (A,B,C,D) stages,
-#' three unconnected inputs (A,B,C) and a set of endpoint qualities (E). 
-#' The stages A, B and C are influencing D and A, B, C and D are influencing E. 
-#' This can be described as a directed acyclic graph (sketched below). \cr
-#' 
-#'\code{\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"} B --- }\cr
-#'\code{\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"} \ \Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\ }\cr
-#'\code{\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"} --+-- \Sexpr{"\u00A0"}| }\cr
-#'\code{\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"} /\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}|\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\| }\cr
-#'\code{\Sexpr{"\u00A0"}\Sexpr{"\u00A0"} A --- D -- E }\cr
-#'\code{\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"} /\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}/ }\cr
-#'\code{\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"} C --- }\cr
-#' 
-#' Subpaths include: ADE, AE, BDE, BE, CDE, and CE, and SO-PLS-PM models model
-#' A+B+C->D and A+B+C+D->E.
-#'
-#' @docType data
-#' @usage data(process)
-#' 
-#' @format A list of matrices having 795 rows and varying numbers of variables:
-#' \describe{
-#'   \item{A}{Process stage A}
-#'   \item{B}{Process stage B}
-#'   ...
-#' }
-NULL
-
 #' @name simulated
 #' @title Data simulated to have certain characteristics.
 #'
@@ -35,13 +5,7 @@ NULL
 #' starting point and D is the end point. This can be described as a directed
 #' acyclic graph (sketched below, moving left->right). \cr
 #' 
-#'\code{\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}C}\cr
-#'\code{\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}/^\ }\cr
-#'\code{\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}/\Sexpr{"\u00A0"}|\Sexpr{"\u00A0"}\ }\cr
-#'\code{\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}A--+->D}\cr
-#'\code{\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\ | /}\cr
-#'\code{\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\|/}\cr
-#'\code{\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}\Sexpr{"\u00A0"}B}\cr
+#' ![](simulated.png "Path-diagram for simulated data")
 #'
 #' Subpaths include: ABD, AD, ABCD, ACD
 #'
@@ -119,6 +83,8 @@ NULL
 #' @description This dataset contains sensory assessment of 21 wines. The assessments are grouped
 #' according to the tasting process and thus have a natural ordering with a all blocks pointing forward
 #' to all remaining blocks in the process.
+#' 
+#' ![](wine.png "Path-diagram for wine data")
 #'
 #' @docType data
 #' @usage data(wine)

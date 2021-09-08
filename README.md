@@ -1,7 +1,7 @@
 # multiblock
 
 <!-- badges: start -->
-[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-blue.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![CRAN Status](https://www.r-pkg.org/badges/version/multiblock)](https://cran.r-project.org/package=multiblock)
 <!-- badges: end -->
 
@@ -34,5 +34,5 @@ Submitted to Wiley September 2021 for publication.
     - ASCA
     - supervised methods
     - methods for complex structures
-- Five different datasets
+- A selection of datasets
 - Common framework and plotting routines
