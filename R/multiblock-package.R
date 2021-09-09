@@ -42,7 +42,6 @@
 #' __Datasets:__
 #' * Sensory assessment of candies (\code{\link{candies}})
 #' * Sensory, rheological, chemical and spectroscopic analysis of potatoes (\code{\link{potato}})
-#' * Cheese production process data (\code{\link{process}})
 #' * Data simulated to have certain characteristics (\code{\link{simulated}})
 #' * Wines of Val de Loire (\code{\link{wine}})
 #' 

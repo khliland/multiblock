@@ -24,7 +24,7 @@
 #' of the model then the non-orthogonal \code{exo} type L-PLS should be chosen for which the 
 #' predict function has prediction implemented.
 #' 
-#' ![](LPLS_small.png "L-PLS diagram")
+#' ![](LPLSsmall.png "L-PLS diagram")
 #'
 #' @author Solve Sæbø (adapted by Kristian Hovde Liland)
 #' 

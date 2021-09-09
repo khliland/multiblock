@@ -57,7 +57,6 @@ A collection of methods for analysis of data sets with more than two blocks of d
 \itemize{
 \item Sensory assessment of candies (\code{\link{candies}})
 \item Sensory, rheological, chemical and spectroscopic analysis of potatoes (\code{\link{potato}})
-\item Cheese production process data (\code{\link{process}})
 \item Data simulated to have certain characteristics (\code{\link{simulated}})
 \item Wines of Val de Loire (\code{\link{wine}})
 }

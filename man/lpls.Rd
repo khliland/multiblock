@@ -57,7 +57,7 @@ exploration in correlation loading plots. If exo-L-PLS with prediction is the ma
 of the model then the non-orthogonal \code{exo} type L-PLS should be chosen for which the
 predict function has prediction implemented.
 
-\figure{LPLS_small.png}{L-PLS diagram}
+\figure{LPLSsmall.png}{L-PLS diagram}
 }
 \examples{
 # Simulate data set
