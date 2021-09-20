@@ -27,7 +27,7 @@
 #' (determine for one block, move to next, etc.).
 #' 
 #' @return An \code{sopls, mvr} object with scores, loadings, etc. 
-#' associated with printing and plotting methods.
+#' associated with printing (\code{\link{sopls_results}}) and plotting methods (\code{\link{sopls_plots}}).
 #' 
 #' @description 
 #' 

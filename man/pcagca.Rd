@@ -27,7 +27,8 @@ pcagca(
 \item{tol}{\code{numeric} tolerance for component inclusion (singular values).}
 }
 \value{
-\code{multiblock} object including relevant scores and loadings.
+\code{multiblock} object including relevant scores and loadings. Relevant plotting functions: \code{\link{multiblock_plots}}
+and result functions: \code{\link{multiblock_results}}.
 }
 \description{
 PCA-GCA is a methods which aims at estimating subspaces of common, local and

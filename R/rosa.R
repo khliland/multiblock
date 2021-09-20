@@ -17,7 +17,7 @@
 #' @param canonical logical indicating if canonical correlation should be use when calculating loading weights (default), enabling B/W maximization, common components, etc. Alternatively (FALSE) a PLS2 strategy, e.g. for spectra response, is used.
 #' @param ... Additional arguments for \code{cvseg} or \code{rosa.fit}
 #'
-#' @return An object of classes \code{rosa} and \code{mvr} having several associated printing and plotting methods.
+#' @return An object of classes \code{rosa} and \code{mvr} having several associated printing (\code{\link{rosa_results}}) and plotting methods (\code{\link{rosa_plots}}).
 #' 
 #' @description Formula based interface to the ROSA algorithm following the style of the \code{pls} package.
 #' 
@@ -34,6 +34,7 @@
 #' @importFrom grDevices rgb
 #' @importFrom graphics axis box lines par points text
 #' @importFrom stats approx coef cor drop.terms fitted formula median model.frame model.matrix model.response na.pass napredict optimize pchisq predict rnorm sd terms update var
+#' 
 #' @export coefplot corrplot cvsegments loadingplot loading.weights loadings predplot scores scoreplot RMSEP validationplot R2 MSEP mvrValstats
 #'
 #' @references Liland, K.H., Næs, T., and Indahl, U.G. (2016). ROSA - a fast extension of partial least squares regression for multiblock data analysis. Journal of Chemometrics, 30, 651–662, doi:10.1002/cem.2824.

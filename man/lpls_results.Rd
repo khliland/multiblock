@@ -84,8 +84,8 @@ lplsCV(object, segments1 = NULL, segments2 = NULL, trace = TRUE)
 \item{trace}{\code{logical} indicating if verbose mode should be selected.}
 }
 \value{
-Nothing for plotting, predicted values for predictions and cross-validation
-metrics for cross-validation.
+Nothing is return for plotting (\code{plot.lpls}), predicted values are returned for predictions (\code{predict.lpls})
+and cross-validation metrics are returned for for cross-validation (\code{lplsCV}).
 }
 \description{
 Correlation loading plot, prediction and cross-validation for L-PLS

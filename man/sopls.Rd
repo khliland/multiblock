@@ -49,7 +49,7 @@ sopls(
 }
 \value{
 An \code{sopls, mvr} object with scores, loadings, etc.
-associated with printing and plotting methods.
+associated with printing (\code{\link{sopls_results}}) and plotting methods (\code{\link{sopls_plots}}).
 }
 \description{
 Function for computing standard SO-PLS based on the interface of the \code{pls} package.

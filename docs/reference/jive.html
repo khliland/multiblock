@@ -161,7 +161,8 @@
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>multiblock</code> object including relevant scores and loadings.</p>
+    <p><code>multiblock</code> object including relevant scores and loadings. Relevant plotting functions: <code><a href='multiblock_plots.html'>multiblock_plots</a></code>
+and result functions: <code><a href='multiblock_results.html'>multiblock_results</a></code>.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Jive performs a decomposition of the variation in two or more blocks into
@@ -174,7 +175,7 @@ low-dimensional representations of individual and joint variation plus residual 
     <div class='dont-index'><p>Overviews of available methods, <code><a href='multiblock.html'>multiblock</a></code>, and methods organised by main structure: <code><a href='basic.html'>basic</a></code>, <code><a href='unsupervised.html'>unsupervised</a></code>, <code><a href='asca.html'>asca</a></code>, <code><a href='supervised.html'>supervised</a></code> and <code><a href='complex.html'>complex</a></code>.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span>  <span class='co'># Too time consuming</span>
+    <pre class="examples"><div class='input'> <span class='co'># Too time consuming for testing</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>candies</span><span class='op'>)</span>
 <span class='va'>candyList</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fu'><a href='https://rdrr.io/r/base/nlevels.html'>nlevels</a></span><span class='op'>(</span><span class='va'>candies</span><span class='op'>$</span><span class='va'>candy</span><span class='op'>)</span>,<span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='va'>candies</span><span class='op'>$</span><span class='va'>assessment</span><span class='op'>[</span><span class='va'>candies</span><span class='op'>$</span><span class='va'>candy</span><span class='op'>==</span><span class='va'>x</span>,<span class='op'>]</span><span class='op'>)</span>
 <span class='va'>can.jive</span>  <span class='op'>&lt;-</span> <span class='fu'>jive</span><span class='op'>(</span><span class='va'>candyList</span><span class='op'>)</span>

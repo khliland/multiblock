@@ -18,7 +18,7 @@ lplsData(I = 30, N = 20, J = 5, K = 6, ncomp = 2)
 \item{ncomp}{\code{numeric} number of latent components}
 }
 \value{
-A \code{list} of three matrices.
+A \code{list} of three matrices with dimensions matching in an L-shape.
 }
 \description{
 Three data blocks are simulated to express covariance in an exo-L-PLS direction (see \code{\link{lpls}}.

@@ -106,6 +106,9 @@ loadingweightplot(object, main = "Loading weights", ...)
 
 \item{ylabs}{\code{character} vector for labelling second set of biplot points (optional).}
 }
+\value{
+These plotting routines only generate plots and return no values.
+}
 \description{
 Plotting procedures for \code{multiblock} objects.
 }

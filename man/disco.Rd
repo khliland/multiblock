@@ -14,7 +14,8 @@ disco(X, ncomp = 2, ...)
 \item{...}{additional arguments (not used).}
 }
 \value{
-\code{multiblock} object including relevant scores and loadings.
+\code{multiblock} object including relevant scores and loadings. Relevant plotting functions: \code{\link{multiblock_plots}}
+and result functions: \code{\link{multiblock_results}}.
 }
 \description{
 This is a wrapper for the \code{RegularizedSCA::DISCOsca} function for computing DISCO.

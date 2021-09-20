@@ -32,6 +32,8 @@
 #' @param xlim \code{numeric} vector of length two, with the x limits of the plot (optional).
 #' @param ... Not implemented.
 #' 
+#' @return These plotting routines only generate plots and return no values.
+#' 
 #' @examples 
 #' data(wine)
 #' sc <- sca(wine[c('Smell at rest', 'View', 'Smell after shaking')], ncomp = 4)

@@ -16,7 +16,8 @@ mbrda(X, Y, ncomp = 1, ...)
 \item{...}{additional arguments to ade4::mbpcaiv.}
 }
 \value{
-\code{mbrda,mvr} object containing elements corresponding to a \code{pls} object, with all its result and plot possibilities plus block-wise loadings, loading weights and scores.
+\code{multiblock, mvr} object with scores, block-scores and block-loading. Relevant plotting functions: \code{\link{multiblock_plots}}
+and result functions: \code{\link{multiblock_results}}.
 }
 \description{
 This is a wrapper for the \code{ade4::mbpcaiv} function for computing mbRDA.

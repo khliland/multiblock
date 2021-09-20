@@ -10,7 +10,7 @@ explvar(object)
 \item{object}{An object fitted using a method from the multiblock package}
 }
 \value{
-Component-wise explained variances for predictors
+A \code{vector} of component-wise explained variances for predictors.
 }
 \description{
 Extraction and/or computation of explained variances for various

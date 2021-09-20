@@ -12,7 +12,8 @@ jive(X, ...)
 \item{...}{additional arguments for \code{r.jive::jive}.}
 }
 \value{
-\code{multiblock} object including relevant scores and loadings.
+\code{multiblock} object including relevant scores and loadings. Relevant plotting functions: \code{\link{multiblock_plots}}
+and result functions: \code{\link{multiblock_results}}.
 }
 \description{
 This is a wrapper for the \code{r.jive::jive} function for computing JIVE.
@@ -22,7 +23,7 @@ Jive performs a decomposition of the variation in two or more blocks into
 low-dimensional representations of individual and joint variation plus residual variation.
 }
 \examples{
-\dontrun{ # Too time consuming
+\donttest{ # Too time consuming for testing
 data(candies)
 candyList <- lapply(1:nlevels(candies$candy),function(x)candies$assessment[candies$candy==x,])
 can.jive  <- jive(candyList)

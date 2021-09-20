@@ -36,7 +36,9 @@ or quantile in "quantile plot" approach. Default = 0.95.}
 \item{...}{additional arguments to pls::plsr.}
 }
 \value{
-\code{mbpls} object containing the underlying \code{pls} object, with all its result and plot possibilities plus block-wise loadings, loading weights and scores.
+\code{multiblock, mvr} object with super-scores, super-loadings, block-scores and block-loading, and the underlying
+\code{mvr} (PLS) object for the super model, with all its result and plot possibilities. Relevant plotting functions: \code{\link{multiblock_plots}}
+and result functions: \code{\link{multiblock_results}}.
 }
 \description{
 sMB-PLS is an adaptation of MB-PLS (\code{\link{mbpls}}) that enforces sparseness in loading weights

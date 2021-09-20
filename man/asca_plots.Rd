@@ -31,7 +31,7 @@
 
 \item{comps}{\code{integer} vector of selected components.}
 
-\item{...}{addtitional arguments to underlying methods.}
+\item{...}{additional arguments to underlying methods.}
 
 \item{pch.scores}{\code{integer} plotting symbol.}
 
@@ -50,6 +50,9 @@
 \item{ylab}{\code{character} y label.}
 
 \item{legendpos}{\code{character} position of legend.}
+}
+\value{
+The plotting routines have no return.
 }
 \description{
 Various plotting procedures for \code{\link{asca}} objects.

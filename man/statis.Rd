@@ -18,7 +18,8 @@ statis(X, ncomp = 3, scannf = FALSE, tol = 1e-07, ...)
 \item{...}{additional arguments (not used).}
 }
 \value{
-\code{multiblock} object including relevant scores and loadings.
+\code{multiblock} object including relevant scores and loadings. Relevant plotting functions: \code{\link{multiblock_plots}}
+and result functions: \code{\link{multiblock_results}}.
 }
 \description{
 This is a wrapper for the \code{ade4::statis} function for computing STATIS.

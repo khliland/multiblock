@@ -26,6 +26,11 @@
 #' 
 #' ![](LPLSsmall.png "L-PLS diagram")
 #'
+#' @return An object of type \code{lpls} and \code{multiblock} containing all results from the L-PLS
+#' analysis. The object type \code{lpls} is associated with functions for correlation loading plots, 
+#' prediction and cross-validation. The type \code{multiblock} is associated with the default functions
+#' for result presentation (\code{\link{multiblock_results}}) and plotting (\code{\link{multiblock_plots}}).
+#' 
 #' @author Solve Sæbø (adapted by Kristian Hovde Liland)
 #' 
 #' @references 
@@ -213,26 +218,30 @@ lpls <- function(X1,X2,X3, ncomp = 2, doublecenter = TRUE, scale = c(FALSE,FALSE
   if(type!="endo"){ 
     B1 <- T31%*%solve(t(P21)%*%T31)%*%t(P1)
     B3 <- T12%*%solve(t(P22)%*%T12)%*%t(P3)
-    options(warn=-1)
+#    options(warn=-1)
+    suppressWarnings({
     R1  <- cor(X1,T21, use="pairwise.complete.obs") 
     R21 <- t(cor(T21,X2, use="pairwise.complete.obs")) 
     R22 <- t(cor(T22,t(X2), use="pairwise.complete.obs"))  
     R3  <- cor(X3,T22, use="pairwise.complete.obs")  
     R2rmean <- cor(rowmX2,T21, use="pairwise.complete.obs")  
     R2cmean <- cor(colmX2,T22, use="pairwise.complete.obs")
-    options(warn=0)
+    })
+#    options(warn=0)
   } else if(type=="endo"){
     V1 <- T11%*%solve(t(P1)%*%T11)
     V3 <- T32%*%solve(t(P3)%*%T32)
     Ca <- V1%*%D%*%t(V3)
-    options(warn=-1)
+#    options(warn=-1)
+    suppressWarnings({
     R1  <- cor(X1,T12, use="pairwise.complete.obs") 
     R21 <- t(cor(T12,X2, use="pairwise.complete.obs")) 
     R22 <- t(cor(T31,t(X2), use="pairwise.complete.obs"))  
     R3  <- cor(X3,T31, use="pairwise.complete.obs")  
     R2rmean <- cor(rowmX2,T12, use="pairwise.complete.obs")  
     R2cmean <- cor(colmX2,T31, use="pairwise.complete.obs")
-    options(warn=0)
+    })
+#    options(warn=0)
   }
   
   res <- list(call=match.call())

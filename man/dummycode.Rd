@@ -14,7 +14,7 @@ dummycode(Y, contrast = "contr.sum", drop = TRUE)
 \item{drop}{\code{logical} indicating if one level should be dropped (default = TRUE).}
 }
 \value{
-\code{matrix} made by dummy-coding input vector.
+\code{matrix} made by dummy-coding the input vector.
 }
 \description{
 Flexible dummy-coding allowing for all R's built-in types of contrasts

@@ -18,7 +18,8 @@ ifa(X, ncomp = 1, scale = FALSE, verbose = FALSE, ...)
 \item{...}{additional arguments to \code{RGCCA::rgcca}.}
 }
 \value{
-\code{multiblock} object with associated with printing, scores, loadings, ...
+\code{multiblock} object with associated with printing, scores, loadings. Relevant plotting functions: \code{\link{multiblock_plots}}
+and result functions: \code{\link{multiblock_results}}.
 }
 \description{
 This is a wrapper for the \code{RGCCA::rgcca} function for computing IFA.

@@ -16,8 +16,11 @@
 #' @param x \code{asca} object.
 #' @param factor \code{integer/character} for selecting a model factor.
 #' @param digits \code{integer} number of digits for printing.
-#' @param ... addtitional arguments to underlying methods.
+#' @param ... additional arguments to underlying methods.
 #'
+#' @return Returns depend on method used, e.g. \code{projections.sopls} returns projected samples, 
+#' \code{scores.sopls} return scores, while print and summary methods return the object invisibly.
+#' 
 #' @references 
 #' * Smilde, A., Jansen, J., Hoefsloot, H., Lamers,R., Van Der Greef, J., and Timmerman, M.(2005). ANOVA-Simultaneous Component Analysis (ASCA): A new tool for analyzing designed metabolomics data. Bioinformatics, 21(13), 3043–3048.
 #' * Liland, K.H., Smilde, A., Marini, F., and Næs,T. (2018). Confidence ellipsoids for ASCA models based on multivariate regression theory. Journal of Chemometrics, 32(e2990), 1–13.

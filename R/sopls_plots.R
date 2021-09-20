@@ -35,7 +35,9 @@
 #'
 #' @seealso Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 #' Common functions for computation and extraction of results are found in \code{\link{sopls_results}}.
-#' @return The functions return whatever the underlying plot function (or identify) returns.
+#' 
+#' #' @return The score and loading functions return scores and loadings, while plot functions have no return (except use of 'identify').
+#' 
 #' @examples
 #' data(potato)
 #' so <- sopls(Sensory ~ Chemical + Compression + NIRraw, data=potato, ncomp=c(5,5,5))

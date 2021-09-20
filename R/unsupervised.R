@@ -58,7 +58,8 @@ NULL
 #' the linking mode, but if left untouched an attempt is made at automatically determining
 #' variable or sample linking.
 #' 
-#' @return \code{multiblock} object including relevant scores and loadings.
+#' @return \code{multiblock} object including relevant scores and loadings. Relevant plotting functions: \code{\link{multiblock_plots}} 
+#' and result functions: \code{\link{multiblock_results}}.
 #' 
 #' @references Levin, J. (1966) Simultaneous factor analysis of several gramian matrices. Psychometrika, 31(3), 413–419.
 #' 
@@ -170,7 +171,8 @@ sca <- function(X, ncomp=2, scale=FALSE, samplelinked = 'auto', ...){
 #' The default is an SVD based approach estimating a common subspace and measuring mean squared
 #' correlation to this. An alternative approach is available through RGCCA.
 #' 
-#' @return \code{multiblock} object including relevant scores and loadings.
+#' @return \code{multiblock} object including relevant scores and loadings. Relevant plotting functions: \code{\link{multiblock_plots}} 
+#' and result functions: \code{\link{multiblock_results}}.
 #' 
 #' @references
 #' * Carroll, J. D. (1968). Generalization of canonical correlation analysis to three or more sets of variables. Proceedings of the American Psychological Association, pages 227-22.
@@ -278,7 +280,8 @@ gca.svd <- function(X, tol=10^-12){
 #' scaling and rotation of each input matrix is performed against a common
 #' representation which is estimated in an iterative manner.
 #' 
-#' @return \code{multiblock} object including relevant scores and loadings.
+#' @return \code{multiblock} object including relevant scores and loadings. Relevant plotting functions: \code{\link{multiblock_plots}} 
+#' and result functions: \code{\link{multiblock_results}}.
 #' 
 #' @references Gower, J. C. (1975). Generalized procrustes analysis. Psychometrika. 40: 33–51.
 #' 
@@ -334,7 +337,8 @@ gpa <- function(X, graph = FALSE, ...){
 #' possibilities for plots and inspections of the model, handling of categorical and continuous
 #' inputs etc. connected to MFA.
 #' 
-#' @return \code{multiblock} object including relevant scores and loadings.
+#' @return \code{multiblock} object including relevant scores and loadings. Relevant plotting functions: \code{\link{multiblock_plots}} 
+#' and result functions: \code{\link{multiblock_results}}.
 #' 
 #' @references Pagès, J. (2005). Collection and analysis of perceived product inter-distances using multiple factor analysis: Application to the study of 10 white wines from the Loire valley. Food Quality and Preference, 16(7), 642–649.
 #' 
@@ -383,7 +387,8 @@ mfa <- function(X, type = rep("c", length(X)), graph = FALSE, ...){
 #' @param manual.par \code{named list} for manual choice of blocks. The list consists of \code{ncomp} which indicates the number of components to extract from each block and \code{ncommon} which is the corresponding for choosing the block combinations (local/common). For the latter, use unique_combos(n_blocks, commons) to see order of local/common blocks. Component numbers will be reduced if simpler models give better predictions. See example.
 #' @param tol \code{numeric} tolerance for component inclusion (singular values).
 #' 
-#' @return \code{multiblock} object including relevant scores and loadings.
+#' @return \code{multiblock} object including relevant scores and loadings. Relevant plotting functions: \code{\link{multiblock_plots}} 
+#' and result functions: \code{\link{multiblock_results}}.
 #' 
 #' @description PCA-GCA is a methods which aims at estimating subspaces of common, local and
 #' distinct variation from two or more blocks. 
@@ -541,7 +546,8 @@ pcagca <- function(X, commons=2, auto=TRUE, auto.par=list(explVarLim=40, rLim=0.
 #' @param ncomp \code{integer} number of components to extract.
 #' @param ... additional arguments (not used).
 #' 
-#' @return \code{multiblock} object including relevant scores and loadings.
+#' @return \code{multiblock} object including relevant scores and loadings. Relevant plotting functions: \code{\link{multiblock_plots}} 
+#' and result functions: \code{\link{multiblock_results}}.
 #' 
 #' @description This is a wrapper for the \code{RegularizedSCA::DISCOsca} function for computing DISCO.
 #' 
@@ -611,7 +617,8 @@ disco <- function(X, ncomp = 2, ...){
 #' common loadings and scores. The method is closely related to the supervised method MB-PLS
 #' in structure.
 #' 
-#' @return \code{multiblock} object including relevant scores and loadings.
+#' @return \code{multiblock} object including relevant scores and loadings. Relevant plotting functions: \code{\link{multiblock_plots}} 
+#' and result functions: \code{\link{multiblock_results}}.
 #'
 #' @references Westerhuis, J.A., Kourti, T., and MacGregor,J.F. (1998). Analysis of multiblock and hierarchical PCA and PLS models. Journal of Chemometrics, 12, 301–321.
 #' 
@@ -662,7 +669,8 @@ hpca <- function(X, ncomp=2, scale=FALSE, verbose=FALSE, ...){
 #' @param verbose \code{logical} indicating if diagnostic information should be printed.
 #' @param ... additional arguments for RGCCA.
 #' 
-#' @return \code{multiblock} object including relevant scores and loadings.
+#' @return \code{multiblock} object including relevant scores and loadings. Relevant plotting functions: \code{\link{multiblock_plots}} 
+#' and result functions: \code{\link{multiblock_results}}.
 #' 
 #' @description This is a wrapper for the \code{RGCCA::rgcca} function for computing MCOA.
 #' 
@@ -720,7 +728,8 @@ mcoa <- function(X, ncomp=2, scale=FALSE, verbose=FALSE, ...){
 #' @param X \code{list} of input blocks.
 #' @param ... additional arguments for \code{r.jive::jive}.
 #' 
-#' @return \code{multiblock} object including relevant scores and loadings.
+#' @return \code{multiblock} object including relevant scores and loadings. Relevant plotting functions: \code{\link{multiblock_plots}} 
+#' and result functions: \code{\link{multiblock_results}}.
 #' 
 #' @description This is a wrapper for the \code{r.jive::jive} function for computing JIVE.
 #' 
@@ -730,7 +739,7 @@ mcoa <- function(X, ncomp=2, scale=FALSE, verbose=FALSE, ...){
 #' @references Lock, E., Hoadley, K., Marron, J., and Nobel, A. (2013) Joint and individual variation explained (JIVE) for integrated analysis of multiple data types. Ann Appl Stat, 7 (1), 523–542.
 #' 
 #' @examples 
-#' \dontrun{ # Too time consuming
+#' \donttest{ # Too time consuming for testing
 #' data(candies)
 #' candyList <- lapply(1:nlevels(candies$candy),function(x)candies$assessment[candies$candy==x,])
 #' can.jive  <- jive(candyList)
@@ -750,7 +759,8 @@ jive <- function(X, ...){
 #' @param tol \code{numeric} eigenvalue threshold tolerance.
 #' @param ... additional arguments (not used).
 #' 
-#' @return \code{multiblock} object including relevant scores and loadings.
+#' @return \code{multiblock} object including relevant scores and loadings. Relevant plotting functions: \code{\link{multiblock_plots}} 
+#' and result functions: \code{\link{multiblock_results}}.
 #' 
 #' @description This is a wrapper for the \code{ade4::statis} function for computing STATIS.
 #' 
@@ -796,7 +806,8 @@ statis <- function(X, ncomp = 3, scannf = FALSE, tol = 1e-07, ...){
 #' Higher Order Generalized SVD - HOGSVD
 #' @param X \code{list} of input blocks.
 #' 
-#' @return \code{multiblock} object including relevant scores and loadings.
+#' @return \code{multiblock} object including relevant scores and loadings. Relevant plotting functions: \code{\link{multiblock_plots}} 
+#' and result functions: \code{\link{multiblock_results}}.
 #' 
 #' @description This is a simple implementation for computing HOGSVD
 #' 

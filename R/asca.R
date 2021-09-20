@@ -11,7 +11,8 @@
 #' @param family Error distributions and link function for Generalized Linear Models.
 #' @param pca.in Compress response before ASCA (number of components).
 #'
-#' @return An \code{asca} object containing loadings, scores, explained variances, etc.
+#' @return An \code{asca} object containing loadings, scores, explained variances, etc. The object has
+#' associated plotting (\code{\link{asca_plots}}) and result (\code{\link{asca_results}}) functions.
 #' 
 #' @description This is a quite general and flexible implementation of ASCA.
 #' 
@@ -57,6 +58,7 @@
 asca <- function(formula, data, subset, weights, na.action, family, pca.in = FALSE){
   ## Force contrast to sum
   opt <- options(contrasts = c(unordered="contr.sum", ordered="contr.poly"))
+  on.exit(options(opt))
   
   ## Get the data matrices
   Y <- data[[formula[[2]]]]
@@ -196,8 +198,6 @@ asca <- function(formula, data, subset, weights, na.action, family, pca.in = FAL
     }
   }
   
-  # Reset options
-  options(opt)
   obj <- list(scores=scores, loadings=loadings, projected=projected, singulars=singulars, 
               LS=LS, effects=effects, coefficients=coefs, Y=Y, X=M, residuals=residuals,
               ssq=ssq, ssqY=ssqY, explvar=ssq/ssqY,

@@ -111,7 +111,7 @@ cvanova(pred, ...)
 }
 \value{
 Returns depend on method used, e.g. \code{predict.sopls} returns predicted responses
-or scores depending on inputs, \code{coef.sopls} return regression coefficients.
+or scores depending on inputs, \code{coef.sopls} return regression coefficients, while print and summary methods return the object invisibly.
 }
 \description{
 Standard result functions for SO-PLS (\code{\link{sopls}}).

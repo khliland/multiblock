@@ -54,7 +54,7 @@ rosa(
 \item{...}{Additional arguments for \code{cvseg} or \code{rosa.fit}}
 }
 \value{
-An object of classes \code{rosa} and \code{mvr} having several associated printing and plotting methods.
+An object of classes \code{rosa} and \code{mvr} having several associated printing (\code{\link{rosa_results}}) and plotting methods (\code{\link{rosa_plots}}).
 }
 \description{
 Formula based interface to the ROSA algorithm following the style of the \code{pls} package.

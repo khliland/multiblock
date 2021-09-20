@@ -16,7 +16,7 @@ compnames(object, comps, explvar = FALSE, ...)
 \item{...}{Unused}
 }
 \value{
-\code{character} vector of component names.
+A \code{character} vector of component names.
 }
 \description{
 Convenience function for creating a vector

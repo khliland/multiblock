@@ -10,7 +10,8 @@ hogsvd(X)
 \item{X}{\code{list} of input blocks.}
 }
 \value{
-\code{multiblock} object including relevant scores and loadings.
+\code{multiblock} object including relevant scores and loadings. Relevant plotting functions: \code{\link{multiblock_plots}}
+and result functions: \code{\link{multiblock_results}}.
 }
 \description{
 This is a simple implementation for computing HOGSVD

@@ -16,7 +16,8 @@ pca(X, scale = FALSE, ncomp = 1, ...)
 \item{...}{additional arguments to \code{pls:pcr}.}
 }
 \value{
-\code{multiblock} object with scores, loadings, mean X values and explained variances.
+\code{multiblock} object with scores, loadings, mean X values and explained variances. Relevant plotting functions: \code{\link{multiblock_plots}}
+and result functions: \code{\link{multiblock_results}}.
 }
 \description{
 This is a wrapper for the \code{pls::PCR} function for computing PCA.

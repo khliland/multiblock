@@ -14,7 +14,7 @@ unique_combos(n_block, max_level, min_level = 2)
 \item{min_level}{\code{integer} minimum number of blocks per combination.}
 }
 \value{
-A list of combinations.
+A list of unique block combinations.
 }
 \description{
 Compute a list of all possible block combinations where

@@ -15,6 +15,8 @@
 #' @param block \code{integer/character} for block selection.
 #' @param ... Not implemented.
 #' 
+#' @return Scores or loadings are returned by \code{scores.multiblock} and \code{loadings.multiblock}, while print and summary methods invisibly returns the object.
+#' 
 #' @examples 
 #' data(wine)
 #' sc <- sca(wine[c('Smell at rest', 'View', 'Smell after shaking')], ncomp = 4)

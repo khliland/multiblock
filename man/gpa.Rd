@@ -14,7 +14,8 @@ gpa(X, graph = FALSE, ...)
 \item{...}{additional arguments for RGCCA approach.}
 }
 \value{
-\code{multiblock} object including relevant scores and loadings.
+\code{multiblock} object including relevant scores and loadings. Relevant plotting functions: \code{\link{multiblock_plots}}
+and result functions: \code{\link{multiblock_results}}.
 }
 \description{
 This is a wrapper for the \code{FactoMineR::GPA} function for computing GPA.

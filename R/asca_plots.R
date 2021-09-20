@@ -20,7 +20,9 @@
 #' @param xlab \code{character} x label.
 #' @param ylab \code{character} y label. 
 #' @param legendpos \code{character} position of legend.
-#' @param ... addtitional arguments to underlying methods.
+#' @param ... additional arguments to underlying methods.
+#' 
+#' @return The plotting routines have no return.
 #'
 #' @references 
 #' * Smilde, A., Jansen, J., Hoefsloot, H., Lamers,R., Van Der Greef, J., and Timmerman, M.(2005). ANOVA-Simultaneous Component Analysis (ASCA): A new tool for analyzing designed metabolomics data. Bioinformatics, 21(13), 3043–3048.

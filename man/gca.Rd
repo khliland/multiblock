@@ -20,7 +20,8 @@ gca(X, ncomp = 2, svd = TRUE, tol = 10^-12, corrs = TRUE, ...)
 \item{...}{additional arguments for RGCCA approach.}
 }
 \value{
-\code{multiblock} object including relevant scores and loadings.
+\code{multiblock} object including relevant scores and loadings. Relevant plotting functions: \code{\link{multiblock_plots}}
+and result functions: \code{\link{multiblock_results}}.
 }
 \description{
 This is an interface to both SVD-based (default) and RGCCA-based GCA (wrapping the

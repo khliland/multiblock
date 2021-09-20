@@ -13,7 +13,7 @@
 #' \code{\link{rosa}} and \code{\link{sopls}} and for lookups into computed
 #' components.
 #'
-#' @return A list of combinations.
+#' @return A list of unique block combinations.
 #'
 #' @examples
 #' unique_combos(3, 2)
@@ -157,7 +157,7 @@ block.data.frame <- function(X, block_inds = NULL, to.matrix = TRUE){
 #' @param contrast Contrast type, default = "contr.sum".
 #' @param drop \code{logical} indicating if one level should be dropped (default = TRUE).
 #'
-#' @return \code{matrix} made by dummy-coding input vector.
+#' @return \code{matrix} made by dummy-coding the input vector.
 #'
 #' @examples
 #' vec <- c("a","a","b","b","c","c")
@@ -184,7 +184,7 @@ dummycode <- function(Y, contrast = "contr.sum", drop = TRUE){
 #'
 #' @param object An object fitted using a method from the multiblock package
 #'
-#' @return Component-wise explained variances for predictors
+#' @return A \code{vector} of component-wise explained variances for predictors.
 #' @examples
 #' data(potato)
 #' so <- sopls(Sensory ~ Chemical + Compression, data=potato, ncomp=c(10,10), 
@@ -215,7 +215,7 @@ explvar <- function(object){
 #' @param explvar \code{logical} indicating if explained variances should be included.
 #' @param ... Unused
 #'
-#' @return \code{character} vector of component names.
+#' @return A \code{character} vector of component names.
 #' 
 #' @details This is a copy of \code{compnames} from the \code{pls} package to work with
 #' \code{multiblock} objects.

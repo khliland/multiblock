@@ -20,6 +20,8 @@
 #' @details This function can either be used 
 #' for global optimisation across blocks or sequential optimisation, using \code{maageSeq}.
 #' The examples below show typical usage.
+#' 
+#' @return The \code{maage} plot has no return.
 #'
 #' @examples
 #' data(wine)

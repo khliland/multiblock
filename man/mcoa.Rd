@@ -18,7 +18,8 @@ mcoa(X, ncomp = 2, scale = FALSE, verbose = FALSE, ...)
 \item{...}{additional arguments for RGCCA.}
 }
 \value{
-\code{multiblock} object including relevant scores and loadings.
+\code{multiblock} object including relevant scores and loadings. Relevant plotting functions: \code{\link{multiblock_plots}}
+and result functions: \code{\link{multiblock_results}}.
 }
 \description{
 This is a wrapper for the \code{RGCCA::rgcca} function for computing MCOA.

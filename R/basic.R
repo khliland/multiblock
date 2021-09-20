@@ -41,10 +41,14 @@ NULL
 #' value decomposition to create scores and loadings. PCA is guaranteed to be the optimal way of extracting
 #' orthogonal subspaces from a matrix with regard to the amount of explained variance per component.
 #'
-#' @return \code{multiblock} object with scores, loadings, mean X values and explained variances.
+#' @return \code{multiblock} object with scores, loadings, mean X values and explained variances. Relevant plotting functions: \code{\link{multiblock_plots}} 
+#' and result functions: \code{\link{multiblock_results}}.
+#' 
 #' @references Pearson, K. (1901) On lines and planes of closest fit to points in space. Philosophical Magazine, 2, 559–572.
+#' 
 #' @seealso Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 #' Common functions for computation and extraction of results and plotting are found in \code{\link{multiblock_results}} and \code{\link{multiblock_plots}}, respectively.
+#' 
 #' @examples 
 #' data(potato)
 #' X <- potato$Chemical
@@ -70,17 +74,23 @@ pca <- function(X, scale=FALSE, ncomp=1, ...){
 
 #' Canonical Correlation Analysis - CCA
 #' @param X \code{list} of input data blocks.
-#' @return \code{multiblock} object with associated with printing, scores, loadings, ...
+#' 
+#' @return \code{multiblock} object with associated with printing, scores, loadings. Relevant plotting functions: \code{\link{multiblock_plots}} 
+#' and result functions: \code{\link{multiblock_results}}.
 #' 
 #' @description This is a wrapper for the \code{stats::cancor} function for computing CCA.
 #' 
 #' @details CCA is a method which maximises correlation between linear combinations of the columns of 
 #' two blocks, i.e. max(cor(X1 x a, X2 x b)). This is done sequentially with deflation in between, such
 #' that a sequence of correlations and weight vectors a and b are associated with a pair of matrices.
+#' 
 #' @importFrom stats cancor
+#' 
 #' @references Hotelling, H. (1936) Relations between two sets of variates. Biometrika, 28, 321–377.
+#' 
 #' @seealso Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 #' Common functions for computation and extraction of results and plotting are found in \code{\link{multiblock_results}} and \code{\link{multiblock_plots}}, respectively.
+#' 
 #' @examples 
 #' data(potato)
 #' X <- potato$Chemical
@@ -112,14 +122,18 @@ cca <- function(X){
 #' @param verbose \code{logical} indicating if intermediate results should be printed.
 #' @param ... additional arguments to \code{RGCCA::rgcca}.
 #'
-#' @return \code{multiblock} object with associated with printing, scores, loadings, ...
+#' @return \code{multiblock} object with associated with printing, scores, loadings. Relevant plotting functions: \code{\link{multiblock_plots}} 
+#' and result functions: \code{\link{multiblock_results}}.
 #' 
 #' @description This is a wrapper for the \code{RGCCA::rgcca} function for computing IFA.
 #' 
 #' @details IFA rotates two matrices to align one or more factors against each other, maximising correlations.
+#' 
 #' @references Tucker, L. R. (1958). An inter-battery method of factor analysis. Psychometrika, 23(2), 111-136.
+#' 
 #' @seealso Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 #' Common functions for computation and extraction of results and plotting are found in \code{\link{multiblock_results}} and \code{\link{multiblock_plots}}, respectively.
+#' 
 #' @examples 
 #' data(potato)
 #' X <- potato$Chemical
@@ -152,16 +166,22 @@ ifa <- function(X, ncomp=1, scale=FALSE, verbose=FALSE, ...){
 
 #' Generalised Singular Value Decomposition - GSVD
 #' @param X \code{list} of input data blocks.
-#' @return \code{multiblock} object with associated with printing, scores, loadings, ...
+#' 
+#' @return \code{multiblock} object with associated with printing, scores, loadings. Relevant plotting functions: \code{\link{multiblock_plots}} 
+#' and result functions: \code{\link{multiblock_results}}.
 #' 
 #' @description This is a wrapper for the \code{geigen::gsvd} function for computing GSVD.
 #' 
 #' @details  GSVD is a generalisation of SVD to two variable-linked matrices where common loadings 
 #' and block-wise scores are estimated.
+#' 
 #' @importFrom stats cancor
+#' 
 #' @references Van Loan, C. (1976) Generalizing the singular value decomposition. SIAM Journal on Numerical Analysis, 13, 76–83.
+#' 
 #' @seealso Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 #' Common functions for computation and extraction of results and plotting are found in \code{\link{multiblock_results}} and \code{\link{multiblock_plots}}, respectively.
+#' 
 #' @examples 
 #' data(potato)
 #' X <- potato$Chemical

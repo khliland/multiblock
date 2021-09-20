@@ -72,6 +72,7 @@ image.rosa <- function(x, type = c("correlation","residual","order"), ncomp = x$
     main <- ifelse(type[1] == "correlation", "Candidate score correlations", ifelse(type[1] == "residual","Candidate component RMSE","Candidate component residual order"))
 
   pars <- par(mar = mar, las = las)
+  on.exit(par(pars))
   image(im, axes = FALSE, col = col, zlim = zlim, main = main, ...)
   axis(1, at = (0:(ncomp-1))/(ncomp-1), 1:ncomp, ...)
   axis(2, at = (0:(nresp-1))/(nresp-1), colnames(im), ...)
@@ -83,7 +84,6 @@ image.rosa <- function(x, type = c("correlation","residual","order"), ncomp = x$
   }
   if(type[1] == "residual") col <- rev(col)
   color.legend(1.14,0,1.19,1, rect.col = col, gradient = TRUE, legend = legs, ...)
-  par(pars)
 }
 
 

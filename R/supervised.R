@@ -47,7 +47,9 @@ NULL
 #' scaled input blocks (1/sqrt(ncol)) enabling all summaries and plots from the \code{pls}
 #' package.
 #' 
-#' @return \code{mbpls} object containing the underlying \code{pls} object, with all its result and plot possibilities plus block-wise loadings, loading weights and scores.
+#' @return \code{multiblock, mvr} object with super-scores, super-loadings, block-scores and block-loading, and the underlying 
+#' \code{mvr} (PLS) object for the super model, with all its result and plot possibilities. Relevant plotting functions: \code{\link{multiblock_plots}} 
+#' and result functions: \code{\link{multiblock_results}}.
 #' 
 #' @references 
 #' * Wangen, L.E. and Kowalski, B.R. (1988). A multiblock partial least squares algorithm for investigating complex chemical systems. Journal of Chemometrics, 3, 3–20.
@@ -134,7 +136,9 @@ mbpls <- function(X, Y, ncomp=1, scale=FALSE, ...){
 #' a quantile plot approach to estimate outliers as deviations from the estimated quantile line. As with 
 #' ordinary MB-PLS scaled input blocks (1/sqrt(ncol)) are used.
 #' 
-#' @return \code{mbpls} object containing the underlying \code{pls} object, with all its result and plot possibilities plus block-wise loadings, loading weights and scores.
+#' @return \code{multiblock, mvr} object with super-scores, super-loadings, block-scores and block-loading, and the underlying 
+#' \code{mvr} (PLS) object for the super model, with all its result and plot possibilities. Relevant plotting functions: \code{\link{multiblock_plots}} 
+#' and result functions: \code{\link{multiblock_results}}.
 #' 
 #' @references 
 #' * Sæbø, S.; Almøy, T.; Aarøe, J. & Aastveit, A. ST-PLS: a multi-directional nearest shrunken centroid type classifier via PLS Journal of Chemometrics: A Journal of the Chemometrics Society, Wiley Online Library, 2008, 22, 54-62.
@@ -231,8 +235,6 @@ smbpls <- function(X, Y, ncomp=1, scale=FALSE, shrink=NULL, truncation=NULL, tru
 #' @param ncomp \code{integer} number of PLS components.
 #' @param ... additional arguments to ade4::mbpcaiv.
 #' 
-#' @return \code{mbrda,mvr} object containing elements corresponding to a \code{pls} object, with all its result and plot possibilities plus block-wise loadings, loading weights and scores.
-#' 
 #' @description This is a wrapper for the \code{ade4::mbpcaiv} function for computing mbRDA.
 #' 
 #' @details mbRDA is a multiblock formulation of Redundancy (Data) Analysis. RDA is theoretically
@@ -242,6 +244,9 @@ smbpls <- function(X, Y, ncomp=1, scale=FALSE, shrink=NULL, truncation=NULL, tru
 #' a nice overview can be plotted as \code{plot(mbr$mbpcaiv)} following the example below.
 #' 
 #' @references Bougeard, S., Qannari, E.M., Lupo, C., andHanafi, M. (2011). From Multiblock Partial Least Squares to Multiblock Redundancy Analysis. A Continuum Approach. Informatica, 22(1), 11–26.
+#' 
+#' @return \code{multiblock, mvr} object with scores, block-scores and block-loading. Relevant plotting functions: \code{\link{multiblock_plots}} 
+#' and result functions: \code{\link{multiblock_results}}.
 #' 
 #' @examples
 #' # Convert data.frame with AsIs objects to list of matrices

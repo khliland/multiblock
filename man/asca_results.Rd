@@ -28,13 +28,17 @@ projections(object, ...)
 \arguments{
 \item{x}{\code{asca} object.}
 
-\item{...}{addtitional arguments to underlying methods.}
+\item{...}{additional arguments to underlying methods.}
 
 \item{object}{\code{asca} object.}
 
 \item{digits}{\code{integer} number of digits for printing.}
 
 \item{factor}{\code{integer/character} for selecting a model factor.}
+}
+\value{
+Returns depend on method used, e.g. \code{projections.sopls} returns projected samples,
+\code{scores.sopls} return scores, while print and summary methods return the object invisibly.
 }
 \description{
 Standard result computation and extraction functions for ASCA (\code{\link{asca}}).

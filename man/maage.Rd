@@ -61,6 +61,9 @@ maageSeq(
 
 \item{col.block}{Line colours for blocks (default = c('red','blue','darkgreen','purple','black'))}
 }
+\value{
+The \code{maage} plot has no return.
+}
 \description{
 Måge plot for SO-PLS (\code{\link{sopls}}) cross-validation visualisation.
 }

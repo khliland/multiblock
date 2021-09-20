@@ -10,7 +10,8 @@ cca(X)
 \item{X}{\code{list} of input data blocks.}
 }
 \value{
-\code{multiblock} object with associated with printing, scores, loadings, ...
+\code{multiblock} object with associated with printing, scores, loadings. Relevant plotting functions: \code{\link{multiblock_plots}}
+and result functions: \code{\link{multiblock_results}}.
 }
 \description{
 This is a wrapper for the \code{stats::cancor} function for computing CCA.

@@ -25,6 +25,9 @@
 
 \item{x}{\code{multiblock} object.}
 }
+\value{
+Scores or loadings are returned by \code{scores.multiblock} and \code{loadings.multiblock}, while print and summary methods invisibly returns the object.
+}
 \description{
 Standard result computation and extraction functions for \code{multiblock} objects.
 }

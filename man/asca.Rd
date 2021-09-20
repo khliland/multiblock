@@ -22,7 +22,8 @@ asca(formula, data, subset, weights, na.action, family, pca.in = FALSE)
 \item{pca.in}{Compress response before ASCA (number of components).}
 }
 \value{
-An \code{asca} object containing loadings, scores, explained variances, etc.
+An \code{asca} object containing loadings, scores, explained variances, etc. The object has
+associated plotting (\code{\link{asca_plots}}) and result (\code{\link{asca_results}}) functions.
 }
 \description{
 This is a quite general and flexible implementation of ASCA.

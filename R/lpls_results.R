@@ -29,8 +29,8 @@
 #' @param trace \code{logical} indicating if verbose mode should be selected.
 #' @param ... Not implemented.
 #'
-#' @return Nothing for plotting, predicted values for predictions and cross-validation
-#' metrics for cross-validation.
+#' @return Nothing is return for plotting (\code{plot.lpls}), predicted values are returned for predictions (\code{predict.lpls})
+#' and cross-validation metrics are returned for for cross-validation (\code{lplsCV}).
 #'
 #' @examples
 #' # Simulate data set

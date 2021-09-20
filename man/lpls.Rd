@@ -44,6 +44,12 @@ lpls(
 
 \item{...}{Additional arguments, not used.}
 }
+\value{
+An object of type \code{lpls} and \code{multiblock} containing all results from the L-PLS
+analysis. The object type \code{lpls} is associated with functions for correlation loading plots,
+prediction and cross-validation. The type \code{multiblock} is associated with the default functions
+for result presentation (\code{\link{multiblock_results}}) and plotting (\code{\link{multiblock_plots}}).
+}
 \description{
 Simultaneous decomposition of three blocks connected in an L pattern.
 }

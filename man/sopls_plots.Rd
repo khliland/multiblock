@@ -114,9 +114,6 @@
 
 \item{main}{\code{character} for setting the main title of a plot.}
 }
-\value{
-The functions return whatever the underlying plot function (or identify) returns.
-}
 \description{
 Extraction of \code{scores} and \code{loadings} and adaptation of \code{scoreplot},
 \code{loadingplot} and \code{biplot} from package \code{pls} for \code{sopls} objects.
@@ -155,4 +152,6 @@ biplot(so)
 \seealso{
 Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 Common functions for computation and extraction of results are found in \code{\link{sopls_results}}.
+
+#' @return The score and loading functions return scores and loadings, while plot functions have no return (except use of 'identify').
 }

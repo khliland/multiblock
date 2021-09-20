@@ -18,7 +18,8 @@ sca(X, ncomp = 2, scale = FALSE, samplelinked = "auto", ...)
 \item{...}{additional arguments (not used).}
 }
 \value{
-\code{multiblock} object including relevant scores and loadings.
+\code{multiblock} object including relevant scores and loadings. Relevant plotting functions: \code{\link{multiblock_plots}}
+and result functions: \code{\link{multiblock_results}}.
 }
 \description{
 This is a basic implementation of the SCA-P algorithm (least restricted SCA) with support for both

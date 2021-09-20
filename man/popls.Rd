@@ -27,7 +27,8 @@ popls(
 \item{manual.par}{\code{named list} for manual choice of blocks. The list consists of \code{ncomp} which indicates the number of components to extract from each block and \code{ncommon} which is the corresponding for choosing the block combinations (local/common). For the latter, use unique_combos(n_blocks, commons) to see order of local/common blocks. Component numbers will be reduced if simpler models give better predictions. See example.}
 }
 \value{
-A \code{multiblock} object with block-wise, local and common loadings and scores.
+A \code{multiblock} object with block-wise, local and common loadings and scores. Relevant plotting functions: \code{\link{multiblock_plots}}
+and result functions: \code{\link{multiblock_results}}.
 }
 \description{
 This is a basic implementation of PO-PLS with manual and automatic component selections.

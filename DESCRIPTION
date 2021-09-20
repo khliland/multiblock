@@ -1,7 +1,7 @@
 Encoding: UTF-8
 Package: multiblock
 Type: Package
-Title: A Companion Package for the Book "Multiblock Data Fusion in Statistics and Machine Learning"
+Title: Multiblock Data Fusion in Statistics and Machine Learning
 Version: 0.8.0
 Date: 2021-09-07
 Authors@R: 
@@ -16,7 +16,10 @@ Authors@R:
       person(given = "Stefan",
              family = "Schrunner",
              role = c("rev")))
-Description: Functions and datasets to support Smilde, Næs and Liland, "Multiblock Data Fusion in Statistics and Machine Learning - Applications in the Natural and Life Sciences", John Wiley, ISBN 978-1-119-60096-1.
+Description: Functions and datasets to support Smilde, Næs and Liland (2021, ISBN: 978-1-119-60096-1) 
+   "Multiblock Data Fusion in Statistics and Machine Learning - Applications in the Natural and Life Sciences". 
+   This implements and imports a large collection of methods for multiblock data analysis with common interfaces, result- and plotting 
+   functions, several real data sets and six vignettes covering a range different applications.
 License: GPL (>= 2)
 URL: https://khliland.github.io/multiblock/, https://github.com/khliland/multiblock/
 BugReports: https://github.com/khliland/multiblock/issues/
