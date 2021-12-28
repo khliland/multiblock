@@ -28,7 +28,8 @@ pcagca(
 }
 \value{
 \code{multiblock} object including relevant scores and loadings. Relevant plotting functions: \code{\link{multiblock_plots}}
-and result functions: \code{\link{multiblock_results}}.
+and result functions: \code{\link{multiblock_results}}. Distinct components are marked as 'D(x), Comp c' for block x and component c
+while local and common components are marked as "C(x1, x2), Comp c", where x1 and x2 (and more) are block numbers.
 }
 \description{
 PCA-GCA is a methods which aims at estimating subspaces of common, local and
@@ -45,6 +46,11 @@ PO-PLS, where the PCA steps are exchanged with PLS.
 data(potato)
 potList <- as.list(potato[c(1,2,9)])
 pot.pcagca <- pcagca(potList)
+
+# Show origin and type of all components
+lapply(pot.pcagca$blockScores,colnames)
+
+# Basic multiblock plot
 plot(scores(pot.pcagca, block=2), comps=1, labels="names")
 
 }

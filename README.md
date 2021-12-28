@@ -23,7 +23,7 @@ This package contains a large variety of the methods described in Age K. Smilde,
 _Multiblock Data Fusion in Statistics and Machine Learning_  
  _- Applications in the Natural and Life Sciences_ .  
 
-Submitted to Wiley September 2021 for publication.
+Planned market release by Wiley May 2022.
 
 ## Contents
 

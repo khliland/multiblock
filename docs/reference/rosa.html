@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">multiblock</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.1</span>
       </span>
     </div>
 
@@ -155,7 +155,7 @@
   scale <span class='op'>=</span> <span class='cn'>FALSE</span>,
   weights <span class='op'>=</span> <span class='cn'>NULL</span>,
   validation <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"none"</span>, <span class='st'>"CV"</span>, <span class='st'>"LOO"</span><span class='op'>)</span>,
-  internal.validation <span class='op'>=</span> <span class='st'>"LOO"</span>,
+  internal.validation <span class='op'>=</span> <span class='cn'>FALSE</span>,
   fixed.block <span class='op'>=</span> <span class='cn'>NULL</span>,
   design.block <span class='op'>=</span> <span class='cn'>NULL</span>,
   canonical <span class='op'>=</span> <span class='cn'>TRUE</span>,
@@ -207,7 +207,7 @@
     </tr>
     <tr>
       <th>internal.validation</th>
-      <td><p>Optional cross-validation for block selection process, "LOO", "CV3", "CV5", "CV10" (CV-number of segments), or vector of integers.</p></td>
+      <td><p>Optional cross-validation for block selection process, "LOO", "CV3", "CV5", "CV10" (CV-number of segments), or vector of integers (default = FALSE).</p></td>
     </tr>
     <tr>
       <th>fixed.block</th>
@@ -258,19 +258,19 @@ Common functions for computation and extraction of results and plotting are foun
 #&gt; VALIDATION: RMSEP
 #&gt; Cross-validated using 5 random segments.
 #&gt;        (Intercept)  1 comps  2 comps  3 comps  4 comps  5 comps  6 comps
-#&gt; CV           1.778    1.017   0.8809   0.8413   0.7511   0.9024   0.9908
-#&gt; adjCV        1.778    0.981   0.8483   0.8110   0.7329   0.8726   0.9562
+#&gt; CV           1.778   1.0172   0.8253   0.5810   0.5545   0.5285   0.5293
+#&gt; adjCV        1.778   0.9808   0.7915   0.5572   0.5213   0.4943   0.4957
 #&gt;        7 comps  8 comps  9 comps  10 comps
-#&gt; CV       1.049    1.100    1.431     1.657
-#&gt; adjCV    1.019    1.064    1.350     1.558
+#&gt; CV      0.5756   0.5929   0.6331    0.7315
+#&gt; adjCV   0.5316   0.5441   0.5793    0.6714
 #&gt; 
 #&gt; TRAINING: % variance explained
 #&gt;               1 comps  2 comps  3 comps  4 comps  5 comps  6 comps  7 comps
-#&gt; X               27.82    72.05    82.50    83.10    84.88    87.09    87.24
-#&gt; Sensory[, 1]    76.53    83.36    84.21    87.91    88.06    88.18    88.17
+#&gt; X               27.82    40.72    47.95    49.48    53.96    55.28    57.79
+#&gt; Sensory[, 1]    76.54    86.77    94.07    96.47    97.03    97.49    97.83
 #&gt;               8 comps  9 comps  10 comps
-#&gt; X               88.46    91.18     92.81
-#&gt; Sensory[, 1]    88.47    88.78     88.78</div></pre>
+#&gt; X               65.49    67.14     68.16
+#&gt; Sensory[, 1]    98.03    98.28     98.51</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

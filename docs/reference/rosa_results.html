@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">multiblock</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.1</span>
       </span>
     </div>
 
@@ -278,12 +278,12 @@ Common functions for computation and extraction of results and plotting are foun
 </div><div class='output co'>#&gt; , , 5 comps
 #&gt; 
 #&gt;    Sensory[, 1]
-#&gt; 21     4.609725
-#&gt; 22     3.697678
-#&gt; 23     7.447173
-#&gt; 24     2.846587
-#&gt; 25     5.487858
-#&gt; 26     4.164410
+#&gt; 21     4.892899
+#&gt; 22     4.454407
+#&gt; 23     8.177141
+#&gt; 24     3.087408
+#&gt; 25     4.671565
+#&gt; 26     3.926871
 #&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/coef.html'>coef</a></span><span class='op'>(</span><span class='va'>mod</span>, ncomp<span class='op'>=</span><span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span> <span class='co'># &lt;variables x responses x components&gt;</span>
 </div><div class='output co'>#&gt; [1] 3946    1    1</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>mod</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Response Orinented Sequential Alternation , fitted with the CPPLS algorithm.
@@ -295,24 +295,24 @@ Common functions for computation and extraction of results and plotting are foun
 #&gt; Number of components considered: 5
 #&gt; TRAINING: % variance explained
 #&gt;               1 comps  2 comps  3 comps  4 comps  5 comps
-#&gt; X               28.09    35.57    75.15    75.57    76.47
-#&gt; Sensory[, 1]    72.84    74.65    83.13    83.16    86.56</div><div class='input'><span class='fu'>blockexpl</span><span class='op'>(</span><span class='va'>mod</span><span class='op'>)</span>
+#&gt; X               28.09    45.00    49.16    62.24    72.58
+#&gt; Sensory[, 1]    72.84    91.32    93.68    95.15    96.73</div><div class='input'><span class='fu'>blockexpl</span><span class='op'>(</span><span class='va'>mod</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Block-wise explained variance
 #&gt; 
 #&gt;   Chemical Compression NIRraw NIRcooked CPMGraw CPMGcooked FIDraw FIDcooked
-#&gt; X    0.285       0.009      0         0   0.396          0      0     0.075
-#&gt; Y    0.729       0.034      0         0   0.085          0      0     0.018
+#&gt; X    0.453       0.103  0.169         0       0          0      0         0
+#&gt; Y    0.767       0.016  0.185         0       0          0      0         0
 #&gt;   residual
-#&gt; X    0.235
-#&gt; Y    0.134</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='fu'>blockexpl</span><span class='op'>(</span><span class='va'>mod</span><span class='op'>)</span>, compwise<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+#&gt; X    0.274
+#&gt; Y    0.033</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='fu'>blockexpl</span><span class='op'>(</span><span class='va'>mod</span><span class='op'>)</span>, compwise<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Component-wise explained variance
 #&gt; 
-#&gt;   comp.1 (Chemical) comp.2 (FIDcooked) comp.3 (CPMGraw) comp.4 (Chemical)
-#&gt; X             0.281              0.075            0.396             0.004
-#&gt; Y             0.728              0.018            0.085             0.000
+#&gt;   comp.1 (Chemical) comp.2 (NIRraw) comp.3 (Chemical) comp.4 (Chemical)
+#&gt; X             0.281           0.169             0.042             0.131
+#&gt; Y             0.728           0.185             0.024             0.015
 #&gt;   comp.5 (Compression) residual
-#&gt; X                0.009    0.134
-#&gt; Y                0.034    0.134</div><div class='input'>
+#&gt; X                0.103    0.033
+#&gt; Y                0.016    0.033</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

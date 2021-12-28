@@ -1,0 +1,16 @@
+NEWS file for package multiblock
+Functions and datasets to support Smilde, Næs and Liland (2021, ISBN: 978-1-119-60096-1) 
+"Multiblock Data Fusion in Statistics and Machine Learning - Applications in the Natural and Life Sciences". 
+This implements and imports a large collection of methods for multiblock data analysis with common interfaces, result- and plotting 
+functions, several real data sets and six vignettes covering a range different applications.
+Kristian Hovde Liland
+
+##### Version 0.8.1
+Date: 28 December 2021
+>> Added NEWS to package.
+>> Improved documentation of PCA-GCA.
+>> Changed ROSA default argument internal.validation=FALSE.
+
+##### Version 0.8.0
+Date: 07 September 2021
+>> Initial CRAN release of package multiblock.

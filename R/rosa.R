@@ -11,7 +11,7 @@
 #' @param scale Optionally scale predictor variables by their individual standard deviations.
 #' @param weights Optional object weights.
 #' @param validation Optional cross-validation strategy "CV" or "LOO".
-#' @param internal.validation Optional cross-validation for block selection process, "LOO", "CV3", "CV5", "CV10" (CV-number of segments), or vector of integers.
+#' @param internal.validation Optional cross-validation for block selection process, "LOO", "CV3", "CV5", "CV10" (CV-number of segments), or vector of integers (default = FALSE).
 #' @param fixed.block integer vector with block numbers for each component (0 = not fixed) or list of length <= ncomp (element length 0 = not fixed).
 #' @param design.block integer vector containing block numbers of design blocks
 #' @param canonical logical indicating if canonical correlation should be use when calculating loading weights (default), enabling B/W maximization, common components, etc. Alternatively (FALSE) a PLS2 strategy, e.g. for spectra response, is used.
@@ -47,7 +47,7 @@
 #' @export
 rosa <- function(formula, ncomp, Y.add, common.comp = 1, data,
                  subset, na.action, scale = FALSE, weights = NULL,
-                 validation = c("none", "CV", "LOO"), internal.validation = "LOO", fixed.block = NULL,
+                 validation = c("none", "CV", "LOO"), internal.validation = FALSE, fixed.block = NULL,
                  design.block = NULL, canonical = TRUE, ...){
   # Not implemented:
   # @param lower numerical indicating lower bound for powered PLS. Default = 0.5.
