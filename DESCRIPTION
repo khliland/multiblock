@@ -2,8 +2,8 @@ Encoding: UTF-8
 Package: multiblock
 Type: Package
 Title: Multiblock Data Fusion in Statistics and Machine Learning
-Version: 0.8.1
-Date: 2021-12-28
+Version: 0.8.2
+Date: 2022-06-06
 Authors@R: 
     c(person(given = "Kristian Hovde",
              family = "Liland",
@@ -28,7 +28,6 @@ Imports: ade4,
   car,
   FactoMineR,
   geigen,
-  knitr,
   lme4,
   MASS,
   mixlm,
@@ -43,8 +42,8 @@ Imports: ade4,
   RGCCA,
   RSpectra,
   SSBtools
-Suggests: rmarkdown
+Suggests: rmarkdown, knitr
 LinkingTo: Rcpp, RcppEigen
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.1
+RoxygenNote: 7.2.0
 VignetteBuilder: knitr

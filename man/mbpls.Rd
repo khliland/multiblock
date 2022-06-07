@@ -4,10 +4,28 @@
 \alias{mbpls}
 \title{Multiblock Partial Least Squares - MB-PLS}
 \usage{
-mbpls(X, Y, ncomp = 1, scale = FALSE, ...)
+mbpls(
+  formula,
+  data,
+  subset,
+  na.action,
+  X = NULL,
+  Y = NULL,
+  ncomp = 1,
+  scale = FALSE,
+  ...
+)
 }
 \arguments{
-\item{X}{\code{list} of input blocks.}
+\item{formula}{Model formula accepting a single response (block) and predictor block names separated by + signs.}
+
+\item{data}{The data set to analyse.}
+
+\item{subset}{Expression for subsetting the data before modelling.}
+
+\item{na.action}{How to handle NAs (no action implemented).}
+
+\item{X}{\code{list} of input blocks. If X is supplied, the formula interface is skipped.}
 
 \item{Y}{\code{matrix} of responses.}
 
@@ -37,7 +55,11 @@ package.
 }
 \examples{
 data(potato)
-mb <- mbpls(potato[c('Chemical','Compression')], potato[['Sensory']], ncomp = 5)
+# Formula interface
+mb <- mbpls(Sensory ~ Chemical+Compression, data=potato, ncomp = 5)
+# ... or X and Y
+mb.XY <- mbpls(X=potato[c('Chemical','Compression')], Y=potato[['Sensory']], ncomp = 5)
+identical(mb$scores, mb.XY$scores)
 print(mb)
 scoreplot(mb, labels="names") # Exploiting mvr object structure from pls package
 }

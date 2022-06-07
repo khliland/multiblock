@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,23 +33,17 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">multiblock</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.8.2</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -76,7 +72,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/khliland/multiblock/">
+  <a href="https://github.com/khliland/multiblock/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -91,13 +87,13 @@
 
       
 
-      </header><script src="vignette_A_data_files/header-attrs-2.8/header-attrs.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>A. Data handling</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/khliland/multiblock/blob/master/vignettes/vignette_A_data.Rmd"><code>vignettes/vignette_A_data.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/khliland/multiblock/blob/HEAD/vignettes/vignette_A_data.Rmd" class="external-link"><code>vignettes/vignette_A_data.Rmd</code></a></small>
       <div class="hidden name"><code>vignette_A_data.Rmd</code></div>
 
     </div>
@@ -106,13 +102,7 @@
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Start the multiblock R package</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://khliland.github.io/multiblock/">multiblock</a></span><span class="op">)</span>
-<span class="co">#&gt; Registered S3 methods overwritten by 'lme4':</span>
-<span class="co">#&gt;   method                          from</span>
-<span class="co">#&gt;   cooks.distance.influence.merMod car </span>
-<span class="co">#&gt;   influence.merMod                car </span>
-<span class="co">#&gt;   dfbeta.influence.merMod         car </span>
-<span class="co">#&gt;   dfbetas.influence.merMod        car</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://khliland.github.io/multiblock/" class="external-link">multiblock</a></span><span class="op">)</span>
 <span class="co">#&gt; Registered S3 methods overwritten by 'multiblock':</span>
 <span class="co">#&gt;   method             from</span>
 <span class="co">#&gt;   print.multiblock   ade4</span>
@@ -122,16 +112,17 @@
 <span class="co">#&gt; The following object is masked from 'package:stats':</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;     loadings</span></code></pre></div>
-<div id="read-from-file" class="section level1">
-<h1 class="hasAnchor">
-<a href="#read-from-file" class="anchor"></a>Read from file</h1>
-<p>Data are stored in many different file formats. The following three examples cover two types of CSV-files and generic flat files.</p>
+<div class="section level2">
+<h2 id="read-from-file">Read from file<a class="anchor" aria-label="anchor" href="#read-from-file"></a>
+</h2>
+<p>Data are stored in many different file formats. The following three
+examples cover two types of CSV-files and generic flat files.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Find directory extdata from the multiblock package</span>
-<span class="va">mbdir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">'extdata/'</span>, package <span class="op">=</span> <span class="st">"multiblock"</span><span class="op">)</span>
+<span class="va">mbdir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'extdata/'</span>, package <span class="op">=</span> <span class="st">"multiblock"</span><span class="op">)</span>
 
 <span class="co"># Comma separated values, row names in first column</span>
-<span class="va">meta_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="va">mbdir</span>, <span class="st">"/meta_data.csv"</span><span class="op">)</span>, row.names <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
+<span class="va">meta_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">mbdir</span>, <span class="st">"/meta_data.csv"</span><span class="op">)</span>, row.names <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
 <span class="co"># If working directory matches file location:</span>
 <span class="co"># meta_data &lt;- read.csv('meta_data.csv', row.names = 1)</span>
 <span class="va">meta_data</span>
@@ -145,7 +136,7 @@
 
 <span class="co"># Semi-colon separated values (locales where the decimal point is comma),</span>
 <span class="co"># no row names</span>
-<span class="va">proteins</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv2</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="va">mbdir</span>, <span class="st">"/proteins.csv"</span><span class="op">)</span><span class="op">)</span>
+<span class="va">proteins</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv2</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">mbdir</span>, <span class="st">"/proteins.csv"</span><span class="op">)</span><span class="op">)</span>
 <span class="va">proteins</span>
 <span class="co">#&gt;         prot1       prot2      prot3</span>
 <span class="co">#&gt; 1  0.46532048  0.30183300 -1.4654414</span>
@@ -156,7 +147,7 @@
 <span class="co">#&gt; 6 -0.07493721  1.09576027  1.2656596</span>
 
 <span class="co"># Blank space separated data without labels</span>
-<span class="va">genes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="va">mbdir</span>, <span class="st">"/genes.dat"</span><span class="op">)</span><span class="op">)</span>
+<span class="va">genes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">mbdir</span>, <span class="st">"/genes.dat"</span><span class="op">)</span><span class="op">)</span>
 <span class="va">genes</span>
 <span class="co">#&gt;            V1         V2         V3</span>
 <span class="co">#&gt; 1  0.39033106 -0.5720390  1.9147573</span>
@@ -166,31 +157,39 @@
 <span class="co">#&gt; 5 -0.02350148  0.3572809 -0.5168416</span>
 <span class="co">#&gt; 6  0.76644845  1.2863428  1.8239298</span></code></pre></div>
 </div>
-<div id="data-pre-processing" class="section level1">
-<h1 class="hasAnchor">
-<a href="#data-pre-processing" class="anchor"></a>Data pre-processing</h1>
-<p>Before analysis, various types of pre-processing may be needed. Centring and standardising/scaling may be considered the most basic. In R, these operations are performed column-wise by default, leading to autoscaling. If these operations are performed on the rows, we perform the standard normal variate (SNV) instead.</p>
+<div class="section level2">
+<h2 id="data-pre-processing">Data pre-processing<a class="anchor" aria-label="anchor" href="#data-pre-processing"></a>
+</h2>
+<p>Before analysis, various types of pre-processing may be needed.
+Centring and standardising/scaling may be considered the most basic. In
+R, these operations are performed column-wise by default, leading to
+autoscaling. If these operations are performed on the rows, we perform
+the standard normal variate (SNV) instead.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Column-centring</span>
-<span class="va">genes_centred</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/scale.html">scale</a></span><span class="op">(</span><span class="va">genes</span>, scale<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/colSums.html">colMeans</a></span><span class="op">(</span><span class="va">genes_centred</span><span class="op">)</span> <span class="co"># Check mean values</span>
-<span class="co">#&gt;            V1            V2            V3 </span>
-<span class="co">#&gt;  2.081668e-17 -3.006854e-17  1.850372e-17</span>
+<span class="va">genes_centred</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/scale.html" class="external-link">scale</a></span><span class="op">(</span><span class="va">genes</span>, scale<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">colMeans</a></span><span class="op">(</span><span class="va">genes_centred</span><span class="op">)</span> <span class="co"># Check mean values</span>
+<span class="co">#&gt;           V1           V2           V3 </span>
+<span class="co">#&gt; 1.850372e-17 0.000000e+00 7.401487e-17</span>
 
 <span class="co"># Autoscaling</span>
-<span class="va">genes_scaled</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/scale.html">scale</a></span><span class="op">(</span><span class="va">genes</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/apply.html">apply</a></span><span class="op">(</span><span class="va">genes_scaled</span>, <span class="fl">2</span>, <span class="va">sd</span><span class="op">)</span> <span class="co"># Check standard deviations</span>
+<span class="va">genes_scaled</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/scale.html" class="external-link">scale</a></span><span class="op">(</span><span class="va">genes</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">genes_scaled</span>, <span class="fl">2</span>, <span class="va">sd</span><span class="op">)</span> <span class="co"># Check standard deviations</span>
 <span class="co">#&gt; V1 V2 V3 </span>
 <span class="co">#&gt;  1  1  1</span>
 
 <span class="co"># SNV (transpose, autoscale, re-transpose)</span>
-<span class="va">genes_snv</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html">t</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/scale.html">scale</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/t.html">t</a></span><span class="op">(</span><span class="va">genes</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/apply.html">apply</a></span><span class="op">(</span><span class="va">genes_snv</span>, <span class="fl">1</span>, <span class="va">sd</span><span class="op">)</span> <span class="co"># Check standard deviations</span>
+<span class="va">genes_snv</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/scale.html" class="external-link">scale</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">genes</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">genes_snv</span>, <span class="fl">1</span>, <span class="va">sd</span><span class="op">)</span> <span class="co"># Check standard deviations</span>
 <span class="co">#&gt; [1] 1 1 1 1 1 1</span></code></pre></div>
-<div id="re-coding-categorical-data" class="section level2">
-<h2 class="hasAnchor">
-<a href="#re-coding-categorical-data" class="anchor"></a>Re-coding categorical data</h2>
-<p>Most analysis methods require continuous input data. The <strong>meta_data</strong> <strong>data.frame</strong> contains a character vector (a factor in older R versions) of categories. This package has a function <strong>dummycode</strong> for converting categorical data to various dummy formats.</p>
+<div class="section level3">
+<h3 id="re-coding-categorical-data">Re-coding categorical data<a class="anchor" aria-label="anchor" href="#re-coding-categorical-data"></a>
+</h3>
+<p>Most analysis methods require continuous input data. The
+<strong>meta_data</strong> <strong>data.frame</strong> contains a
+character vector (a factor in older R versions) of categories. This
+package has a function <strong>dummycode</strong> for converting
+categorical data to various dummy formats.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Default is sum coding</span>
 <span class="fu"><a href="../reference/dummycode.html">dummycode</a></span><span class="op">(</span><span class="va">meta_data</span><span class="op">$</span><span class="va">colour</span><span class="op">)</span>
@@ -224,7 +223,7 @@
 
 <span class="co"># Replace categorical with dummy-coded, use I() to index by common name</span>
 <span class="va">meta_data2</span> <span class="op">&lt;-</span> <span class="va">meta_data</span>
-<span class="va">meta_data2</span><span class="op">$</span><span class="va">colour</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/AsIs.html">I</a></span><span class="op">(</span><span class="fu"><a href="../reference/dummycode.html">dummycode</a></span><span class="op">(</span><span class="va">meta_data</span><span class="op">$</span><span class="va">colour</span>, drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span>
+<span class="va">meta_data2</span><span class="op">$</span><span class="va">colour</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="fu"><a href="../reference/dummycode.html">dummycode</a></span><span class="op">(</span><span class="va">meta_data</span><span class="op">$</span><span class="va">colour</span>, drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span>
 <span class="va">meta_data2</span>
 <span class="co">#&gt;         temperature colour.xblue colour.xgreen colour.xred</span>
 <span class="co">#&gt; John           38.0            1             0           0</span>
@@ -243,23 +242,25 @@
 <span class="co">#&gt; 6     0      1    0</span></code></pre></div>
 </div>
 </div>
-<div id="data-structures-for-multiblock-analysis" class="section level1">
-<h1 class="hasAnchor">
-<a href="#data-structures-for-multiblock-analysis" class="anchor"></a>Data structures for multiblock analysis</h1>
-<div id="create-list-of-blocks" class="section level2">
-<h2 class="hasAnchor">
-<a href="#create-list-of-blocks" class="anchor"></a>Create list of blocks</h2>
-<p>A simple list of blocks can be created using the <strong>list()</strong> function. Naming of the blocks can be done directly or after creation.</p>
+<div class="section level2">
+<h2 id="data-structures-for-multiblock-analysis">Data structures for multiblock analysis<a class="anchor" aria-label="anchor" href="#data-structures-for-multiblock-analysis"></a>
+</h2>
+<div class="section level3">
+<h3 id="create-list-of-blocks">Create list of blocks<a class="anchor" aria-label="anchor" href="#create-list-of-blocks"></a>
+</h3>
+<p>A simple list of blocks can be created using the
+<strong>list()</strong> function. Naming of the blocks can be done
+directly or after creation.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Direct approach</span>
-<span class="va">blocks1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>meta <span class="op">=</span> <span class="va">meta_data2</span>, proteins <span class="op">=</span> <span class="va">proteins</span>, genes <span class="op">=</span> <span class="va">genes</span><span class="op">)</span>
+<span class="va">blocks1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>meta <span class="op">=</span> <span class="va">meta_data2</span>, proteins <span class="op">=</span> <span class="va">proteins</span>, genes <span class="op">=</span> <span class="va">genes</span><span class="op">)</span>
 
 <span class="co"># Two-step approach</span>
-<span class="va">blocks2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">meta_data2</span>, <span class="va">proteins</span>, <span class="va">genes</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">blocks2</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'meta'</span>, <span class="st">'proteins'</span>, <span class="st">'genes'</span><span class="op">)</span>
+<span class="va">blocks2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">meta_data2</span>, <span class="va">proteins</span>, <span class="va">genes</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">blocks2</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'meta'</span>, <span class="st">'proteins'</span>, <span class="st">'genes'</span><span class="op">)</span>
 
 <span class="co"># Same result</span>
-<span class="fu"><a href="https://rdrr.io/r/base/identical.html">identical</a></span><span class="op">(</span><span class="va">blocks1</span>, <span class="va">blocks2</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/identical.html" class="external-link">identical</a></span><span class="op">(</span><span class="va">blocks1</span>, <span class="va">blocks2</span><span class="op">)</span>
 <span class="co">#&gt; [1] TRUE</span>
 
 <span class="co"># Access by name or number</span>
@@ -280,24 +281,27 @@
 <span class="co">#&gt; Jane           37.2            0             0           1</span>
 <span class="co">#&gt; Johanna        37.9            0             1           0</span></code></pre></div>
 </div>
-<div id="create-data-frame-of-blocks" class="section level2">
-<h2 class="hasAnchor">
-<a href="#create-data-frame-of-blocks" class="anchor"></a>Create data.frame of blocks</h2>
-<p>A <strong>data.frame</strong> is a convenient storage format for data in R and can handle many types of variables, e.g. numeric, logical, character, factor or matrices. The latter is useful for analyses of data with shared sample mode.</p>
+<div class="section level3">
+<h3 id="create-data-frame-of-blocks">Create data.frame of blocks<a class="anchor" aria-label="anchor" href="#create-data-frame-of-blocks"></a>
+</h3>
+<p>A <strong>data.frame</strong> is a convenient storage format for data
+in R and can handle many types of variables, e.g. numeric, logical,
+character, factor or matrices. The latter is useful for analyses of data
+with shared sample mode.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Construct block data.frame from list</span>
 <span class="va">df1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/block.data.frame.html">block.data.frame</a></span><span class="op">(</span><span class="va">blocks1</span><span class="op">)</span>
 
 <span class="co"># Construct block data.frame from data.frame:</span>
 <span class="co"># First merge blocks into data.frame</span>
-<span class="va">my_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span><span class="va">meta_data2</span>, <span class="va">proteins</span>, <span class="va">genes</span><span class="op">)</span>
+<span class="va">my_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">meta_data2</span>, <span class="va">proteins</span>, <span class="va">genes</span><span class="op">)</span>
 <span class="co"># Then construct block data.frame using named </span>
 <span class="co"># list of indexes</span>
 <span class="va">df2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/block.data.frame.html">block.data.frame</a></span><span class="op">(</span><span class="va">my_data</span>, block_inds <span class="op">=</span> 
-        <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>meta <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, proteins <span class="op">=</span> <span class="fl">3</span><span class="op">:</span><span class="fl">5</span>, genes <span class="op">=</span> <span class="fl">6</span><span class="op">:</span><span class="fl">8</span><span class="op">)</span><span class="op">)</span>
+        <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>meta <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, proteins <span class="op">=</span> <span class="fl">3</span><span class="op">:</span><span class="fl">5</span>, genes <span class="op">=</span> <span class="fl">6</span><span class="op">:</span><span class="fl">8</span><span class="op">)</span><span class="op">)</span>
 
 <span class="co"># Same result</span>
-<span class="fu"><a href="https://rdrr.io/r/base/identical.html">identical</a></span><span class="op">(</span><span class="va">df1</span>,<span class="va">df2</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/identical.html" class="external-link">identical</a></span><span class="op">(</span><span class="va">df1</span>,<span class="va">df2</span><span class="op">)</span>
 <span class="co">#&gt; [1] TRUE</span>
 
 <span class="co"># Access by name or number</span>
@@ -317,7 +321,7 @@
 <span class="co">#&gt; Jacob    0.87437138  0.79843798  0.1234731</span>
 <span class="co">#&gt; Jane    -0.62445278 -0.07975479 -1.1126332</span>
 <span class="co">#&gt; Johanna -0.07493721  1.09576027  1.2656596</span>
-<span class="va">df1</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">3</span><span class="op">)</span><span class="op">]</span>
+<span class="va">df1</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">3</span><span class="op">)</span><span class="op">]</span>
 <span class="co">#&gt; $meta</span>
 <span class="co">#&gt;         temperature colour.xblue colour.xgreen colour.xred</span>
 <span class="co">#&gt; John           38.0            1             0           0</span>
@@ -353,7 +357,7 @@
 <span class="co">#&gt; Jacob   -0.59213740 -0.6027739  0.6177083</span>
 <span class="co">#&gt; Jane    -0.02350148  0.3572809 -0.5168416</span>
 <span class="co">#&gt; Johanna  0.76644845  1.2863428  1.8239298</span>
-<span class="va">df2</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'proteins'</span>,<span class="st">'genes'</span><span class="op">)</span><span class="op">]</span>
+<span class="va">df2</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'proteins'</span>,<span class="st">'genes'</span><span class="op">)</span><span class="op">]</span>
 <span class="co">#&gt; $proteins</span>
 <span class="co">#&gt;               prot1       prot2      prot3</span>
 <span class="co">#&gt; John     0.46532048  0.30183300 -1.4654414</span>
@@ -392,11 +396,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Kristian Hovde Liland.</p>
+  <p></p>
+<p>Developed by Kristian Hovde Liland.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
 </div>
 
       </footer>
@@ -404,6 +410,8 @@
 
   
 
+
+  
 
   </body>
 </html>

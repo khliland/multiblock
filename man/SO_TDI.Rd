@@ -18,7 +18,8 @@ sopls_pm(
   sequential = FALSE,
   B = NULL,
   k = 10,
-  type = "consecutive"
+  type = "consecutive",
+  simultaneous = TRUE
 )
 
 \method{print}{SO_TDI}(x, showComp = TRUE, heading = "SO-PLS path effects", digits = 2, ...)
@@ -57,6 +58,8 @@ sopls_pm_multiple(
 \item{k}{An \code{integer} indicating number of cross-validation segments (default = 10).}
 
 \item{type}{A \code{character} for selecting type of cross-validation segments (default = "consecutive").}
+
+\item{simultaneous}{\code{logical} indicating if simultaneous orthogonalisation on intermediate blocks should be performed (default = TRUE).}
 
 \item{x}{An object of type \code{SO_TDI}.}
 

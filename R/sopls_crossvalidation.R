@@ -16,7 +16,7 @@ sopls_cv_seq <- function(X, Y, comps, max_comps, sel.comp, segments, progress, .
   chosen <- numeric(nblock)
   
   # Automatic optimisation of number of components
-  if(class(sel.comp) == "character"){
+  if(is.character(sel.comp)){
     for(b in 1:nblock){
       if(sel.comp == "opt"){
         if(b < nblock){

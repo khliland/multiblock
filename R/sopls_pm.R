@@ -17,6 +17,7 @@
 #' @param B An \code{integer} giving the number of bootstrap replicates for variation estimation.
 #' @param k An \code{integer} indicating number of cross-validation segments (default = 10).
 #' @param type A \code{character} for selecting type of cross-validation segments (default = "consecutive").
+#' @param simultaneous \code{logical} indicating if simultaneous orthogonalisation on intermediate blocks should be performed (default = TRUE).
 #' @param x An object of type \code{SO_TDI}.
 #' @param showComp A \code{logical} indicating if components should be shown in print (default = TRUE).
 #' @param heading A \code{character} giving the heading of the print.
@@ -68,7 +69,7 @@
 #' pot.pm.multiple
 #' @seealso Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 #' @export
-sopls_pm <- function(X, Y, ncomp, max_comps = min(sum(ncomp), 20), sel.comp = "opt", computeAdditional = FALSE, sequential = FALSE, B = NULL, k = 10, type = "consecutive"){#validation = "LOO", ...){
+sopls_pm <- function(X, Y, ncomp, max_comps = min(sum(ncomp), 20), sel.comp = "opt", computeAdditional = FALSE, sequential = FALSE, B = NULL, k = 10, type = "consecutive", simultaneous = TRUE){#validation = "LOO", ...){
   Y <- as.matrix(Y)
   n      <- dim(Y)[1]
   nresp  <- dim(Y)[2]
@@ -105,7 +106,7 @@ sopls_pm <- function(X, Y, ncomp, max_comps = min(sum(ncomp), 20), sel.comp = "o
   # R2_total_ind <- drop(R2(mod_total)$val) # SST variant
   R2_total <- 1 - colSums(r^2)/sum(denom)
   # R2_total     <- apply(R2_total_ind,2,mean)
-  if(class(sel.comp) == "character"){
+  if(is.character(sel.comp)){
     if(sel.comp == "opt"){
       comp_total <- which.max(R2_total)-1
       total <- max(R2_total)
@@ -136,6 +137,7 @@ sopls_pm <- function(X, Y, ncomp, max_comps = min(sum(ncomp), 20), sel.comp = "o
   first <- X[[1]] - rep(colMeans(X[[1]]), each=n)
   last <- Y - rep(colMeans(Y), each=n)
   if(nblock>1){
+    S_first <- S_last <- list()
     for(i in 2:nblock){
       # First block
       if(comps[i]>0){
@@ -147,7 +149,7 @@ sopls_pm <- function(X, Y, ncomp, max_comps = min(sum(ncomp), 20), sel.comp = "o
         r2     <- 1 - colSums(r^2)/sum(denom)
         # r2     <- apply(r2_ind,2,mean)
         
-        if(class(sel.comp) == "character" && sel.comp == "chi"){
+        if(is.character(sel.comp) && sel.comp == "chi"){
           r <- sqrt(colMeans(r^2))
           ind <- chi2cv(r,n,0.05)
         } else { # "opt" or numeric
@@ -158,7 +160,9 @@ sopls_pm <- function(X, Y, ncomp, max_comps = min(sum(ncomp), 20), sel.comp = "o
       }
       if(ind > 1){
         S <- mod_first$scores[,1:(ind-1),drop=FALSE]
-        first <- first - S %*% tcrossprod(solve(crossprod(S)), S) %*% first
+        S_first[[i-1]] <- S
+        if(!simultaneous)
+          first <- first - S %*% tcrossprod(solve(crossprod(S)), S) %*% first
       }
       
       # Last block
@@ -170,7 +174,7 @@ sopls_pm <- function(X, Y, ncomp, max_comps = min(sum(ncomp), 20), sel.comp = "o
         r2_ind <- 1-r^2/denom # r[,1]^2
         r2     <- 1 - colSums(r^2)/sum(denom)
         # r2     <- apply(r2_ind,2,mean)
-        if(class(sel.comp) == "character" && sel.comp == "chi"){
+        if(is.character(sel.comp) && sel.comp == "chi"){
           r <- sqrt(colMeans(r^2))
           ind <- chi2cv(r,n,0.05)
         } else { # "opt" or numeric
@@ -181,8 +185,18 @@ sopls_pm <- function(X, Y, ncomp, max_comps = min(sum(ncomp), 20), sel.comp = "o
       }
       if(ind > 1){
         S <- mod_last$scores[,1:(ind-1),drop=FALSE]
-        last <- last - S %*% tcrossprod(solve(crossprod(S)), S) %*% last
+        S_last[[i-1]] <- S
+        if(!simultaneous)
+          last <- last - S %*% tcrossprod(solve(crossprod(S)), S) %*% last
       }
+    }
+    S_first <- do.call(cbind,S_first)
+    S_last <- do.call(cbind,S_last)
+    if(simultaneous){
+      if(!is.null(S_first))
+        first <- first - S_first %*% tcrossprod(solve(crossprod(S_first)), S_first) %*% first
+      if(!is.null(S_last))
+        last <- last - S_last %*% tcrossprod(solve(crossprod(S_last)), S_last) %*% last
     }
   }
   # Last ~ First
@@ -194,7 +208,7 @@ sopls_pm <- function(X, Y, ncomp, max_comps = min(sum(ncomp), 20), sel.comp = "o
   r2     <- 1 - colSums(r^2)/sum(denom)
   # r2     <- apply(r2_ind,2,mean)
   rescale<-  mean((last-rep(colMeans(last), each=n))^2) / mean((Y-rep(colMeans(Y), each=n))^2)
-  if(class(sel.comp) == "character" && sel.comp == "chi"){
+  if(is.character(sel.comp) && sel.comp == "chi"){
     r <- sqrt(colMeans(r^2))
     comp_direct <- chi2cv(r,n,0.05)-1
     direct <- r2[comp_direct+1] * rescale
@@ -230,7 +244,7 @@ sopls_pm <- function(X, Y, ncomp, max_comps = min(sum(ncomp), 20), sel.comp = "o
       mod_overall <- sopls_cv(X = X, Y = Y, comps = comps, max_comps = max_comps, segments=segments)
       R2_overall <- mod_overall$expl_var
       R2_overall_ind <- mod_overall$expl_var_ind
-      if(class(sel.comp) == "character"){
+      if(is.character(sel.comp)){
         if(sel.comp == "opt"){
           comp_overall <- which.max(R2_overall)
           overall <- max(R2_overall)
@@ -268,7 +282,7 @@ sopls_pm <- function(X, Y, ncomp, max_comps = min(sum(ncomp), 20), sel.comp = "o
       additional_boot <- apply(additional_boot,2,sd)
     }
   }
-
+  
   ##################
   # Returned object
   out <- list(effects = list(direct=unname(direct), indirect=unname(indirect), total=unname(total)),
@@ -290,6 +304,7 @@ sopls_pm <- function(X, Y, ncomp, max_comps = min(sum(ncomp), 20), sel.comp = "o
   class(out) <- list("SO_TDI", "list")
   out
 }
+
 
 #' @rdname SO_TDI
 #' @export

@@ -70,6 +70,7 @@ rosa <- function(formula, ncomp, Y.add, common.comp = 1, data,
   mf <- mf[c(1, m)]                # Retain only the named arguments
   mf[[1]] <- as.name("model.frame")
   mf <- eval(mf, parent.frame())
+  X <- mf[-1]
 
   ## Get the terms
   mt <- attr(mf, "terms")        # This is to include the `predvars'
@@ -104,19 +105,20 @@ rosa <- function(formula, ncomp, Y.add, common.comp = 1, data,
   # X.concat <- pls:::delete.intercept(model.matrix(mt, mf))
   # X <- model.frame(delete.response(mt),mf)
   # Convert factor blocks to dummy coding and make sure contents are matrices
-  M <- model.matrix(mt, mf)
-  blockColumns <- attr(M, 'assign')
-  X <- list()
-  for(i in 1:(length(mf)-1)){
-    X[[i]] <- M[, blockColumns==i, drop=FALSE]
-  }
+#  M <- model.matrix(mt, mf)
+#  blockColumns <- attr(M, 'assign')
+#  X <- list()
+#  for(i in 1:(length(mf)-1)){
+#    X[[i]] <- M[, blockColumns==i, drop=FALSE]
+#  }
   # for(i in 1:length(X)){
   #   if(is.factor(X[[i]])){
   #     X[[i]] <- I(dummycode(X[[i]]))
   #   }
   #   X[[i]] <- I(as.matrix(X[[i]]))
   # }
-  names(X) <- colnames(mf)[-1]
+  # names(X) <- colnames(mf)[-1]
+  X <- lapply(X, function(x)if(is.factor(x)){return(dummycode(x))}else{return(x)})
   X.concat <- do.call(cbind,X)
 
   y <- switch(response.type,

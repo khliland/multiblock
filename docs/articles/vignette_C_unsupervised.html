@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,23 +33,17 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">multiblock</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.8.2</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -76,7 +72,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/khliland/multiblock/">
+  <a href="https://github.com/khliland/multiblock/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -91,13 +87,13 @@
 
       
 
-      </header><script src="vignette_C_unsupervised_files/header-attrs-2.8/header-attrs.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>C. Unsupervised multiblock analysis</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/khliland/multiblock/blob/master/vignettes/vignette_C_unsupervised.Rmd"><code>vignettes/vignette_C_unsupervised.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/khliland/multiblock/blob/HEAD/vignettes/vignette_C_unsupervised.Rmd" class="external-link"><code>vignettes/vignette_C_unsupervised.Rmd</code></a></small>
       <div class="hidden name"><code>vignette_C_unsupervised.Rmd</code></div>
 
     </div>
@@ -106,13 +102,7 @@
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Start the multiblock R package</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://khliland.github.io/multiblock/">multiblock</a></span><span class="op">)</span>
-<span class="co">#&gt; Registered S3 methods overwritten by 'lme4':</span>
-<span class="co">#&gt;   method                          from</span>
-<span class="co">#&gt;   cooks.distance.influence.merMod car </span>
-<span class="co">#&gt;   influence.merMod                car </span>
-<span class="co">#&gt;   dfbeta.influence.merMod         car </span>
-<span class="co">#&gt;   dfbetas.influence.merMod        car</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://khliland.github.io/multiblock/" class="external-link">multiblock</a></span><span class="op">)</span>
 <span class="co">#&gt; Registered S3 methods overwritten by 'multiblock':</span>
 <span class="co">#&gt;   method             from</span>
 <span class="co">#&gt;   print.multiblock   ade4</span>
@@ -122,37 +112,46 @@
 <span class="co">#&gt; The following object is masked from 'package:stats':</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;     loadings</span></code></pre></div>
-<div id="unsupervised-methods" class="section level1">
-<h1 class="hasAnchor">
-<a href="#unsupervised-methods" class="anchor"></a>Unsupervised methods</h1>
-<p>The following unsupervised methods are available in the <em>multiblock</em> package (function names in parentheses):</p>
+<div class="section level2">
+<h2 id="unsupervised-methods">Unsupervised methods<a class="anchor" aria-label="anchor" href="#unsupervised-methods"></a>
+</h2>
+<p>The following unsupervised methods are available in the
+<em>multiblock</em> package (function names in parentheses):</p>
 <ul>
 <li>SCA - Simultaneous Component Analysis (<em>sca</em>)</li>
 <li>GCA - Generalised Canonical Analysis (<em>gca</em>)</li>
 <li>GPA - Generalised Procrustes Analysis (<em>gpa</em>)</li>
 <li>MFA - Multiple Factor Analysis (<em>mfa</em>)</li>
 <li>PCA-GCA (<em>pcagca</em>)</li>
-<li>DISCO - Distinct and Common Components with SCA (<em>disco</em>)</li>
-<li>HPCA - Hierarchical Principal component analysis (<em>hpca</em>)</li>
+<li>DISCO - Distinct and Common Components with SCA
+(<em>disco</em>)</li>
+<li>HPCA - Hierarchical Principal component analysis
+(<em>hpca</em>)</li>
 <li>MCOA - Multiple Co-Inertia Analysis (<em>mcoa</em>)</li>
 <li>JIVE - Joint and Individual Variation Explained (<em>jive</em>)</li>
-<li>STATIS - Structuration des Tableaux à Trois Indices de la Statistique (<em>statis</em>)</li>
+<li>STATIS - Structuration des Tableaux à Trois Indices de la
+Statistique (<em>statis</em>)</li>
 <li>HOGSVD - Higher Order Generalized SVD (<em>hogsvd</em>)</li>
 </ul>
-<p>The following sections will describe how to format your data for analysis and invoke all methods from the list above.</p>
+<p>The following sections will describe how to format your data for
+analysis and invoke all methods from the list above.</p>
 </div>
-<div id="formatting-data-for-multiblock-data-analysis" class="section level1">
-<h1 class="hasAnchor">
-<a href="#formatting-data-for-multiblock-data-analysis" class="anchor"></a>Formatting data for multiblock data analysis</h1>
-<p>Data blocks are best stored as named lists for use with unsupervised methods in this package. If also column names and row names are used for all blocks, these can be used for easy labelling in plots supplied by the <em>pls</em> package. See examples below for illustrations of this.</p>
+<div class="section level2">
+<h2 id="formatting-data-for-multiblock-data-analysis">Formatting data for multiblock data analysis<a class="anchor" aria-label="anchor" href="#formatting-data-for-multiblock-data-analysis"></a>
+</h2>
+<p>Data blocks are best stored as named lists for use with unsupervised
+methods in this package. If also column names and row names are used for
+all blocks, these can be used for easy labelling in plots supplied by
+the <em>pls</em> package. See examples below for illustrations of
+this.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Load potato data</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">potato</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">potato</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">potato</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">potato</span><span class="op">)</span>
 <span class="co">#&gt; [1] "data.frame"</span>
 <span class="co"># data.frames can contain matrices as variables, </span>
 <span class="co"># thus becoming object linked lists of blocks.</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">potato</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">potato</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span>
 <span class="co">#&gt; 'data.frame':    26 obs. of  3 variables:</span>
 <span class="co">#&gt;  $ Chemical   : 'AsIs' num [1:26, 1:14] 3.21 3.26 5.18 3.75 2.92 ...</span>
 <span class="co">#&gt;   ..- attr(*, "dimnames")=List of 2</span>
@@ -168,8 +167,8 @@
 <span class="co">#&gt;   .. ..$ : chr [1:1050] "400" "402" "404" "406" ...</span>
 
 <span class="co"># Explicit conversion to a list</span>
-<span class="va">potList</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">as.list</a></span><span class="op">(</span><span class="va">potato</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">potList</span><span class="op">)</span>
+<span class="va">potList</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">as.list</a></span><span class="op">(</span><span class="va">potato</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">potList</span><span class="op">)</span>
 <span class="co">#&gt; List of 3</span>
 <span class="co">#&gt;  $ Chemical   : 'AsIs' num [1:26, 1:14] 3.21 3.26 5.18 3.75 2.92 ...</span>
 <span class="co">#&gt;   ..- attr(*, "dimnames")=List of 2</span>
@@ -184,21 +183,33 @@
 <span class="co">#&gt;   .. ..$ : chr [1:26] "1" "2" "3" "4" ...</span>
 <span class="co">#&gt;   .. ..$ : chr [1:1050] "400" "402" "404" "406" ...</span></code></pre></div>
 </div>
-<div id="method-interfaces" class="section level1">
-<h1 class="hasAnchor">
-<a href="#method-interfaces" class="anchor"></a>Method interfaces</h1>
-<p>All unsupervised methods supplied by this package share a common interface which expects a list of blocks as the first input. Methods that are imported from other packages are wrapped in a function that gives the mentioned interface. Results from the imported method are stored in a separate slot in the output in case specialised <em>plot</em> or <em>summary</em> functions are available or direct inspection is needed. If default parameters are used, a single list of blocks with suitably linked matrices (shared objects or variables) will result in a basic analysis (see first code block below). In addition, all methods have parameters that control their behaviour, e.g., number of components, convergence criteria etc.</p>
-<div id="shared-sample-mode" class="section level2">
-<h2 class="hasAnchor">
-<a href="#shared-sample-mode" class="anchor"></a>Shared sample mode</h2>
-<p>The following block of code loads a multiblock data set, extracts three blocks and runs through all included unsupervised methods having shared sample mode using the same interface.</p>
+<div class="section level2">
+<h2 id="method-interfaces">Method interfaces<a class="anchor" aria-label="anchor" href="#method-interfaces"></a>
+</h2>
+<p>All unsupervised methods supplied by this package share a common
+interface which expects a list of blocks as the first input. Methods
+that are imported from other packages are wrapped in a function that
+gives the mentioned interface. Results from the imported method are
+stored in a separate slot in the output in case specialised
+<em>plot</em> or <em>summary</em> functions are available or direct
+inspection is needed. If default parameters are used, a single list of
+blocks with suitably linked matrices (shared objects or variables) will
+result in a basic analysis (see first code block below). In addition,
+all methods have parameters that control their behaviour, e.g., number
+of components, convergence criteria etc.</p>
+<div class="section level3">
+<h3 id="shared-sample-mode">Shared sample mode<a class="anchor" aria-label="anchor" href="#shared-sample-mode"></a>
+</h3>
+<p>The following block of code loads a multiblock data set, extracts
+three blocks and runs through all included unsupervised methods having
+shared sample mode using the same interface.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Object linked data</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">potato</span><span class="op">)</span>
-<span class="va">potList</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">as.list</a></span><span class="op">(</span><span class="va">potato</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">9</span><span class="op">)</span><span class="op">]</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">potato</span><span class="op">)</span>
+<span class="va">potList</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">as.list</a></span><span class="op">(</span><span class="va">potato</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">9</span><span class="op">)</span><span class="op">]</span><span class="op">)</span>
 
-<span class="fu"><a href="https://rdrr.io/r/base/warning.html">suppressWarnings</a></span><span class="op">(</span> <span class="co"># FactoMineR &lt;=2.3 uses recycling of length 1 array.</span>
-<span class="fu"><a href="https://rdrr.io/r/base/invisible.html">invisible</a></span><span class="op">(</span><span class="op">{</span><span class="fu"><a href="https://rdrr.io/r/utils/capture.output.html">capture.output</a></span><span class="op">(</span><span class="op">{</span> <span class="co"># DISCOsca in package RegularizedSCA is highly verbose.</span>
+<span class="fu"><a href="https://rdrr.io/r/base/warning.html" class="external-link">suppressWarnings</a></span><span class="op">(</span> <span class="co"># FactoMineR &lt;=2.3 uses recycling of length 1 array.</span>
+<span class="fu"><a href="https://rdrr.io/r/base/invisible.html" class="external-link">invisible</a></span><span class="op">(</span><span class="op">{</span><span class="fu"><a href="https://rdrr.io/r/utils/capture.output.html" class="external-link">capture.output</a></span><span class="op">(</span><span class="op">{</span> <span class="co"># DISCOsca in package RegularizedSCA is highly verbose.</span>
 <span class="va">pot.sca</span>    <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sca.html">sca</a></span><span class="op">(</span><span class="va">potList</span><span class="op">)</span>
 <span class="va">pot.gca</span>    <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gca.html">gca</a></span><span class="op">(</span><span class="va">potList</span><span class="op">)</span>
 <span class="va">pot.gpa</span>    <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gpa.html">gpa</a></span><span class="op">(</span><span class="va">potList</span><span class="op">)</span>
@@ -209,32 +220,39 @@
 <span class="va">pot.mcoa</span>   <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mcoa.html">mcoa</a></span><span class="op">(</span><span class="va">potList</span><span class="op">)</span>
 <span class="op">}</span><span class="op">)</span><span class="op">}</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="shared-variable-mode" class="section level2">
-<h2 class="hasAnchor">
-<a href="#shared-variable-mode" class="anchor"></a>Shared variable mode</h2>
-<p>The following block of code loads a sensory data set, extracts blocks and runs through all included unsupervised methods having shared variable mode using the same interface.</p>
+<div class="section level3">
+<h3 id="shared-variable-mode">Shared variable mode<a class="anchor" aria-label="anchor" href="#shared-variable-mode"></a>
+</h3>
+<p>The following block of code loads a sensory data set, extracts blocks
+and runs through all included unsupervised methods having shared
+variable mode using the same interface.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Shared variable mode data</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">candies</span><span class="op">)</span>
-<span class="va">candyList</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nlevels.html">nlevels</a></span><span class="op">(</span><span class="va">candies</span><span class="op">$</span><span class="va">candy</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="va">candies</span><span class="op">$</span><span class="va">assessment</span><span class="op">[</span><span class="va">candies</span><span class="op">$</span><span class="va">candy</span><span class="op">==</span><span class="va">x</span>,<span class="op">]</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">candies</span><span class="op">)</span>
+<span class="va">candyList</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nlevels.html" class="external-link">nlevels</a></span><span class="op">(</span><span class="va">candies</span><span class="op">$</span><span class="va">candy</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="va">candies</span><span class="op">$</span><span class="va">assessment</span><span class="op">[</span><span class="va">candies</span><span class="op">$</span><span class="va">candy</span><span class="op">==</span><span class="va">x</span>,<span class="op">]</span><span class="op">)</span>
 
-<span class="fu"><a href="https://rdrr.io/r/base/invisible.html">invisible</a></span><span class="op">(</span><span class="op">{</span><span class="fu"><a href="https://rdrr.io/r/utils/capture.output.html">capture.output</a></span><span class="op">(</span><span class="op">{</span> <span class="co"># jive in package r.jive is highly verbose.</span>
+<span class="fu"><a href="https://rdrr.io/r/base/invisible.html" class="external-link">invisible</a></span><span class="op">(</span><span class="op">{</span><span class="fu"><a href="https://rdrr.io/r/utils/capture.output.html" class="external-link">capture.output</a></span><span class="op">(</span><span class="op">{</span> <span class="co"># jive in package r.jive is highly verbose.</span>
 <span class="va">can.sca</span>    <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sca.html">sca</a></span><span class="op">(</span><span class="va">candyList</span>, samplelinked <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 <span class="va">can.jive</span>   <span class="op">&lt;-</span> <span class="fu"><a href="../reference/jive.html">jive</a></span><span class="op">(</span><span class="va">candyList</span><span class="op">)</span>
 <span class="va">can.statis</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/statis.html">statis</a></span><span class="op">(</span><span class="va">candyList</span><span class="op">)</span>
 <span class="va">can.hogsvd</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/hogsvd.html">hogsvd</a></span><span class="op">(</span><span class="va">candyList</span><span class="op">)</span>
 <span class="op">}</span><span class="op">)</span><span class="op">}</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="common-output-elements-across-methods" class="section level2">
-<h2 class="hasAnchor">
-<a href="#common-output-elements-across-methods" class="anchor"></a>Common output elements across methods</h2>
-<p>Output from all methods include slots called <em>loadings</em>, <em>scores</em>, <em>blockLoadings</em> and <em>blockScores</em>, or a suitable subset of these. An <em>info</em> slot describes which types of (block) loadings/scores are in the output. There may be various extra elements in addition to the common elements, e.g. coefficients, weights etc.</p>
+<div class="section level3">
+<h3 id="common-output-elements-across-methods">Common output elements across methods<a class="anchor" aria-label="anchor" href="#common-output-elements-across-methods"></a>
+</h3>
+<p>Output from all methods include slots called <em>loadings</em>,
+<em>scores</em>, <em>blockLoadings</em> and <em>blockScores</em>, or a
+suitable subset of these. An <em>info</em> slot describes which types of
+(block) loadings/scores are in the output. There may be various extra
+elements in addition to the common elements, e.g. coefficients, weights
+etc.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># SCA used with shared variable mode data returns block loadings and common scores:</span>
-<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">pot.sca</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">pot.sca</span><span class="op">)</span>
 <span class="co">#&gt; [1] "blockLoadings" "scores"        "samplelinked"  "info"         </span>
 <span class="co">#&gt; [5] "explvar"       "call"</span>
-<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">pot.sca</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">pot.sca</span><span class="op">)</span>
 <span class="co">#&gt; Simultaneous Component Analysis </span>
 <span class="co">#&gt; =============================== </span>
 <span class="co">#&gt; </span>
@@ -242,10 +260,10 @@
 <span class="co">#&gt; $blockLoadings: Block loadings:</span>
 <span class="co">#&gt; - Chemical (14x2), Compression (12x2), Sensory (9x2)</span>
 <span class="co"># MFA stores individual PCA scores and loadings as block elements:</span>
-<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">pot.mfa</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">pot.mfa</span><span class="op">)</span>
 <span class="co">#&gt; [1] "scores"        "loadings"      "blockScores"   "blockLoadings"</span>
 <span class="co">#&gt; [5] "info"          "MFA"           "call"          "explvar"</span>
-<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">pot.mfa</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">pot.mfa</span><span class="op">)</span>
 <span class="co">#&gt; Multiple Factor Analysis </span>
 <span class="co">#&gt; ======================== </span>
 <span class="co">#&gt; </span>
@@ -256,31 +274,41 @@
 <span class="co">#&gt; $blockLoadings: Individual PCA loadings:</span>
 <span class="co">#&gt; - Chemical (14x5), Compression (12x5), Sensory (9x5)</span></code></pre></div>
 </div>
-<div id="scores-and-loadings" class="section level2">
-<h2 class="hasAnchor">
-<a href="#scores-and-loadings" class="anchor"></a>Scores and loadings</h2>
-<p>Functions for accessing scores and loadings are based on functions from the <em>pls</em> package, but extended with a <em>block</em> parameter to allow extraction of common/global scores/loadings and their block counterparts. The default block is 0, corresponding to the common/global block. Block scores/loadings can be accessed by number or name.</p>
+<div class="section level3">
+<h3 id="scores-and-loadings">Scores and loadings<a class="anchor" aria-label="anchor" href="#scores-and-loadings"></a>
+</h3>
+<p>Functions for accessing scores and loadings are based on functions
+from the <em>pls</em> package, but extended with a <em>block</em>
+parameter to allow extraction of common/global scores/loadings and their
+block counterparts. The default block is 0, corresponding to the
+common/global block. Block scores/loadings can be accessed by number or
+name.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Global scores plotted with object labels</span>
-<span class="fu"><a href="https://rdrr.io/pkg/pls/man/scoreplot.html">scoreplot</a></span><span class="op">(</span><span class="va">pot.sca</span>, labels <span class="op">=</span> <span class="st">"names"</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/pkg/pls/man/scoreplot.html" class="external-link">scoreplot</a></span><span class="op">(</span><span class="va">pot.sca</span>, labels <span class="op">=</span> <span class="st">"names"</span><span class="op">)</span></code></pre></div>
 <p><img src="vignette_C_unsupervised_files/figure-html/unnamed-chunk-6-1.png" width="576"></p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Block loadings for Sensory block with variable labels in scatter format</span>
-<span class="fu"><a href="https://rdrr.io/pkg/pls/man/scoreplot.html">loadingplot</a></span><span class="op">(</span><span class="va">pot.sca</span>, block <span class="op">=</span> <span class="st">"Sensory"</span>, labels <span class="op">=</span> <span class="st">"names"</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/pkg/pls/man/scoreplot.html" class="external-link">loadingplot</a></span><span class="op">(</span><span class="va">pot.sca</span>, block <span class="op">=</span> <span class="st">"Sensory"</span>, labels <span class="op">=</span> <span class="st">"names"</span><span class="op">)</span></code></pre></div>
 <p><img src="vignette_C_unsupervised_files/figure-html/unnamed-chunk-7-1.png" width="576"></p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Non-existing elements are swapped with existing ones with a warning.</span>
-<span class="va">sc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/pls/man/scores.html">scores</a></span><span class="op">(</span><span class="va">pot.sca</span>, block <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
+<span class="va">sc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/pls/man/scores.html" class="external-link">scores</a></span><span class="op">(</span><span class="va">pot.sca</span>, block <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
 <span class="co">#&gt; Warning in scores.multiblock(pot.sca, block = 1): No block scores. Returning</span>
 <span class="co">#&gt; global/consensus scores.</span></code></pre></div>
 </div>
-<div id="plot-from-imported-package" class="section level2">
-<h2 class="hasAnchor">
-<a href="#plot-from-imported-package" class="anchor"></a>Plot from imported package</h2>
-<p>Some methods in the package are wrappers for imported methods from other packages. Using the stored object from an imported method (see $statis code below), one can exploit methods from the original package to expand on the methods available in this package. An example is the summary plot for the <em>statis</em> method in the package <em>ade4</em>.</p>
+<div class="section level3">
+<h3 id="plot-from-imported-package">Plot from imported package<a class="anchor" aria-label="anchor" href="#plot-from-imported-package"></a>
+</h3>
+<p>Some methods in the package are wrappers for imported methods from
+other packages. Using the stored object from an imported method (see
+$statis code below), one can exploit methods from the original package
+to expand on the methods available in this package. An example is the
+summary plot for the <em>statis</em> method in the package
+<em>ade4</em>.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Apply a plot function from ade4 (no extra import required).</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">can.statis</span><span class="op">$</span><span class="va">statis</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">can.statis</span><span class="op">$</span><span class="va">statis</span><span class="op">)</span></code></pre></div>
 <p><img src="vignette_C_unsupervised_files/figure-html/unnamed-chunk-9-1.png" width="576"></p>
 <!-- # Simultaenous Component Analysis - SCA -->
 <!-- SCA will be demonstrated using sensory wine data. -->
@@ -318,11 +346,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Kristian Hovde Liland.</p>
+  <p></p>
+<p>Developed by Kristian Hovde Liland.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
 </div>
 
       </footer>
@@ -330,6 +360,8 @@
 
   
 
+
+  
 
   </body>
 </html>

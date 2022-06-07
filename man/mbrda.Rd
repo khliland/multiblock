@@ -4,9 +4,17 @@
 \alias{mbrda}
 \title{Multiblock Redundancy Analysis - mbRDA}
 \usage{
-mbrda(X, Y, ncomp = 1, ...)
+mbrda(formula, data, subset, na.action, X = NULL, Y = NULL, ncomp = 1, ...)
 }
 \arguments{
+\item{formula}{Model formula accepting a single response (block) and predictor block names separated by + signs.}
+
+\item{data}{The data set to analyse.}
+
+\item{subset}{Expression for subsetting the data before modelling.}
+
+\item{na.action}{How to handle NAs (no action implemented).}
+
 \item{X}{\code{list} of input blocks.}
 
 \item{Y}{\code{matrix} of responses.}
@@ -34,7 +42,9 @@ a nice overview can be plotted as \code{plot(mbr$mbpcaiv)} following the example
 data(potato)
 potatoList <- lapply(potato, unclass)
 
-mbr <- mbrda(potatoList[c('Chemical','Compression')], potatoList[['Sensory']], ncomp = 10)
+mbr <- mbrda(Sensory ~ Chemical + Compression, data = potatoList, ncomp = 10)
+mbr.XY <- mbrda(X = potatoList[c('Chemical','Compression')], Y = potatoList[['Sensory']], 
+                ncomp = 10)
 print(mbr)
 scoreplot(mbr) # Exploiting mvr object structure from pls package
 }

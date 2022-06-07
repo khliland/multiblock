@@ -17,12 +17,12 @@
 #'  
 #' @examples
 #' data(potato)
-#' mb <- mbpls(potato[c('Chemical','Compression')], potato[['Sensory']], ncomp = 5)
+#' mb <- mbpls(Sensory ~ Chemical + Compression, data=potato, ncomp = 5)
 #' print(mb)
 #' 
 #' # Convert data.frame with AsIs objects to list of matrices
 #' potatoList <- lapply(potato, unclass)
-#' mbr <- mbrda(potatoList[c('Chemical','Compression')], potatoList[['Sensory']], ncomp = 10)
+#' mbr <- mbrda(Sensory ~ Chemical + Compression, data=potatoList, ncomp = 10)
 #' print(mbr)
 #' scoreplot(mbr, labels="names")
 #' 
@@ -30,7 +30,11 @@ NULL
 
 #' Multiblock Partial Least Squares - MB-PLS
 #' 
-#' @param X \code{list} of input blocks.
+#' @param formula Model formula accepting a single response (block) and predictor block names separated by + signs.
+#' @param data The data set to analyse.
+#' @param subset Expression for subsetting the data before modelling.
+#' @param na.action How to handle NAs (no action implemented).
+#' @param X \code{list} of input blocks. If X is supplied, the formula interface is skipped.
 #' @param Y \code{matrix} of responses.
 #' @param ncomp \code{integer} number of PLS components.
 #' @param scale \code{logical} for autoscaling inputs (default = FALSE).
@@ -57,14 +61,45 @@ NULL
 #' 
 #' @examples 
 #' data(potato)
-#' mb <- mbpls(potato[c('Chemical','Compression')], potato[['Sensory']], ncomp = 5)
+#' # Formula interface
+#' mb <- mbpls(Sensory ~ Chemical+Compression, data=potato, ncomp = 5)
+#' # ... or X and Y
+#' mb.XY <- mbpls(X=potato[c('Chemical','Compression')], Y=potato[['Sensory']], ncomp = 5)
+#' identical(mb$scores, mb.XY$scores)
 #' print(mb)
 #' scoreplot(mb, labels="names") # Exploiting mvr object structure from pls package
 #' @seealso Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 #' @export
-mbpls <- function(X, Y, ncomp=1, scale=FALSE, ...){
+mbpls <- function(formula, data, subset, na.action, X=NULL, Y=NULL, ncomp=1, scale=FALSE, ...){
   # TODO: Extend with various block norms
-  Xo <- lapply(lapply(X, as.matrix), function(x)scale(x, scale=scale))
+  
+  if(is.null(X)){ # Use formula interface is X is not supplied.
+    ## Get the model frame
+    mf <- match.call(expand.dots = FALSE)
+    m <- match(c("formula", "data", "subset", "na.action"), names(mf), 0)
+    mf <- mf[c(1, m)]                # Retain only the named arguments
+    mf[[1]] <- as.name("model.frame")
+    mf <- eval(mf, parent.frame())
+    X <- mf[-1]
+    
+    ## Get the terms
+    mt <- attr(mf, "terms")        # This is to include the `predvars'
+    # attribute of the terms
+    
+    ## Get the data matrices
+    Y <- model.response(mf, "numeric")
+    if (is.matrix(Y)) {
+      if (is.null(colnames(Y))) 
+        colnames(Y) <- paste("Y", 1:dim(Y)[2], sep = "")
+    }
+    else {
+      Y <- as.matrix(Y)
+      colnames(Y) <- deparse(formula[[2]])
+    }
+  }
+  
+  Xo <- lapply(X, function(x)if(is.factor(x)){return(dummycode(x))}else{return(x)})
+  Xo <- lapply(lapply(Xo, as.matrix), function(x)scale(x, scale=scale))
   X  <- lapply(Xo, function(x) x/sqrt(ncol(x)))
   Y  <- as.matrix(Y)
   Xc  <- do.call(cbind, X)
@@ -114,7 +149,11 @@ mbpls <- function(X, Y, ncomp=1, scale=FALSE, ...){
 
 #' Sparse Multiblock Partial Least Squares - sMB-PLS
 #' 
-#' @param X \code{list} of input blocks.
+#' @param formula Model formula accepting a single response (block) and predictor block names separated by + signs.
+#' @param data The data set to analyse.
+#' @param subset Expression for subsetting the data before modelling.
+#' @param na.action How to handle NAs (no action implemented).
+#' @param X \code{list} of input blocks. If X is supplied, the formula interface is skipped.
 #' @param Y \code{matrix} of responses.
 #' @param ncomp \code{integer} number of PLS components.
 #' @param scale \code{logical} for autoscaling inputs (default = FALSE).
@@ -151,14 +190,18 @@ mbpls <- function(X, Y, ncomp=1, scale=FALSE, ...){
 #' 
 #' # Truncation MB-PLS 
 #' # Loading weights inside 60% confidence intervals around the median are set to 0.
-#' tmb <- smbpls(potato[c('Chemical','Compression')], potato[['Sensory']], ncomp = 5, 
+#' tmb <- smbpls(Sensory ~ Chemical+Compression, data=potato, ncomp = 5, 
 #'               truncation = "Lenth", trunc.width = 0.6)
+#' # Alternative XY-interface
+#' tmb.XY <- smbpls(X=potato[c('Chemical','Compression')], Y=potato[['Sensory']], ncomp = 5, 
+#'               truncation = "Lenth", trunc.width = 0.6)
+#' identical(tmb, tmb.XY)
 #' scoreplot(tmb, labels="names") # Exploiting mvr object structure from pls package
 #' loadingweightplot(tmb, labels="names")
 #' 
 #' # Soft-Threshold / Sparse MB-PLS 
 #' # Loading weights are subtracted by 60% of maximum value.
-#' smb <- smbpls(potato[c('Chemical','Compression')], potato[['Sensory']], 
+#' smb <- smbpls(X=potato[c('Chemical','Compression')], Y=potato[['Sensory']], 
 #'               ncomp = 5, shrink = 0.6)
 #' print(smb)
 #' scoreplot(smb, labels="names") # Exploiting mvr object structure from pls package
@@ -166,14 +209,40 @@ mbpls <- function(X, Y, ncomp=1, scale=FALSE, ...){
 #' @seealso Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 #' @importFrom plsVarSel truncation stpls mvrV
 #' @export
-smbpls <- function(X, Y, ncomp=1, scale=FALSE, shrink=NULL, truncation=NULL, trunc.width=0.95,...){
+smbpls <- function(formula, data, subset, na.action, X=NULL, Y=NULL, ncomp=1, scale=FALSE, shrink=NULL, truncation=NULL, trunc.width=0.95,...){
   if(is.null(truncation) && is.null(shrink)){
     stop("Specify either 'truncation' or 'shrink' to define sparseness method.")
   }
   if(!is.null(truncation) && !is.null(shrink)){
     stop("Choose either 'truncation' or 'shrink', not both.")
   }
-  Xo <- lapply(lapply(X, as.matrix), function(x)scale(x, scale=scale))
+  
+  if(is.null(X)){ # Use formula interface is X is not supplied.
+    ## Get the model frame
+    mf <- match.call(expand.dots = FALSE)
+    m <- match(c("formula", "data", "subset", "na.action"), names(mf), 0)
+    mf <- mf[c(1, m)]                # Retain only the named arguments
+    mf[[1]] <- as.name("model.frame")
+    mf <- eval(mf, parent.frame())
+    X <- mf[-1]
+
+    ## Get the terms
+    mt <- attr(mf, "terms")        # This is to include the `predvars'
+    # attribute of the terms
+    
+    ## Get the data matrices
+    Y <- model.response(mf, "numeric")
+    if (is.matrix(Y)) {
+      if (is.null(colnames(Y))) 
+        colnames(Y) <- paste("Y", 1:dim(Y)[2], sep = "")
+    }
+    else {
+      Y <- as.matrix(Y)
+      colnames(Y) <- deparse(formula[[2]])
+    }
+  }
+  Xo <- lapply(X, function(x)if(is.factor(x)){return(dummycode(x))}else{return(x)})
+  Xo <- lapply(lapply(Xo, as.matrix), function(x)scale(x, scale=scale))
   X  <- lapply(Xo, function(x) x/sqrt(ncol(x)))
   Y  <- as.matrix(Y)
   Xc  <- do.call(cbind, X)
@@ -230,6 +299,10 @@ smbpls <- function(X, Y, ncomp=1, scale=FALSE, shrink=NULL, truncation=NULL, tru
 }
 
 #' Multiblock Redundancy Analysis - mbRDA
+#' @param formula Model formula accepting a single response (block) and predictor block names separated by + signs.
+#' @param data The data set to analyse.
+#' @param subset Expression for subsetting the data before modelling.
+#' @param na.action How to handle NAs (no action implemented).
 #' @param X \code{list} of input blocks.
 #' @param Y \code{matrix} of responses.
 #' @param ncomp \code{integer} number of PLS components.
@@ -253,16 +326,43 @@ smbpls <- function(X, Y, ncomp=1, scale=FALSE, shrink=NULL, truncation=NULL, tru
 #' data(potato)
 #' potatoList <- lapply(potato, unclass)
 #' 
-#' mbr <- mbrda(potatoList[c('Chemical','Compression')], potatoList[['Sensory']], ncomp = 10)
+#' mbr <- mbrda(Sensory ~ Chemical + Compression, data = potatoList, ncomp = 10)
+#' mbr.XY <- mbrda(X = potatoList[c('Chemical','Compression')], Y = potatoList[['Sensory']], 
+#'                 ncomp = 10)
 #' print(mbr)
 #' scoreplot(mbr) # Exploiting mvr object structure from pls package
 #' @seealso Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 #' @export
-mbrda <- function(X, Y, ncomp=1, ...){
+mbrda <- function(formula, data, subset, na.action, X=NULL, Y=NULL, ncomp=1, ...){
   # MBRedundancyAnalysis
+  if(is.null(X)){ # Use formula interface is X is not supplied.
+    ## Get the model frame
+    mf <- match.call(expand.dots = FALSE)
+    m <- match(c("formula", "data", "subset", "na.action"), names(mf), 0)
+    mf <- mf[c(1, m)]                # Retain only the named arguments
+    mf[[1]] <- as.name("model.frame")
+    mf <- eval(mf, parent.frame())
+    X <- mf[-1]
+    
+    ## Get the terms
+    mt <- attr(mf, "terms")        # This is to include the `predvars'
+    # attribute of the terms
+    
+    ## Get the data matrices
+    Y <- model.response(mf, "numeric")
+    if (is.matrix(Y)) {
+      if (is.null(colnames(Y))) 
+        colnames(Y) <- paste("Y", 1:dim(Y)[2], sep = "")
+    }
+    else {
+      Y <- as.matrix(Y)
+      colnames(Y) <- deparse(formula[[2]])
+    }
+  }
+  
   Xd  <- lapply(X,as.data.frame)
   Xk  <- ktab.list.df(Xd)
-  Y   <- dudi.pca(Y, scannf = FALSE, nf = ncol(Y))
+  Y   <- dudi.pca(as.data.frame(Y), scannf = FALSE, nf = ncol(Y))
   res <- mbpcaiv(Y, Xk, scale = TRUE, scannf = FALSE, nf = ncomp, ...)
   
   varT <- diag(crossprod(res$lX * res$lw, res$lX))

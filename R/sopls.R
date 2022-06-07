@@ -29,8 +29,6 @@
 #' @return An \code{sopls, mvr} object with scores, loadings, etc. 
 #' associated with printing (\code{\link{sopls_results}}) and plotting methods (\code{\link{sopls_plots}}).
 #' 
-#' @description 
-#' 
 #' @references Jørgensen K, Mevik BH, Næs T. Combining designed experiments with several blocks of spectroscopic data. Chemometr Intell Lab Syst. 2007;88(2): 154–166.
 
 #' @examples 
@@ -52,6 +50,7 @@ sopls <- function(formula, ncomp, max_comps = min(sum(ncomp), 20), data,
   mf <- mf[c(1, m)]                # Retain only the named arguments
   mf[[1]] <- as.name("model.frame")
   mf <- eval(mf, parent.frame())
+  X <- mf[-1]
   
   ## Get the terms
   mt <- attr(mf, "terms")        # This is to include the `predvars'
@@ -75,18 +74,19 @@ sopls <- function(formula, ncomp, max_comps = min(sum(ncomp), 20), data,
     }
   }
   
-  # Convert factor blocks to dummy coding and make sure contents are matrices
-  M <- model.matrix(mt, mf)
-  blockColumns <- attr(M, 'assign')
-  X <- Xmeans <- Xscale <- list()
-  for(i in 1:(length(mf)-1)){
-    X[[i]] <- M[, blockColumns==i, drop=FALSE]
-    Xmeans[[i]] <- apply(X[[i]],2,mean)
-    if(scale){
-      Xscale[[i]] <- apply(X[[i]],2,sd)
-    }
+  # # Convert factor blocks to dummy coding and make sure contents are matrices
+  # M <- model.matrix(mt, mf)
+  # blockColumns <- attr(M, 'assign')
+  X <- lapply(X, function(x)if(is.factor(x)){return(dummycode(x))}else{return(x)})
+  Xmeans <- Xscale <- list()
+  for(i in 1:length(X)){
+#   X[[i]] <- M[, blockColumns==i, drop=FALSE]
+   Xmeans[[i]] <- apply(X[[i]],2,mean)
+   if(scale){
+     Xscale[[i]] <- apply(X[[i]],2,sd)
+   }
   }
-  names(X) <- colnames(mf)[-1]
+#  names(X) <- colnames(mf)[-1]
   X.concat <- do.call(cbind,X)
   
   y <- switch(response.type,

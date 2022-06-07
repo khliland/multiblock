@@ -5,8 +5,12 @@
 \title{Sparse Multiblock Partial Least Squares - sMB-PLS}
 \usage{
 smbpls(
-  X,
-  Y,
+  formula,
+  data,
+  subset,
+  na.action,
+  X = NULL,
+  Y = NULL,
   ncomp = 1,
   scale = FALSE,
   shrink = NULL,
@@ -16,7 +20,15 @@ smbpls(
 )
 }
 \arguments{
-\item{X}{\code{list} of input blocks.}
+\item{formula}{Model formula accepting a single response (block) and predictor block names separated by + signs.}
+
+\item{data}{The data set to analyse.}
+
+\item{subset}{Expression for subsetting the data before modelling.}
+
+\item{na.action}{How to handle NAs (no action implemented).}
+
+\item{X}{\code{list} of input blocks. If X is supplied, the formula interface is skipped.}
 
 \item{Y}{\code{matrix} of responses.}
 
@@ -57,14 +69,18 @@ data(potato)
 
 # Truncation MB-PLS 
 # Loading weights inside 60\% confidence intervals around the median are set to 0.
-tmb <- smbpls(potato[c('Chemical','Compression')], potato[['Sensory']], ncomp = 5, 
+tmb <- smbpls(Sensory ~ Chemical+Compression, data=potato, ncomp = 5, 
               truncation = "Lenth", trunc.width = 0.6)
+# Alternative XY-interface
+tmb.XY <- smbpls(X=potato[c('Chemical','Compression')], Y=potato[['Sensory']], ncomp = 5, 
+              truncation = "Lenth", trunc.width = 0.6)
+identical(tmb, tmb.XY)
 scoreplot(tmb, labels="names") # Exploiting mvr object structure from pls package
 loadingweightplot(tmb, labels="names")
 
 # Soft-Threshold / Sparse MB-PLS 
 # Loading weights are subtracted by 60\% of maximum value.
-smb <- smbpls(potato[c('Chemical','Compression')], potato[['Sensory']], 
+smb <- smbpls(X=potato[c('Chemical','Compression')], Y=potato[['Sensory']], 
               ncomp = 5, shrink = 0.6)
 print(smb)
 scoreplot(smb, labels="names") # Exploiting mvr object structure from pls package

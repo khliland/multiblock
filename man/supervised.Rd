@@ -16,12 +16,12 @@ Collection of supervised multiblock methods:
 }
 \examples{
 data(potato)
-mb <- mbpls(potato[c('Chemical','Compression')], potato[['Sensory']], ncomp = 5)
+mb <- mbpls(Sensory ~ Chemical + Compression, data=potato, ncomp = 5)
 print(mb)
 
 # Convert data.frame with AsIs objects to list of matrices
 potatoList <- lapply(potato, unclass)
-mbr <- mbrda(potatoList[c('Chemical','Compression')], potatoList[['Sensory']], ncomp = 10)
+mbr <- mbrda(Sensory ~ Chemical + Compression, data=potatoList, ncomp = 10)
 print(mbr)
 scoreplot(mbr, labels="names")
 

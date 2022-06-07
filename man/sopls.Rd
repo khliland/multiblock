@@ -53,8 +53,6 @@ associated with printing (\code{\link{sopls_results}}) and plotting methods (\co
 }
 \description{
 Function for computing standard SO-PLS based on the interface of the \code{pls} package.
-
-
 }
 \details{
 SO-PLS is a method which handles two or more input blocks by sequentially performing

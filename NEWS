@@ -5,6 +5,12 @@ This implements and imports a large collection of methods for multiblock data an
 functions, several real data sets and six vignettes covering a range different applications.
 Kristian Hovde Liland
 
+##### Version 0.8.2
+Date: 06 June 2022
+>> Changed default behaviour of sopls_pm to simultaneously orthogonalise on intermediate blocks instead of orthogonalising sequentially. Legacy behaviour (used in some papers) can be obtained by setting simultaneous=FALSE.
+>> Changed default interface of MB-PLS, sMB-PLS and MB-RDA to use formula, but retained backward compatibility with new arguments X and Y.
+>> Changed internal handling of X-list in SO-PLS/ROSA to improve naming (excluding block names in variables).
+
 ##### Version 0.8.1
 Date: 28 December 2021
 >> Added NEWS to package.

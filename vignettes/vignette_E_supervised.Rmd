@@ -71,7 +71,7 @@ A multi-response two-block MB-PLS model with up to 10 components in total is cro
 
 ```{r}
 data(potato)
-mb <- mbpls(potato[c('Chemical','Compression')], potato[['Sensory']], ncomp = 10,
+mb <- mbpls(X=potato[c('Chemical','Compression')], Y=potato[['Sensory']], ncomp=10,
             max_comps=10, validation="CV", segments=10)
 print(mb)
 ```
@@ -101,7 +101,7 @@ the loading weights have 60% of the largest values subtracted before setting neg
 
 ```{r}
 data(potato)
-smb <- smbpls(potato[c('Chemical','Compression')], potato[['Sensory']], ncomp = 10,
+smb <- smbpls(X=potato[c('Chemical','Compression')], Y=potato[['Sensory']], ncomp = 10,
             max_comps=10, shrink = 0.6, validation="CV", segments=10)
 print(smb)
 ```
@@ -115,7 +115,7 @@ while the score plots show the effect on the sample scores.
 ```{r}
 old.par <- par(mfrow = c(3,2), mar = c(3.5,3.5,1.5,1), mgp = c(2,1,0))
 for(shrink in c(0.2, 0.5, 0.8)){
-  smb <- smbpls(potato[c('Chemical','Compression')], potato[['Sensory']], ncomp = 10,
+  smb <- smbpls(X=potato[c('Chemical','Compression')], Y=potato[['Sensory']], ncomp = 10,
             max_comps=10, shrink = shrink)
   scoreplot(smb, labels = "names", main = paste0("Superscores, shrink=", shrink))
   loadingweightplot(smb, labels = "names", main = paste0("Super-loading weights, shrink=", shrink))
@@ -408,7 +408,7 @@ This implementation uses a wrapper for the _mbpcaiv_ function in the _ade4_ pack
 potatoList <- lapply(potato, unclass)
 
 # Perform mbRDA with two blocks explaining sensory attributes
-mbr <- mbrda(potatoList[c('Chemical','Compression')], potatoList[['Sensory']], ncomp = 5)
+mbr <- mbrda(X = potatoList[c('Chemical','Compression')], Y = potatoList[['Sensory']], ncomp = 5)
 print(mbr)
 ```
 
