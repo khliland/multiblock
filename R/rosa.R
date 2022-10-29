@@ -42,6 +42,9 @@
 #' data(potato)
 #' mod <- rosa(Sensory[,1] ~ ., data = potato, ncomp = 10, validation = "CV", segments = 5)
 #' summary(mod)
+#' 
+#' # For examples of ROSA results and plotting see 
+#' # ?rosa_results and ?rosa_plots.
 #' @seealso Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 #' Common functions for computation and extraction of results and plotting are found in \code{\link{rosa_results}} and \code{\link{rosa_plots}}, respectively.
 #' @export
@@ -859,9 +862,9 @@ CorrXY <- function(X, Y, weights) {
 
 ################
 ## function norm
-norm <- function(vec) {
-  sqrt(crossprod(vec)[1])
-}
+#norm <- function(vec) {
+#  sqrt(crossprod(vec)[1])
+#}
 
 ################
 ## Stripped version of canonical correlation (cancor)

@@ -352,7 +352,9 @@ pcp.sopls <- function(object, ncomp, ...){
   compName <- paste0(ncomp, collapse = ",")
   preds <- object$validation$Ypred[,,compName,drop=FALSE]
   dim(preds) <- dim(object$validation$Ypred)[1:2]
+  dimnames(preds) <- dimnames(object$validation$Ypred)[1:2]
   PCP <- pca(preds, ncomp = min(ncol(preds),nrow(preds)-1))
+  PCP$data = object$data
   PCP$loadings <- PCP$loadings * rep(sqrt(colSums(PCP$scores^2)),each=nrow(PCP$loadings))
   PCP$scores <- PCP$scores / rep(sqrt(colSums(PCP$scores^2)),each=nrow(PCP$scores))
   PCP$blockLoadings <- lapply(lapply(object$data$X, function(x)x-rep(colMeans(x),each=nrow(x))),function(x)crossprod(x,PCP$scores))
@@ -378,6 +380,7 @@ pcp.default <- function(object, X, ...){
   if(!missing(X)){
     PCP$blockLoadings <- lapply(lapply(X, function(x)x-rep(colMeans(x),each=nrow(x))),function(x)crossprod(x,PCP$scores))
     PCP$info$blockLoadings <- "Block loadings"
+    PCP$data <- X
   }
   PCP$call <- match.call()
   class(PCP) <- c('multiblock','list')

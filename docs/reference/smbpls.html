@@ -18,7 +18,7 @@ when computing PLS components in the global model."><!-- mathjax --><script src=
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">multiblock</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.8.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.8.3</span>
       </span>
     </div>
 
@@ -77,56 +77,89 @@ when computing PLS components in the global model.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">smbpls</span><span class="op">(</span>
-  <span class="va">formula</span>,
-  <span class="va">data</span>,
-  <span class="va">subset</span>,
-  <span class="va">na.action</span>,
-  X <span class="op">=</span> <span class="cn">NULL</span>,
-  Y <span class="op">=</span> <span class="cn">NULL</span>,
-  ncomp <span class="op">=</span> <span class="fl">1</span>,
-  scale <span class="op">=</span> <span class="cn">FALSE</span>,
-  shrink <span class="op">=</span> <span class="cn">NULL</span>,
-  truncation <span class="op">=</span> <span class="cn">NULL</span>,
-  trunc.width <span class="op">=</span> <span class="fl">0.95</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">smbpls</span><span class="op">(</span></span>
+<span>  <span class="va">formula</span>,</span>
+<span>  <span class="va">data</span>,</span>
+<span>  <span class="va">subset</span>,</span>
+<span>  <span class="va">na.action</span>,</span>
+<span>  X <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  Y <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  ncomp <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  scale <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  shrink <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  truncation <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  trunc.width <span class="op">=</span> <span class="fl">0.95</span>,</span>
+<span>  blockScale <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sqrtnvar"</span>, <span class="st">"ssq"</span>, <span class="st">"none"</span><span class="op">)</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>formula</dt>
 <dd><p>Model formula accepting a single response (block) and predictor block names separated by + signs.</p></dd>
+
+
 <dt>data</dt>
 <dd><p>The data set to analyse.</p></dd>
+
+
 <dt>subset</dt>
 <dd><p>Expression for subsetting the data before modelling.</p></dd>
+
+
 <dt>na.action</dt>
 <dd><p>How to handle NAs (no action implemented).</p></dd>
+
+
 <dt>X</dt>
 <dd><p><code>list</code> of input blocks. If X is supplied, the formula interface is skipped.</p></dd>
+
+
 <dt>Y</dt>
 <dd><p><code>matrix</code> of responses.</p></dd>
+
+
 <dt>ncomp</dt>
 <dd><p><code>integer</code> number of PLS components.</p></dd>
+
+
 <dt>scale</dt>
 <dd><p><code>logical</code> for autoscaling inputs (default = FALSE).</p></dd>
+
+
 <dt>shrink</dt>
 <dd><p><code>numeric</code> scalar indicating degree of L1-shrinkage/Soft-Thresholding (optional), 0 &lt;= shrink &lt; 1.</p></dd>
+
+
 <dt>truncation</dt>
 <dd><p><code>character</code> indicating type of truncation (optional) "Lenth" uses
 asymmetric confidence intervals to determine outlying loading weights. "quantile" uses
 a quantile plot approach to determining outliers.</p></dd>
+
+
 <dt>trunc.width</dt>
 <dd><p><code>numeric</code> indicating confidence of "Lenth type" confidence interval
 or quantile in "quantile plot" approach. Default = 0.95.</p></dd>
+
+
+<dt>blockScale</dt>
+<dd><p>Either a <code>character</code> indicating type of block scaling or a <code>numeric</code> vector of block weights (see Details).</p></dd>
+
+
 <dt>...</dt>
 <dd><p>additional arguments to pls::plsr.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p><code>multiblock, mvr</code> object with super-scores, super-loadings, block-scores and block-loading, and the underlying
-<code>mvr</code> (PLS) object for the super model, with all its result and plot possibilities. Relevant plotting functions: <code><a href="multiblock_plots.html">multiblock_plots</a></code>and result functions: <code><a href="multiblock_results.html">multiblock_results</a></code>.</p>
+    
+
+<p><code>multiblock, mvr</code> object with super-scores, super-loadings, block-scores and block-loading, and the underlying
+<code>mvr</code> (PLS) object for the super model, with all its result and plot possibilities. Relevant plotting functions: <code><a href="multiblock_plots.html">multiblock_plots</a></code></p>
+
+
+<p>and result functions: <code><a href="multiblock_results.html">multiblock_results</a></code>.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -136,6 +169,11 @@ comes in two flavours, both estimating inliers and outliers. The "Lenth" method 
 intervals around the median of a loading weigh vector to estimate inliers. The "quantile" method uses
 a quantile plot approach to estimate outliers as deviations from the estimated quantile line. As with
 ordinary MB-PLS scaled input blocks (1/sqrt(ncol)) are used.</p>
+<p>Block weighting is performed after scaling all variables and is by default
+<code>"sqrtnvar"</code>: 1/sqrt(ncol(X[[i]])) in each block. Alternatives
+are <code>"ssq"</code>: 1/norm(X[[i]], "F")^2 and <code>"none"</code>: 1/1. Finally, if
+a <code>numeric</code> vector is supplied, it will be used to scale the blocks
+after <code>"ssq"</code> scaling, i.e., Z[[i]] = X[[i]] / norm(X[[i]], "F")^2 * blockScale[i].</p>
     </div>
     <div id="references">
     <h2>References</h2>
@@ -152,35 +190,40 @@ ordinary MB-PLS scaled input blocks (1/sqrt(ncol)) are used.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">potato</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Truncation MB-PLS </span></span>
-<span class="r-in"><span class="co"># Loading weights inside 60% confidence intervals around the median are set to 0.</span></span>
-<span class="r-in"><span class="va">tmb</span> <span class="op">&lt;-</span> <span class="fu">smbpls</span><span class="op">(</span><span class="va">Sensory</span> <span class="op">~</span> <span class="va">Chemical</span><span class="op">+</span><span class="va">Compression</span>, data<span class="op">=</span><span class="va">potato</span>, ncomp <span class="op">=</span> <span class="fl">5</span>, </span>
-<span class="r-in">              truncation <span class="op">=</span> <span class="st">"Lenth"</span>, trunc.width <span class="op">=</span> <span class="fl">0.6</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Alternative XY-interface</span></span>
-<span class="r-in"><span class="va">tmb.XY</span> <span class="op">&lt;-</span> <span class="fu">smbpls</span><span class="op">(</span>X<span class="op">=</span><span class="va">potato</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'Chemical'</span>,<span class="st">'Compression'</span><span class="op">)</span><span class="op">]</span>, Y<span class="op">=</span><span class="va">potato</span><span class="op">[[</span><span class="st">'Sensory'</span><span class="op">]</span><span class="op">]</span>, ncomp <span class="op">=</span> <span class="fl">5</span>, </span>
-<span class="r-in">              truncation <span class="op">=</span> <span class="st">"Lenth"</span>, trunc.width <span class="op">=</span> <span class="fl">0.6</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/identical.html" class="external-link">identical</a></span><span class="op">(</span><span class="va">tmb</span>, <span class="va">tmb.XY</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">potato</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Truncation MB-PLS </span></span></span>
+<span class="r-in"><span><span class="co"># Loading weights inside 60% confidence intervals around the median are set to 0.</span></span></span>
+<span class="r-in"><span><span class="va">tmb</span> <span class="op">&lt;-</span> <span class="fu">smbpls</span><span class="op">(</span><span class="va">Sensory</span> <span class="op">~</span> <span class="va">Chemical</span><span class="op">+</span><span class="va">Compression</span>, data<span class="op">=</span><span class="va">potato</span>, ncomp <span class="op">=</span> <span class="fl">5</span>, </span></span>
+<span class="r-in"><span>              truncation <span class="op">=</span> <span class="st">"Lenth"</span>, trunc.width <span class="op">=</span> <span class="fl">0.6</span><span class="op">)</span></span></span>
+<span class="r-in"><span>              </span></span>
+<span class="r-in"><span><span class="co"># Alternative XY-interface</span></span></span>
+<span class="r-in"><span><span class="va">tmb.XY</span> <span class="op">&lt;-</span> <span class="fu">smbpls</span><span class="op">(</span>X<span class="op">=</span><span class="va">potato</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'Chemical'</span>,<span class="st">'Compression'</span><span class="op">)</span><span class="op">]</span>, Y<span class="op">=</span><span class="va">potato</span><span class="op">[[</span><span class="st">'Sensory'</span><span class="op">]</span><span class="op">]</span>, ncomp <span class="op">=</span> <span class="fl">5</span>, </span></span>
+<span class="r-in"><span>              truncation <span class="op">=</span> <span class="st">"Lenth"</span>, trunc.width <span class="op">=</span> <span class="fl">0.6</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/identical.html" class="external-link">identical</a></span><span class="op">(</span><span class="va">tmb</span>, <span class="va">tmb.XY</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/pls/man/scoreplot.html" class="external-link">scoreplot</a></span><span class="op">(</span><span class="va">tmb</span>, labels<span class="op">=</span><span class="st">"names"</span><span class="op">)</span> <span class="co"># Exploiting mvr object structure from pls package</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/pls/man/scoreplot.html" class="external-link">scoreplot</a></span><span class="op">(</span><span class="va">tmb</span>, labels<span class="op">=</span><span class="st">"names"</span><span class="op">)</span> <span class="co"># Exploiting mvr object structure from pls package</span></span></span>
 <span class="r-plt img"><img src="smbpls-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="fu"><a href="multiblock_plots.html">loadingweightplot</a></span><span class="op">(</span><span class="va">tmb</span>, labels<span class="op">=</span><span class="st">"names"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="multiblock_plots.html">loadingweightplot</a></span><span class="op">(</span><span class="va">tmb</span>, labels<span class="op">=</span><span class="st">"names"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="smbpls-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Soft-Threshold / Sparse MB-PLS </span></span>
-<span class="r-in"><span class="co"># Loading weights are subtracted by 60% of maximum value.</span></span>
-<span class="r-in"><span class="va">smb</span> <span class="op">&lt;-</span> <span class="fu">smbpls</span><span class="op">(</span>X<span class="op">=</span><span class="va">potato</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'Chemical'</span>,<span class="st">'Compression'</span><span class="op">)</span><span class="op">]</span>, Y<span class="op">=</span><span class="va">potato</span><span class="op">[[</span><span class="st">'Sensory'</span><span class="op">]</span><span class="op">]</span>, </span>
-<span class="r-in">              ncomp <span class="op">=</span> <span class="fl">5</span>, shrink <span class="op">=</span> <span class="fl">0.6</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">smb</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Soft-Threshold / Sparse MB-PLS </span></span></span>
+<span class="r-in"><span><span class="co"># Loading weights are subtracted by 60% of maximum value.</span></span></span>
+<span class="r-in"><span><span class="va">smb</span> <span class="op">&lt;-</span> <span class="fu">smbpls</span><span class="op">(</span>X<span class="op">=</span><span class="va">potato</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'Chemical'</span>,<span class="st">'Compression'</span><span class="op">)</span><span class="op">]</span>, Y<span class="op">=</span><span class="va">potato</span><span class="op">[[</span><span class="st">'Sensory'</span><span class="op">]</span><span class="op">]</span>, </span></span>
+<span class="r-in"><span>              ncomp <span class="op">=</span> <span class="fl">5</span>, shrink <span class="op">=</span> <span class="fl">0.6</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">smb</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Sparse Multiblock PLS (Soft-Threshold) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> smbpls(X = potato[c("Chemical", "Compression")], Y = potato[["Sensory"]],     ncomp = 5, shrink = 0.6)</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/pls/man/scoreplot.html" class="external-link">scoreplot</a></span><span class="op">(</span><span class="va">smb</span>, labels<span class="op">=</span><span class="st">"names"</span><span class="op">)</span> <span class="co"># Exploiting mvr object structure from pls package</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/pls/man/scoreplot.html" class="external-link">scoreplot</a></span><span class="op">(</span><span class="va">smb</span>, labels<span class="op">=</span><span class="st">"names"</span><span class="op">)</span> <span class="co"># Exploiting mvr object structure from pls package</span></span></span>
 <span class="r-plt img"><img src="smbpls-3.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="fu"><a href="multiblock_plots.html">loadingweightplot</a></span><span class="op">(</span><span class="va">smb</span>, labels<span class="op">=</span><span class="st">"names"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="multiblock_plots.html">loadingweightplot</a></span><span class="op">(</span><span class="va">smb</span>, labels<span class="op">=</span><span class="st">"names"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="smbpls-4.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Emphasis may be different for blocks</span></span></span>
+<span class="r-in"><span><span class="va">smb</span> <span class="op">&lt;-</span> <span class="fu">smbpls</span><span class="op">(</span>X<span class="op">=</span><span class="va">potato</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'Chemical'</span>,<span class="st">'Compression'</span><span class="op">)</span><span class="op">]</span>, Y<span class="op">=</span><span class="va">potato</span><span class="op">[[</span><span class="st">'Sensory'</span><span class="op">]</span><span class="op">]</span>, </span></span>
+<span class="r-in"><span>              ncomp <span class="op">=</span> <span class="fl">5</span>, shrink <span class="op">=</span> <span class="fl">0.6</span>, blockScale <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -195,7 +238,7 @@ ordinary MB-PLS scaled input blocks (1/sqrt(ncol)) are used.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

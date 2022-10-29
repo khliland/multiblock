@@ -1,9 +1,18 @@
 NEWS file for package multiblock
-Functions and datasets to support Smilde, Næs and Liland (2021, ISBN: 978-1-119-60096-1) 
+Functions and datasets to support Smilde, Næs and Liland (2022, ISBN: 978-1-119-60096-1) 
 "Multiblock Data Fusion in Statistics and Machine Learning - Applications in the Natural and Life Sciences". 
 This implements and imports a large collection of methods for multiblock data analysis with common interfaces, result- and plotting 
 functions, several real data sets and six vignettes covering a range different applications.
 Kristian Hovde Liland
+
+##### Version 0.8.3
+Date: 29 October 2022
+>> Added options for various block weights in MB-PLS and sMB-PLS.
+>> Added correlation loading plots (corrplot).
+>> Improved feedback for score- and loadingplot for SO-PLS.
+>> Added possiblity of plotting scores from multiple blocks for SO-PLS.
+>> Changed computations of explained variances for DISCO.
+>> Fixed wrong fitted values for SO-PLS model with 1 component in first block.
 
 ##### Version 0.8.2
 Date: 06 June 2022

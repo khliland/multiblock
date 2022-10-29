@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">multiblock</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.8.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.8.3</span>
       </span>
     </div>
 
@@ -75,52 +75,71 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="co"># S3 method for rosa</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/image.html" class="external-link">image</a></span><span class="op">(</span>
-  <span class="va">x</span>,
-  type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"correlation"</span>, <span class="st">"residual"</span>, <span class="st">"order"</span><span class="op">)</span>,
-  ncomp <span class="op">=</span> <span class="va">x</span><span class="op">$</span><span class="va">ncomp</span>,
-  col <span class="op">=</span> <span class="fu"><a href="mcolors.html">mcolors</a></span><span class="op">(</span><span class="fl">128</span><span class="op">)</span>,
-  legend <span class="op">=</span> <span class="cn">TRUE</span>,
-  mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">6</span>, <span class="fl">4</span>, <span class="fl">7</span><span class="op">)</span>,
-  las <span class="op">=</span> <span class="fl">1</span>,
-  <span class="va">...</span>
-<span class="op">)</span>
-
-<span class="co"># S3 method for rosa</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/barplot.html" class="external-link">barplot</a></span><span class="op">(</span>
-  <span class="va">height</span>,
-  type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"train"</span>, <span class="st">"CV"</span><span class="op">)</span>,
-  ncomp <span class="op">=</span> <span class="va">height</span><span class="op">$</span><span class="va">ncomp</span>,
-  col <span class="op">=</span> <span class="fu"><a href="mcolors.html">mcolors</a></span><span class="op">(</span><span class="va">ncomp</span><span class="op">)</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S3 method for rosa</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/image.html" class="external-link">image</a></span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"correlation"</span>, <span class="st">"residual"</span>, <span class="st">"order"</span><span class="op">)</span>,</span>
+<span>  ncomp <span class="op">=</span> <span class="va">x</span><span class="op">$</span><span class="va">ncomp</span>,</span>
+<span>  col <span class="op">=</span> <span class="fu"><a href="mcolors.html">mcolors</a></span><span class="op">(</span><span class="fl">128</span><span class="op">)</span>,</span>
+<span>  legend <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">6</span>, <span class="fl">4</span>, <span class="fl">7</span><span class="op">)</span>,</span>
+<span>  las <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for rosa</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/barplot.html" class="external-link">barplot</a></span><span class="op">(</span></span>
+<span>  <span class="va">height</span>,</span>
+<span>  type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"train"</span>, <span class="st">"CV"</span><span class="op">)</span>,</span>
+<span>  ncomp <span class="op">=</span> <span class="va">height</span><span class="op">$</span><span class="va">ncomp</span>,</span>
+<span>  col <span class="op">=</span> <span class="fu"><a href="mcolors.html">mcolors</a></span><span class="op">(</span><span class="va">ncomp</span><span class="op">)</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>A <code>rosa</code> object</p></dd>
+
+
 <dt>type</dt>
 <dd><p>An optional <code>character</code> for selecting the plot type. For <code>image.rosa</code> the options are: "correlation" (default), "residual" or "order". For <code>barplot.rosa</code> the options indicate: explained variance should be based on training data ("train") or cross-validation ("CV").</p></dd>
+
+
 <dt>ncomp</dt>
 <dd><p>Integer to control the number of components to plot (if fewer than the fitted number of components).</p></dd>
+
+
 <dt>col</dt>
 <dd><p>Colours used for the image and bar plot, defaulting to mcolors(128).</p></dd>
+
+
 <dt>legend</dt>
 <dd><p>Logical indicating if a legend should be included (default = TRUE) for <code>image.rosa</code>.</p></dd>
+
+
 <dt>mar</dt>
 <dd><p>Figure margins, default = c(5,6,4,7) for <code>image.rosa</code>.</p></dd>
+
+
 <dt>las</dt>
 <dd><p>Axis text direction, default = 1 for <code>image.rosa</code>.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Additional parameters passed to <code>loadingplot</code>, <code>image</code>, <code>axis</code>, <code>color.legend</code>, or <code>barplot</code>.</p></dd>
+
+
 <dt>height</dt>
 <dd><p>A <code>rosa</code> object.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>No return.</p>
+    
+
+<p>No return.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -142,15 +161,15 @@ Common functions for computation and extraction of results in <code><a href="ros
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">potato</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="rosa.html">rosa</a></span><span class="op">(</span><span class="va">Sensory</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">potato</span>, ncomp <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/image.html" class="external-link">image</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">potato</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="rosa.html">rosa</a></span><span class="op">(</span><span class="va">Sensory</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">potato</span>, ncomp <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/image.html" class="external-link">image</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="rosa_plots-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/barplot.html" class="external-link">barplot</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/barplot.html" class="external-link">barplot</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="rosa_plots-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="fu"><a href="multiblock_plots.html">loadingweightplot</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="multiblock_plots.html">loadingweightplot</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="rosa_plots-3.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -165,7 +184,7 @@ Common functions for computation and extraction of results in <code><a href="ros
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

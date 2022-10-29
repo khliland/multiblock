@@ -42,7 +42,9 @@ Scores and loadings have their own extensions of \code{scores()} and \code{loadi
 data(wine)
 sc <- sca(wine[c('Smell at rest', 'View', 'Smell after shaking')], ncomp = 4)
 print(sc)
+summary(sc)
 head(loadings(sc, block = 1))
+head(scores(sc))
 
 }
 \seealso{

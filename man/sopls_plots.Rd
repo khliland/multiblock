@@ -7,6 +7,7 @@
 \alias{loadingplot.sopls}
 \alias{scoreplot.sopls}
 \alias{biplot.sopls}
+\alias{corrplot.sopls}
 \title{Scores, loadings and plots for sopls objects}
 \usage{
 \method{loadings}{sopls}(object, ncomp = "all", block = 1, y = FALSE, ...)
@@ -16,7 +17,7 @@
 \method{scoreplot}{sopls}(
   object,
   comps = 1:2,
-  ncomp = "all",
+  ncomp = NULL,
   block = 1,
   labels,
   identify = FALSE,
@@ -29,7 +30,7 @@
 \method{loadingplot}{sopls}(
   object,
   comps = 1:2,
-  ncomp = "all",
+  ncomp = NULL,
   block = 1,
   scatter = TRUE,
   labels,
@@ -45,6 +46,18 @@
   ylab,
   pretty.xlabels = TRUE,
   xlim,
+  ...
+)
+
+\method{corrplot}{sopls}(
+  object,
+  comps = 1:2,
+  ncomp = NULL,
+  block = 1,
+  labels = TRUE,
+  col = 1:5,
+  plotx = TRUE,
+  ploty = TRUE,
   ...
 )
 
@@ -72,7 +85,7 @@
 
 \item{...}{further arguments sent to the underlying plot function(s)}
 
-\item{comps}{\code{integer} vector giving components, within block, to plot.}
+\item{comps}{\code{integer} vector giving components, within block, to plot (see Details regarding combination of blocks).}
 
 \item{labels}{\code{character} indicating if "names" or "numbers" should be plot symbols (optional).}
 
@@ -102,6 +115,10 @@
 
 \item{xlim}{\code{numeric} vector of length two, with the x limits of the plot (optional).}
 
+\item{plotx}{\code{locical} or \code{integer}/\code{character}.  Whether to plot the \eqn{X} correlation loadings, optionally which block(s). Defaults to \code{TRUE}.}
+
+\item{ploty}{\code{logical}.  Whether to plot the \eqn{Y} correlation loadings. Defaults to \code{TRUE}.}
+
 \item{x}{\code{sopls} object}
 
 \item{which}{\code{character} for selecting type of biplot ("x" = default, "y", "scores", "loadings").}
@@ -117,6 +134,12 @@
 \description{
 Extraction of \code{scores} and \code{loadings} and adaptation of \code{scoreplot},
 \code{loadingplot} and \code{biplot} from package \code{pls} for \code{sopls} objects.
+}
+\details{
+If \code{comps} is supplied as a \code{list} for \code{scoreplot}, it is assumed that its elements refer to each of the
+blocks up to block number \code{block}. For instance \code{comps = list(1, 0, 1:2)} will select 1 component from the first
+block, no components from the second block and the first two components from the last block. This must be
+matched by \code{ncomp}, specifying how many components were selected before block number \code{block}.
 }
 \examples{
 data(potato)
@@ -137,6 +160,9 @@ scoreplot(so, ncomp=c(3), block=2, labels="names")
 # Scatterplot matrix
 scoreplot(so, ncomp=c(3,2), block=3, comps=1:3)
 
+# Combination of blocks (see Details)
+scoreplot(so, ncomp=c(3,2), block=3, comps=list(1,0,1))
+
 # Default plot from first block
 loadingplot(so, scatter=TRUE)
 
@@ -145,6 +171,9 @@ loadingplot(so, ncomp=c(3), block=2, labels="names", scatter=TRUE)
 
 # Scatterplot matrix
 loadingplot(so, ncomp=c(3,2), block=3, comps=1:3, scatter=TRUE)
+
+# Correlation loadings
+corrplot(so, block=2, ncomp=1)
 
 # Default plot from first block
 biplot(so)

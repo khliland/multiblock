@@ -38,6 +38,7 @@ NULL
 #' @param Y \code{matrix} of responses.
 #' @param ncomp \code{integer} number of PLS components.
 #' @param scale \code{logical} for autoscaling inputs (default = FALSE).
+#' @param blockScale Either a \code{character} indicating type of block scaling or a \code{numeric} vector of block weights (see Details).
 #' @param ... additional arguments to pls::plsr.
 #' 
 #' @description A function computing MB-PLS scores, loadings, etc. on the super-level and 
@@ -51,6 +52,12 @@ NULL
 #' scaled input blocks (1/sqrt(ncol)) enabling all summaries and plots from the \code{pls}
 #' package.
 #' 
+#' Block weighting is performed after scaling all variables and is by default 
+#' \code{"sqrtnvar"}: 1/sqrt(ncol(X\[\[i\]\])) in each block. Alternatives
+#' are \code{"ssq"}: 1/norm(X\[\[i\]\], "F")^2 and \code{"none"}: 1/1. Finally, if
+#' a \code{numeric} vector is supplied, it will be used to scale the blocks
+#' after \code{"ssq"} scaling, i.e., Z\[\[i\]\] = X\[\[i\]\] / norm(X\[\[i\]\], "F")^2 * blockScale\[i\].
+#' 
 #' @return \code{multiblock, mvr} object with super-scores, super-loadings, block-scores and block-loading, and the underlying 
 #' \code{mvr} (PLS) object for the super model, with all its result and plot possibilities. Relevant plotting functions: \code{\link{multiblock_plots}} 
 #' and result functions: \code{\link{multiblock_results}}.
@@ -63,16 +70,19 @@ NULL
 #' data(potato)
 #' # Formula interface
 #' mb <- mbpls(Sensory ~ Chemical+Compression, data=potato, ncomp = 5)
+#' 
 #' # ... or X and Y
 #' mb.XY <- mbpls(X=potato[c('Chemical','Compression')], Y=potato[['Sensory']], ncomp = 5)
 #' identical(mb$scores, mb.XY$scores)
 #' print(mb)
 #' scoreplot(mb, labels="names") # Exploiting mvr object structure from pls package
+#' 
+#' # Block scaling with emphasis on first block
+#' mbs <- mbpls(Sensory ~ Chemical+Compression, data=potato, ncomp = 5, blockScale = c(10, 1))
+#' scoreplot(mbs, labels="names") # Exploiting mvr object structure from pls package
 #' @seealso Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 #' @export
-mbpls <- function(formula, data, subset, na.action, X=NULL, Y=NULL, ncomp=1, scale=FALSE, ...){
-  # TODO: Extend with various block norms
-  
+mbpls <- function(formula, data, subset, na.action, X=NULL, Y=NULL, ncomp=1, scale=FALSE, blockScale=c("sqrtnvar","ssq","none"), ...){
   if(is.null(X)){ # Use formula interface is X is not supplied.
     ## Get the model frame
     mf <- match.call(expand.dots = FALSE)
@@ -98,9 +108,26 @@ mbpls <- function(formula, data, subset, na.action, X=NULL, Y=NULL, ncomp=1, sca
     }
   }
   
+  # Block scaling
+  nblock <- length(X)
   Xo <- lapply(X, function(x)if(is.factor(x)){return(dummycode(x))}else{return(x)})
   Xo <- lapply(lapply(Xo, as.matrix), function(x)scale(x, scale=scale))
-  X  <- lapply(Xo, function(x) x/sqrt(ncol(x)))
+  if(is.numeric(blockScale)){ # User supplied scale
+    X <- lapply(1:nblock, function(i) Xo[[i]]/norm(Xo[[i]],"F")^2*blockScale[i])
+  } else {
+    if(is.character(blockScale)){
+      if(blockScale[1] == "sqrtnvar")
+        X <- lapply(Xo, function(x) x/sqrt(ncol(x)))
+      else if(blockScale[1] == "ssq")
+        X <- lapply(1:nblock, function(i) Xo[[i]]/norm(Xo[[i]],"F")^2)
+      else if(blockScale[1] == "none")
+        X <- Xc
+      else
+        stop("Unknown format for 'blockScale'")
+    } else {
+      stop("Unknown format for 'blockScale'")
+    }
+  }
   Y  <- as.matrix(Y)
   Xc  <- do.call(cbind, X)
   dat <- list(X = Xc, Y = Y)
@@ -129,6 +156,8 @@ mbpls <- function(formula, data, subset, na.action, X=NULL, Y=NULL, ncomp=1, sca
   mod$blockLoadingweights <- Wb
   mod$blockLoadings <- Pb
   mod$superWeights  <- Wt
+  mod$blockScale <- blockScale
+  mod$data <- list(X = X, Y = Y)
   attr(mod$scores, "explvar") <- attr(mod$loadings, "explvar") <- mod$Xvar/mod$Xtotvar*100
   mod$explvar <- mod$Xvar/mod$Xtotvar*100
   # for(i in 1:length(X)){
@@ -163,6 +192,7 @@ mbpls <- function(formula, data, subset, na.action, X=NULL, Y=NULL, ncomp=1, sca
 #' a quantile plot approach to determining outliers.
 #' @param trunc.width \code{numeric} indicating confidence of "Lenth type" confidence interval
 #' or quantile in "quantile plot" approach. Default = 0.95.
+#' @param blockScale Either a \code{character} indicating type of block scaling or a \code{numeric} vector of block weights (see Details).
 #' @param ... additional arguments to pls::plsr.
 #' 
 #' @description sMB-PLS is an adaptation of MB-PLS (\code{\link{mbpls}}) that enforces sparseness in loading weights
@@ -174,6 +204,12 @@ mbpls <- function(formula, data, subset, na.action, X=NULL, Y=NULL, ncomp=1, sca
 #' intervals around the median of a loading weigh vector to estimate inliers. The "quantile" method uses
 #' a quantile plot approach to estimate outliers as deviations from the estimated quantile line. As with 
 #' ordinary MB-PLS scaled input blocks (1/sqrt(ncol)) are used.
+#' 
+#' Block weighting is performed after scaling all variables and is by default 
+#' \code{"sqrtnvar"}: 1/sqrt(ncol(X\[\[i\]\])) in each block. Alternatives
+#' are \code{"ssq"}: 1/norm(X\[\[i\]\], "F")^2 and \code{"none"}: 1/1. Finally, if
+#' a \code{numeric} vector is supplied, it will be used to scale the blocks
+#' after \code{"ssq"} scaling, i.e., Z\[\[i\]\] = X\[\[i\]\] / norm(X\[\[i\]\], "F")^2 * blockScale\[i\].
 #' 
 #' @return \code{multiblock, mvr} object with super-scores, super-loadings, block-scores and block-loading, and the underlying 
 #' \code{mvr} (PLS) object for the super model, with all its result and plot possibilities. Relevant plotting functions: \code{\link{multiblock_plots}} 
@@ -192,6 +228,7 @@ mbpls <- function(formula, data, subset, na.action, X=NULL, Y=NULL, ncomp=1, sca
 #' # Loading weights inside 60% confidence intervals around the median are set to 0.
 #' tmb <- smbpls(Sensory ~ Chemical+Compression, data=potato, ncomp = 5, 
 #'               truncation = "Lenth", trunc.width = 0.6)
+#'               
 #' # Alternative XY-interface
 #' tmb.XY <- smbpls(X=potato[c('Chemical','Compression')], Y=potato[['Sensory']], ncomp = 5, 
 #'               truncation = "Lenth", trunc.width = 0.6)
@@ -206,10 +243,14 @@ mbpls <- function(formula, data, subset, na.action, X=NULL, Y=NULL, ncomp=1, sca
 #' print(smb)
 #' scoreplot(smb, labels="names") # Exploiting mvr object structure from pls package
 #' loadingweightplot(smb, labels="names")
+#' 
+#' # Emphasis may be different for blocks
+#' smb <- smbpls(X=potato[c('Chemical','Compression')], Y=potato[['Sensory']], 
+#'               ncomp = 5, shrink = 0.6, blockScale = c(1, 10))
 #' @seealso Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 #' @importFrom plsVarSel truncation stpls mvrV
 #' @export
-smbpls <- function(formula, data, subset, na.action, X=NULL, Y=NULL, ncomp=1, scale=FALSE, shrink=NULL, truncation=NULL, trunc.width=0.95,...){
+smbpls <- function(formula, data, subset, na.action, X=NULL, Y=NULL, ncomp=1, scale=FALSE, shrink=NULL, truncation=NULL, trunc.width=0.95, blockScale=c("sqrtnvar","ssq","none"),...){
   if(is.null(truncation) && is.null(shrink)){
     stop("Specify either 'truncation' or 'shrink' to define sparseness method.")
   }
@@ -241,9 +282,27 @@ smbpls <- function(formula, data, subset, na.action, X=NULL, Y=NULL, ncomp=1, sc
       colnames(Y) <- deparse(formula[[2]])
     }
   }
+
+  # Block scaling
+  nblock <- length(X)
   Xo <- lapply(X, function(x)if(is.factor(x)){return(dummycode(x))}else{return(x)})
   Xo <- lapply(lapply(Xo, as.matrix), function(x)scale(x, scale=scale))
-  X  <- lapply(Xo, function(x) x/sqrt(ncol(x)))
+  if(is.numeric(blockScale)){ # User supplied scale
+    X <- lapply(1:nblock, function(i) Xo[[i]]/norm(Xo[[i]],"F")^2*blockScale[i])
+  } else {
+    if(is.character(blockScale)){
+      if(blockScale[1] == "sqrtnvar")
+        X <- lapply(Xo, function(x) x/sqrt(ncol(x)))
+      else if(blockScale[1] == "ssq")
+        X <- lapply(1:nblock, function(i) Xo[[i]]/norm(Xo[[i]],"F")^2)
+      else if(blockScale[1] == "none")
+        X <- Xc
+      else
+        stop("Unknown format for 'blockScale'")
+    } else {
+      stop("Unknown format for 'blockScale'")
+    }
+  }
   Y  <- as.matrix(Y)
   Xc  <- do.call(cbind, X)
   dat <- list(X = Xc, Y = Y)
@@ -287,6 +346,7 @@ smbpls <- function(formula, data, subset, na.action, X=NULL, Y=NULL, ncomp=1, sc
   mod$blockLoadingweights <- Wb
   mod$blockLoadings <- Pb
   mod$superWeights  <- Wt
+  mod$data <- list(X = X, Y = Y)
   attr(mod$scores, "explvar") <- attr(mod$loadings, "explvar") <- attr(mod$loading.weights, "explvar") <- mod$Xvar/mod$Xtotvar*100
   mod$explvar <- mod$Xvar/mod$Xtotvar*100
 
@@ -360,6 +420,7 @@ mbrda <- function(formula, data, subset, na.action, X=NULL, Y=NULL, ncomp=1, ...
     }
   }
   
+  dat <- list(X = X, Y = Y)
   Xd  <- lapply(X,as.data.frame)
   Xk  <- ktab.list.df(Xd)
   Y   <- dudi.pca(as.data.frame(Y), scannf = FALSE, nf = ncol(Y))
@@ -383,7 +444,9 @@ mbrda <- function(formula, data, subset, na.action, X=NULL, Y=NULL, ncomp=1, ...
     colnames(blockScores[[i]])   <- colnames(blockLoadings[[i]]) <- paste0("Comp ", 1:ncomp)
   }
   #                     u                 v
-  mod <- list(Yscores=res$lY, Yloadings=res$Yc1, scores=res$lX, blockLoadings=blockLoadings, blockScores=blockScores, varT=varT, covarTY=covarTY, varExplTY=varExplTY, mbpcaiv=res)
+  mod <- list(Yscores=res$lY, Yloadings=res$Yc1, scores=res$lX, 
+              blockLoadings=blockLoadings, blockScores=blockScores, 
+              varT=varT, covarTY=covarTY, varExplTY=varExplTY, data = dat, mbpcaiv=res)
   mod$info <- list(method = "Multiblock RDA", 
                    scores = "Scores", loadings = "Not used",
                    blockScores = "Block scores", blockLoadings = "Block loadings") # t_m, w_m

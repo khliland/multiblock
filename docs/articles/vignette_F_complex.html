@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">multiblock</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.8.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.8.3</span>
       </span>
     </div>
 
@@ -101,17 +101,17 @@
     
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Start the multiblock R package</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://khliland.github.io/multiblock/" class="external-link">multiblock</a></span><span class="op">)</span>
-<span class="co">#&gt; Registered S3 methods overwritten by 'multiblock':</span>
-<span class="co">#&gt;   method             from</span>
-<span class="co">#&gt;   print.multiblock   ade4</span>
-<span class="co">#&gt;   summary.multiblock ade4</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Attaching package: 'multiblock'</span>
-<span class="co">#&gt; The following object is masked from 'package:stats':</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;     loadings</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># Start the multiblock R package</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://khliland.github.io/multiblock/" class="external-link">multiblock</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; Registered S3 methods overwritten by 'multiblock':</span></span>
+<span><span class="co">#&gt;   method             from</span></span>
+<span><span class="co">#&gt;   print.multiblock   ade4</span></span>
+<span><span class="co">#&gt;   summary.multiblock ade4</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Attaching package: 'multiblock'</span></span>
+<span><span class="co">#&gt; The following object is masked from 'package:stats':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     loadings</span></span></code></pre></div>
 <div class="section level2">
 <h2 id="complex-data-structures">Complex data structures<a class="anchor" aria-label="anchor" href="#complex-data-structures"></a>
 </h2>
@@ -155,13 +155,13 @@ columns of <em>X1</em>.</p>
 dimensions (30x20), (20x5) and (6x20) for blocks <em>X1</em>,
 <em>X2</em> and <em>X3</em>, respectively.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">42</span><span class="op">)</span>
-
-<span class="co"># Simulate data set</span>
-<span class="va">sim</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/lplsData.html">lplsData</a></span><span class="op">(</span>I <span class="op">=</span> <span class="fl">30</span>, N <span class="op">=</span> <span class="fl">20</span>, J <span class="op">=</span> <span class="fl">5</span>, K <span class="op">=</span> <span class="fl">6</span>, ncomp <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
-
-<span class="co"># Split into separate blocks</span>
-<span class="va">X1</span>  <span class="op">&lt;-</span> <span class="va">sim</span><span class="op">$</span><span class="va">X1</span>; <span class="va">X2</span> <span class="op">&lt;-</span> <span class="va">sim</span><span class="op">$</span><span class="va">X2</span>; <span class="va">X3</span> <span class="op">&lt;-</span> <span class="va">sim</span><span class="op">$</span><span class="va">X3</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">42</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Simulate data set</span></span>
+<span><span class="va">sim</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/lplsData.html">lplsData</a></span><span class="op">(</span>I <span class="op">=</span> <span class="fl">30</span>, N <span class="op">=</span> <span class="fl">20</span>, J <span class="op">=</span> <span class="fl">5</span>, K <span class="op">=</span> <span class="fl">6</span>, ncomp <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Split into separate blocks</span></span>
+<span><span class="va">X1</span>  <span class="op">&lt;-</span> <span class="va">sim</span><span class="op">$</span><span class="va">X1</span>; <span class="va">X2</span> <span class="op">&lt;-</span> <span class="va">sim</span><span class="op">$</span><span class="va">X2</span>; <span class="va">X3</span> <span class="op">&lt;-</span> <span class="va">sim</span><span class="op">$</span><span class="va">X3</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="exo-l-pls">Exo-L-PLS<a class="anchor" aria-label="anchor" href="#exo-l-pls"></a>
@@ -169,17 +169,17 @@ dimensions (30x20), (20x5) and (6x20) for blocks <em>X1</em>,
 <p>The first L-PLS will be outwards. Predictions have to be accompanied
 by a direction.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># exo-L-PLS:</span>
-<span class="va">lp.exo</span>  <span class="op">&lt;-</span> <span class="fu"><a href="../reference/lpls.html">lpls</a></span><span class="op">(</span><span class="va">X1</span>,<span class="va">X2</span>,<span class="va">X3</span>, ncomp <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="co"># type = "exo" is default</span>
-
-<span class="co"># Predict X1</span>
-<span class="va">pred.exo.X2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">lp.exo</span>, X1new <span class="op">=</span> <span class="va">X1</span>, exo.direction <span class="op">=</span> <span class="st">"X2"</span><span class="op">)</span>
-
-<span class="co"># Predict X3</span>
-<span class="va">pred.exo.X2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">lp.exo</span>, X1new <span class="op">=</span> <span class="va">X1</span>, exo.direction <span class="op">=</span> <span class="st">"X3"</span><span class="op">)</span>
-
-<span class="co"># Correlation loading plot</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">lp.exo</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># exo-L-PLS:</span></span>
+<span><span class="va">lp.exo</span>  <span class="op">&lt;-</span> <span class="fu"><a href="../reference/lpls.html">lpls</a></span><span class="op">(</span><span class="va">X1</span>,<span class="va">X2</span>,<span class="va">X3</span>, ncomp <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="co"># type = "exo" is default</span></span>
+<span></span>
+<span><span class="co"># Predict X1</span></span>
+<span><span class="va">pred.exo.X2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">lp.exo</span>, X1new <span class="op">=</span> <span class="va">X1</span>, exo.direction <span class="op">=</span> <span class="st">"X2"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Predict X3</span></span>
+<span><span class="va">pred.exo.X2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">lp.exo</span>, X1new <span class="op">=</span> <span class="va">X1</span>, exo.direction <span class="op">=</span> <span class="st">"X3"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Correlation loading plot</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">lp.exo</span><span class="op">)</span></span></code></pre></div>
 <p><img src="vignette_F_complex_files/figure-html/unnamed-chunk-3-1.png" width="480"></p>
 </div>
 <div class="section level3">
@@ -187,11 +187,11 @@ by a direction.</p>
 </h3>
 <p>The second L-PLS will be inwards.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># endo-L-PLS:</span>
-<span class="va">lp.endo</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/lpls.html">lpls</a></span><span class="op">(</span><span class="va">X1</span>,<span class="va">X2</span>,<span class="va">X3</span>, ncomp <span class="op">=</span> <span class="fl">2</span>, type <span class="op">=</span> <span class="st">"endo"</span><span class="op">)</span>
-
-<span class="co"># Predict X1 from X2 and X3 (in this case fitted values):</span>
-<span class="va">pred.endo.X1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">lp.endo</span>, X2new <span class="op">=</span> <span class="va">X2</span>, X3new <span class="op">=</span> <span class="va">X3</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># endo-L-PLS:</span></span>
+<span><span class="va">lp.endo</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/lpls.html">lpls</a></span><span class="op">(</span><span class="va">X1</span>,<span class="va">X2</span>,<span class="va">X3</span>, ncomp <span class="op">=</span> <span class="fl">2</span>, type <span class="op">=</span> <span class="st">"endo"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Predict X1 from X2 and X3 (in this case fitted values):</span></span>
+<span><span class="va">pred.endo.X1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">lp.endo</span>, X2new <span class="op">=</span> <span class="va">X2</span>, X3new <span class="op">=</span> <span class="va">X3</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="l-pls-cross-validation">L-PLS cross-validation<a class="anchor" aria-label="anchor" href="#l-pls-cross-validation"></a>
@@ -201,17 +201,17 @@ to L-PLS since we have both sample and variable links. The
 cross-validation routines compute RMSECV values and perform
 cross-validated predictions.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># LOO cross-validation horizontally</span>
-<span class="va">lp.cv1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/lpls_results.html">lplsCV</a></span><span class="op">(</span><span class="va">lp.exo</span>, segments1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">as.list</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">X1</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>, trace <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-
-<span class="co"># LOO cross-validation vertically</span>
-<span class="va">lp.cv2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/lpls_results.html">lplsCV</a></span><span class="op">(</span><span class="va">lp.exo</span>, segments2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">as.list</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">X1</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span>, trace <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-
-<span class="co"># Three-fold CV, horizontal</span>
-<span class="va">lp.cv3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/lpls_results.html">lplsCV</a></span><span class="op">(</span><span class="va">lp.exo</span>, segments1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">as.list</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="fl">11</span><span class="op">:</span><span class="fl">20</span>, <span class="fl">21</span><span class="op">:</span><span class="fl">30</span><span class="op">)</span>, trace <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-
-<span class="co"># Three-fold CV, horizontal, inwards model</span>
-<span class="va">lp.cv4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/lpls_results.html">lplsCV</a></span><span class="op">(</span><span class="va">lp.endo</span>, segments1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">as.list</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="fl">11</span><span class="op">:</span><span class="fl">20</span>, <span class="fl">21</span><span class="op">:</span><span class="fl">30</span><span class="op">)</span>, trace <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># LOO cross-validation horizontally</span></span>
+<span><span class="va">lp.cv1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/lpls_results.html">lplsCV</a></span><span class="op">(</span><span class="va">lp.exo</span>, segments1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">as.list</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">X1</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>, trace <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># LOO cross-validation vertically</span></span>
+<span><span class="va">lp.cv2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/lpls_results.html">lplsCV</a></span><span class="op">(</span><span class="va">lp.exo</span>, segments2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">as.list</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">X1</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span>, trace <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Three-fold CV, horizontal</span></span>
+<span><span class="va">lp.cv3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/lpls_results.html">lplsCV</a></span><span class="op">(</span><span class="va">lp.exo</span>, segments1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">as.list</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="fl">11</span><span class="op">:</span><span class="fl">20</span>, <span class="fl">21</span><span class="op">:</span><span class="fl">30</span><span class="op">)</span>, trace <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Three-fold CV, horizontal, inwards model</span></span>
+<span><span class="va">lp.cv4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/lpls_results.html">lplsCV</a></span><span class="op">(</span><span class="va">lp.endo</span>, segments1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">as.list</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="fl">11</span><span class="op">:</span><span class="fl">20</span>, <span class="fl">21</span><span class="op">:</span><span class="fl">30</span><span class="op">)</span>, trace <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="so-pls-path-modelling">SO-PLS Path Modelling<a class="anchor" aria-label="anchor" href="#so-pls-path-modelling"></a>
@@ -227,18 +227,18 @@ fitted. We set <em>computeAdditional</em> to <em>TRUE</em> to turn on
 computation of additional explained variance per added block in the
 model.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Load potato data</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">potato</span><span class="op">)</span>
-
-<span class="co"># Single path</span>
-<span class="va">pot.pm</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/SO_TDI.html">sopls_pm</a></span><span class="op">(</span><span class="va">potato</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>, <span class="va">potato</span><span class="op">[[</span><span class="st">'Sensory'</span><span class="op">]</span><span class="op">]</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>,<span class="fl">5</span>,<span class="fl">5</span><span class="op">)</span>, computeAdditional<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>
-
-<span class="co"># Report of explained variances and optimal number of components .</span>
-<span class="co"># Bootstrapping can be enabled to assess stability.</span>
-<span class="co"># (LOO cross-validation is default)</span>
-<span class="va">pot.pm</span>
-<span class="co">#&gt;    direct indirect     total additional1 additional2 overall</span>
-<span class="co">#&gt;  8.39 (1)    44.06 52.44 (3)    4.09 (3)   14.01 (2)   70.55</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># Load potato data</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">potato</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Single path</span></span>
+<span><span class="va">pot.pm</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/SO_TDI.html">sopls_pm</a></span><span class="op">(</span><span class="va">potato</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>, <span class="va">potato</span><span class="op">[[</span><span class="st">'Sensory'</span><span class="op">]</span><span class="op">]</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>,<span class="fl">5</span>,<span class="fl">5</span><span class="op">)</span>, computeAdditional<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Report of explained variances and optimal number of components .</span></span>
+<span><span class="co"># Bootstrapping can be enabled to assess stability.</span></span>
+<span><span class="co"># (LOO cross-validation is default)</span></span>
+<span><span class="va">pot.pm</span></span>
+<span><span class="co">#&gt;    direct indirect     total additional1 additional2 overall</span></span>
+<span><span class="co">#&gt;  8.39 (1)    44.06 52.44 (3)    4.09 (3)   14.01 (2)   70.55</span></span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="multiple-paths-in-an-so-pls-pm-model">Multiple paths in an SO-PLS-PM model<a class="anchor" aria-label="anchor" href="#multiple-paths-in-an-so-pls-pm-model"></a>
@@ -246,54 +246,54 @@ model.</p>
 <p>A model containing five blocks is fitted. Explained variances for all
 sub-paths are estimated.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Load wine data</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">wine</span><span class="op">)</span>
-
-<span class="co"># All path in the forward direction</span>
-<span class="va">pot.pm.multiple</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/SO_TDI.html">sopls_pm_multiple</a></span><span class="op">(</span><span class="va">wine</span>, ncomp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>,<span class="fl">2</span>,<span class="fl">9</span>,<span class="fl">8</span><span class="op">)</span><span class="op">)</span>
-
-<span class="co"># Report of direct, indirect and total explained variance per sub-path.</span>
-<span class="co"># Bootstrapping can be enabled to assess stability.</span>
-<span class="va">pot.pm.multiple</span>
-<span class="co">#&gt; $`Smell at rest-&gt;View`</span>
-<span class="co">#&gt;     direct indirect     total</span>
-<span class="co">#&gt;  32.68 (1)        0 32.68 (1)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $`Smell at rest-&gt;Smell after shaking`</span>
-<span class="co">#&gt;    direct indirect     total</span>
-<span class="co">#&gt;  6.39 (4)    33.64 40.03 (4)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $`Smell at rest-&gt;Tasting`</span>
-<span class="co">#&gt;  direct indirect     total</span>
-<span class="co">#&gt;   0 (1)    11.52 11.52 (2)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $`Smell at rest-&gt;Global quality`</span>
-<span class="co">#&gt;  direct indirect     total</span>
-<span class="co">#&gt;   0 (0)    25.25 25.25 (3)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $`View-&gt;Smell after shaking`</span>
-<span class="co">#&gt;     direct indirect     total</span>
-<span class="co">#&gt;  30.97 (2)        0 30.97 (2)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $`View-&gt;Tasting`</span>
-<span class="co">#&gt;   direct indirect     total</span>
-<span class="co">#&gt;  0.4 (1)    40.69 41.09 (2)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $`View-&gt;Global quality`</span>
-<span class="co">#&gt;  direct indirect     total</span>
-<span class="co">#&gt;   0 (0)    30.87 30.87 (2)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $`Smell after shaking-&gt;Tasting`</span>
-<span class="co">#&gt;     direct indirect     total</span>
-<span class="co">#&gt;  56.67 (3)        0 56.67 (3)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $`Smell after shaking-&gt;Global quality`</span>
-<span class="co">#&gt;  direct indirect     total</span>
-<span class="co">#&gt;   0 (2)    70.15 70.15 (2)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $`Tasting-&gt;Global quality`</span>
-<span class="co">#&gt;     direct indirect     total</span>
-<span class="co">#&gt;  78.12 (2)        0 78.12 (2)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># Load wine data</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">wine</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># All path in the forward direction</span></span>
+<span><span class="va">pot.pm.multiple</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/SO_TDI.html">sopls_pm_multiple</a></span><span class="op">(</span><span class="va">wine</span>, ncomp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>,<span class="fl">2</span>,<span class="fl">9</span>,<span class="fl">8</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Report of direct, indirect and total explained variance per sub-path.</span></span>
+<span><span class="co"># Bootstrapping can be enabled to assess stability.</span></span>
+<span><span class="va">pot.pm.multiple</span></span>
+<span><span class="co">#&gt; $`Smell at rest-&gt;View`</span></span>
+<span><span class="co">#&gt;     direct indirect     total</span></span>
+<span><span class="co">#&gt;  32.68 (1)        0 32.68 (1)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $`Smell at rest-&gt;Smell after shaking`</span></span>
+<span><span class="co">#&gt;    direct indirect     total</span></span>
+<span><span class="co">#&gt;  6.39 (4)    33.64 40.03 (4)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $`Smell at rest-&gt;Tasting`</span></span>
+<span><span class="co">#&gt;  direct indirect     total</span></span>
+<span><span class="co">#&gt;   0 (1)    11.52 11.52 (2)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $`Smell at rest-&gt;Global quality`</span></span>
+<span><span class="co">#&gt;  direct indirect     total</span></span>
+<span><span class="co">#&gt;   0 (0)    25.25 25.25 (3)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $`View-&gt;Smell after shaking`</span></span>
+<span><span class="co">#&gt;     direct indirect     total</span></span>
+<span><span class="co">#&gt;  30.97 (2)        0 30.97 (2)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $`View-&gt;Tasting`</span></span>
+<span><span class="co">#&gt;   direct indirect     total</span></span>
+<span><span class="co">#&gt;  0.4 (1)    40.69 41.09 (2)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $`View-&gt;Global quality`</span></span>
+<span><span class="co">#&gt;  direct indirect     total</span></span>
+<span><span class="co">#&gt;   0 (0)    30.87 30.87 (2)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $`Smell after shaking-&gt;Tasting`</span></span>
+<span><span class="co">#&gt;     direct indirect     total</span></span>
+<span><span class="co">#&gt;  56.67 (3)        0 56.67 (3)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $`Smell after shaking-&gt;Global quality`</span></span>
+<span><span class="co">#&gt;  direct indirect     total</span></span>
+<span><span class="co">#&gt;   0 (2)    70.15 70.15 (2)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $`Tasting-&gt;Global quality`</span></span>
+<span><span class="co">#&gt;     direct indirect     total</span></span>
+<span><span class="co">#&gt;  78.12 (2)        0 78.12 (2)</span></span></code></pre></div>
 </div>
 </div>
 </div>
@@ -316,7 +316,7 @@ sub-paths are estimated.</p>
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer>

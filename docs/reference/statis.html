@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">multiblock</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.8.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.8.3</span>
       </span>
     </div>
 
@@ -75,25 +75,39 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">statis</span><span class="op">(</span><span class="va">X</span>, ncomp <span class="op">=</span> <span class="fl">3</span>, scannf <span class="op">=</span> <span class="cn">FALSE</span>, tol <span class="op">=</span> <span class="fl">1e-07</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">statis</span><span class="op">(</span><span class="va">X</span>, ncomp <span class="op">=</span> <span class="fl">3</span>, scannf <span class="op">=</span> <span class="cn">FALSE</span>, tol <span class="op">=</span> <span class="fl">1e-07</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>X</dt>
 <dd><p><code>list</code> of input blocks.</p></dd>
+
+
 <dt>ncomp</dt>
 <dd><p><code>integer</code> number of components to extract.</p></dd>
+
+
 <dt>scannf</dt>
 <dd><p><code>logical</code> indicating if eigenvalue bar plot shoulde be displayed.</p></dd>
+
+
 <dt>tol</dt>
 <dd><p><code>numeric</code> eigenvalue threshold tolerance.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>additional arguments (not used).</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p><code>multiblock</code> object including relevant scores and loadings. Relevant plotting functions: <code><a href="multiblock_plots.html">multiblock_plots</a></code>and result functions: <code><a href="multiblock_results.html">multiblock_results</a></code>.</p>
+    
+
+<p><code>multiblock</code> object including relevant scores and loadings. Relevant plotting functions: <code><a href="multiblock_plots.html">multiblock_plots</a></code></p>
+
+
+<p>and result functions: <code><a href="multiblock_results.html">multiblock_results</a></code>.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -113,12 +127,12 @@ Common functions for computation and extraction of results and plotting are foun
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">candies</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">candyList</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nlevels.html" class="external-link">nlevels</a></span><span class="op">(</span><span class="va">candies</span><span class="op">$</span><span class="va">candy</span><span class="op">)</span>,<span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="va">candies</span><span class="op">$</span><span class="va">assessment</span><span class="op">[</span><span class="va">candies</span><span class="op">$</span><span class="va">candy</span><span class="op">==</span><span class="va">x</span>,<span class="op">]</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">can.statis</span> <span class="op">&lt;-</span> <span class="fu">statis</span><span class="op">(</span><span class="va">candyList</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/pls/man/scores.html" class="external-link">scores</a></span><span class="op">(</span><span class="va">can.statis</span><span class="op">)</span>, labels<span class="op">=</span><span class="st">"names"</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">candies</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">candyList</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nlevels.html" class="external-link">nlevels</a></span><span class="op">(</span><span class="va">candies</span><span class="op">$</span><span class="va">candy</span><span class="op">)</span>,<span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="va">candies</span><span class="op">$</span><span class="va">assessment</span><span class="op">[</span><span class="va">candies</span><span class="op">$</span><span class="va">candy</span><span class="op">==</span><span class="va">x</span>,<span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">can.statis</span> <span class="op">&lt;-</span> <span class="fu">statis</span><span class="op">(</span><span class="va">candyList</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/pls/man/scores.html" class="external-link">scores</a></span><span class="op">(</span><span class="va">can.statis</span><span class="op">)</span>, labels<span class="op">=</span><span class="st">"names"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="statis-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -133,7 +147,7 @@ Common functions for computation and extraction of results and plotting are foun
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

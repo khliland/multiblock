@@ -5,7 +5,7 @@
 #'
 #' @param object \code{sopls} object
 #' @param x \code{sopls} object
-#' @param comps \code{integer} vector giving components, within block, to plot.
+#' @param comps \code{integer} vector giving components, within block, to plot (see Details regarding combination of blocks).
 #' @param ncomp \code{integer} vector giving components from all blocks before \code{block} (see next argument).
 #' @param block \code{integer} indicating which block to extract components from.
 #' @param y \code{logical} extract Y loadings/scores instead of X loadings/scores (default = FALSE).
@@ -28,10 +28,17 @@
 #' @param pretty.xlabels \code{logical} indicating if xlabels should be more nicely plotted (default = TRUE).
 #' @param xlim \code{numeric} vector of length two, with the x limits of the plot (optional).
 #' @param main \code{character} for setting the main title of a plot.
+#' @param plotx \code{locical} or \code{integer}/\code{character}.  Whether to plot the \eqn{X} correlation loadings, optionally which block(s). Defaults to \code{TRUE}.
+#' @param ploty \code{logical}.  Whether to plot the \eqn{Y} correlation loadings. Defaults to \code{TRUE}.
 #' @param ... further arguments sent to the underlying plot function(s)
 #'
 #' @description Extraction of \code{scores} and \code{loadings} and adaptation of \code{scoreplot},
 #' \code{loadingplot} and \code{biplot} from package \code{pls} for \code{sopls} objects.
+#' 
+#' @details If \code{comps} is supplied as a \code{list} for \code{scoreplot}, it is assumed that its elements refer to each of the
+#' blocks up to block number \code{block}. For instance \code{comps = list(1, 0, 1:2)} will select 1 component from the first
+#' block, no components from the second block and the first two components from the last block. This must be 
+#' matched by \code{ncomp}, specifying how many components were selected before block number \code{block}.
 #'
 #' @seealso Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 #' Common functions for computation and extraction of results are found in \code{\link{sopls_results}}.
@@ -57,6 +64,9 @@
 #' # Scatterplot matrix
 #' scoreplot(so, ncomp=c(3,2), block=3, comps=1:3)
 #' 
+#' # Combination of blocks (see Details)
+#' scoreplot(so, ncomp=c(3,2), block=3, comps=list(1,0,1))
+#' 
 #' # Default plot from first block
 #' loadingplot(so, scatter=TRUE)
 #' 
@@ -65,6 +75,9 @@
 #' 
 #' # Scatterplot matrix
 #' loadingplot(so, ncomp=c(3,2), block=3, comps=1:3, scatter=TRUE)
+#' 
+#' # Correlation loadings
+#' corrplot(so, block=2, ncomp=1)
 #' 
 #' # Default plot from first block
 #' biplot(so)
@@ -123,23 +136,59 @@ scores.sopls <- function(object, ncomp = "all", block = 1, y = FALSE, ...){
 
 #' @rdname sopls_plots
 #' @export
-scoreplot.sopls <- function(object, comps = 1:2, ncomp = "all", block = 1, labels, identify = FALSE,
+scoreplot.sopls <- function(object, comps = 1:2, ncomp = NULL, block = 1, labels, identify = FALSE,
                             type = "p", xlab, ylab, ...){
   ## Check arguments
   nComps <- length(comps)
-  if (nComps == 0) stop("At least one component must be selected.")
+  if(nComps == 0) stop("At least one component must be selected.")
+  if(length(ncomp) != block-1){
+    if(block == 1)
+      stop("Wrong length of ncomp. It must specify the number of components\nin all preceding blocks, i.e., ncomp = NULL.")
+    else
+      if(block == 2)
+        stop(paste0("Wrong length of ncomp. It must specify the number of components\nin all preceding blocks, e.g., ncomp = ", object$ncomp[1], ")."))
+      else
+        stop(paste0("Wrong length of ncomp. It must specify the number of components\nin all preceding blocks, e.g., ncomp = c(",paste(object$ncomp[1:(block-1)], collapse=","),")."))
+  }
   ## Get the scores
   if (is.matrix(object)) {
     ## Assume this is already a score matrix
     S <- object
   } else {
     ## Try to get the scores
-    S <- scores(object, ncomp = ncomp, block = block)
+    if(is.list(comps)){
+      if(length(comps) != block)
+        stop("When supplying 'comps' as a list to plot a combination of components\nfrom different blocks, 'block' must equal length of 'comps'.")
+      S <- matrix(0,nrow=nrow(object$data$Y),0)
+      evar <- numeric()
+      for(i in 1:length(comps)){
+        if(!all(comps[[i]]==0))
+          if(i>1)
+            s <- scores(object, ncomp = ncomp[1:(i-1)], block = i)
+          else
+            s <- scores(object, ncomp = NULL, block = i)
+          evar <- cbind(evar, attr(s,'explvar')[comps[[i]]])
+          if(dim(s)[2]==1 && length(comps[[i]])>1){
+            comps[[i]] <- comps[[i]][1]
+            warning(paste0("Only one component in block ",i," but multiple components selected"))
+          }
+          nComps <- sum(unlist(comps)!=0)
+          S <- cbind(S,s[,comps[[i]], drop = FALSE])
+      }
+    } else
+      S <- scores(object, ncomp = ncomp, block = block)
     if (is.null(S))
       stop("`", deparse(substitute(object)), "' has no scores.")
   }
-  evar <- attr(S,'explvar')[comps]
-  S <- S[,comps, drop = FALSE]
+  if(dim(S)[2]==1 && length(comps)>1){
+    comps <- comps[1]
+    nComps <- 1
+    warning(paste0("Only one component in block but multiple components selected: comps = c(", paste(comps,collapse=","), ")"))
+  }
+  if(!is.list(comps)){
+    evar <- attr(S,'explvar')[comps]
+    S <- S[,comps, drop = FALSE]
+  }
   varlab <- paste(colnames(S), " (", format(evar, digits = 2, trim = TRUE),
                   " %)", sep = "")
   if (!missing(labels)) {
@@ -183,7 +232,7 @@ scoreplot.sopls <- function(object, comps = 1:2, ncomp = "all", block = 1, label
 
 #' @rdname sopls_plots
 #' @export
-loadingplot.sopls <- function(object, comps = 1:2, ncomp = "all", block = 1, scatter = TRUE, labels,
+loadingplot.sopls <- function(object, comps = 1:2, ncomp = NULL, block = 1, scatter = TRUE, labels,
                               identify = FALSE, type, lty, lwd = NULL, pch,
                               cex = NULL, col, legendpos, xlab, ylab,
                               pretty.xlabels = TRUE, xlim, ...)
@@ -191,6 +240,15 @@ loadingplot.sopls <- function(object, comps = 1:2, ncomp = "all", block = 1, sca
   ## Check arguments
   nComps <- length(comps)
   if (nComps == 0) stop("At least one component must be selected.")
+  if(length(ncomp) != block-1){
+    if(block == 1)
+      stop("Wrong length of ncomp. It must specify the number of components\nin all preceding blocks, i.e., ncomp = NULL.")
+    else
+      if(block == 2)
+        stop(paste0("Wrong length of ncomp. It must specify the number of components\nin all preceding blocks, e.g., ncomp = ", object$ncomp[1], ")."))
+    else
+      stop(paste0("Wrong length of ncomp. It must specify the number of components\nin all preceding blocks, e.g., ncomp = c(",paste(object$ncomp[1:(block-1)], collapse=","),")."))
+  }
   if (!missing(type) &&
       (length(type) != 1 || is.na(nchar(type, "c")) || nchar(type, "c") != 1))
     stop("Invalid plot type.")
@@ -203,6 +261,11 @@ loadingplot.sopls <- function(object, comps = 1:2, ncomp = "all", block = 1, sca
     L <- loadings(object, ncomp = ncomp, block = block)
     if (is.null(L))
       stop("`", deparse(substitute(object)), "' has no loadings.")
+  }
+  if(dim(L)[2]==1 && length(comps)>1){
+    comps <- comps[1]
+    nComps <- 1
+    warning(paste0("Only one component in block but multiple components selected: comps = c(", paste(comps,collapse=","), ")"))
   }
   evar <- attr(L,'explvar')[comps]
   L <- L[,comps, drop = FALSE]
@@ -322,6 +385,59 @@ loadingplot.sopls <- function(object, comps = 1:2, ncomp = "all", block = 1, sca
       identify(c(row(L)), c(L),
                labels = paste(c(col(L)), rownames(L), sep = ": "))
   }                                   # if (isTRUE(scatter))
+}
+
+#' @rdname sopls_plots
+#' @export
+#' 
+corrplot.sopls <- function(object, comps=1:2, ncomp = NULL, block = 1, labels=TRUE, col=1:5, 
+                           plotx=TRUE, ploty=TRUE, ...){
+  ## Check arguments
+  nComps <- length(comps)
+  if(nComps == 0) stop("At least one component must be selected.")
+  if(length(ncomp) != block-1){
+    if(block == 1)
+      stop("Wrong length of ncomp. It must specify the number of components\nin all preceding blocks, i.e., ncomp = NULL.")
+    else
+      if(block == 2)
+        stop(paste0("Wrong length of ncomp. It must specify the number of components\nin all preceding blocks, e.g., ncomp = ", object$ncomp[1], ")."))
+    else
+      stop(paste0("Wrong length of ncomp. It must specify the number of components\nin all preceding blocks, e.g., ncomp = c(",paste(object$ncomp[1:(block-1)], collapse=","),")."))
+  }
+  ## Get the scores
+  if (is.matrix(object)) {
+    ## Assume this is already a score matrix
+    S <- object
+  } else {
+    ## Try to get the scores
+    S <- scores(object, ncomp = ncomp, block = block)
+    if (is.null(S))
+      stop("`", deparse(substitute(object)), "' has no scores.")
+  }
+  if(dim(S)[2]==1 && length(comps)>1){
+    comps <- comps[1]
+    nComps <- 1
+    warning(paste0("Only one component in block but multiple components selected: comps = c(", paste(comps,collapse=","), ")"))
+  }
+  pls::corrplot(S[0,], plotx=FALSE, ploty=FALSE, comps=comps, ...)
+  if(is.logical(plotx) && plotx){
+    plotx <- 1:length(object$data$X)
+  }
+  if(!(is.logical(plotx) && !plotx)){
+    for(i in plotx){
+      if(labels){
+        text(cor(object$data$X[[i]], S[,comps]), labels=colnames(object$data$X[[i]]), col=col[i])
+      } else {
+        points(cor(object$data$X[[i]], S[,comps]), col=col[i])
+      }
+    }
+  }
+  if(ploty && !is.null(object$data$Y)){
+    if(labels)
+      text(cor(object$data$Y, S[,comps]), labels=colnames(object$data$Y), col=col[length(object$data$X)+1])
+    else
+      points(cor(object$data$Y, S[,comps]), col=col[length(object$data$X)+1])
+  }
 }
 
 

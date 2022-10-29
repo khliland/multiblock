@@ -19,8 +19,8 @@ pls::RMSEP
 #' @export
 pls::coefplot
   
-#' @export
-pls::corrplot
+#-#' @export
+# pls::corrplot
   
 #' @export
 pls::cvsegments

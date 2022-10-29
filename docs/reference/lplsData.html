@@ -18,7 +18,7 @@ Dimensionality and number of underlying components can be controlled."><!-- math
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">multiblock</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.8.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.8.3</span>
       </span>
     </div>
 
@@ -77,25 +77,36 @@ Dimensionality and number of underlying components can be controlled.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">lplsData</span><span class="op">(</span>I <span class="op">=</span> <span class="fl">30</span>, N <span class="op">=</span> <span class="fl">20</span>, J <span class="op">=</span> <span class="fl">5</span>, K <span class="op">=</span> <span class="fl">6</span>, ncomp <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">lplsData</span><span class="op">(</span>I <span class="op">=</span> <span class="fl">30</span>, N <span class="op">=</span> <span class="fl">20</span>, J <span class="op">=</span> <span class="fl">5</span>, K <span class="op">=</span> <span class="fl">6</span>, ncomp <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>I</dt>
 <dd><p><code>numeric</code> number of rows of X1 and X2</p></dd>
+
+
 <dt>N</dt>
 <dd><p><code>numeric</code> number of columns in X1 and X3</p></dd>
+
+
 <dt>J</dt>
 <dd><p><code>numeric</code> number of columns in X2</p></dd>
+
+
 <dt>K</dt>
 <dd><p><code>numeric</code> number of rows in X3</p></dd>
+
+
 <dt>ncomp</dt>
 <dd><p><code>numeric</code> number of latent components</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A <code>list</code> of three matrices with dimensions matching in an L-shape.</p>
+    
+
+<p>A <code>list</code> of three matrices with dimensions matching in an L-shape.</p>
     </div>
     <div id="see-also">
     <h2>See also</h2>
@@ -108,10 +119,10 @@ Dimensionality and number of underlying components can be controlled.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">lp</span> <span class="op">&lt;-</span> <span class="fu">lplsData</span><span class="op">(</span>I <span class="op">=</span> <span class="fl">30</span>, N <span class="op">=</span> <span class="fl">20</span>, J <span class="op">=</span> <span class="fl">5</span>, K <span class="op">=</span> <span class="fl">6</span>, ncomp <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">lp</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">lp</span> <span class="op">&lt;-</span> <span class="fu">lplsData</span><span class="op">(</span>I <span class="op">=</span> <span class="fl">30</span>, N <span class="op">=</span> <span class="fl">20</span>, J <span class="op">=</span> <span class="fl">5</span>, K <span class="op">=</span> <span class="fl">6</span>, ncomp <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">lp</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "X1" "X2" "X3"</span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -126,7 +137,7 @@ Dimensionality and number of underlying components can be controlled.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

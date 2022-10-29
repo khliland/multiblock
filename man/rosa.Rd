@@ -71,6 +71,9 @@ and definition of common components.
 data(potato)
 mod <- rosa(Sensory[,1] ~ ., data = potato, ncomp = 10, validation = "CV", segments = 5)
 summary(mod)
+
+# For examples of ROSA results and plotting see 
+# ?rosa_results and ?rosa_plots.
 }
 \references{
 Liland, K.H., Næs, T., and Indahl, U.G. (2016). ROSA - a fast extension of partial least squares regression for multiblock data analysis. Journal of Chemometrics, 30, 651–662, doi:10.1002/cem.2824.

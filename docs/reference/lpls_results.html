@@ -18,7 +18,7 @@ models with class lpls."><!-- mathjax --><script src="https://cdnjs.cloudflare.c
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">multiblock</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.8.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.8.3</span>
       </span>
     </div>
 
@@ -77,90 +77,137 @@ models with class <code><a href="lpls.html">lpls</a></code>.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="co"># S3 method for lpls</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span>
-  <span class="va">x</span>,
-  comps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>,
-  doplot <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span><span class="op">)</span>,
-  level <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span>,
-  arrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>,
-  xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>,
-  ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>,
-  samplecol <span class="op">=</span> <span class="fl">4</span>,
-  pathcol <span class="op">=</span> <span class="fl">2</span>,
-  varcol <span class="op">=</span> <span class="st">"grey70"</span>,
-  varsize <span class="op">=</span> <span class="fl">1</span>,
-  sampleindex <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">x</span><span class="op">$</span><span class="va">corloadings</span><span class="op">$</span><span class="va">R22</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,
-  pathindex <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">x</span><span class="op">$</span><span class="va">corloadings</span><span class="op">$</span><span class="va">R3</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,
-  varindex <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">x</span><span class="op">$</span><span class="va">corloadings</span><span class="op">$</span><span class="va">R21</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,
-  <span class="va">...</span>
-<span class="op">)</span>
-
-<span class="co"># S3 method for lpls</span>
-<span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span>
-  <span class="va">object</span>,
-  X1new <span class="op">=</span> <span class="cn">NULL</span>,
-  X2new <span class="op">=</span> <span class="cn">NULL</span>,
-  X3new <span class="op">=</span> <span class="cn">NULL</span>,
-  exo.direction <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"X2"</span>, <span class="st">"X3"</span><span class="op">)</span>,
-  <span class="va">...</span>
-<span class="op">)</span>
-
-<span class="fu">lplsCV</span><span class="op">(</span><span class="va">object</span>, segments1 <span class="op">=</span> <span class="cn">NULL</span>, segments2 <span class="op">=</span> <span class="cn">NULL</span>, trace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S3 method for lpls</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  comps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>,</span>
+<span>  doplot <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>  level <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span>,</span>
+<span>  arrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>,</span>
+<span>  xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>,</span>
+<span>  ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>,</span>
+<span>  samplecol <span class="op">=</span> <span class="fl">4</span>,</span>
+<span>  pathcol <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>  varcol <span class="op">=</span> <span class="st">"grey70"</span>,</span>
+<span>  varsize <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  sampleindex <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">x</span><span class="op">$</span><span class="va">corloadings</span><span class="op">$</span><span class="va">R22</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
+<span>  pathindex <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">x</span><span class="op">$</span><span class="va">corloadings</span><span class="op">$</span><span class="va">R3</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
+<span>  varindex <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">x</span><span class="op">$</span><span class="va">corloadings</span><span class="op">$</span><span class="va">R21</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for lpls</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span></span>
+<span>  <span class="va">object</span>,</span>
+<span>  X1new <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  X2new <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  X3new <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  exo.direction <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"X2"</span>, <span class="st">"X3"</span><span class="op">)</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">lplsCV</span><span class="op">(</span><span class="va">object</span>, segments1 <span class="op">=</span> <span class="cn">NULL</span>, segments2 <span class="op">=</span> <span class="cn">NULL</span>, trace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p><code>lpls</code> object</p></dd>
+
+
 <dt>comps</dt>
 <dd><p><code>integer</code> vector of components.</p></dd>
+
+
 <dt>doplot</dt>
 <dd><p><code>logical</code> indicating if plotting should be performed.</p></dd>
+
+
 <dt>level</dt>
 <dd><p><code>integer</code> vector of length 3 for selecting plot symbol. 1=dots. 2=dimnames.</p></dd>
+
+
 <dt>arrow</dt>
 <dd><p><code>integer</code> vector of length 3 indicating arrows (1) or not (0).</p></dd>
+
+
 <dt>xlim</dt>
 <dd><p><code>numeric</code> x limits.</p></dd>
+
+
 <dt>ylim</dt>
 <dd><p><code>numeric</code> y limits.</p></dd>
+
+
 <dt>samplecol</dt>
 <dd><p><code>character</code> for sample colours.</p></dd>
+
+
 <dt>pathcol</dt>
 <dd><p><code>character</code> for third colour.</p></dd>
+
+
 <dt>varcol</dt>
 <dd><p><code>character</code> for variable colours.</p></dd>
+
+
 <dt>varsize</dt>
 <dd><p><code>numeric</code> size of symbols for variables.</p></dd>
+
+
 <dt>sampleindex</dt>
 <dd><p><code>integer</code> for selecting samples.</p></dd>
+
+
 <dt>pathindex</dt>
 <dd><p><code>integer</code> for selecting in third direction.</p></dd>
+
+
 <dt>varindex</dt>
 <dd><p><code>integer</code> for selecting variables.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Not implemented.</p></dd>
+
+
 <dt>object</dt>
 <dd><p><code>lpls</code> object.</p></dd>
+
+
 <dt>X1new</dt>
 <dd><p><code>matrix</code> of new X1 samples.</p></dd>
+
+
 <dt>X2new</dt>
 <dd><p><code>matrix</code> of new X2 samples.</p></dd>
+
+
 <dt>X3new</dt>
 <dd><p><code>matrix</code> of new X3 samples.</p></dd>
+
+
 <dt>exo.direction</dt>
 <dd><p><code>character</code> selecting "X2" or "X3" prediction.</p></dd>
+
+
 <dt>segments1</dt>
 <dd><p><code>list</code> of sample segments.</p></dd>
+
+
 <dt>segments2</dt>
 <dd><p><code>list</code> of variable segments.</p></dd>
+
+
 <dt>trace</dt>
 <dd><p><code>logical</code> indicating if verbose mode should be selected.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>Nothing is return for plotting (<code>plot.lpls</code>), predicted values are returned for predictions (<code>predict.lpls</code>)
+    
+
+<p>Nothing is return for plotting (<code>plot.lpls</code>), predicted values are returned for predictions (<code>predict.lpls</code>)
 and cross-validation metrics are returned for for cross-validation (<code>lplsCV</code>).</p>
     </div>
     <div id="see-also">
@@ -170,24 +217,24 @@ and cross-validation metrics are returned for for cross-validation (<code>lplsCV
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># Simulate data set</span></span>
-<span class="r-in"><span class="va">sim</span> <span class="op">&lt;-</span> <span class="fu"><a href="lplsData.html">lplsData</a></span><span class="op">(</span>I <span class="op">=</span> <span class="fl">30</span>, N <span class="op">=</span> <span class="fl">20</span>, J <span class="op">=</span> <span class="fl">5</span>, K <span class="op">=</span> <span class="fl">6</span>, ncomp <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">X1</span>  <span class="op">&lt;-</span> <span class="va">sim</span><span class="op">$</span><span class="va">X1</span>; <span class="va">X2</span> <span class="op">&lt;-</span> <span class="va">sim</span><span class="op">$</span><span class="va">X2</span>; <span class="va">X3</span> <span class="op">&lt;-</span> <span class="va">sim</span><span class="op">$</span><span class="va">X3</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># exo-L-PLS:</span></span>
-<span class="r-in"><span class="va">lp.exo</span>  <span class="op">&lt;-</span> <span class="fu"><a href="lpls.html">lpls</a></span><span class="op">(</span><span class="va">X1</span>,<span class="va">X2</span>,<span class="va">X3</span>, ncomp <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Predict X1</span></span>
-<span class="r-in"><span class="va">pred.exo.X2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">lp.exo</span>, X1new <span class="op">=</span> <span class="va">X1</span>, exo.direction <span class="op">=</span> <span class="st">"X2"</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Predict X3</span></span>
-<span class="r-in"><span class="va">pred.exo.X2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">lp.exo</span>, X1new <span class="op">=</span> <span class="va">X1</span>, exo.direction <span class="op">=</span> <span class="st">"X3"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># endo-L-PLS:</span></span>
-<span class="r-in"><span class="va">lp.endo</span> <span class="op">&lt;-</span> <span class="fu"><a href="lpls.html">lpls</a></span><span class="op">(</span><span class="va">X1</span>,<span class="va">X2</span>,<span class="va">X3</span>, ncomp <span class="op">=</span> <span class="fl">2</span>, type <span class="op">=</span> <span class="st">"endo"</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Predict X1 from X2 and X3 (in this case fitted values):</span></span>
-<span class="r-in"><span class="va">pred.endo.X1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">lp.endo</span>, X2new <span class="op">=</span> <span class="va">X2</span>, X3new <span class="op">=</span> <span class="va">X3</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># LOO cross-validation horizontally</span></span>
-<span class="r-in"><span class="va">lp.cv1</span> <span class="op">&lt;-</span> <span class="fu">lplsCV</span><span class="op">(</span><span class="va">lp.exo</span>, segments1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">as.list</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">X1</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Simulate data set</span></span></span>
+<span class="r-in"><span><span class="va">sim</span> <span class="op">&lt;-</span> <span class="fu"><a href="lplsData.html">lplsData</a></span><span class="op">(</span>I <span class="op">=</span> <span class="fl">30</span>, N <span class="op">=</span> <span class="fl">20</span>, J <span class="op">=</span> <span class="fl">5</span>, K <span class="op">=</span> <span class="fl">6</span>, ncomp <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">X1</span>  <span class="op">&lt;-</span> <span class="va">sim</span><span class="op">$</span><span class="va">X1</span>; <span class="va">X2</span> <span class="op">&lt;-</span> <span class="va">sim</span><span class="op">$</span><span class="va">X2</span>; <span class="va">X3</span> <span class="op">&lt;-</span> <span class="va">sim</span><span class="op">$</span><span class="va">X3</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># exo-L-PLS:</span></span></span>
+<span class="r-in"><span><span class="va">lp.exo</span>  <span class="op">&lt;-</span> <span class="fu"><a href="lpls.html">lpls</a></span><span class="op">(</span><span class="va">X1</span>,<span class="va">X2</span>,<span class="va">X3</span>, ncomp <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Predict X1</span></span></span>
+<span class="r-in"><span><span class="va">pred.exo.X2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">lp.exo</span>, X1new <span class="op">=</span> <span class="va">X1</span>, exo.direction <span class="op">=</span> <span class="st">"X2"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Predict X3</span></span></span>
+<span class="r-in"><span><span class="va">pred.exo.X2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">lp.exo</span>, X1new <span class="op">=</span> <span class="va">X1</span>, exo.direction <span class="op">=</span> <span class="st">"X3"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># endo-L-PLS:</span></span></span>
+<span class="r-in"><span><span class="va">lp.endo</span> <span class="op">&lt;-</span> <span class="fu"><a href="lpls.html">lpls</a></span><span class="op">(</span><span class="va">X1</span>,<span class="va">X2</span>,<span class="va">X3</span>, ncomp <span class="op">=</span> <span class="fl">2</span>, type <span class="op">=</span> <span class="st">"endo"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Predict X1 from X2 and X3 (in this case fitted values):</span></span></span>
+<span class="r-in"><span><span class="va">pred.endo.X1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">lp.endo</span>, X2new <span class="op">=</span> <span class="va">X2</span>, X3new <span class="op">=</span> <span class="va">X3</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># LOO cross-validation horizontally</span></span></span>
+<span class="r-in"><span><span class="va">lp.cv1</span> <span class="op">&lt;-</span> <span class="fu">lplsCV</span><span class="op">(</span><span class="va">lp.exo</span>, segments1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">as.list</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">X1</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Segment 1 of 30 completed</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Segment 2 of 30 completed</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Segment 3 of 30 completed</span>
@@ -218,9 +265,9 @@ and cross-validation metrics are returned for for cross-validation (<code>lplsCV
 <span class="r-out co"><span class="r-pr">#&gt;</span> Segment 28 of 30 completed</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Segment 29 of 30 completed</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Segment 30 of 30 completed</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># LOO cross-validation vertically</span></span>
-<span class="r-in"><span class="va">lp.cv2</span> <span class="op">&lt;-</span> <span class="fu">lplsCV</span><span class="op">(</span><span class="va">lp.exo</span>, segments2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">as.list</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">X1</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># LOO cross-validation vertically</span></span></span>
+<span class="r-in"><span><span class="va">lp.cv2</span> <span class="op">&lt;-</span> <span class="fu">lplsCV</span><span class="op">(</span><span class="va">lp.exo</span>, segments2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">as.list</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">X1</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Segment 1 of 20 completed</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Segment 2 of 20 completed</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Segment 3 of 20 completed</span>
@@ -241,9 +288,9 @@ and cross-validation metrics are returned for for cross-validation (<code>lplsCV
 <span class="r-out co"><span class="r-pr">#&gt;</span> Segment 18 of 20 completed</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Segment 19 of 20 completed</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Segment 20 of 20 completed</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Three-fold CV, horizontal</span></span>
-<span class="r-in"><span class="va">lp.cv3</span> <span class="op">&lt;-</span> <span class="fu">lplsCV</span><span class="op">(</span><span class="va">lp.exo</span>, segments1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">as.list</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="fl">11</span><span class="op">:</span><span class="fl">20</span>, <span class="fl">21</span><span class="op">:</span><span class="fl">30</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Three-fold CV, horizontal</span></span></span>
+<span class="r-in"><span><span class="va">lp.cv3</span> <span class="op">&lt;-</span> <span class="fu">lplsCV</span><span class="op">(</span><span class="va">lp.exo</span>, segments1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">as.list</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="fl">11</span><span class="op">:</span><span class="fl">20</span>, <span class="fl">21</span><span class="op">:</span><span class="fl">30</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Segment 1 of 10 completed</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Segment 2 of 10 completed</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Segment 3 of 10 completed</span>
@@ -254,7 +301,7 @@ and cross-validation metrics are returned for for cross-validation (<code>lplsCV
 <span class="r-out co"><span class="r-pr">#&gt;</span> Segment 8 of 10 completed</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Segment 9 of 10 completed</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Segment 10 of 10 completed</span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -269,7 +316,7 @@ and cross-validation metrics are returned for for cross-validation (<code>lplsCV
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

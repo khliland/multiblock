@@ -252,6 +252,7 @@ A PCA is computed from the cross-validated predictions to get an overview of the
 PCP <- pcp(so.pot, c(3,2))
 summary(PCP)
 scoreplot(PCP)
+corrplot(PCP)
 ```
 
 ## CVANOVA

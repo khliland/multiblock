@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">multiblock</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.8.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.8.3</span>
       </span>
     </div>
 
@@ -75,113 +75,194 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="co"># S3 method for multiblock</span>
-<span class="fu"><a href="https://rdrr.io/pkg/pls/man/scoreplot.html" class="external-link">scoreplot</a></span><span class="op">(</span>
-  <span class="va">object</span>,
-  comps <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,
-  block <span class="op">=</span> <span class="fl">0</span>,
-  <span class="va">labels</span>,
-  identify <span class="op">=</span> <span class="cn">FALSE</span>,
-  type <span class="op">=</span> <span class="st">"p"</span>,
-  <span class="va">xlab</span>,
-  <span class="va">ylab</span>,
-  <span class="va">main</span>,
-  <span class="va">...</span>
-<span class="op">)</span>
-
-<span class="co"># S3 method for multiblock</span>
-<span class="fu"><a href="https://rdrr.io/pkg/pls/man/scoreplot.html" class="external-link">loadingplot</a></span><span class="op">(</span>
-  <span class="va">object</span>,
-  comps <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,
-  block <span class="op">=</span> <span class="fl">0</span>,
-  scatter <span class="op">=</span> <span class="cn">TRUE</span>,
-  <span class="va">labels</span>,
-  identify <span class="op">=</span> <span class="cn">FALSE</span>,
-  <span class="va">type</span>,
-  <span class="va">lty</span>,
-  lwd <span class="op">=</span> <span class="cn">NULL</span>,
-  <span class="va">pch</span>,
-  cex <span class="op">=</span> <span class="cn">NULL</span>,
-  <span class="va">col</span>,
-  <span class="va">legendpos</span>,
-  <span class="va">xlab</span>,
-  <span class="va">ylab</span>,
-  <span class="va">main</span>,
-  pretty.xlabels <span class="op">=</span> <span class="cn">TRUE</span>,
-  <span class="va">xlim</span>,
-  <span class="va">...</span>
-<span class="op">)</span>
-
-<span class="fu">loadingweightplot</span><span class="op">(</span><span class="va">object</span>, main <span class="op">=</span> <span class="st">"Loading weights"</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for multiblock</span>
-<span class="fu"><a href="https://rdrr.io/r/stats/biplot.html" class="external-link">biplot</a></span><span class="op">(</span>
-  <span class="va">x</span>,
-  block <span class="op">=</span> <span class="fl">0</span>,
-  comps <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,
-  which <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"scores"</span>, <span class="st">"loadings"</span><span class="op">)</span>,
-  var.axes <span class="op">=</span> <span class="cn">FALSE</span>,
-  <span class="va">xlabs</span>,
-  <span class="va">ylabs</span>,
-  <span class="va">main</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S3 method for multiblock</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/pls/man/scoreplot.html" class="external-link">scoreplot</a></span><span class="op">(</span></span>
+<span>  <span class="va">object</span>,</span>
+<span>  comps <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span>
+<span>  block <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  <span class="va">labels</span>,</span>
+<span>  identify <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  type <span class="op">=</span> <span class="st">"p"</span>,</span>
+<span>  <span class="va">xlab</span>,</span>
+<span>  <span class="va">ylab</span>,</span>
+<span>  <span class="va">main</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for multiblock</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/pls/man/scoreplot.html" class="external-link">loadingplot</a></span><span class="op">(</span></span>
+<span>  <span class="va">object</span>,</span>
+<span>  comps <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span>
+<span>  block <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  scatter <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  <span class="va">labels</span>,</span>
+<span>  identify <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  <span class="va">type</span>,</span>
+<span>  <span class="va">lty</span>,</span>
+<span>  lwd <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">pch</span>,</span>
+<span>  cex <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">col</span>,</span>
+<span>  <span class="va">legendpos</span>,</span>
+<span>  <span class="va">xlab</span>,</span>
+<span>  <span class="va">ylab</span>,</span>
+<span>  <span class="va">main</span>,</span>
+<span>  pretty.xlabels <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  <span class="va">xlim</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">loadingweightplot</span><span class="op">(</span><span class="va">object</span>, main <span class="op">=</span> <span class="st">"Loading weights"</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for multiblock</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/biplot.html" class="external-link">biplot</a></span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  block <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  comps <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span>
+<span>  which <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"scores"</span>, <span class="st">"loadings"</span><span class="op">)</span>,</span>
+<span>  var.axes <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  <span class="va">xlabs</span>,</span>
+<span>  <span class="va">ylabs</span>,</span>
+<span>  <span class="va">main</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">corrplot</span><span class="op">(</span><span class="va">object</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for default</span></span>
+<span><span class="fu">corrplot</span><span class="op">(</span><span class="va">object</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for mvr</span></span>
+<span><span class="fu">corrplot</span><span class="op">(</span><span class="va">object</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for multiblock</span></span>
+<span><span class="fu">corrplot</span><span class="op">(</span></span>
+<span>  <span class="va">object</span>,</span>
+<span>  comps <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span>
+<span>  labels <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  col <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span>,</span>
+<span>  plotx <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  ploty <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  blockScores <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>object</dt>
 <dd><p><code>multiblock</code> object.</p></dd>
+
+
 <dt>comps</dt>
 <dd><p><code>integer</code> vector giving components, within block, to plot.</p></dd>
+
+
 <dt>block</dt>
 <dd><p><code>integer/character</code> for block selection.</p></dd>
+
+
 <dt>labels</dt>
 <dd><p><code>character</code> indicating if "names" or "numbers" should be plot symbols (optional).</p></dd>
+
+
 <dt>identify</dt>
 <dd><p><code>logical</code> for activating <code>identify</code> to interactively identify points.</p></dd>
+
+
 <dt>type</dt>
 <dd><p><code>character</code> for selecting type of plot to make. Defaults to "p" (points) for scatter plots and "l" (lines) for line plots.</p></dd>
+
+
 <dt>xlab</dt>
 <dd><p><code>character</code> text for x labels.</p></dd>
+
+
 <dt>ylab</dt>
 <dd><p><code>character</code> text for y labels.</p></dd>
+
+
 <dt>main</dt>
 <dd><p><code>character</code> text for main header.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Not implemented.</p></dd>
+
+
 <dt>scatter</dt>
 <dd><p><code>logical</code> indicating if a scatterplot of loadings should be made (default = TRUE).</p></dd>
+
+
 <dt>lty</dt>
 <dd><p>Vector of line type specifications (see <code><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></code> for details).</p></dd>
+
+
 <dt>lwd</dt>
 <dd><p><code>numeric</code> vector of line width specifications.</p></dd>
+
+
 <dt>pch</dt>
 <dd><p>Vector of point specifications (see <code><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></code> for details).</p></dd>
+
+
 <dt>cex</dt>
 <dd><p><code>numeric</code> vector of plot size expansions (see <code><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></code> for details).</p></dd>
+
+
 <dt>col</dt>
 <dd><p><code>integer</code> vector of symbol/line colours (see <code><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></code> for details).</p></dd>
+
+
 <dt>legendpos</dt>
 <dd><p><code>character</code> indicating legend position (if <code>scatter</code> is FALSE), e.g. <code>legendpos = "topright"</code>.</p></dd>
+
+
 <dt>pretty.xlabels</dt>
 <dd><p><code>logical</code> indicating if xlabels should be more nicely plotted (default = TRUE).</p></dd>
+
+
 <dt>xlim</dt>
 <dd><p><code>numeric</code> vector of length two, with the x limits of the plot (optional).</p></dd>
+
+
 <dt>x</dt>
 <dd><p><code>multiblock</code> object.</p></dd>
+
+
 <dt>which</dt>
 <dd><p><code>character</code> for selecting type of biplot ("x" = default, "y", "scores", "loadings").</p></dd>
+
+
 <dt>var.axes</dt>
 <dd><p><code>logical</code> indicating if second axes of a biplot should have arrows.</p></dd>
+
+
 <dt>xlabs</dt>
 <dd><p><code>character</code> vector for labelling first set of biplot points (optional).</p></dd>
+
+
 <dt>ylabs</dt>
 <dd><p><code>character</code> vector for labelling second set of biplot points (optional).</p></dd>
+
+
+<dt>plotx</dt>
+<dd><p><code>locical</code> or <code>integer</code>/<code>character</code>.  Whether to plot the \(X\) correlation loadings, optionally which block(s). Defaults to <code>TRUE</code>.</p></dd>
+
+
+<dt>ploty</dt>
+<dd><p><code>logical</code>.  Whether to plot the \(Y\) correlation loadings. Defaults to <code>TRUE</code>.</p></dd>
+
+
+<dt>blockScores</dt>
+<dd><p><code>logical</code>. Correlation loadings from blockScores (default = FALSE).</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>These plotting routines only generate plots and return no values.</p>
+    
+
+<p>These plotting routines only generate plots and return no values.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -196,11 +277,23 @@ Common functions for computation and extraction of results are found in <code><a
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">wine</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">sc</span> <span class="op">&lt;-</span> <span class="fu"><a href="sca.html">sca</a></span><span class="op">(</span><span class="va">wine</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'Smell at rest'</span>, <span class="st">'View'</span>, <span class="st">'Smell after shaking'</span><span class="op">)</span><span class="op">]</span>, ncomp <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/pls/man/scores.html" class="external-link">loadings</a></span><span class="op">(</span><span class="va">sc</span>, block <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>, labels <span class="op">=</span> <span class="st">"names"</span>, scatter <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">wine</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">sc</span> <span class="op">&lt;-</span> <span class="fu"><a href="sca.html">sca</a></span><span class="op">(</span><span class="va">wine</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'Smell at rest'</span>, <span class="st">'View'</span>, <span class="st">'Smell after shaking'</span><span class="op">)</span><span class="op">]</span>, ncomp <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/pls/man/scoreplot.html" class="external-link">loadingplot</a></span><span class="op">(</span><span class="va">sc</span>, block <span class="op">=</span> <span class="fl">1</span>, labels <span class="op">=</span> <span class="st">"names"</span>, scatter <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="multiblock_plots-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/pls/man/scoreplot.html" class="external-link">scoreplot</a></span><span class="op">(</span><span class="va">sc</span>, labels <span class="op">=</span> <span class="st">"names"</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="multiblock_plots-2.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span><span class="fu">corrplot</span><span class="op">(</span><span class="va">sc</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="multiblock_plots-3.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">potato</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">so</span> <span class="op">&lt;-</span> <span class="fu"><a href="sopls.html">sopls</a></span><span class="op">(</span><span class="va">Sensory</span> <span class="op">~</span> <span class="va">NIRraw</span> <span class="op">+</span> <span class="va">Chemical</span> <span class="op">+</span> <span class="va">Compression</span>, data<span class="op">=</span><span class="va">potato</span>, ncomp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span>, </span></span>
+<span class="r-in"><span>            max_comps <span class="op">=</span> <span class="fl">6</span>, validation <span class="op">=</span> <span class="st">"CV"</span>, segments <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/pls/man/scoreplot.html" class="external-link">scoreplot</a></span><span class="op">(</span><span class="va">so</span>, ncomp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">1</span><span class="op">)</span>, block <span class="op">=</span> <span class="fl">3</span>, labels <span class="op">=</span> <span class="st">"names"</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="multiblock_plots-4.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span><span class="fu">corrplot</span><span class="op">(</span><span class="fu"><a href="sopls_results.html">pcp</a></span><span class="op">(</span><span class="va">so</span>, ncomp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="multiblock_plots-5.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -215,7 +308,7 @@ Common functions for computation and extraction of results are found in <code><a
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

@@ -25,7 +25,7 @@ mbRDA - Multiblock Redundancy Analysis (mbrda)
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">multiblock</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.8.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.8.3</span>
       </span>
     </div>
 
@@ -96,25 +96,25 @@ Common functions for computation and extraction of results and plotting are foun
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">potato</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">mb</span> <span class="op">&lt;-</span> <span class="fu"><a href="mbpls.html">mbpls</a></span><span class="op">(</span><span class="va">Sensory</span> <span class="op">~</span> <span class="va">Chemical</span> <span class="op">+</span> <span class="va">Compression</span>, data<span class="op">=</span><span class="va">potato</span>, ncomp <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">mb</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">potato</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">mb</span> <span class="op">&lt;-</span> <span class="fu"><a href="mbpls.html">mbpls</a></span><span class="op">(</span><span class="va">Sensory</span> <span class="op">~</span> <span class="va">Chemical</span> <span class="op">+</span> <span class="va">Compression</span>, data<span class="op">=</span><span class="va">potato</span>, ncomp <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">mb</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Multiblock PLS </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> mbpls(formula = Sensory ~ Chemical + Compression, data = potato,     ncomp = 5)</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Convert data.frame with AsIs objects to list of matrices</span></span>
-<span class="r-in"><span class="va">potatoList</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">potato</span>, <span class="va">unclass</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">mbr</span> <span class="op">&lt;-</span> <span class="fu"><a href="mbrda.html">mbrda</a></span><span class="op">(</span><span class="va">Sensory</span> <span class="op">~</span> <span class="va">Chemical</span> <span class="op">+</span> <span class="va">Compression</span>, data<span class="op">=</span><span class="va">potatoList</span>, ncomp <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">mbr</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Convert data.frame with AsIs objects to list of matrices</span></span></span>
+<span class="r-in"><span><span class="va">potatoList</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">potato</span>, <span class="va">unclass</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">mbr</span> <span class="op">&lt;-</span> <span class="fu"><a href="mbrda.html">mbrda</a></span><span class="op">(</span><span class="va">Sensory</span> <span class="op">~</span> <span class="va">Chemical</span> <span class="op">+</span> <span class="va">Compression</span>, data<span class="op">=</span><span class="va">potatoList</span>, ncomp <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">mbr</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Multiblock RDA </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> mbrda(formula = Sensory ~ Chemical + Compression, data = potatoList,     ncomp = 10)</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/pls/man/scoreplot.html" class="external-link">scoreplot</a></span><span class="op">(</span><span class="va">mbr</span>, labels<span class="op">=</span><span class="st">"names"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/pls/man/scoreplot.html" class="external-link">scoreplot</a></span><span class="op">(</span><span class="va">mbr</span>, labels<span class="op">=</span><span class="st">"names"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="supervised-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -129,7 +129,7 @@ Common functions for computation and extraction of results and plotting are foun
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

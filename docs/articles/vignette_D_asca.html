@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">multiblock</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.8.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.8.3</span>
       </span>
     </div>
 
@@ -101,16 +101,16 @@
     
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://khliland.github.io/multiblock/" class="external-link">multiblock</a></span><span class="op">)</span>
-<span class="co">#&gt; Registered S3 methods overwritten by 'multiblock':</span>
-<span class="co">#&gt;   method             from</span>
-<span class="co">#&gt;   print.multiblock   ade4</span>
-<span class="co">#&gt;   summary.multiblock ade4</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Attaching package: 'multiblock'</span>
-<span class="co">#&gt; The following object is masked from 'package:stats':</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;     loadings</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://khliland.github.io/multiblock/" class="external-link">multiblock</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; Registered S3 methods overwritten by 'multiblock':</span></span>
+<span><span class="co">#&gt;   method             from</span></span>
+<span><span class="co">#&gt;   print.multiblock   ade4</span></span>
+<span><span class="co">#&gt;   summary.multiblock ade4</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Attaching package: 'multiblock'</span></span>
+<span><span class="co">#&gt; The following object is masked from 'package:stats':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     loadings</span></span></code></pre></div>
 <div class="section level2">
 <h2 id="anova-simultaneous-component-analysis-asca">ANOVA Simultaneous Component Analysis – ASCA<a class="anchor" aria-label="anchor" href="#anova-simultaneous-component-analysis-asca"></a>
 </h2>
@@ -122,21 +122,21 @@ the possibilities of the ASCA method.</p>
 <p>Two categorical factors and a covariate are simulated together with a
 standard normal set of 10 responses.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
-<span class="va">dataset</span>   <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">24</span><span class="op">*</span><span class="fl">10</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">10</span><span class="op">)</span><span class="op">)</span>, 
-                        x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">8</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">8</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">8</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>, 
-                        z <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">0</span><span class="op">)</span>, <span class="fl">12</span><span class="op">)</span><span class="op">)</span>, w <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">24</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">dataset</span><span class="op">$</span><span class="va">y</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">'Var'</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, sep <span class="op">=</span> <span class="st">" "</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">dataset</span><span class="op">)</span>   <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">'Obj'</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">24</span>, sep <span class="op">=</span> <span class="st">" "</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">dataset</span><span class="op">)</span>
-<span class="co">#&gt; 'data.frame':    24 obs. of  4 variables:</span>
-<span class="co">#&gt;  $ y: 'AsIs' num [1:24, 1:10] -0.626 0.184 -0.836 1.595 0.33 ...</span>
-<span class="co">#&gt;   ..- attr(*, "dimnames")=List of 2</span>
-<span class="co">#&gt;   .. ..$ : NULL</span>
-<span class="co">#&gt;   .. ..$ : chr [1:10] "Var 1" "Var 2" "Var 3" "Var 4" ...</span>
-<span class="co">#&gt;  $ x: Factor w/ 3 levels "0","1","2": 3 3 3 3 3 3 3 3 2 2 ...</span>
-<span class="co">#&gt;  $ z: Factor w/ 2 levels "0","1": 2 1 2 1 2 1 2 1 2 1 ...</span>
-<span class="co">#&gt;  $ w: num  0.707 1.034 0.223 -0.879 1.163 ...</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
+<span><span class="va">dataset</span>   <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">24</span><span class="op">*</span><span class="fl">10</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">10</span><span class="op">)</span><span class="op">)</span>, </span>
+<span>                        x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">8</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">8</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">8</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>, </span>
+<span>                        z <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">0</span><span class="op">)</span>, <span class="fl">12</span><span class="op">)</span><span class="op">)</span>, w <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">24</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">dataset</span><span class="op">$</span><span class="va">y</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">'Var'</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, sep <span class="op">=</span> <span class="st">" "</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">dataset</span><span class="op">)</span>   <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">'Obj'</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">24</span>, sep <span class="op">=</span> <span class="st">" "</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">dataset</span><span class="op">)</span></span>
+<span><span class="co">#&gt; 'data.frame':    24 obs. of  4 variables:</span></span>
+<span><span class="co">#&gt;  $ y: 'AsIs' num [1:24, 1:10] -0.626 0.184 -0.836 1.595 0.33 ...</span></span>
+<span><span class="co">#&gt;   ..- attr(*, "dimnames")=List of 2</span></span>
+<span><span class="co">#&gt;   .. ..$ : NULL</span></span>
+<span><span class="co">#&gt;   .. ..$ : chr [1:10] "Var 1" "Var 2" "Var 3" "Var 4" ...</span></span>
+<span><span class="co">#&gt;  $ x: Factor w/ 3 levels "0","1","2": 3 3 3 3 3 3 3 3 2 2 ...</span></span>
+<span><span class="co">#&gt;  $ z: Factor w/ 2 levels "0","1": 2 1 2 1 2 1 2 1 2 1 ...</span></span>
+<span><span class="co">#&gt;  $ w: num  0.707 1.034 0.223 -0.879 1.163 ...</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="formula-interface">Formula interface<a class="anchor" aria-label="anchor" href="#formula-interface"></a>
@@ -159,11 +159,11 @@ complicated formulas exist, but only a simple subset is supported by
 <p>A basic ASCA model having two factors is fitted and printed as
 follows.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/asca.html">asca</a></span><span class="op">(</span><span class="va">y</span><span class="op">~</span><span class="va">x</span><span class="op">+</span><span class="va">z</span>, data <span class="op">=</span> <span class="va">dataset</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span>
-<span class="co">#&gt; Anova Simultaneous Component Analysis fitted using 'lm' (Linear Model)</span>
-<span class="co">#&gt; Call:</span>
-<span class="co">#&gt; asca(formula = y ~ x + z, data = dataset)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/asca.html">asca</a></span><span class="op">(</span><span class="va">y</span><span class="op">~</span><span class="va">x</span><span class="op">+</span><span class="va">z</span>, data <span class="op">=</span> <span class="va">dataset</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Anova Simultaneous Component Analysis fitted using 'lm' (Linear Model)</span></span>
+<span><span class="co">#&gt; Call:</span></span>
+<span><span class="co">#&gt; asca(formula = y ~ x + z, data = dataset)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="scores">Scores<a class="anchor" aria-label="anchor" href="#scores"></a>
@@ -171,31 +171,31 @@ follows.</p>
 <p>Scores for first factor are extracted and a scoreplot with confidence
 ellipsoids is produced.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">sc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/pls/man/scores.html" class="external-link">scores</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">sc</span><span class="op">)</span>
-<span class="co">#&gt;          Comp 1     Comp 2</span>
-<span class="co">#&gt; Obj 1 0.9395791 -0.1039977</span>
-<span class="co">#&gt; Obj 2 0.9395791 -0.1039977</span>
-<span class="co">#&gt; Obj 3 0.9395791 -0.1039977</span>
-<span class="co">#&gt; Obj 4 0.9395791 -0.1039977</span>
-<span class="co">#&gt; Obj 5 0.9395791 -0.1039977</span>
-<span class="co">#&gt; Obj 6 0.9395791 -0.1039977</span>
-
-<span class="fu"><a href="https://rdrr.io/pkg/pls/man/scoreplot.html" class="external-link">scoreplot</a></span><span class="op">(</span><span class="va">mod</span>, legendpos <span class="op">=</span> <span class="st">"topleft"</span>, ellipsoids <span class="op">=</span> <span class="st">"confidence"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">sc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/pls/man/scores.html" class="external-link">scores</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">sc</span><span class="op">)</span></span>
+<span><span class="co">#&gt;          Comp 1     Comp 2</span></span>
+<span><span class="co">#&gt; Obj 1 0.9395791 -0.1039977</span></span>
+<span><span class="co">#&gt; Obj 2 0.9395791 -0.1039977</span></span>
+<span><span class="co">#&gt; Obj 3 0.9395791 -0.1039977</span></span>
+<span><span class="co">#&gt; Obj 4 0.9395791 -0.1039977</span></span>
+<span><span class="co">#&gt; Obj 5 0.9395791 -0.1039977</span></span>
+<span><span class="co">#&gt; Obj 6 0.9395791 -0.1039977</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/pls/man/scoreplot.html" class="external-link">scoreplot</a></span><span class="op">(</span><span class="va">mod</span>, legendpos <span class="op">=</span> <span class="st">"topleft"</span>, ellipsoids <span class="op">=</span> <span class="st">"confidence"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="vignette_D_asca_files/figure-html/unnamed-chunk-3-1.png" width="576"></p>
 <p>This is repeated for the second factor.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">sc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/pls/man/scores.html" class="external-link">scores</a></span><span class="op">(</span><span class="va">mod</span>, factor <span class="op">=</span> <span class="st">"z"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">sc</span><span class="op">)</span>
-<span class="co">#&gt;           Comp 1</span>
-<span class="co">#&gt; Obj 1 -0.3831621</span>
-<span class="co">#&gt; Obj 2  0.3831621</span>
-<span class="co">#&gt; Obj 3 -0.3831621</span>
-<span class="co">#&gt; Obj 4  0.3831621</span>
-<span class="co">#&gt; Obj 5 -0.3831621</span>
-<span class="co">#&gt; Obj 6  0.3831621</span>
-
-<span class="fu"><a href="https://rdrr.io/pkg/pls/man/scoreplot.html" class="external-link">scoreplot</a></span><span class="op">(</span><span class="va">mod</span>, factor <span class="op">=</span> <span class="st">"z"</span>, ellipsoids <span class="op">=</span> <span class="st">"confidence"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">sc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/pls/man/scores.html" class="external-link">scores</a></span><span class="op">(</span><span class="va">mod</span>, factor <span class="op">=</span> <span class="st">"z"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">sc</span><span class="op">)</span></span>
+<span><span class="co">#&gt;           Comp 1</span></span>
+<span><span class="co">#&gt; Obj 1 -0.3831621</span></span>
+<span><span class="co">#&gt; Obj 2  0.3831621</span></span>
+<span><span class="co">#&gt; Obj 3 -0.3831621</span></span>
+<span><span class="co">#&gt; Obj 4  0.3831621</span></span>
+<span><span class="co">#&gt; Obj 5 -0.3831621</span></span>
+<span><span class="co">#&gt; Obj 6  0.3831621</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/pls/man/scoreplot.html" class="external-link">scoreplot</a></span><span class="op">(</span><span class="va">mod</span>, factor <span class="op">=</span> <span class="st">"z"</span>, ellipsoids <span class="op">=</span> <span class="st">"confidence"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="vignette_D_asca_files/figure-html/unnamed-chunk-4-1.png" width="576"></p>
 </div>
 <div class="section level3">
@@ -204,17 +204,17 @@ ellipsoids is produced.</p>
 <p>A basic loadingplot for the first factor is generated using graphics
 from the <em>pls</em> package.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">lo</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/pls/man/scores.html" class="external-link">loadings</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">lo</span><span class="op">)</span>
-<span class="co">#&gt;            Comp 1      Comp 2</span>
-<span class="co">#&gt; Var 1 -0.03688007 -0.15615007</span>
-<span class="co">#&gt; Var 2 -0.01764472 -0.05590506</span>
-<span class="co">#&gt; Var 3  0.14250312  0.06184430</span>
-<span class="co">#&gt; Var 4 -0.50220715 -0.35817451</span>
-<span class="co">#&gt; Var 5 -0.54263018  0.45252899</span>
-<span class="co">#&gt; Var 6  0.44399942 -0.01293480</span>
-
-<span class="fu"><a href="https://rdrr.io/pkg/pls/man/scoreplot.html" class="external-link">loadingplot</a></span><span class="op">(</span><span class="va">mod</span>, scatter <span class="op">=</span> <span class="cn">TRUE</span>, labels <span class="op">=</span> <span class="st">'names'</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">lo</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/pls/man/scores.html" class="external-link">loadings</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">lo</span><span class="op">)</span></span>
+<span><span class="co">#&gt;            Comp 1      Comp 2</span></span>
+<span><span class="co">#&gt; Var 1 -0.03688007 -0.15615007</span></span>
+<span><span class="co">#&gt; Var 2 -0.01764472 -0.05590506</span></span>
+<span><span class="co">#&gt; Var 3  0.14250312  0.06184430</span></span>
+<span><span class="co">#&gt; Var 4 -0.50220715 -0.35817451</span></span>
+<span><span class="co">#&gt; Var 5 -0.54263018  0.45252899</span></span>
+<span><span class="co">#&gt; Var 6  0.44399942 -0.01293480</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/pls/man/scoreplot.html" class="external-link">loadingplot</a></span><span class="op">(</span><span class="va">mod</span>, scatter <span class="op">=</span> <span class="cn">TRUE</span>, labels <span class="op">=</span> <span class="st">'names'</span><span class="op">)</span></span></code></pre></div>
 <p><img src="vignette_D_asca_files/figure-html/unnamed-chunk-5-1.png" width="576"></p>
 </div>
 </div>
@@ -237,7 +237,7 @@ from the <em>pls</em> package.</p>
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer>

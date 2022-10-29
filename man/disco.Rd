@@ -22,10 +22,11 @@ This is a wrapper for the \code{RegularizedSCA::DISCOsca} function for computing
 }
 \details{
 DISCO is a restriction of SCA where Alternating Least Squares is used for
-estimation of loadings and scores. The loadings (in variable linked mode) are filled with
-zeros for each iteration in a pattern forcing distinct, local and common components.
+estimation of loadings and scores. The SCA solution is rotated towards loadings (in sample linked mode) which are filled with
+zeros in a pattern resembling distinct, local and common components.
 When used in sample linked mode and only selecting distinct components, it shares a
-resemblance to SO-PLS, only in an unsupervised setting.
+resemblance to SO-PLS, only in an unsupervised setting. Explained variances
+are computed as proportion of block varation explained by scores*loadings'.
 }
 \examples{
 data(potato)

@@ -151,6 +151,7 @@ sca <- function(X, ncomp=2, scale=FALSE, samplelinked = 'auto', ...){
   }
   mod$explvar <- PCA$explvar
   mod$call <- match.call()
+  mod$data <- list(X = X)
   class(mod) <- c('multiblock','list')
   return(mod)
 }
@@ -191,10 +192,12 @@ gca <- function(X, ncomp=2, svd=TRUE, tol=10^-12, corrs=TRUE, ...){
   if(svd){
     obj <- gca.svd(X=X, tol=tol)
     obj$call = match.call()
+    obj$data <- list(X = X)
     return(obj)
   } else {
     obj <- gca.rgcca(X=X, scale=FALSE, ncomp=ncomp, corrs=corrs, ...)
     obj$call = match.call()
+    obj$data <- list(X = X)
     return(obj)
   }
 }
@@ -317,7 +320,7 @@ gpa <- function(X, graph = FALSE, ...){
                blockScores = "PCA scores", blockLoadings = "PCA loadings")
   obj <- list(scores = scores, loadings = loadings, 
               blockScores = blockScores, blockLoadings = blockLoadings, 
-              info = info, GPA = ret, call = match.call())
+              info = info, GPA = ret, call = match.call(), data = list(X = X))
   class(obj) <- c('multiblock','list')
   return(obj)
 }
@@ -375,6 +378,7 @@ mfa <- function(X, type = rep("c", length(X)), graph = FALSE, ...){
     attr(obj$blockScores[[i]], 'explvar') <- attr(obj$blockLoadings[[i]], 'explvar') <- explvar
     colnames(obj$blockScores[[i]]) <- colnames(obj$blockLoadings[[i]]) <- paste0('Comp ',1:ncol(obj$blockScores[[i]]))
   }
+  obj$data <- list(X = X)
   class(obj) <- c('multiblock','list')
   return(obj)
 }
@@ -542,7 +546,7 @@ pcagca <- function(X, commons=2, auto=TRUE, auto.par=list(explVarLim=40, rLim=0.
                blockScores = "Common and distinct scores", blockLoadings = "Common and distinct loadings")
   obj <- list(blockScores=Scores, blockLoadings=Loadings, R=R, explVar=explVar, 
               ncomp=unlist(lapply(explVar, length)), ncommon=ncommon, 
-              info=info, call=match.call())
+              info=info, call=match.call(), data = list(X = X))
   class(obj) <- c("multiblock","list")
   return(obj)
 }
@@ -558,10 +562,11 @@ pcagca <- function(X, commons=2, auto=TRUE, auto.par=list(explVarLim=40, rLim=0.
 #' @description This is a wrapper for the \code{RegularizedSCA::DISCOsca} function for computing DISCO.
 #' 
 #' @details DISCO is a restriction of SCA where Alternating Least Squares is used for
-#' estimation of loadings and scores. The loadings (in variable linked mode) are filled with 
-#' zeros for each iteration in a pattern forcing distinct, local and common components.
+#' estimation of loadings and scores. The SCA solution is rotated towards loadings (in sample linked mode) which are filled with 
+#' zeros in a pattern resembling distinct, local and common components.
 #' When used in sample linked mode and only selecting distinct components, it shares a 
-#' resemblance to SO-PLS, only in an unsupervised setting.
+#' resemblance to SO-PLS, only in an unsupervised setting. Explained variances
+#' are computed as proportion of block varation explained by scores*loadings'.
 #' 
 #' @references Schouteden, M., Van Deun, K., Wilderjans, T. F., & Van Mechelen, I. (2014). Performing DISCO-SCA to search for distinctive and common information in linked data. Behavior research methods, 46(2), 576-587.
 #' 
@@ -574,7 +579,8 @@ pcagca <- function(X, commons=2, auto=TRUE, auto.par=list(explVarLim=40, rLim=0.
 #' @seealso Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 #' @export
 disco <- function(X, ncomp = 2, ...){
-  ret <- RegularizedSCA::DISCOsca(do.call(cbind,X) , ncomp, unlist(lapply(X,ncol)))
+  Xc <- do.call(cbind,X)
+  ret <- RegularizedSCA::DISCOsca(Xc, ncomp, unlist(lapply(X,ncol)))
   compNames <- character(ncomp)
   for(i in 1:ncomp){
     if(sum(ret$comdist[[1]][,i]) == 1)
@@ -599,12 +605,20 @@ disco <- function(X, ncomp = 2, ...){
                scores = "Scores", loadings = "Concatenated loadings",
                blockScores = "Not used", blockLoadings = "Block-wise loadings")
   obj <- list(scores = ret$Trot_best[[1]], loadings = ret$Prot_best[[1]], blockLoadings = blockLoadings,
-              info = info, DISCOsca = ret, call = match.call())
-  xFro <- unlist(lapply(X, function(x)base::norm(scale(x,scale=FALSE),'F')^2))
-  for(i in 1:length(X)){
-    attr(obj$blockLoadings[[i]], 'explvar') <- diff(c(0,obj$DISCOsca$propExp_component[[1]][i,]))/xFro[[i]]*100
+              info = info, DISCOsca = ret, call = match.call(), data = list(X = X))
+  xFro <- unlist(lapply(X, function(x)base::norm(scale(x,scale=FALSE),type='F')^2))
+  explvar <- obj$DISCOsca$propExp_component[[1]]
+  for(j in 1:dim(explvar)[1]){
+    x <- scale(X[[j]], scale=FALSE)
+    for(i in 1:ncomp){
+      explvar[j,i] <- 100-norm(x-obj$scores[,i,drop=FALSE]%*%t(obj$blockLoadings[[j]][,i,drop=FALSE]),type="F")^2/xFro[j]*100
+    }
   }
-  obj$explvar <- attr(obj$scores, "explvar") <- attr(obj$loadings, "explvar") <- diff(c(0,diag(crossprod(obj$loadings))))/sum(xFro)*100
+  dimnames(explvar) <- list(names(X),colnames(obj$loadings))
+  for(i in 1:length(X)){
+    attr(obj$blockLoadings[[i]], 'explvar') <- explvar[i,] # diff(c(0,obj$DISCOsca$propExp_component[[1]][i,]))/xFro[[i]]*100
+  }
+  obj$explvar <- attr(obj$scores, "explvar") <- attr(obj$loadings, "explvar") <- explvar#diff(c(0,diag(crossprod(obj$loadings))))/sum(xFro)*100
   class(obj) <- c("multiblock","list")
   return(obj)
 }
@@ -664,6 +678,7 @@ hpca <- function(X, ncomp=2, scale=FALSE, verbose=FALSE, ...){
     attr(obj$blockScores[[i]], "explvar") <- attr(obj$blockLoadings[[i]], "explvar") <- obj$rgcca$AVE$AVE_X[[i]]
   }
   obj$explvar <- res$AVE_outer_model
+  obj$data <- list(X = X)
   class(obj) <- c("multiblock","list")
   return(obj)
 }
@@ -726,6 +741,7 @@ mcoa <- function(X, ncomp=2, scale=FALSE, verbose=FALSE, ...){
     attr(obj$blockScores[[i]], "explvar") <- attr(obj$blockLoadings[[i]], "explvar") <- obj$rgcca$AVE$AVE_X[[i]]
   }
   obj$explvar <- res$AVE_outer_model
+  obj$data <- list(X = X)
   class(obj) <- c("multiblock","list")
   return(obj)
 }
@@ -803,6 +819,7 @@ statis <- function(X, ncomp = 3, scannf = FALSE, tol = 1e-07, ...){
                blockScores = "Block-wise scores", blockLoadings = "Not used")
   obj <- list(scores = scores, loadings = loadings, blockScores = blockScores,
               info = info, statis = ret, call = match.call())
+  obj$data <- list(X = X)
   class(obj) <- c("multiblock","list")
   return(obj)
   # Has plot and print in ade4
@@ -873,6 +890,7 @@ hogsvd  <- function(X){
   obj <- list(loadings=V, blockScores=blockScores, bSnorm1=U, sigmas=sigmas, eigen_values=eigen_values,
               info = info, call = match.call())
   obj$explvar <- eigen_values^2/sum(eigen_values^2)*100
+  obj$data <- list(X = X)
   class(obj) <- c("multiblock","list")
   return(obj)
 }

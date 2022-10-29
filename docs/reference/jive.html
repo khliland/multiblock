@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">multiblock</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.8.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.8.3</span>
       </span>
     </div>
 
@@ -75,19 +75,27 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">jive</span><span class="op">(</span><span class="va">X</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">jive</span><span class="op">(</span><span class="va">X</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>X</dt>
 <dd><p><code>list</code> of input blocks.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>additional arguments for <code><a href="https://rdrr.io/pkg/r.jive/man/jive.html" class="external-link">r.jive::jive</a></code>.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p><code>multiblock</code> object including relevant scores and loadings. Relevant plotting functions: <code><a href="multiblock_plots.html">multiblock_plots</a></code>and result functions: <code><a href="multiblock_results.html">multiblock_results</a></code>.</p>
+    
+
+<p><code>multiblock</code> object including relevant scores and loadings. Relevant plotting functions: <code><a href="multiblock_plots.html">multiblock_plots</a></code></p>
+
+
+<p>and result functions: <code><a href="multiblock_results.html">multiblock_results</a></code>.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -105,25 +113,21 @@ low-dimensional representations of individual and joint variation plus residual 
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"> <span class="co"># Too time consuming for testing</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">candies</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">candyList</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nlevels.html" class="external-link">nlevels</a></span><span class="op">(</span><span class="va">candies</span><span class="op">$</span><span class="va">candy</span><span class="op">)</span>,<span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="va">candies</span><span class="op">$</span><span class="va">assessment</span><span class="op">[</span><span class="va">candies</span><span class="op">$</span><span class="va">candy</span><span class="op">==</span><span class="va">x</span>,<span class="op">]</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">can.jive</span>  <span class="op">&lt;-</span> <span class="fu">jive</span><span class="op">(</span><span class="va">candyList</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span> <span class="co"># Too time consuming for testing</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">candies</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">candyList</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nlevels.html" class="external-link">nlevels</a></span><span class="op">(</span><span class="va">candies</span><span class="op">$</span><span class="va">candy</span><span class="op">)</span>,<span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="va">candies</span><span class="op">$</span><span class="va">assessment</span><span class="op">[</span><span class="va">candies</span><span class="op">$</span><span class="va">candy</span><span class="op">==</span><span class="va">x</span>,<span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">can.jive</span>  <span class="op">&lt;-</span> <span class="fu">jive</span><span class="op">(</span><span class="va">candyList</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Estimating  joint and individual ranks via permutation...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Running JIVE algorithm for ranks:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> joint rank: 1 , individual ranks: 1 1 1 1 1 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> JIVE algorithm converged after  16  iterations.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Re-estimating  joint and individual ranks via permutation...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Running JIVE algorithm for ranks:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> joint rank: 1 , individual ranks: 1 0 1 2 1 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> JIVE algorithm converged after  15  iterations.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Re-estimating  joint and individual ranks via permutation...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Running JIVE algorithm for ranks:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> joint rank: 1 , individual ranks: 1 0 1 0 1 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> JIVE algorithm converged after  13  iterations.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Re-estimating  joint and individual ranks via permutation...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Final joint rank: 1 , final individual ranks: 1 0 1 0 1 </span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">can.jive</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">can.jive</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Method</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "perm"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -142,8 +146,8 @@ low-dimensional representations of individual and joint variation plus residual 
 <span class="r-out co"><span class="r-pr">#&gt;</span> Individual    0.079    0.000    0.056    0.000    0.223</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Residual      0.230    0.148    0.151    0.122    0.153</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -158,7 +162,7 @@ low-dimensional representations of individual and joint variation plus residual 
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

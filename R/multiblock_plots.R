@@ -1,6 +1,6 @@
 #' @name multiblock_plots
 #' @title Plot Functions for Multiblock Objects
-#' @aliases scoreplot.multiblock loadingplot.multiblock loadingweightplot
+#' @aliases scoreplot.multiblock loadingplot.multiblock loadingweightplot corrplot corrplot.multiblock corrplot.default corrplot.mvr
 #' 
 #' @description Plotting procedures for \code{multiblock} objects.
 #' 
@@ -30,6 +30,9 @@
 #' @param legendpos \code{character} indicating legend position (if \code{scatter} is FALSE), e.g. \code{legendpos = "topright"}.
 #' @param pretty.xlabels \code{logical} indicating if xlabels should be more nicely plotted (default = TRUE).
 #' @param xlim \code{numeric} vector of length two, with the x limits of the plot (optional).
+#' @param plotx \code{locical} or \code{integer}/\code{character}.  Whether to plot the \eqn{X} correlation loadings, optionally which block(s). Defaults to \code{TRUE}.
+#' @param ploty \code{logical}.  Whether to plot the \eqn{Y} correlation loadings. Defaults to \code{TRUE}.
+#' @param blockScores \code{logical}. Correlation loadings from blockScores (default = FALSE).
 #' @param ... Not implemented.
 #' 
 #' @return These plotting routines only generate plots and return no values.
@@ -37,7 +40,15 @@
 #' @examples 
 #' data(wine)
 #' sc <- sca(wine[c('Smell at rest', 'View', 'Smell after shaking')], ncomp = 4)
-#' plot(loadings(sc, block = 1), labels = "names", scatter = TRUE)
+#' loadingplot(sc, block = 1, labels = "names", scatter = TRUE)
+#' scoreplot(sc, labels = "names")
+#' corrplot(sc)
+#' 
+#' data(potato)
+#' so <- sopls(Sensory ~ NIRraw + Chemical + Compression, data=potato, ncomp = c(2,2,2), 
+#'             max_comps = 6, validation = "CV", segments = 10)
+#' scoreplot(so, ncomp = c(2,1), block = 3, labels = "names")
+#' corrplot(pcp(so, ncomp = c(2,2,2)))
 #' 
 #' @seealso Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 #' Common functions for computation and extraction of results are found in \code{\link{multiblock_results}}.
@@ -328,4 +339,53 @@ biplot.multiblock <- function(x, block = 0, comps = 1:2, which = c("x", "y", "sc
   mc[[1]] <- as.name("biplot")
   ## Evaluate the call:
   eval(mc, parent.frame())
+}
+
+#' @rdname multiblock_plots 
+#' @export
+corrplot <- function(object, ...)
+  UseMethod("corrplot")
+
+#' @rdname multiblock_plots 
+#' @export
+corrplot.default <- function(object, ...){
+  warning("Not implemented")
+}
+
+#' @rdname multiblock_plots 
+#' @export
+corrplot.mvr <- function(object, ...)
+  pls::corrplot(object, ...)
+  
+#' @rdname multiblock_plots 
+#' @export
+corrplot.multiblock <- function(object, comps=1:2, labels=TRUE, col=1:5, 
+                        plotx=TRUE, ploty=TRUE, blockScores=FALSE, ...){
+  pls::corrplot(object$scores[0,], plotx=FALSE, ploty=FALSE, comps=comps, ...)
+  if(is.logical(plotx) && plotx){
+    plotx <- 1:length(object$data$X)
+  }
+  if(!(is.logical(plotx) && !plotx)){
+    for(i in plotx){
+      if(labels){
+        if(blockScores && !is.null(object$blockScores[[i]])){
+          text(cor(object$data$X[[i]], object$blockScores[[i]][,comps]), labels=colnames(object$data$X[[i]]), col=col[i])
+        } else {
+          text(cor(object$data$X[[i]], object$scores[,comps]), labels=colnames(object$data$X[[i]]), col=col[i])
+        }
+      } else {
+        if(blockScores && !is.null(object$blockScores[[i]])){
+          points(cor(object$data$X[[i]], object$blockScores[[i]][,comps]), col=col[i])
+        } else {
+          points(cor(object$data$X[[i]], object$scores[,comps]), col=col[i])
+        }
+      }
+    }
+  }
+  if(ploty && !is.null(object$data$Y)){
+    if(labels)
+      text(cor(object$data$Y, object$scores[,comps]), labels=colnames(object$data$Y), col=col[length(object$data$X)+1])
+    else
+      points(cor(object$data$Y, object$scores[,comps]), col=col[length(object$data$X)+1])
+  }
 }

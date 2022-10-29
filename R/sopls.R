@@ -36,6 +36,13 @@
 #' so <- sopls(Sensory ~ Chemical + Compression, data=potato, ncomp=c(10,10), 
 #'             max_comps=10, validation="CV", segments=10)
 #' summary(so)
+#' 
+#' # Scatter plot matrix with two first components from Chemical block
+#' # and 1 component from the Compression block.
+#' scoreplot(so, comps=list(1:2,1), ncomp=2, block=2)
+#' 
+#' # Result functions and more plots for SO-PLS 
+#' # are found in ?sopls_results and ?sopls_plots.
 #' @seealso SO-PLS result functions, \code{\link{sopls_results}}, SO-PLS plotting functions, \code{\link{sopls_plots}}, SO-PLS Måge plot, \code{\link{maage}}, and SO-PLS path-modelling, \code{\link{SO_TDI}}.
 #' Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 #' @export
@@ -375,7 +382,11 @@ sopls_worker <- function(C, Y, comps, max_comps, Cval = NULL, both = FALSE){
         solve(crossprodQ(T_curr[,1:comp_curr,drop=FALSE], Cr_currB[[cb]][,1:comp_curr,drop=FALSE]))
       # Prediction per response
       for(r in 1:nresp){
-        Yp_long <- t(apply(no_Q * rep(Q_curr[r,1:comp_curr,drop=FALSE], each=nval), 1, cumsum))
+        if(comp_curr==1){
+          Yp_long <- no_Q * rep(Q_curr[r,1:comp_curr,drop=FALSE], each=nval)
+        } else {
+          Yp_long <- t(apply(no_Q * rep(Q_curr[r,1:comp_curr,drop=FALSE], each=nval), 1, cumsum))
+        }
         Y_pred[,r, (comp-comp_last_block):comp] <- Yp_long[,(comp_curr-comp_last_block):comp_curr]
       }
     }

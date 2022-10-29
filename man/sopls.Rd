@@ -65,6 +65,13 @@ data(potato)
 so <- sopls(Sensory ~ Chemical + Compression, data=potato, ncomp=c(10,10), 
             max_comps=10, validation="CV", segments=10)
 summary(so)
+
+# Scatter plot matrix with two first components from Chemical block
+# and 1 component from the Compression block.
+scoreplot(so, comps=list(1:2,1), ncomp=2, block=2)
+
+# Result functions and more plots for SO-PLS 
+# are found in ?sopls_results and ?sopls_plots.
 }
 \references{
 Jørgensen K, Mevik BH, Næs T. Combining designed experiments with several blocks of spectroscopic data. Chemometr Intell Lab Syst. 2007;88(2): 154–166.

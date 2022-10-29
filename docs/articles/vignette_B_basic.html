@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">multiblock</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.8.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.8.3</span>
       </span>
     </div>
 
@@ -101,17 +101,17 @@
     
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Start the multiblock R package</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://khliland.github.io/multiblock/" class="external-link">multiblock</a></span><span class="op">)</span>
-<span class="co">#&gt; Registered S3 methods overwritten by 'multiblock':</span>
-<span class="co">#&gt;   method             from</span>
-<span class="co">#&gt;   print.multiblock   ade4</span>
-<span class="co">#&gt;   summary.multiblock ade4</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Attaching package: 'multiblock'</span>
-<span class="co">#&gt; The following object is masked from 'package:stats':</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;     loadings</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># Start the multiblock R package</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://khliland.github.io/multiblock/" class="external-link">multiblock</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; Registered S3 methods overwritten by 'multiblock':</span></span>
+<span><span class="co">#&gt;   method             from</span></span>
+<span><span class="co">#&gt;   print.multiblock   ade4</span></span>
+<span><span class="co">#&gt;   summary.multiblock ade4</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Attaching package: 'multiblock'</span></span>
+<span><span class="co">#&gt; The following object is masked from 'package:stats':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     loadings</span></span></code></pre></div>
 <div class="section level2">
 <h2 id="basic-methods">Basic methods<a class="anchor" aria-label="anchor" href="#basic-methods"></a>
 </h2>
@@ -135,9 +135,9 @@ package for the basic data analyses. The data set is stored as a named
 list of nine matrices with chemical, rheological, spectral and sensory
 measurements with measurements from 26 raw and cooked potatoes.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">potato</span><span class="op">)</span>
-<span class="va">X</span> <span class="op">&lt;-</span> <span class="va">potato</span><span class="op">$</span><span class="va">Chemical</span>
-<span class="va">y</span> <span class="op">&lt;-</span> <span class="va">potato</span><span class="op">$</span><span class="va">Sensory</span><span class="op">[</span>,<span class="fl">1</span>,drop<span class="op">=</span><span class="cn">FALSE</span><span class="op">]</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">potato</span><span class="op">)</span></span>
+<span><span class="va">X</span> <span class="op">&lt;-</span> <span class="va">potato</span><span class="op">$</span><span class="va">Chemical</span></span>
+<span><span class="va">y</span> <span class="op">&lt;-</span> <span class="va">potato</span><span class="op">$</span><span class="va">Sensory</span><span class="op">[</span>,<span class="fl">1</span>,drop<span class="op">=</span><span class="cn">FALSE</span><span class="op">]</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="modelling">Modelling<a class="anchor" aria-label="anchor" href="#modelling"></a>
@@ -148,19 +148,19 @@ bit. Supervised methods use the formula interface and the remaining
 methods take input as a single matrix or list of matrices. See vignettes
 for supervised and unsupervised analysis for details.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Single block</span>
-<span class="va">pot.pca</span>  <span class="op">&lt;-</span> <span class="fu"><a href="../reference/pca.html">pca</a></span><span class="op">(</span><span class="va">X</span>, ncomp <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
-
-<span class="co"># Two blocks, supervised</span>
-<span class="va">pot.pcr</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/pls/man/mvr.html" class="external-link">pcr</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">X</span>, ncomp <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
-<span class="va">pot.pls</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/pls/man/mvr.html" class="external-link">plsr</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">X</span>, ncomp <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
-
-<span class="co"># Two blocks, unsupervised</span>
-<span class="va">pot.cca</span>  <span class="op">&lt;-</span> <span class="fu"><a href="../reference/cca.html">cca</a></span><span class="op">(</span><span class="va">potato</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span>
-<span class="va">pot.ifa</span>  <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ifa.html">ifa</a></span><span class="op">(</span><span class="va">potato</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span>
-
-<span class="co"># Variable linked decomposition</span>
-<span class="va">pot.gsvd</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gsvd.html">gsvd</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">potato</span><span class="op">[</span><span class="fl">3</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>, <span class="va">t</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># Single block</span></span>
+<span><span class="va">pot.pca</span>  <span class="op">&lt;-</span> <span class="fu"><a href="../reference/pca.html">pca</a></span><span class="op">(</span><span class="va">X</span>, ncomp <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Two blocks, supervised</span></span>
+<span><span class="va">pot.pcr</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/pls/man/mvr.html" class="external-link">pcr</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">X</span>, ncomp <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span><span class="va">pot.pls</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/pls/man/mvr.html" class="external-link">plsr</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">X</span>, ncomp <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Two blocks, unsupervised</span></span>
+<span><span class="va">pot.cca</span>  <span class="op">&lt;-</span> <span class="fu"><a href="../reference/cca.html">cca</a></span><span class="op">(</span><span class="va">potato</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="va">pot.ifa</span>  <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ifa.html">ifa</a></span><span class="op">(</span><span class="va">potato</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Variable linked decomposition</span></span>
+<span><span class="va">pot.gsvd</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gsvd.html">gsvd</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">potato</span><span class="op">[</span><span class="fl">3</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>, <span class="va">t</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="common-output-elements-across-methods">Common output elements across methods<a class="anchor" aria-label="anchor" href="#common-output-elements-across-methods"></a>
@@ -174,25 +174,25 @@ e.g. coefficients, weights etc. The <em>names()</em> and
 <em>summary()</em> functions below show all elements of the object and a
 summary based on the <em>info</em> list, respectively.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># PCA returns loadings and scores:</span>
-<span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">pot.pca</span><span class="op">)</span>
-<span class="co">#&gt; [1] "loadings" "scores"   "Xmeans"   "explvar"  "PCA"      "info"     "call"</span>
-<span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">pot.pca</span><span class="op">)</span>
-<span class="co">#&gt; Principal Component Analysis </span>
-<span class="co">#&gt; ============================ </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $scores: Scores (26x2)</span>
-<span class="co">#&gt; $loadings: Loadings (14x2)</span>
-<span class="co"># GSVD returns block scores and common loadings:</span>
-<span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">pot.gsvd</span><span class="op">)</span>
-<span class="co">#&gt; [1] "loadings"    "blockScores" "GSVD"        "info"        "call"</span>
-<span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">pot.gsvd</span><span class="op">)</span>
-<span class="co">#&gt; Generalized Singular Value Decomposition </span>
-<span class="co">#&gt; ======================================== </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $loadings: Loadings (26x26)</span>
-<span class="co">#&gt; $blockScores: Block scores:</span>
-<span class="co">#&gt; - NIRraw (1050x1050), NIRcooked (1050x1050)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># PCA returns loadings and scores:</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">pot.pca</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "loadings" "scores"   "Xmeans"   "explvar"  "PCA"      "info"     "call"</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">pot.pca</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Principal Component Analysis </span></span>
+<span><span class="co">#&gt; ============================ </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $scores: Scores (26x2)</span></span>
+<span><span class="co">#&gt; $loadings: Loadings (14x2)</span></span>
+<span><span class="co"># GSVD returns block scores and common loadings:</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">pot.gsvd</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "loadings"    "blockScores" "GSVD"        "info"        "call"</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">pot.gsvd</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Generalized Singular Value Decomposition </span></span>
+<span><span class="co">#&gt; ======================================== </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $loadings: Loadings (26x26)</span></span>
+<span><span class="co">#&gt; $blockScores: Block scores:</span></span>
+<span><span class="co">#&gt; - NIRraw (1050x1050), NIRcooked (1050x1050)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="scores-and-loadings">Scores and loadings<a class="anchor" aria-label="anchor" href="#scores-and-loadings"></a>
@@ -204,18 +204,18 @@ block counterparts. The default value for <em>block</em> is 0,
 corresponding to the common/global block. Block scores/loadings can be
 accessed by setting <em>block</em> to a number or name.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Global scores plotted with object labels</span>
-<span class="fu"><a href="https://rdrr.io/pkg/pls/man/scoreplot.html" class="external-link">scoreplot</a></span><span class="op">(</span><span class="va">pot.pca</span>, labels <span class="op">=</span> <span class="st">"names"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># Global scores plotted with object labels</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/pls/man/scoreplot.html" class="external-link">scoreplot</a></span><span class="op">(</span><span class="va">pot.pca</span>, labels <span class="op">=</span> <span class="st">"names"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="vignette_B_basic_files/figure-html/unnamed-chunk-5-1.png" width="576"></p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Block loadings for Chemical block with variable labels in scatter format</span>
-<span class="fu"><a href="https://rdrr.io/pkg/pls/man/scoreplot.html" class="external-link">loadingplot</a></span><span class="op">(</span><span class="va">pot.cca</span>, block <span class="op">=</span> <span class="st">"Chemical"</span>, labels <span class="op">=</span> <span class="st">"names"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># Block loadings for Chemical block with variable labels in scatter format</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/pls/man/scoreplot.html" class="external-link">loadingplot</a></span><span class="op">(</span><span class="va">pot.cca</span>, block <span class="op">=</span> <span class="st">"Chemical"</span>, labels <span class="op">=</span> <span class="st">"names"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="vignette_B_basic_files/figure-html/unnamed-chunk-6-1.png" width="576"></p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Non-existing elements are swapped with existing ones with a warning.</span>
-<span class="va">sc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/pls/man/scores.html" class="external-link">scores</a></span><span class="op">(</span><span class="va">pot.cca</span><span class="op">)</span>
-<span class="co">#&gt; Warning in scores.multiblock(pot.cca): No global/consensus scores. Returning</span>
-<span class="co">#&gt; block 1 scores.</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># Non-existing elements are swapped with existing ones with a warning.</span></span>
+<span><span class="va">sc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/pls/man/scores.html" class="external-link">scores</a></span><span class="op">(</span><span class="va">pot.cca</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning in scores.multiblock(pot.cca): No global/consensus scores. Returning</span></span>
+<span><span class="co">#&gt; block 1 scores.</span></span></code></pre></div>
 </div>
 </div>
   </div>
@@ -237,7 +237,7 @@ accessed by setting <em>block</em> to a number or name.</p>
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer>

@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">multiblock</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.8.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.8.3</span>
       </span>
     </div>
 
@@ -75,33 +75,42 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="co"># S3 method for multiblock</span>
-<span class="fu"><a href="https://rdrr.io/pkg/pls/man/scores.html" class="external-link">scores</a></span><span class="op">(</span><span class="va">object</span>, block <span class="op">=</span> <span class="fl">0</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for multiblock</span>
-<span class="fu"><a href="https://rdrr.io/pkg/pls/man/scores.html" class="external-link">loadings</a></span><span class="op">(</span><span class="va">object</span>, block <span class="op">=</span> <span class="fl">0</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for multiblock</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for multiblock</span>
-<span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">object</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S3 method for multiblock</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/pls/man/scores.html" class="external-link">scores</a></span><span class="op">(</span><span class="va">object</span>, block <span class="op">=</span> <span class="fl">0</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for multiblock</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/pls/man/scores.html" class="external-link">loadings</a></span><span class="op">(</span><span class="va">object</span>, block <span class="op">=</span> <span class="fl">0</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for multiblock</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for multiblock</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">object</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>object</dt>
 <dd><p><code>multiblock</code> object.</p></dd>
+
+
 <dt>block</dt>
 <dd><p><code>integer/character</code> for block selection.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Not implemented.</p></dd>
+
+
 <dt>x</dt>
 <dd><p><code>multiblock</code> object.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>Scores or loadings are returned by <code>scores.multiblock</code> and <code>loadings.multiblock</code>, while print and summary methods invisibly returns the object.</p>
+    
+
+<p>Scores or loadings are returned by <code>scores.multiblock</code> and <code>loadings.multiblock</code>, while print and summary methods invisibly returns the object.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -119,21 +128,36 @@ Common functions for plotting are found in <code><a href="multiblock_plots.html"
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">wine</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">sc</span> <span class="op">&lt;-</span> <span class="fu"><a href="sca.html">sca</a></span><span class="op">(</span><span class="va">wine</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'Smell at rest'</span>, <span class="st">'View'</span>, <span class="st">'Smell after shaking'</span><span class="op">)</span><span class="op">]</span>, ncomp <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">sc</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">wine</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">sc</span> <span class="op">&lt;-</span> <span class="fu"><a href="sca.html">sca</a></span><span class="op">(</span><span class="va">wine</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'Smell at rest'</span>, <span class="st">'View'</span>, <span class="st">'Smell after shaking'</span><span class="op">)</span><span class="op">]</span>, ncomp <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">sc</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Simultaneous Component Analysis </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> sca(X = wine[c("Smell at rest", "View", "Smell after shaking")],     ncomp = 4)</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/pls/man/scores.html" class="external-link">loadings</a></span><span class="op">(</span><span class="va">sc</span>, block <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">sc</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Simultaneous Component Analysis </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> =============================== </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $scores: Common scores (21x4)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $blockLoadings: Block loadings:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - Smell at rest (5x4), View (3x4), Smell after shaking (10x4)</span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/pls/man/scores.html" class="external-link">loadings</a></span><span class="op">(</span><span class="va">sc</span>, block <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                   Comp 1     Comp 2      Comp 3      Comp 4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Odor Intensity before shaking 0.19548267 -0.3267557  0.50138779 -0.09348863</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Aroma quality before shaking  0.16311889  0.1296282  0.28552072  0.14894779</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Fruity before shaking         0.12978290  0.1773340  0.34890797  0.26269486</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Flower before shaking         0.05514227  0.1048857 -0.02986196 -0.47929451</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Spice before shaking          0.04176668 -0.4175496  0.07332530  0.04104202</span>
-<span class="r-in"></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/pls/man/scores.html" class="external-link">scores</a></span><span class="op">(</span><span class="va">sc</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       Comp 1      Comp 2      Comp 3       Comp 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  0.4048505  0.14408310 -0.26713729 -0.221396684</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 -1.2711617  0.25270420 -0.02202010 -0.533496550</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 -0.7036213  0.06526523 -0.11229055  0.078719372</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 -2.0075068 -0.45716224 -0.08211518 -0.007645878</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  1.0467680  0.25398203  0.52254058 -0.029381096</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  0.6670676  0.15451746 -0.58710038  0.050253448</span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -148,7 +172,7 @@ Common functions for plotting are found in <code><a href="multiblock_plots.html"
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

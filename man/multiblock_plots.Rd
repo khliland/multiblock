@@ -5,6 +5,10 @@
 \alias{scoreplot.multiblock}
 \alias{loadingplot.multiblock}
 \alias{loadingweightplot}
+\alias{corrplot}
+\alias{corrplot.multiblock}
+\alias{corrplot.default}
+\alias{corrplot.mvr}
 \alias{biplot.multiblock}
 \title{Plot Functions for Multiblock Objects}
 \usage{
@@ -56,6 +60,23 @@ loadingweightplot(object, main = "Loading weights", ...)
   main,
   ...
 )
+
+corrplot(object, ...)
+
+\method{corrplot}{default}(object, ...)
+
+\method{corrplot}{mvr}(object, ...)
+
+\method{corrplot}{multiblock}(
+  object,
+  comps = 1:2,
+  labels = TRUE,
+  col = 1:5,
+  plotx = TRUE,
+  ploty = TRUE,
+  blockScores = FALSE,
+  ...
+)
 }
 \arguments{
 \item{object}{\code{multiblock} object.}
@@ -105,6 +126,12 @@ loadingweightplot(object, main = "Loading weights", ...)
 \item{xlabs}{\code{character} vector for labelling first set of biplot points (optional).}
 
 \item{ylabs}{\code{character} vector for labelling second set of biplot points (optional).}
+
+\item{plotx}{\code{locical} or \code{integer}/\code{character}.  Whether to plot the \eqn{X} correlation loadings, optionally which block(s). Defaults to \code{TRUE}.}
+
+\item{ploty}{\code{logical}.  Whether to plot the \eqn{Y} correlation loadings. Defaults to \code{TRUE}.}
+
+\item{blockScores}{\code{logical}. Correlation loadings from blockScores (default = FALSE).}
 }
 \value{
 These plotting routines only generate plots and return no values.
@@ -119,7 +146,15 @@ on the functions found in the \code{pls} package.
 \examples{
 data(wine)
 sc <- sca(wine[c('Smell at rest', 'View', 'Smell after shaking')], ncomp = 4)
-plot(loadings(sc, block = 1), labels = "names", scatter = TRUE)
+loadingplot(sc, block = 1, labels = "names", scatter = TRUE)
+scoreplot(sc, labels = "names")
+corrplot(sc)
+
+data(potato)
+so <- sopls(Sensory ~ NIRraw + Chemical + Compression, data=potato, ncomp = c(2,2,2), 
+            max_comps = 6, validation = "CV", segments = 10)
+scoreplot(so, ncomp = c(2,1), block = 3, labels = "names")
+corrplot(pcp(so, ncomp = c(2,2,2)))
 
 }
 \seealso{

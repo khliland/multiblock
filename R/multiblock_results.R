@@ -21,7 +21,9 @@
 #' data(wine)
 #' sc <- sca(wine[c('Smell at rest', 'View', 'Smell after shaking')], ncomp = 4)
 #' print(sc)
+#' summary(sc)
 #' head(loadings(sc, block = 1))
+#' head(scores(sc))
 #' 
 #' @seealso Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 #' Common functions for plotting are found in \code{\link{multiblock_plots}}, respectively.

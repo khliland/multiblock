@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">multiblock</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.8.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.8.3</span>
       </span>
     </div>
 
@@ -75,59 +75,86 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="co"># S3 method for asca</span>
-<span class="fu"><a href="https://rdrr.io/pkg/pls/man/scoreplot.html" class="external-link">loadingplot</a></span><span class="op">(</span><span class="va">object</span>, factor <span class="op">=</span> <span class="fl">1</span>, comps <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for asca</span>
-<span class="fu"><a href="https://rdrr.io/pkg/pls/man/scoreplot.html" class="external-link">scoreplot</a></span><span class="op">(</span>
-  <span class="va">object</span>,
-  factor <span class="op">=</span> <span class="fl">1</span>,
-  comps <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,
-  pch.scores <span class="op">=</span> <span class="fl">19</span>,
-  pch.projections <span class="op">=</span> <span class="fl">1</span>,
-  gr.col <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nlevels.html" class="external-link">nlevels</a></span><span class="op">(</span><span class="va">object</span><span class="op">$</span><span class="va">effects</span><span class="op">[[</span><span class="va">factor</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>,
-  <span class="va">ellipsoids</span>,
-  <span class="va">xlim</span>,
-  <span class="va">ylim</span>,
-  <span class="va">xlab</span>,
-  <span class="va">ylab</span>,
-  <span class="va">legendpos</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S3 method for asca</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/pls/man/scoreplot.html" class="external-link">loadingplot</a></span><span class="op">(</span><span class="va">object</span>, factor <span class="op">=</span> <span class="fl">1</span>, comps <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for asca</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/pls/man/scoreplot.html" class="external-link">scoreplot</a></span><span class="op">(</span></span>
+<span>  <span class="va">object</span>,</span>
+<span>  factor <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  comps <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span>
+<span>  pch.scores <span class="op">=</span> <span class="fl">19</span>,</span>
+<span>  pch.projections <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  gr.col <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nlevels.html" class="external-link">nlevels</a></span><span class="op">(</span><span class="va">object</span><span class="op">$</span><span class="va">effects</span><span class="op">[[</span><span class="va">factor</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>  <span class="va">ellipsoids</span>,</span>
+<span>  <span class="va">xlim</span>,</span>
+<span>  <span class="va">ylim</span>,</span>
+<span>  <span class="va">xlab</span>,</span>
+<span>  <span class="va">ylab</span>,</span>
+<span>  <span class="va">legendpos</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>object</dt>
 <dd><p><code>asca</code> object.</p></dd>
+
+
 <dt>factor</dt>
 <dd><p><code>integer/character</code> for selecting a model factor.</p></dd>
+
+
 <dt>comps</dt>
 <dd><p><code>integer</code> vector of selected components.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>additional arguments to underlying methods.</p></dd>
+
+
 <dt>pch.scores</dt>
 <dd><p><code>integer</code> plotting symbol.</p></dd>
+
+
 <dt>pch.projections</dt>
 <dd><p><code>integer</code> plotting symbol.</p></dd>
+
+
 <dt>gr.col</dt>
 <dd><p><code>integer</code> vector of colours for groups.</p></dd>
+
+
 <dt>ellipsoids</dt>
 <dd><p><code>character</code> "confidence" or "data" ellipsoids for balanced fixed effect models.</p></dd>
+
+
 <dt>xlim</dt>
 <dd><p><code>numeric</code> x limits.</p></dd>
+
+
 <dt>ylim</dt>
 <dd><p><code>numeric</code> y limits.</p></dd>
+
+
 <dt>xlab</dt>
 <dd><p><code>character</code> x label.</p></dd>
+
+
 <dt>ylab</dt>
 <dd><p><code>character</code> y label.</p></dd>
+
+
 <dt>legendpos</dt>
 <dd><p><code>character</code> position of legend.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>The plotting routines have no return.</p>
+    
+
+<p>The plotting routines have no return.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -160,7 +187,7 @@ Common functions for computation and extraction of results are found in <code><a
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

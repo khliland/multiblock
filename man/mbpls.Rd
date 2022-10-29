@@ -13,6 +13,7 @@ mbpls(
   Y = NULL,
   ncomp = 1,
   scale = FALSE,
+  blockScale = c("sqrtnvar", "ssq", "none"),
   ...
 )
 }
@@ -33,6 +34,8 @@ mbpls(
 
 \item{scale}{\code{logical} for autoscaling inputs (default = FALSE).}
 
+\item{blockScale}{Either a \code{character} indicating type of block scaling or a \code{numeric} vector of block weights (see Details).}
+
 \item{...}{additional arguments to pls::plsr.}
 }
 \value{
@@ -52,16 +55,27 @@ weighted X blocks followed by a simple loop for calculating block-level loading 
 loadings and scores. This implementation uses the \code{\link[pls]{plsr}} function on the
 scaled input blocks (1/sqrt(ncol)) enabling all summaries and plots from the \code{pls}
 package.
+
+Block weighting is performed after scaling all variables and is by default
+\code{"sqrtnvar"}: 1/sqrt(ncol(X[[i]])) in each block. Alternatives
+are \code{"ssq"}: 1/norm(X[[i]], "F")^2 and \code{"none"}: 1/1. Finally, if
+a \code{numeric} vector is supplied, it will be used to scale the blocks
+after \code{"ssq"} scaling, i.e., Z[[i]] = X[[i]] / norm(X[[i]], "F")^2 * blockScale[i].
 }
 \examples{
 data(potato)
 # Formula interface
 mb <- mbpls(Sensory ~ Chemical+Compression, data=potato, ncomp = 5)
+
 # ... or X and Y
 mb.XY <- mbpls(X=potato[c('Chemical','Compression')], Y=potato[['Sensory']], ncomp = 5)
 identical(mb$scores, mb.XY$scores)
 print(mb)
 scoreplot(mb, labels="names") # Exploiting mvr object structure from pls package
+
+# Block scaling with emphasis on first block
+mbs <- mbpls(Sensory ~ Chemical+Compression, data=potato, ncomp = 5, blockScale = c(10, 1))
+scoreplot(mbs, labels="names") # Exploiting mvr object structure from pls package
 }
 \references{
 \itemize{

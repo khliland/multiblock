@@ -16,6 +16,7 @@ smbpls(
   shrink = NULL,
   truncation = NULL,
   trunc.width = 0.95,
+  blockScale = c("sqrtnvar", "ssq", "none"),
   ...
 )
 }
@@ -45,6 +46,8 @@ a quantile plot approach to determining outliers.}
 \item{trunc.width}{\code{numeric} indicating confidence of "Lenth type" confidence interval
 or quantile in "quantile plot" approach. Default = 0.95.}
 
+\item{blockScale}{Either a \code{character} indicating type of block scaling or a \code{numeric} vector of block weights (see Details).}
+
 \item{...}{additional arguments to pls::plsr.}
 }
 \value{
@@ -63,6 +66,12 @@ comes in two flavours, both estimating inliers and outliers. The "Lenth" method 
 intervals around the median of a loading weigh vector to estimate inliers. The "quantile" method uses
 a quantile plot approach to estimate outliers as deviations from the estimated quantile line. As with
 ordinary MB-PLS scaled input blocks (1/sqrt(ncol)) are used.
+
+Block weighting is performed after scaling all variables and is by default
+\code{"sqrtnvar"}: 1/sqrt(ncol(X[[i]])) in each block. Alternatives
+are \code{"ssq"}: 1/norm(X[[i]], "F")^2 and \code{"none"}: 1/1. Finally, if
+a \code{numeric} vector is supplied, it will be used to scale the blocks
+after \code{"ssq"} scaling, i.e., Z[[i]] = X[[i]] / norm(X[[i]], "F")^2 * blockScale[i].
 }
 \examples{
 data(potato)
@@ -71,6 +80,7 @@ data(potato)
 # Loading weights inside 60\% confidence intervals around the median are set to 0.
 tmb <- smbpls(Sensory ~ Chemical+Compression, data=potato, ncomp = 5, 
               truncation = "Lenth", trunc.width = 0.6)
+              
 # Alternative XY-interface
 tmb.XY <- smbpls(X=potato[c('Chemical','Compression')], Y=potato[['Sensory']], ncomp = 5, 
               truncation = "Lenth", trunc.width = 0.6)
@@ -85,6 +95,10 @@ smb <- smbpls(X=potato[c('Chemical','Compression')], Y=potato[['Sensory']],
 print(smb)
 scoreplot(smb, labels="names") # Exploiting mvr object structure from pls package
 loadingweightplot(smb, labels="names")
+
+# Emphasis may be different for blocks
+smb <- smbpls(X=potato[c('Chemical','Compression')], Y=potato[['Sensory']], 
+              ncomp = 5, shrink = 0.6, blockScale = c(1, 10))
 }
 \references{
 \itemize{
