@@ -158,7 +158,7 @@ sca <- function(X, ncomp=2, scale=FALSE, samplelinked = 'auto', ...){
 
 #' Generalized Canonical Analysis - GCA
 #' @param X \code{list} of input blocks.
-#' @param ncomp \code{integer} number of components to extract.
+#' @param ncomp \code{integer} number of components to extract, either single integer (equal for all blocks), vector (individual per block) or 'max' for maximum possible number of components.
 #' @param svd \code{logical} indicating if Singular Value Decomposition approach should be used (default=TRUE).
 #' @param tol \code{numeric} tolerance for component inclusion (singular values).
 #' @param corrs \code{logical} indicating if correlations should be calculated for RGCCA based approach.
@@ -170,10 +170,13 @@ sca <- function(X, ncomp=2, scale=FALSE, samplelinked = 'auto', ...){
 #' @details GCA is a generalisation of Canonical Correlation Analysis to handle three or more
 #' blocks. There are several ways to generalise, and two of these are available through \code{gca}.
 #' The default is an SVD based approach estimating a common subspace and measuring mean squared
-#' correlation to this. An alternative approach is available through RGCCA.
+#' correlation to this. An alternative approach is available through RGCCA. For the SVD based
+#' approach, the \code{ncomp} parameter controls the block-wise decomposition while the following
+#' the consensus decomposition is limited to the minimum number of components from the individual blocks.
 #' 
 #' @return \code{multiblock} object including relevant scores and loadings. Relevant plotting functions: \code{\link{multiblock_plots}} 
-#' and result functions: \code{\link{multiblock_results}}.
+#' and result functions: \code{\link{multiblock_results}}. \code{blockCoef} contains canonical coefficients, while
+#' \code{blockDecomp} contains decompositions of each block.
 #' 
 #' @references
 #' * Carroll, J. D. (1968). Generalization of canonical correlation analysis to three or more sets of variables. Proceedings of the American Psychological Association, pages 227-22.
@@ -188,22 +191,27 @@ sca <- function(X, ncomp=2, scale=FALSE, samplelinked = 'auto', ...){
 #' @seealso Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 #' Common functions for computation and extraction of results and plotting are found in \code{\link{multiblock_results}} and \code{\link{multiblock_plots}}, respectively.
 #' @export
-gca <- function(X, ncomp=2, svd=TRUE, tol=10^-12, corrs=TRUE, ...){
+gca <- function(X, ncomp='max', svd=TRUE, tol=10^-12, corrs=TRUE, ...){
+  if(length(ncomp)==1 && ncomp=='max'){
+    ncomp <- unlist(lapply(X, function(x)min(nrow(x)-1, ncol(x))))
+  }
   if(svd){
-    obj <- gca.svd(X=X, tol=tol)
+    obj <- gca.svd(X=X, tol=tol, ncomp=ncomp)
     obj$call = match.call()
     obj$data <- list(X = X)
     return(obj)
   } else {
+    un
     obj <- gca.rgcca(X=X, scale=FALSE, ncomp=ncomp, corrs=corrs, ...)
     obj$call = match.call()
     obj$data <- list(X = X)
     return(obj)
   }
 }
-gca.rgcca <- function(X, scale=FALSE, ncomp=1, corrs=TRUE, ...){
+gca.rgcca <- function(X, scale=FALSE, ncomp='max', corrs=TRUE, ...){
   n_block <- length(X)
   if(length(ncomp)==1){ ncomp <- rep(ncomp,n_block+1) }
+  if(length(ncomp)==n_block){ ncomp <- c(ncomp, min(ncomp))}
   X <- lapply(X, function(i) scale(i, scale = FALSE))
   X[[n_block+1]] <- do.call(cbind, X)
   C <- matrix(0, n_block+1, n_block+1)
@@ -220,8 +228,9 @@ gca.rgcca <- function(X, scale=FALSE, ncomp=1, corrs=TRUE, ...){
     return(list(A = res$astar, B = NULL, X = X, rgcca = res))
   }
 }
-gca.svd <- function(X, tol=10^-12){
+gca.svd <- function(X, tol=10^-12, ncomp=1){
   n_block <- length(X)
+  if(length(ncomp)==1){ ncomp <- rep(ncomp,n_block) }
   n <- nrow(X[[1]])
   X <- lapply(X, function(i) scale(i, scale = FALSE))
   minrank <- min(min(unlist(lapply(X,ncol))),n)
@@ -229,6 +238,11 @@ gca.svd <- function(X, tol=10^-12){
   for(i in 1:n_block){
     udv <- svd(X[[i]])
     thisrank <- ifelse(sum(udv$d>tol) > 1, sum(udv$d>tol), 1)
+    if(thisrank < ncomp[i]){
+      warning(paste0("'ncomp' reduced due to low singular value for block ",i))
+    } else {
+      thisrank <- ncomp[i]
+    }
     minrank <- min(thisrank, minrank)
     T[[i]]  <- udv$u[,1:thisrank,drop=FALSE]/rep(apply(udv$u[,1:thisrank,drop=FALSE],2,sd),each=n)
     Pb[[i]] <- udv$v[,1:thisrank,drop=FALSE] * rep(udv$d[1:thisrank], each=nrow(udv$v))
@@ -237,11 +251,10 @@ gca.svd <- function(X, tol=10^-12){
   udv <- svd(do.call(cbind,T))
   C <- udv$u[,1:minrank,drop=FALSE]
   P <- udv$v[,1:minrank,drop=FALSE] * rep(udv$d[1:minrank], each=nrow(udv$v))
-  A <- U <- list()
+  A <- B <- U <- list()
   for(i in 1:n_block){
     A[[i]] <- pracma::pinv(X[[i]]) %*% C
-    U[[i]] <- X[[i]] %*% A[[i]]
-  }
+    U[[i]] <- X[[i]] %*% A[[i]]  }
   
   ii <- 0
   R <- numeric(minrank)
@@ -254,7 +267,7 @@ gca.svd <- function(X, tol=10^-12){
   R <- R/ii
   info <- list(method = "Generalised Canonical Analysis", 
                scores = "Consensus scores", loadings = "Consensus loadings",
-               blockScores = "Canonical scores", blockLoadings = "Canonical loadings")
+               blockScores = "Canonical scores", blockLoadings = "Not used")
   colnames(C) <- colnames(P) <- paste0('Comp ', 1:ncol(C))
   rownames(C) <- rownames(X[[1]])
   for(i in 1:length(X)){
@@ -265,8 +278,8 @@ gca.svd <- function(X, tol=10^-12){
   }
   names(U) <- names(A) <- names(X)
   rownames(P) <- paste0("Consensus dim ", 1:nrow(P))
-  obj <- list(scores=C, loadings=P, blockScores=U, blockLoadings=A, 
-              blockCoef=Pb, cor=R, info=info)
+  obj <- list(scores=C, loadings=P, blockScores=U, 
+              blockCoef=A, blockDecomp=list(scores=T,loading=Pb), cor=R, info=info)
   class(obj) <- list('multiblock','list')
   return(obj)
 }

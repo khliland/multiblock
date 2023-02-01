@@ -4,12 +4,12 @@
 \alias{gca}
 \title{Generalized Canonical Analysis - GCA}
 \usage{
-gca(X, ncomp = 2, svd = TRUE, tol = 10^-12, corrs = TRUE, ...)
+gca(X, ncomp = "max", svd = TRUE, tol = 10^-12, corrs = TRUE, ...)
 }
 \arguments{
 \item{X}{\code{list} of input blocks.}
 
-\item{ncomp}{\code{integer} number of components to extract.}
+\item{ncomp}{\code{integer} number of components to extract, either single integer (equal for all blocks), vector (individual per block) or 'max' for maximum possible number of components.}
 
 \item{svd}{\code{logical} indicating if Singular Value Decomposition approach should be used (default=TRUE).}
 
@@ -21,7 +21,8 @@ gca(X, ncomp = 2, svd = TRUE, tol = 10^-12, corrs = TRUE, ...)
 }
 \value{
 \code{multiblock} object including relevant scores and loadings. Relevant plotting functions: \code{\link{multiblock_plots}}
-and result functions: \code{\link{multiblock_results}}.
+and result functions: \code{\link{multiblock_results}}. \code{blockCoef} contains canonical coefficients, while
+\code{blockDecomp} contains decompositions of each block.
 }
 \description{
 This is an interface to both SVD-based (default) and RGCCA-based GCA (wrapping the
@@ -31,7 +32,9 @@ This is an interface to both SVD-based (default) and RGCCA-based GCA (wrapping t
 GCA is a generalisation of Canonical Correlation Analysis to handle three or more
 blocks. There are several ways to generalise, and two of these are available through \code{gca}.
 The default is an SVD based approach estimating a common subspace and measuring mean squared
-correlation to this. An alternative approach is available through RGCCA.
+correlation to this. An alternative approach is available through RGCCA. For the SVD based
+approach, the \code{ncomp} parameter controls the block-wise decomposition while the following
+the consensus decomposition is limited to the minimum number of components from the individual blocks.
 }
 \examples{
 data(potato)

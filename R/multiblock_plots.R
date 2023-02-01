@@ -79,6 +79,11 @@ scoreplot.multiblock <- function(object, comps = 1:2, block = 0, labels, identif
     if (is.null(S))
       stop("`", deparse(substitute(object)), "' has no scores.")
   }
+  if(dim(S)[2]==1 && length(comps)>1){
+    comps <- comps[1]
+    nComps <- 1
+    warning(paste0("Only one component in block but multiple components selected: comps = c(", paste(comps,collapse=","), ")"))
+  }
   evar <- attr(S,'explvar')[comps]
   S <- S[,comps, drop = FALSE]
   if(is.null(evar))
