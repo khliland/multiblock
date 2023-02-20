@@ -51,9 +51,12 @@ pcaopt <- function(X,T,P,ncomp){
   which.min(crit)
 }
 
-normCols <- function(X){
+normCols <- function(X, squared = FALSE){
   X <- as.matrix(X)
-  norms <- sqrt(colSums(X*X))
+  if(squared)
+    norms <- colSums(X*X)
+  else
+    norms <- sqrt(colSums(X*X))
   X / rep(norms, each=nrow(X))
 }
 

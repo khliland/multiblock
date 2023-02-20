@@ -922,11 +922,11 @@ total is cross-validated with 10 random segments.</p>
 <span><span class="co">#&gt; VALIDATION: RMSEP</span></span>
 <span><span class="co">#&gt; Cross-validated using 5 random segments.</span></span>
 <span><span class="co">#&gt;        (Intercept)  1 comps  2 comps  3 comps  4 comps  5 comps  6 comps</span></span>
-<span><span class="co">#&gt; CV           1.778   1.0040   0.9334    0.847   0.7566   0.7241   0.5800</span></span>
-<span><span class="co">#&gt; adjCV        1.778   0.9518   0.8788    0.776   0.6809   0.6530   0.5295</span></span>
+<span><span class="co">#&gt; CV           1.778   0.9601   0.8438   0.7274   0.6197   0.5712   0.5285</span></span>
+<span><span class="co">#&gt; adjCV        1.778   0.9384   0.8166   0.6816   0.5733   0.5314   0.4956</span></span>
 <span><span class="co">#&gt;        7 comps  8 comps  9 comps  10 comps</span></span>
-<span><span class="co">#&gt; CV      0.5626   0.5914   0.6531    0.7122</span></span>
-<span><span class="co">#&gt; adjCV   0.5131   0.5369   0.5927    0.6485</span></span>
+<span><span class="co">#&gt; CV      0.5598   0.5820   0.6517    0.6705</span></span>
+<span><span class="co">#&gt; adjCV   0.5199   0.5369   0.5955    0.6144</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; TRAINING: % variance explained</span></span>
 <span><span class="co">#&gt;          1 comps  2 comps  3 comps  4 comps  5 comps  6 comps  7 comps  8 comps</span></span>
@@ -984,9 +984,9 @@ RMSE(P/CV).</p>
 <code class="sourceCode R"><span><span class="co"># Cross-validation</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/pls/man/mvrVal.html" class="external-link">R2</a></span><span class="op">(</span><span class="va">ros.pot</span><span class="op">)</span></span>
 <span><span class="co">#&gt; (Intercept)      1 comps      2 comps      3 comps      4 comps      5 comps  </span></span>
-<span><span class="co">#&gt;     -0.0816       0.6550       0.7018       0.7545       0.8041       0.8205  </span></span>
+<span><span class="co">#&gt;     -0.0816       0.6845       0.7563       0.8189       0.8686       0.8883  </span></span>
 <span><span class="co">#&gt;     6 comps      7 comps      8 comps      9 comps     10 comps  </span></span>
-<span><span class="co">#&gt;      0.8849       0.8917       0.8803       0.8540       0.8264</span></span>
+<span><span class="co">#&gt;      0.9044       0.8927       0.8841       0.8546       0.8461</span></span>
 <span><span class="co"># Training</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/pls/man/mvrVal.html" class="external-link">R2</a></span><span class="op">(</span><span class="va">ros.pot</span>, <span class="st">'train'</span><span class="op">)</span></span>
 <span><span class="co">#&gt; (Intercept)      1 comps      2 comps      3 comps      4 comps      5 comps  </span></span>
@@ -1002,11 +1002,11 @@ RMSE(P/CV).</p>
 <code class="sourceCode R"><span><span class="co"># Cross-validation</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/pls/man/mvrVal.html" class="external-link">RMSEP</a></span><span class="op">(</span><span class="va">ros.pot</span><span class="op">)</span></span>
 <span><span class="co">#&gt;        (Intercept)  1 comps  2 comps  3 comps  4 comps  5 comps  6 comps</span></span>
-<span><span class="co">#&gt; CV           1.778   1.0040   0.9334    0.847   0.7566   0.7241   0.5800</span></span>
-<span><span class="co">#&gt; adjCV        1.778   0.9518   0.8788    0.776   0.6809   0.6530   0.5295</span></span>
+<span><span class="co">#&gt; CV           1.778   0.9601   0.8438   0.7274   0.6197   0.5712   0.5285</span></span>
+<span><span class="co">#&gt; adjCV        1.778   0.9384   0.8166   0.6816   0.5733   0.5314   0.4956</span></span>
 <span><span class="co">#&gt;        7 comps  8 comps  9 comps  10 comps</span></span>
-<span><span class="co">#&gt; CV      0.5626   0.5914   0.6531    0.7122</span></span>
-<span><span class="co">#&gt; adjCV   0.5131   0.5369   0.5927    0.6485</span></span>
+<span><span class="co">#&gt; CV      0.5598   0.5820   0.6517    0.6705</span></span>
+<span><span class="co">#&gt; adjCV   0.5199   0.5369   0.5955    0.6144</span></span>
 <span><span class="co"># Training</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/pls/man/mvrVal.html" class="external-link">RMSEP</a></span><span class="op">(</span><span class="va">ros.pot</span>, <span class="st">'train'</span><span class="op">)</span></span>
 <span><span class="co">#&gt; (Intercept)      1 comps      2 comps      3 comps      4 comps      5 comps  </span></span>
