@@ -6,9 +6,11 @@ functions, several real data sets and six vignettes covering a range different a
 Kristian Hovde Liland
 
 ##### Version 0.8.4
-Date: 
->> Corrected GCA outputs by removing blockLoadings, adding blockDecomp and exchanging blockCoef.
+Date: 20 February 2023
+>> Corrected GCA (gca) outputs by removing blockLoadings, adding blockDecomp and exchanging blockCoef.
 >> Added support for setting number of components per block in GCA.
+>> Fixed bug in MB-PLS (mbpls) when blockscale="none" (thanks to GitHub user flomehl).
+>> Corrected scaling of response in SO-PLS-PM (sopls_pm).
 
 ##### Version 0.8.3
 Date: 29 October 2022

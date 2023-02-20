@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">multiblock</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.8.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.8.4</span>
       </span>
     </div>
 
@@ -837,6 +837,11 @@ components.</p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Automatic analysis</span></span>
 <span><span class="va">pot.po.auto</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/popls.html">popls</a></span><span class="op">(</span><span class="va">potato</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>, <span class="va">potato</span><span class="op">[[</span><span class="st">'Sensory'</span><span class="op">]</span><span class="op">]</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span>, commons <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning in gca.svd(X = X, tol = tol, ncomp = ncomp): 'ncomp' reduced due to low</span></span>
+<span><span class="co">#&gt; singular value for block 1</span></span>
+<span></span>
+<span><span class="co">#&gt; Warning in gca.svd(X = X, tol = tol, ncomp = ncomp): 'ncomp' reduced due to low</span></span>
+<span><span class="co">#&gt; singular value for block 1</span></span>
 <span></span>
 <span><span class="co"># Explained variance</span></span>
 <span><span class="va">pot.po.auto</span><span class="op">$</span><span class="va">explVar</span></span>
@@ -855,6 +860,11 @@ components.</p>
 <span><span class="va">pot.po.man</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/popls.html">popls</a></span><span class="op">(</span><span class="va">potato</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>, <span class="va">potato</span><span class="op">[[</span><span class="st">'Sensory'</span><span class="op">]</span><span class="op">]</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span>, commons <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>                    auto<span class="op">=</span><span class="cn">FALSE</span>, manual.par <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>ncomp<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>,<span class="fl">5</span>,<span class="fl">5</span><span class="op">)</span>,</span>
 <span>                                                  ncommon<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning in gca.svd(X = X, tol = tol, ncomp = ncomp): 'ncomp' reduced due to low</span></span>
+<span><span class="co">#&gt; singular value for block 1</span></span>
+<span></span>
+<span><span class="co">#&gt; Warning in gca.svd(X = X, tol = tol, ncomp = ncomp): 'ncomp' reduced due to low</span></span>
+<span><span class="co">#&gt; singular value for block 1</span></span>
 <span><span class="co"># Explained variance</span></span>
 <span><span class="va">pot.po.man</span><span class="op">$</span><span class="va">explVar</span></span>
 <span><span class="co">#&gt; $Chemical</span></span>
@@ -912,11 +922,11 @@ total is cross-validated with 10 random segments.</p>
 <span><span class="co">#&gt; VALIDATION: RMSEP</span></span>
 <span><span class="co">#&gt; Cross-validated using 5 random segments.</span></span>
 <span><span class="co">#&gt;        (Intercept)  1 comps  2 comps  3 comps  4 comps  5 comps  6 comps</span></span>
-<span><span class="co">#&gt; CV           1.778    1.283   1.0471   0.7900   0.6673   0.6393   0.6332</span></span>
-<span><span class="co">#&gt; adjCV        1.778    1.198   0.9836   0.7246   0.6066   0.5812   0.5757</span></span>
+<span><span class="co">#&gt; CV           1.778   1.0040   0.9334    0.847   0.7566   0.7241   0.5800</span></span>
+<span><span class="co">#&gt; adjCV        1.778   0.9518   0.8788    0.776   0.6809   0.6530   0.5295</span></span>
 <span><span class="co">#&gt;        7 comps  8 comps  9 comps  10 comps</span></span>
-<span><span class="co">#&gt; CV      0.6796   0.7317   0.8253    0.8015</span></span>
-<span><span class="co">#&gt; adjCV   0.6171   0.6611   0.7457    0.7268</span></span>
+<span><span class="co">#&gt; CV      0.5626   0.5914   0.6531    0.7122</span></span>
+<span><span class="co">#&gt; adjCV   0.5131   0.5369   0.5927    0.6485</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; TRAINING: % variance explained</span></span>
 <span><span class="co">#&gt;          1 comps  2 comps  3 comps  4 comps  5 comps  6 comps  7 comps  8 comps</span></span>
@@ -974,9 +984,9 @@ RMSE(P/CV).</p>
 <code class="sourceCode R"><span><span class="co"># Cross-validation</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/pls/man/mvrVal.html" class="external-link">R2</a></span><span class="op">(</span><span class="va">ros.pot</span><span class="op">)</span></span>
 <span><span class="co">#&gt; (Intercept)      1 comps      2 comps      3 comps      4 comps      5 comps  </span></span>
-<span><span class="co">#&gt;     -0.0816       0.4362       0.6247       0.7864       0.8476       0.8601  </span></span>
+<span><span class="co">#&gt;     -0.0816       0.6550       0.7018       0.7545       0.8041       0.8205  </span></span>
 <span><span class="co">#&gt;     6 comps      7 comps      8 comps      9 comps     10 comps  </span></span>
-<span><span class="co">#&gt;      0.8628       0.8419       0.8168       0.7669       0.7801</span></span>
+<span><span class="co">#&gt;      0.8849       0.8917       0.8803       0.8540       0.8264</span></span>
 <span><span class="co"># Training</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/pls/man/mvrVal.html" class="external-link">R2</a></span><span class="op">(</span><span class="va">ros.pot</span>, <span class="st">'train'</span><span class="op">)</span></span>
 <span><span class="co">#&gt; (Intercept)      1 comps      2 comps      3 comps      4 comps      5 comps  </span></span>
@@ -992,11 +1002,11 @@ RMSE(P/CV).</p>
 <code class="sourceCode R"><span><span class="co"># Cross-validation</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/pls/man/mvrVal.html" class="external-link">RMSEP</a></span><span class="op">(</span><span class="va">ros.pot</span><span class="op">)</span></span>
 <span><span class="co">#&gt;        (Intercept)  1 comps  2 comps  3 comps  4 comps  5 comps  6 comps</span></span>
-<span><span class="co">#&gt; CV           1.778    1.283   1.0471   0.7900   0.6673   0.6393   0.6332</span></span>
-<span><span class="co">#&gt; adjCV        1.778    1.198   0.9836   0.7246   0.6066   0.5812   0.5757</span></span>
+<span><span class="co">#&gt; CV           1.778   1.0040   0.9334    0.847   0.7566   0.7241   0.5800</span></span>
+<span><span class="co">#&gt; adjCV        1.778   0.9518   0.8788    0.776   0.6809   0.6530   0.5295</span></span>
 <span><span class="co">#&gt;        7 comps  8 comps  9 comps  10 comps</span></span>
-<span><span class="co">#&gt; CV      0.6796   0.7317   0.8253    0.8015</span></span>
-<span><span class="co">#&gt; adjCV   0.6171   0.6611   0.7457    0.7268</span></span>
+<span><span class="co">#&gt; CV      0.5626   0.5914   0.6531    0.7122</span></span>
+<span><span class="co">#&gt; adjCV   0.5131   0.5369   0.5927    0.6485</span></span>
 <span><span class="co"># Training</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/pls/man/mvrVal.html" class="external-link">RMSEP</a></span><span class="op">(</span><span class="va">ros.pot</span>, <span class="st">'train'</span><span class="op">)</span></span>
 <span><span class="co">#&gt; (Intercept)      1 comps      2 comps      3 comps      4 comps      5 comps  </span></span>
@@ -1096,7 +1106,7 @@ using the same format as the rest of this package. The full fitted
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>

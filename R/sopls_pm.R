@@ -135,7 +135,8 @@ sopls_pm <- function(X, Y, ncomp, max_comps = min(sum(ncomp), 20), sel.comp = "o
   ################
   # DIRECT effect
   first <- X[[1]] - rep(colMeans(X[[1]]), each=n)
-  last <- Y - rep(colMeans(Y), each=n)
+  # last <- Y - rep(colMeans(Y), each=n)
+  last <- Y
   if(nblock>1){
     S_first <- S_last <- list()
     for(i in 2:nblock){
@@ -143,12 +144,10 @@ sopls_pm <- function(X, Y, ncomp, max_comps = min(sum(ncomp), 20), sel.comp = "o
       if(comps[i]>0){
         mod_first <- plsr(first~X[[i]], ncomp = min(comps[i],max_comps), validation="CV", segments=segments)
         r      <- matrix(RMSEP(mod_first)$val[1,,], ncol(first))
-        # r[,1]  <- MSEP0(first,segments)
         denom  <- apply(first,2,var)*(n-1)/n
         r2_ind <- 1-r^2/denom # r[,1]^2
         r2     <- 1 - colSums(r^2)/sum(denom)
-        # r2     <- apply(r2_ind,2,mean)
-        
+        # Reduce number of components by chi2 test
         if(is.character(sel.comp) && sel.comp == "chi"){
           r <- sqrt(colMeans(r^2))
           ind <- chi2cv(r,n,0.05)
@@ -158,6 +157,7 @@ sopls_pm <- function(X, Y, ncomp, max_comps = min(sum(ncomp), 20), sel.comp = "o
       } else {
         ind <- 1
       }
+      # If optimum is a component (ind>1), not the intercept store scores (and possibly orthogonalise)
       if(ind > 1){
         S <- mod_first$scores[,1:(ind-1),drop=FALSE]
         S_first[[i-1]] <- S
@@ -165,49 +165,52 @@ sopls_pm <- function(X, Y, ncomp, max_comps = min(sum(ncomp), 20), sel.comp = "o
           first <- first - S %*% tcrossprod(solve(crossprod(S)), S) %*% first
       }
       
-      # Last block
-      if(comps[i]>0){
-        mod_last <- plsr(last~X[[i]], ncomp = min(comps[i],max_comps), validation="CV", segments=segments)
-        r      <- matrix(RMSEP(mod_last)$val[1,,], nresp)
-        # r[,1]  <- MSEP0(last,segments)
-        denom  <- apply(last,2,var)*(n-1)/n
-        r2_ind <- 1-r^2/denom # r[,1]^2
-        r2     <- 1 - colSums(r^2)/sum(denom)
-        # r2     <- apply(r2_ind,2,mean)
-        if(is.character(sel.comp) && sel.comp == "chi"){
-          r <- sqrt(colMeans(r^2))
-          ind <- chi2cv(r,n,0.05)
-        } else { # "opt" or numeric
-          ind <- which.max(r2)
-        }
-      } else {
-        ind <- 1
-      }
-      if(ind > 1){
-        S <- mod_last$scores[,1:(ind-1),drop=FALSE]
-        S_last[[i-1]] <- S
-        if(!simultaneous)
-          last <- last - S %*% tcrossprod(solve(crossprod(S)), S) %*% last
-      }
+    #   # Last block
+    #   if(comps[i]>0){
+    #     mod_last <- plsr(last~X[[i]], ncomp = min(comps[i],max_comps), validation="CV", segments=segments)
+    #     r      <- matrix(RMSEP(mod_last)$val[1,,], nresp)
+    #     denom  <- apply(last,2,var)*(n-1)/n
+    #     r2_ind <- 1-r^2/denom # r[,1]^2
+    #     r2     <- 1 - colSums(r^2)/sum(denom)
+    #     # Reduce number of components by chi2 test
+    #     if(is.character(sel.comp) && sel.comp == "chi"){
+    #       r <- sqrt(colMeans(r^2))
+    #       ind <- chi2cv(r,n,0.05)
+    #     } else { # "opt" or numeric
+    #       ind <- which.max(r2)
+    #     }
+    #   } else {
+    #     ind <- 1
+    #   }
+    #   # If optimum is a component (ind>1), not the intercept store scores (and possibly orthogonalise)
+    #   if(ind > 1){
+    #     S <- mod_last$scores[,1:(ind-1),drop=FALSE]
+    #     S_last[[i-1]] <- S
+    #     if(!simultaneous)
+    #       last <- last - S %*% tcrossprod(solve(crossprod(S)), S) %*% last
+    #   }
     }
+    # Concatenate all scores for simultaneous orthogonalisation
     S_first <- do.call(cbind,S_first)
-    S_last <- do.call(cbind,S_last)
+    # S_last <- do.call(cbind,S_last)
     if(simultaneous){
       if(!is.null(S_first))
         first <- first - S_first %*% tcrossprod(solve(crossprod(S_first)), S_first) %*% first
-      if(!is.null(S_last))
-        last <- last - S_last %*% tcrossprod(solve(crossprod(S_last)), S_last) %*% last
+    #  if(!is.null(S_last))
+    #    last <- last - S_last %*% tcrossprod(solve(crossprod(S_last)), S_last) %*% last
     }
   }
   # Last ~ First
   mod_first_last <- plsr(last~first, ncomp = min(comps[1],max_comps), validation="CV", segments=segments)
   r      <- matrix(RMSEP(mod_first_last)$val[1,,], nresp)
-  # r[,1]  <- MSEP0(last,segments)
   denom <- apply(last,2,var)*(n-1)/n
   r2_ind <- 1-r^2/denom # r[,1]^2
   r2     <- 1 - colSums(r^2)/sum(denom)
-  # r2     <- apply(r2_ind,2,mean)
-  rescale<-  mean((last-rep(colMeans(last), each=n))^2) / mean((Y-rep(colMeans(Y), each=n))^2)
+  # Compensate for deflation of response
+  rescale <- 1
+#  rescale <- mean((last-rep(colMeans(last), each=n))^2) / mean((Y-rep(colMeans(Y), each=n))^2) # Original
+#  rescale <- mean((Y-rep(colMeans(Y), each=n))^2) / mean((last-rep(colMeans(last), each=n))^2)
+  # Reduce number of components by chi2 test
   if(is.character(sel.comp) && sel.comp == "chi"){
     r <- sqrt(colMeans(r^2))
     comp_direct <- chi2cv(r,n,0.05)-1

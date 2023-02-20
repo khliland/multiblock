@@ -121,7 +121,7 @@ mbpls <- function(formula, data, subset, na.action, X=NULL, Y=NULL, ncomp=1, sca
       else if(blockScale[1] == "ssq")
         X <- lapply(1:nblock, function(i) Xo[[i]]/norm(Xo[[i]],"F")^2)
       else if(blockScale[1] == "none")
-        X <- Xc
+        X <- Xo
       else
         stop("Unknown format for 'blockScale'")
     } else {

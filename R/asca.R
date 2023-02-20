@@ -19,7 +19,7 @@
 #' @details ASCA is a method which decomposes a multivariate response according to one or more design
 #' variables. ANOVA is used to split variation into contributions from factors, and PCA is performed
 #' on the corresponding least squares estimates, i.e., \code{Y = X1 B1 + X2 B2 + ... + E = T1 P1' + T2 P2' + ... + E}.
-#' This version of ASCA encompasses LiMM-PCA, generalized ASCA and covariates ASCA. It includes
+#' This version of ASCA encompasses variants of LiMM-PCA, generalized ASCA and covariates ASCA. It includes
 #' confidence ellipsoids for the balanced fixed effect ASCA.
 #' 
 #' @references 

@@ -37,8 +37,8 @@ projections(object, ...)
 \item{factor}{\code{integer/character} for selecting a model factor.}
 }
 \value{
-Returns depend on method used, e.g. \code{projections.sopls} returns projected samples,
-\code{scores.sopls} return scores, while print and summary methods return the object invisibly.
+Returns depend on method used, e.g. \code{projections.asca} returns projected samples,
+\code{scores.asca} return scores, while print and summary methods return the object invisibly.
 }
 \description{
 Standard result computation and extraction functions for ASCA (\code{\link{asca}}).

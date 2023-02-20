@@ -201,7 +201,6 @@ gca <- function(X, ncomp='max', svd=TRUE, tol=10^-12, corrs=TRUE, ...){
     obj$data <- list(X = X)
     return(obj)
   } else {
-    un
     obj <- gca.rgcca(X=X, scale=FALSE, ncomp=ncomp, corrs=corrs, ...)
     obj$call = match.call()
     obj$data <- list(X = X)

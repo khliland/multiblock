@@ -58,7 +58,7 @@ The plotting routines have no return.
 Various plotting procedures for \code{\link{asca}} objects.
 }
 \details{
-Usage of the functions are shown using generics in the examples below.
+Usage of the functions are shown using generics in the examples in \code{\link{asca}}.
 Plot routines are available as
 \code{scoreplot.asca} and \code{loadingplot.asca}.
 }
