@@ -324,7 +324,7 @@ smbpls <- function(formula, data, subset, na.action, X=NULL, Y=NULL, ncomp=1, sc
     mod$loading.weights <- mod$loading.weights[,,1]
     mod$projection      <- mod$projection[,,1]
   }
-  U   <- normCols(mod$Yscores)^2 # normalized Y-scores
+  U   <- normCols(mod$Yscores, TRUE) # normalized Y-scores
   Wb  <- Tb <- Pb <- list()
   Wt  <- matrix(0, length(X), ncomp)
   for(b in 1:length(X)){ # Loop over blocks
@@ -337,11 +337,12 @@ smbpls <- function(formula, data, subset, na.action, X=NULL, Y=NULL, ncomp=1, sc
     for(k in 1:ncomp){
       Pb[[b]][,k] <- Pb[[b]][,k]/drop(crossprod(Tb[[b]][,k]))
     }
-    Wt[b,] <- colSums(crossprod(Tb[[b]], U)) # Super weights
+    Wt[b,] <- diag(crossprod(Tb[[b]], U)) # Super weights
     dimnames(Pb[[b]]) <- dimnames(Wb[[b]]) <- list(colnames(X[[b]]), comps)
     dimnames(Tb[[b]]) <- list(rownames(X[[b]]), comps)
   }
   dimnames(Wt) <- list(names(X), comps)
+  Wt <- normCols(Wt, TRUE)
   names(Tb) <- names(Pb) <- names(Wb) <- names(X)
   mod$blockScores   <- Tb
   mod$blockLoadingweights <- Wb

@@ -5,6 +5,10 @@ This implements and imports a large collection of methods for multiblock data an
 functions, several real data sets and six vignettes covering a range different applications.
 Kristian Hovde Liland
 
+##### Version 0.8.5
+Date: 
+>> Corrected weighting in block loop for MB-PLS.
+
 ##### Version 0.8.4
 Date: 20 February 2023
 >> Corrected GCA (gca) outputs by removing blockLoadings, adding blockDecomp and exchanging blockCoef.
