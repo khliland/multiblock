@@ -151,7 +151,7 @@ mbpls <- function(formula, data, subset, na.action, X=NULL, Y=NULL, ncomp=1, sca
     dimnames(Tb[[b]]) <- list(rownames(X[[b]]), comps)
   }
   dimnames(Wt) <- list(names(X), comps)
-  Wt <- normCols(Wt, TRUE)
+  Wt <- normCols(Wt)
   names(Tb) <- names(Pb) <- names(Wb) <- names(X)
   mod$blockScores   <- Tb
   mod$blockLoadingweights <- Wb
@@ -342,7 +342,7 @@ smbpls <- function(formula, data, subset, na.action, X=NULL, Y=NULL, ncomp=1, sc
     dimnames(Tb[[b]]) <- list(rownames(X[[b]]), comps)
   }
   dimnames(Wt) <- list(names(X), comps)
-  Wt <- normCols(Wt, TRUE)
+  Wt <- normCols(Wt)
   names(Tb) <- names(Pb) <- names(Wb) <- names(X)
   mod$blockScores   <- Tb
   mod$blockLoadingweights <- Wb
