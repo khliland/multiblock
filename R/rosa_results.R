@@ -5,10 +5,10 @@
 #' @param object A \code{rosa} object.
 #' @param x A \code{rosa} object.
 #' @param newdata Optional new data with the same types of predictor blocks as the ones used for fitting the object.
-#' @param ncomp An \code{integer} giving the number of components to use apply.
+#' @param ncomp An \code{integer} giving the number of components to use apply (cummulative).
 #' @param comps An \code{integer} vector giving the exact components to apply.
-#' @param type A \code{character} indicating if responses or scores should be predicted (default = "response", or "scores")
-#' @param type Character indicating which type of explained variance to compute (default = "train", alternative = "CV").
+#' @param type For \code{predict}: A \code{character} indicating if responses or scores should be predicted (default = "response", or "scores")
+#' @param type For \code{blockexpl}: Character indicating which type of explained variance to compute (default = "train", alternative = "CV").
 #' @param na.action Function determining what to do with missing values in \code{newdata}.
 #' @param intercept A \code{logical} indicating if coefficients for the intercept should be included (default = FALSE).
 #' @param what A \code{character} indicating if summary should include all, validation or training.
@@ -32,6 +32,26 @@
 #' Scores and loadings have their own extensions of \code{scores()} and \code{loadings()} throught
 #' \code{scores.rosa} and \code{loadings.rosa}. Finally, there is work in progress on classifcation
 #' support through \code{rosa.classify}.
+#' 
+#' When \code{type} is \code{"response"} (default), predicted response values
+#' are returned.  If \code{comps} is missing (or is \code{NULL}), predictions
+#' for \code{length(ncomp)} models with \code{ncomp[1]} components,
+#' \code{ncomp[2]} components, etc., are returned.  Otherwise, predictions for
+#' a single model with the exact components in \code{comps} are returned.
+#' (Note that in both cases, the intercept is always included in the
+#' predictions.  It can be removed by subtracting the \code{Ymeans} component
+#' of the fitted model.)
+#' 
+#' If \code{comps} is missing (or is \code{NULL}), \code{coef()[,,ncomp[i]]}
+#' are the coefficients for models with \code{ncomp[i]} components, for \eqn{i
+#' = 1, \ldots, length(ncomp)}.  Also, if \code{intercept = TRUE}, the first
+#' dimension is \eqn{nxvar + 1}, with the intercept coefficients as the first
+#' row.
+#'
+#' If \code{comps} is given, however, \code{coef()[,,comps[i]]} are the
+#' coefficients for a model with only the component \code{comps[i]}, i.e., the
+#' contribution of the component \code{comps[i]} on the regression
+#' coefficients.
 #' 
 #' @references Liland, K.H., Næs, T., and Indahl, U.G. (2016). ROSA - a fast extension of partial least squares regression for multiblock data analysis. Journal of Chemometrics, 30, 651–662, doi:10.1002/cem.2824.
 #'
@@ -120,7 +140,7 @@ coef.rosa <- function(object, ncomp = object$ncomp, comps, intercept = FALSE,
 {
   if (missing(comps) || is.null(comps)) {
     ## Cumulative coefficients:
-    B <- object$coefficients[,,ncomp, drop=FALSE]
+    B <- object$coefficients[,,1:ncomp, drop=FALSE]
     if (intercept == TRUE) {      # Intercept has only meaning for
       # cumulative coefficients
       dB <- dim(B)
