@@ -7,7 +7,7 @@ Kristian Hovde Liland
 
 ##### Version 0.8.6
 Date: 25 April 2023
->> Corrected error in coef.rosa() also affecting predict.rosa() (ncomp did no return all comps up to ncomp).
+>> Corrected error in predict.rosa() (wrong intercept when using coefs argument).
 >> Extended documentation for coef.rosa() and predict.rosa().
 
 ##### Version 0.8.5

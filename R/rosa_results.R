@@ -5,8 +5,8 @@
 #' @param object A \code{rosa} object.
 #' @param x A \code{rosa} object.
 #' @param newdata Optional new data with the same types of predictor blocks as the ones used for fitting the object.
-#' @param ncomp An \code{integer} giving the number of components to use apply (cummulative).
-#' @param comps An \code{integer} vector giving the exact components to apply.
+#' @param ncomp An \code{integer} giving the number of components to apply (cummulative).
+#' @param comps An \code{integer} vector giving the exact components to apply (subset).
 #' @param type For \code{predict}: A \code{character} indicating if responses or scores should be predicted (default = "response", or "scores")
 #' @param type For \code{blockexpl}: Character indicating which type of explained variance to compute (default = "train", alternative = "CV").
 #' @param na.action Function determining what to do with missing values in \code{newdata}.
@@ -110,7 +110,7 @@ predict.rosa <- function(object, newdata, ncomp = 1:object$ncomp, comps,
     } else {
       ## Predict with a model containing the components `comps'
       B <- rowSums(coef(object, comps = comps), dims = 2)
-      B0 <- object$Ymeans# - object$Xmeans %*% B
+      B0 <- object$Ymeans - object$Xmeans %*% B
       pred <- newX %*% B + rep(c(B0), each = nobs)
       if (missing(newdata) && !is.null(object$na.action))
         pred <- napredict(object$na.action, pred)
@@ -140,7 +140,7 @@ coef.rosa <- function(object, ncomp = object$ncomp, comps, intercept = FALSE,
 {
   if (missing(comps) || is.null(comps)) {
     ## Cumulative coefficients:
-    B <- object$coefficients[,,1:ncomp, drop=FALSE]
+    B <- object$coefficients[,,ncomp, drop=FALSE]
     if (intercept == TRUE) {      # Intercept has only meaning for
       # cumulative coefficients
       dB <- dim(B)

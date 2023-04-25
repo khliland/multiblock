@@ -50,11 +50,11 @@ rosa.classify(object, classes, newdata, ncomp, LQ)
 
 \item{newdata}{Optional new data with the same types of predictor blocks as the ones used for fitting the object.}
 
-\item{ncomp}{An \code{integer} giving the number of components to use apply.}
+\item{ncomp}{An \code{integer} giving the number of components to use apply (cummulative).}
 
 \item{comps}{An \code{integer} vector giving the exact components to apply.}
 
-\item{type}{Character indicating which type of explained variance to compute (default = "train", alternative = "CV").}
+\item{type}{For \code{blockexpl}: Character indicating which type of explained variance to compute (default = "train", alternative = "CV").}
 
 \item{na.action}{Function determining what to do with missing values in \code{newdata}.}
 
@@ -92,6 +92,26 @@ Explained variances are available (block-wise and global) through \code{blockexp
 Scores and loadings have their own extensions of \code{scores()} and \code{loadings()} throught
 \code{scores.rosa} and \code{loadings.rosa}. Finally, there is work in progress on classifcation
 support through \code{rosa.classify}.
+
+When \code{type} is \code{"response"} (default), predicted response values
+are returned.  If \code{comps} is missing (or is \code{NULL}), predictions
+for \code{length(ncomp)} models with \code{ncomp[1]} components,
+\code{ncomp[2]} components, etc., are returned.  Otherwise, predictions for
+a single model with the exact components in \code{comps} are returned.
+(Note that in both cases, the intercept is always included in the
+predictions.  It can be removed by subtracting the \code{Ymeans} component
+of the fitted model.)
+
+If \code{comps} is missing (or is \code{NULL}), \code{coef()[,,ncomp[i]]}
+are the coefficients for models with \code{ncomp[i]} components, for \eqn{i
+= 1, \ldots, length(ncomp)}.  Also, if \code{intercept = TRUE}, the first
+dimension is \eqn{nxvar + 1}, with the intercept coefficients as the first
+row.
+
+If \code{comps} is given, however, \code{coef()[,,comps[i]]} are the
+coefficients for a model with only the component \code{comps[i]}, i.e., the
+contribution of the component \code{comps[i]} on the regression
+coefficients.
 }
 \examples{
 data(potato)
