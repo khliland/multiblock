@@ -25,6 +25,6 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{pls}{\code{\link[pls:mvrVal]{MSEP}}, \code{\link[pls:mvrVal]{R2}}, \code{\link[pls:mvrVal]{RMSEP}}, \code{\link[pls]{coefplot}}, \code{\link[pls]{cvsegments}}, \code{\link[pls:scores]{loading.weights}}, \code{\link[pls:scoreplot]{loadingplot}}, \code{\link[pls:scores]{loadings}}, \code{\link[pls:mvrVal]{mvrValstats}}, \code{\link[pls:mvr]{pcr}}, \code{\link[pls:mvr]{plsr}}, \code{\link[pls]{predplot}}, \code{\link[pls]{scoreplot}}, \code{\link[pls]{scores}}, \code{\link[pls]{validationplot}}}
+  \item{pls}{\code{\link[pls]{coefplot}}, \code{\link[pls]{cvsegments}}, \code{\link[pls:scores]{loading.weights}}, \code{\link[pls:scoreplot]{loadingplot}}, \code{\link[pls:scores]{loadings}}, \code{\link[pls:mvrVal]{MSEP}}, \code{\link[pls:mvrVal]{mvrValstats}}, \code{\link[pls:mvr]{pcr}}, \code{\link[pls:mvr]{plsr}}, \code{\link[pls]{predplot}}, \code{\link[pls:mvrVal]{R2}}, \code{\link[pls:mvrVal]{RMSEP}}, \code{\link[pls]{scoreplot}}, \code{\link[pls]{scores}}, \code{\link[pls]{validationplot}}}
 }}
 

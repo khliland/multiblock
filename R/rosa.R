@@ -502,7 +502,7 @@ rosa.fit <- function(X, X.concat, y, Y.add, ncomp, common.comp, weights, fixed.o
   PtW <- crossprod(P,W); PtW[lower.tri(PtW)] <- 0 # The W-coordinates of (the projected) P.
   R   <- mrdivide(W,PtW)        # The "SIMPLS weights"
   q   <- crossprod(y.orig,T)    # Regression coeffs (Y-loadings) for the orthogonal scores
-  U   <- y.orig %*% q / rep(colSums(q^2), each=nresp)
+  U   <- y.orig %*% (q / rep(colSums(q^2), each=nresp))
   if(ncomp > 1)
     for(a in 2:ncomp)
       U[,a] <- U[,a] - T[,1:a] %*% crossprod(T[,1:a], U[,a])

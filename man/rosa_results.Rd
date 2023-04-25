@@ -50,9 +50,9 @@ rosa.classify(object, classes, newdata, ncomp, LQ)
 
 \item{newdata}{Optional new data with the same types of predictor blocks as the ones used for fitting the object.}
 
-\item{ncomp}{An \code{integer} giving the number of components to use apply (cummulative).}
+\item{ncomp}{An \code{integer} giving the number of components to apply (cummulative).}
 
-\item{comps}{An \code{integer} vector giving the exact components to apply.}
+\item{comps}{An \code{integer} vector giving the exact components to apply (subset).}
 
 \item{type}{For \code{blockexpl}: Character indicating which type of explained variance to compute (default = "train", alternative = "CV").}
 
