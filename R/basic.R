@@ -9,7 +9,7 @@
 #' * GSVD - Generalized SVD (\code{\link{gsvd}})
 #' 
 #' @importFrom pls pcr plsr
-#' @importFrom geigen gsvd
+# ' @importFrom geigen gsvd
 #' @rdname basic 
 #' 
 #' @examples 
@@ -142,24 +142,30 @@ cca <- function(X){
 #' @export
 ifa <- function(X, ncomp=1, scale=FALSE, verbose=FALSE, ...){
   # InterbatteryFactorAnalysis
-  # Only for two blocks
-  X <- lapply(X, function(i) scale(i, scale = FALSE))
-  if(length(ncomp)==1){ ncomp <- rep(ncomp,length(X)) }
-  res <- RGCCA::rgcca(A = X, C = matrix(c(0,1,1,0),2,2), tau=c(1,1), verbose = verbose, scale = scale, ncomp=ncomp, ...)
-  # A = coef. left, B = coef. right, corr = canonical correlation
-  loadings <- list(res$astar[[1]], res$astar[[2]])
-  scores   <- list(X[[1]]%*%loadings[[1]], X[[2]]%*%loadings[[2]])
-  names(scores) <- names(loadings) <- names(X)
-  corr <- sqrt(res$AVE$AVE_inner)
-  mod <- list(blockLoadings=loadings, blockScores=scores, corr=corr, X = X, rgcca = res)
-  mod$info <- list(method = "Interbattery Factor Analysis", 
-                   scores = "Not used", loadings = "Not used",
-                   blockScores = "Projected blocks", blockLoadings = "Block loadings")
-  for(i in 1:length(X)){
-    attr(mod$blockScores[[i]], "explvar") <- attr(mod$blockLoadings[[i]], "explvar") <- mod$rgcca$AVE$AVE_X[[i]]
+  if("RGCCA" %in% rownames(installed.packages())){
+#    import::from(RGCCA, rgcca)
+    # Only for two blocks
+    X <- lapply(X, function(i) scale(i, scale = FALSE))
+    if(length(ncomp)==1){ ncomp <- rep(ncomp,length(X)) }
+    res <- RGCCA::rgcca(blocks = X, connection = matrix(c(0,1,1,0),2,2), tau=c(1,1), verbose = verbose, scale = scale, ncomp=ncomp, ...)
+    # A = coef. left, B = coef. right, corr = canonical correlation
+    loadings <- list(res$astar[[1]], res$astar[[2]])
+    scores   <- list(X[[1]]%*%loadings[[1]], X[[2]]%*%loadings[[2]])
+    names(scores) <- names(loadings) <- names(X)
+    corr <- sqrt(res$AVE$AVE_inner)
+    mod <- list(blockLoadings=loadings, blockScores=scores, corr=corr, X = X, rgcca = res)
+    mod$info <- list(method = "Interbattery Factor Analysis", 
+                     scores = "Not used", loadings = "Not used",
+                     blockScores = "Projected blocks", blockLoadings = "Block loadings")
+    for(i in 1:length(X)){
+      attr(mod$blockScores[[i]], "explvar") <- attr(mod$blockLoadings[[i]], "explvar") <- mod$rgcca$AVE$AVE_X[[i]]
+    }
+    class(mod) <- c('multiblock','list')
+  } else {
+    mod <- .missing.import(X)
+    cat("To run 'ifa', please install the 'RGCCA' package, e.g., using\ninstall.packages('RGCCA')\n")
   }
   mod$call <- match.call()
-  class(mod) <- c('multiblock','list')
   return(mod)
 }
 
@@ -190,15 +196,21 @@ ifa <- function(X, ncomp=1, scale=FALSE, verbose=FALSE, ...){
 #' 
 #' @export
 gsvd  <- function(X){
-  res <- geigen::gsvd(as.matrix(X[[1]]), as.matrix(X[[2]]))
-  loadings <- res$Q
-  scores   <- list(res$U, res$V)
-  names(scores) <- names(X)
-  mod <- list(loadings=loadings, blockScores=scores, GSVD = res)
-  mod$info <- list(method = "Generalized Singular Value Decomposition", 
-                   scores = "Not used", loadings = "Loadings",
-                   blockScores = "Block scores", blockLoadings = "Not used")
+  if("RGCCA" %in% rownames(installed.packages())){
+#    import::from(geigen, gsvd)
+    res <- geigen::gsvd(as.matrix(X[[1]]), as.matrix(X[[2]]))
+    loadings <- res$Q
+    scores   <- list(res$U, res$V)
+    names(scores) <- names(X)
+    mod <- list(loadings=loadings, blockScores=scores, GSVD = res)
+    mod$info <- list(method = "Generalized Singular Value Decomposition", 
+                     scores = "Not used", loadings = "Loadings",
+                     blockScores = "Block scores", blockLoadings = "Not used")
+    class(mod) <- c('multiblock','list')
+  } else {
+    mod <- .missing.import(X)
+    cat("To run 'gsvd', please install the 'geigen' package, e.g., using\ninstall.packages('geigen')\n")
+  }
   mod$call <- match.call()
-  class(mod) <- c('multiblock','list')
   return(mod)
 }

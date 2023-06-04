@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">multiblock</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.8.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.8.6</span>
       </span>
     </div>
 
@@ -126,15 +126,15 @@
 
 
 <dt>ncomp</dt>
-<dd><p>An <code>integer</code> giving the number of components to use apply.</p></dd>
+<dd><p>An <code>integer</code> giving the number of components to apply (cummulative).</p></dd>
 
 
 <dt>comps</dt>
-<dd><p>An <code>integer</code> vector giving the exact components to apply.</p></dd>
+<dd><p>An <code>integer</code> vector giving the exact components to apply (subset).</p></dd>
 
 
 <dt>type</dt>
-<dd><p>Character indicating which type of explained variance to compute (default = "train", alternative = "CV").</p></dd>
+<dd><p>For <code>blockexpl</code>: Character indicating which type of explained variance to compute (default = "train", alternative = "CV").</p></dd>
 
 
 <dt>na.action</dt>
@@ -196,6 +196,23 @@ Explained variances are available (block-wise and global) through <code>blockexp
 Scores and loadings have their own extensions of <code><a href="https://rdrr.io/pkg/pls/man/scores.html" class="external-link">scores()</a></code> and <code><a href="https://rdrr.io/pkg/pls/man/scores.html" class="external-link">loadings()</a></code> throught
 <code>scores.rosa</code> and <code>loadings.rosa</code>. Finally, there is work in progress on classifcation
 support through <code>rosa.classify</code>.</p>
+<p>When <code>type</code> is <code>"response"</code> (default), predicted response values
+are returned.  If <code>comps</code> is missing (or is <code>NULL</code>), predictions
+for <code>length(ncomp)</code> models with <code>ncomp[1]</code> components,
+<code>ncomp[2]</code> components, etc., are returned.  Otherwise, predictions for
+a single model with the exact components in <code>comps</code> are returned.
+(Note that in both cases, the intercept is always included in the
+predictions.  It can be removed by subtracting the <code>Ymeans</code> component
+of the fitted model.)</p>
+<p>If <code>comps</code> is missing (or is <code>NULL</code>), <code>coef()[,,ncomp[i]]</code>
+are the coefficients for models with <code>ncomp[i]</code> components, for \(i
+= 1, \ldots, length(ncomp)\).  Also, if <code>intercept = TRUE</code>, the first
+dimension is \(nxvar + 1\), with the intercept coefficients as the first
+row.</p>
+<p>If <code>comps</code> is given, however, <code>coef()[,,comps[i]]</code> are the
+coefficients for a model with only the component <code>comps[i]</code>, i.e., the
+contribution of the component <code>comps[i]</code> on the regression
+coefficients.</p>
     </div>
     <div id="references">
     <h2>References</h2>

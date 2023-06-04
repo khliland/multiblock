@@ -71,7 +71,12 @@ rosaCV <- function(X, Y, Y.cat, ncomp, response.type, Y.add = NULL, common.comp,
       }
     }
     X.concat <- do.call(cbind, Xtrain)
-
+    # Check for missing dimnames
+    if(is.null(rownames(X.concat)))
+      rownames(X.concat) <- 1:nrow(X.concat)
+    if(is.null(colnames(X.concat)))
+      colnames(X.concat) <- 1:ncol(X.concat)
+    
     ## Fit the model:
     fit <- rosa.fit(Xtrain, X.concat, Y[-seg,,drop=FALSE], Y.add[-seg,,drop=FALSE], ncomp, common.comp, weights[-seg], fixed.order, NULL, NULL, canonical, FALSE)
 

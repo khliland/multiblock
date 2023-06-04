@@ -16,6 +16,7 @@
   pch.projections = 1,
   gr.col = 1:nlevels(object$effects[[factor]]),
   ellipsoids,
+  confidence,
   xlim,
   ylim,
   xlab,
@@ -40,6 +41,8 @@
 \item{gr.col}{\code{integer} vector of colours for groups.}
 
 \item{ellipsoids}{\code{character} "confidence" or "data" ellipsoids for balanced fixed effect models.}
+
+\item{confidence}{\code{numeric} vector of ellipsoid confidences, default = c(0.4, 0.68, 0.95).}
 
 \item{xlim}{\code{numeric} x limits.}
 

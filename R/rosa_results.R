@@ -72,8 +72,9 @@
 predict.rosa <- function(object, newdata, ncomp = 1:object$ncomp, comps,
                          type = c("response", "scores"), na.action = na.pass, ...){
   if (missing(newdata) || is.null(newdata)){
-    newX <- object$X.concat
-    # newX <- model.matrix(object)
+    # newX <- object$X.concat
+    newX <- model.matrix(object)
+    colnames(newX) <- colnames(object$X.concat)
   } else {
     if(is.matrix(newdata)){
       if (ncol(newdata) != length(object$Xmeans))
@@ -82,6 +83,11 @@ predict.rosa <- function(object, newdata, ncomp = 1:object$ncomp, comps,
     } else { # Assume newdata is a list
       newX <- model.frame(formula(object), data = newdata)
       newX <- do.call(cbind,newX[-1])
+      # Check for missing dimnames
+      if(is.null(rownames(newX)))
+        rownames(newX) <- 1:nrow(newX)
+      if(is.null(colnames(newX)))
+        colnames(newX) <- 1:ncol(newX)
       if(ncol(newX) != length(object$Xmeans))
         stop("'newdata' does not have the correct number of columns")
     }

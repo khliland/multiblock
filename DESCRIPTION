@@ -2,8 +2,8 @@ Encoding: UTF-8
 Package: multiblock
 Type: Package
 Title: Multiblock Data Fusion in Statistics and Machine Learning
-Version: 0.8.5
-Date: 2023-03-06
+Version: 0.8.6
+Date: 2023-06-04
 Authors@R: 
     c(person(given = "Kristian Hovde",
              family = "Liland",
@@ -26,8 +26,6 @@ BugReports: https://github.com/khliland/multiblock/issues/
 Depends: R (>= 3.5.0)
 Imports: ade4,
   car,
-  FactoMineR,
-  geigen,
   lme4,
   MASS,
   mixlm,
@@ -36,13 +34,16 @@ Imports: ade4,
   plsVarSel,
   pracma,
   progress,
-  r.jive,
   Rcpp,
-  RegularizedSCA,
-  RGCCA,
   RSpectra,
   SSBtools
-Suggests: rmarkdown, knitr
+Suggests: FactoMineR,
+  geigen,
+  RegularizedSCA, 
+  RGCCA (>= 3.0.0),
+  r.jive,
+  rmarkdown, 
+  knitr
 LinkingTo: Rcpp, RcppEigen
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3

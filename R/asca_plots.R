@@ -15,6 +15,7 @@
 #' @param pch.projections \code{integer} plotting symbol.
 #' @param gr.col \code{integer} vector of colours for groups.
 #' @param ellipsoids \code{character} "confidence" or "data" ellipsoids for balanced fixed effect models.
+#' @param confidence \code{numeric} vector of ellipsoid confidences, default = c(0.4, 0.68, 0.95).
 #' @param xlim \code{numeric} x limits.
 #' @param ylim \code{numeric} y limits. 
 #' @param xlab \code{character} x label.
@@ -40,7 +41,7 @@ loadingplot.asca <- function(object, factor = 1, comps = 1:2, ...){
 #' @rdname asca_plots
 #' @export
 scoreplot.asca <- function(object, factor = 1, comps = 1:2, pch.scores = 19, pch.projections = 1, 
-                           gr.col = 1:nlevels(object$effects[[factor]]), ellipsoids,
+                           gr.col = 1:nlevels(object$effects[[factor]]), ellipsoids, confidence,
                            xlim,ylim, xlab,ylab, legendpos, ...){
   # Number of levels in current factor
   nlev  <- nlevels(object$effects[[factor]])
@@ -79,8 +80,10 @@ scoreplot.asca <- function(object, factor = 1, comps = 1:2, pch.scores = 19, pch
       legend(legendpos, legend = levels(object$effects[[factor]]), col=gr.col, pch=pch.scores)
     
     if(!missing(ellipsoids)){
+      if(missing(confidence))
+        confidence <- c(0.4,0.68,0.95)
       if(ellipsoids == "data"){
-        dataEllipse(projs[,comps], groups = object$effects[[factor]], levels=c(0.4,0.68,0.95), add=TRUE, plot.points=FALSE, col=gr.col, lwd=1, group.labels="", center.pch=FALSE, lty=3)
+        dataEllipse(projs[,comps], groups = object$effects[[factor]], levels=confidence, add=TRUE, plot.points=FALSE, col=gr.col, lwd=1, group.labels="", center.pch=FALSE, lty=3)
       }
       if(ellipsoids == "confidence" || ellipsoids == "conf"){
         # Covariance matrix
@@ -91,14 +94,15 @@ scoreplot.asca <- function(object, factor = 1, comps = 1:2, pch.scores = 19, pch
         if(!isSymmetric(LSL))
           LSL <- (LSL + t(LSL))/2 # Force symmetry
         # Scaling by confidence
-        c40 <- sqrt((nobj-nlev)*2 / (nobj-nlev-2+1) * qf(0.40, 2, nobj-nlev-2+1))
-        c68 <- sqrt((nobj-nlev)*2 / (nobj-nlev-2+1) * qf(0.68, 2, nobj-nlev-2+1))
-        c95 <- sqrt((nobj-nlev)*2 / (nobj-nlev-2+1) * qf(0.95, 2, nobj-nlev-2+1))
+        cx <- list()
+        for(c in 1:length(confidence))
+          cx[[c]] <- sqrt((nobj-nlev)*2 / (nobj-nlev-2+1) * qf(confidence[c], 2, nobj-nlev-2+1))
+#        c40 <- sqrt((nobj-nlev)*2 / (nobj-nlev-2+1) * qf(confidence[1], 2, nobj-nlev-2+1))
+#        c68 <- sqrt((nobj-nlev)*2 / (nobj-nlev-2+1) * qf(confidence[2], 2, nobj-nlev-2+1))
         for(i in 1:nlev){
           lev <- levels(object$effects[[factor]])[i]
-          ellipse(colMeans(scors[object$effects[[factor]]==lev,comps]), LSL, c40, lwd=1, col=gr.col[i])
-          ellipse(colMeans(scors[object$effects[[factor]]==lev,comps]), LSL, c68, lwd=1, col=gr.col[i])
-          ellipse(colMeans(scors[object$effects[[factor]]==lev,comps]), LSL, c95, lwd=1, col=gr.col[i])
+          for(c in 1:length(confidence))
+            ellipse(colMeans(scors[object$effects[[factor]]==lev,comps]), LSL, cx[[c]], lwd=1, col=gr.col[i])
         }
       }
     }
@@ -114,23 +118,23 @@ scoreplot.asca <- function(object, factor = 1, comps = 1:2, pch.scores = 19, pch
       points(projs[object$effects[[factor]] == lev, comps], rep(i,sum(as.numeric(object$effects[[factor]]) == i)), pch=pch.projections, col=gr.col[i])
     }
     if(!missing(ellipsoids)){
+      if(missing(confidence))
+        confidence <- c(0.4,0.68,0.95)
       if(ellipsoids == "confidence" || ellipsoids == "conf"){
         sigma <- crossprod(object$residuals)/nobj
         L <- object$loadings[[factor]][,comps]
         # Transformed covariance matrix
         LSL <- sqrt(crossprod(L,sigma) %*% L * nlev / (nobj-nlev))
         # Scaling by confidence
-        c40 <- sqrt((nobj-nlev)*1 / (nobj-nlev-1+1) * qf(0.40, 1, nobj-nlev-1+1))
-        c68 <- sqrt((nobj-nlev)*1 / (nobj-nlev-1+1) * qf(0.68, 1, nobj-nlev-1+1))
-        c95 <- sqrt((nobj-nlev)*1 / (nobj-nlev-1+1) * qf(0.95, 1, nobj-nlev-1+1))
+        cx <- list()
+        for(c in 1:length(confidence))
+          cx[[c]] <- sqrt((nobj-nlev)*1 / (nobj-nlev-1+1) * qf(confidence[c], 1, nobj-nlev-1+1))
         for(i in 1:nlev){
           lev <- levels(object$effects[[factor]])[i]
-          lines(mean(scors[object$effects[[factor]] == lev,comps])*c(1,1)+c(LSL)*c40, i+c(-0.2,0.2), col=gr.col[i])
-          lines(mean(scors[object$effects[[factor]] == lev,comps])*c(1,1)+c(LSL)*c68, i+c(-0.2,0.2), col=gr.col[i])
-          lines(mean(scors[object$effects[[factor]] == lev,comps])*c(1,1)+c(LSL)*c95, i+c(-0.2,0.2), col=gr.col[i])
-          lines(mean(scors[object$effects[[factor]] == lev,comps])*c(1,1)-c(LSL)*c40, i+c(-0.2,0.2), col=gr.col[i])
-          lines(mean(scors[object$effects[[factor]] == lev,comps])*c(1,1)-c(LSL)*c68, i+c(-0.2,0.2), col=gr.col[i])
-          lines(mean(scors[object$effects[[factor]] == lev,comps])*c(1,1)-c(LSL)*c95, i+c(-0.2,0.2), col=gr.col[i])
+          for(c in 1:length(confidence)){
+            lines(mean(scors[object$effects[[factor]] == lev,comps])*c(1,1)+c(LSL)*cx[[c]], i+c(-0.2,0.2), col=gr.col[i])
+            lines(mean(scors[object$effects[[factor]] == lev,comps])*c(1,1)-c(LSL)*cx[[c]], i+c(-0.2,0.2), col=gr.col[i])
+          }
         }
       }
     }

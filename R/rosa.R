@@ -123,7 +123,12 @@ rosa <- function(formula, ncomp, Y.add, common.comp = 1, data,
   # names(X) <- colnames(mf)[-1]
   X <- lapply(X, function(x)if(is.factor(x)){return(dummycode(x))}else{return(x)})
   X.concat <- do.call(cbind,X)
-
+  # Check for missing dimnames
+  if(is.null(rownames(X.concat)))
+    rownames(X.concat) <- 1:nrow(X.concat)
+  if(is.null(colnames(X.concat)))
+    colnames(X.concat) <- 1:ncol(X.concat)
+  
   y <- switch(response.type,
               continuous = Y,
               categorical = Y.dummy

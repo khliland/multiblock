@@ -24,10 +24,10 @@ low-dimensional representations of individual and joint variation plus residual 
 }
 \examples{
 \donttest{ # Too time consuming for testing
-data(candies)
-candyList <- lapply(1:nlevels(candies$candy),function(x)candies$assessment[candies$candy==x,])
-can.jive  <- jive(candyList)
-summary(can.jive)
+  data(candies)
+  candyList <- lapply(1:nlevels(candies$candy),function(x)candies$assessment[candies$candy==x,])
+  can.jive  <- jive(candyList)
+  summary(can.jive)
 }
 
 }

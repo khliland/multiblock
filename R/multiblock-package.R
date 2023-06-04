@@ -52,6 +52,7 @@
 #' @seealso Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 #' @importFrom graphics abline arrows legend
 #' @importFrom stats coefficients qf
+#' @importFrom utils installed.packages
 #' @docType package
 #' @name multiblock
 NULL

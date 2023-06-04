@@ -6,9 +6,12 @@ functions, several real data sets and six vignettes covering a range different a
 Kristian Hovde Liland
 
 ##### Version 0.8.6
-Date: 25 April 2023
+Date: 04 June 2023
+>> Moved several packages to Suggests and added conditional loading.
+>> Added option for user-defined confidences in ASCA ellipsoids.
 >> Corrected error in predict.rosa() (wrong intercept when using coefs argument).
 >> Extended documentation for coef.rosa() and predict.rosa().
+>> Added support for data without dimnames in ROSA and SO-PLS.
 
 ##### Version 0.8.5
 Date: 6 March 2023

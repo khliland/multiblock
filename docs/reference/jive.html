@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">multiblock</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.8.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.8.6</span>
       </span>
     </div>
 
@@ -114,9 +114,9 @@ low-dimensional representations of individual and joint variation plus residual 
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span> <span class="co"># Too time consuming for testing</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">candies</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">candyList</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nlevels.html" class="external-link">nlevels</a></span><span class="op">(</span><span class="va">candies</span><span class="op">$</span><span class="va">candy</span><span class="op">)</span>,<span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="va">candies</span><span class="op">$</span><span class="va">assessment</span><span class="op">[</span><span class="va">candies</span><span class="op">$</span><span class="va">candy</span><span class="op">==</span><span class="va">x</span>,<span class="op">]</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">can.jive</span>  <span class="op">&lt;-</span> <span class="fu">jive</span><span class="op">(</span><span class="va">candyList</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">candies</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">candyList</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nlevels.html" class="external-link">nlevels</a></span><span class="op">(</span><span class="va">candies</span><span class="op">$</span><span class="va">candy</span><span class="op">)</span>,<span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="va">candies</span><span class="op">$</span><span class="va">assessment</span><span class="op">[</span><span class="va">candies</span><span class="op">$</span><span class="va">candy</span><span class="op">==</span><span class="va">x</span>,<span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">can.jive</span>  <span class="op">&lt;-</span> <span class="fu">jive</span><span class="op">(</span><span class="va">candyList</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Estimating  joint and individual ranks via permutation...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Running JIVE algorithm for ranks:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> joint rank: 1 , individual ranks: 1 1 1 1 1 </span>
@@ -127,7 +127,7 @@ low-dimensional representations of individual and joint variation plus residual 
 <span class="r-out co"><span class="r-pr">#&gt;</span> JIVE algorithm converged after  13  iterations.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Re-estimating  joint and individual ranks via permutation...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Final joint rank: 1 , final individual ranks: 1 0 1 0 1 </span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">can.jive</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">can.jive</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Method</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "perm"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>

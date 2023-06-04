@@ -1,11 +1,12 @@
 # #' @aliases sca gca mfa pcagca disco jive statis hogsvd hpca mcoa
 #' @name unsupervised
 #' @title Unsupervised Multiblock Methods
-#' @importFrom RGCCA rgcca
-#' @importFrom FactoMineR MFA GPA
-#' @importFrom RegularizedSCA DISCOsca
+# ' @importFrom RGCCA rgcca
+# ' @importFrom FactoMineR MFA GPA
+# ' @importFrom RegularizedSCA DISCOsca
 #' @importFrom ade4 statis ktab.within withinpca
-#' @importFrom r.jive jive summary.jive plot.jive
+# ' @importFrom r.jive jive summary.jive plot.jive
+# ' @importFrom import from
 #' 
 #' @description Collection of unsupervised multiblock methods:
 #' * SCA - Simultaneous Component Analysis (\code{\link{sca}})
@@ -201,7 +202,12 @@ gca <- function(X, ncomp='max', svd=TRUE, tol=10^-12, corrs=TRUE, ...){
     obj$data <- list(X = X)
     return(obj)
   } else {
-    obj <- gca.rgcca(X=X, scale=FALSE, ncomp=ncomp, corrs=corrs, ...)
+    if("RGCCA" %in% rownames(installed.packages())){
+      obj <- gca.rgcca(X=X, scale=FALSE, ncomp=ncomp, corrs=corrs, ...)
+    } else {
+      obj <- .missing.import(X)
+      cat("To run 'gca' through RGCCA, please install the 'RGCCA' package, e.g., using\ninstall.packages('RGCCA')\n")
+    }
     obj$call = match.call()
     obj$data <- list(X = X)
     return(obj)
@@ -215,16 +221,22 @@ gca.rgcca <- function(X, scale=FALSE, ncomp='max', corrs=TRUE, ...){
   X[[n_block+1]] <- do.call(cbind, X)
   C <- matrix(0, n_block+1, n_block+1)
   C[n_block+1,1:n_block] <- 1; C[1:n_block,n_block+1] <- 1
-  res <- RGCCA::rgcca(A = X, C = C, tau=rep(0,n_block+1), verbose = FALSE, scale = FALSE, ncomp=ncomp, scheme = "factorial", ...)
-  # A = coefficients and global coefficients
-  if(corrs){
-    # Correlations: diag(cor(X[[i]]%*%res$astar[[i]],X[[j]]%*%res$astar[[j]]))
-    lb <- unlist(lapply(1:(n_block-1), function(i)lapply((i+1):n_block, function(j)paste0(i,'-',j))))
-    cs <- matrix(unlist(lapply(1:(n_block-1), function(i)lapply((i+1):n_block, function(j)diag(cor(X[[i]]%*%res$astar[[i]],X[[j]]%*%res$astar[[j]]))))), nrow=min(ncomp))
-    colnames(cs) <- lb; rownames(cs) <- paste0(1:min(ncomp)," comp.")
-    return(list(A = res$astar, B = NULL, corrs = cs, X = X, rgcca = res))
-  } else {
-    return(list(A = res$astar, B = NULL, X = X, rgcca = res))
+  if("RGCCA" %in% rownames(installed.packages())){
+#    import::from(RGCCA, rgcca)
+    res <- RGCCA::rgcca(blocks = X, connection = C, tau=rep(0,n_block+1), verbose = FALSE, scale = FALSE, ncomp=ncomp, scheme = "factorial", ...)
+    # A = coefficients and global coefficients
+    if(corrs){
+      # Correlations: diag(cor(X[[i]]%*%res$astar[[i]],X[[j]]%*%res$astar[[j]]))
+      lb <- unlist(lapply(1:(n_block-1), function(i)lapply((i+1):n_block, function(j)paste0(i,'-',j))))
+      cs <- matrix(unlist(lapply(1:(n_block-1), function(i)lapply((i+1):n_block, function(j)diag(cor(X[[i]]%*%res$astar[[i]],X[[j]]%*%res$astar[[j]]))))), nrow=min(ncomp))
+      colnames(cs) <- lb; rownames(cs) <- paste0(1:min(ncomp)," comp.")
+      return(list(A = res$astar, B = NULL, corrs = cs, X = X, rgcca = res))
+    } else {
+      return(list(A = res$astar, B = NULL, X = X, rgcca = res))
+    }
+  } else{
+    cat("To run RGCCA version of 'gca', please install the 'RGCCA' package, e.g., using\ninstall.packages('RGCCA')\n")
+    return(list(A = NULL, B = NULL, X = X, rgcca = NULL))
   }
 }
 gca.svd <- function(X, tol=10^-12, ncomp=1){
@@ -310,30 +322,37 @@ gca.svd <- function(X, tol=10^-12, ncomp=1){
 #' Common functions for computation and extraction of results and plotting are found in \code{\link{multiblock_results}} and \code{\link{multiblock_plots}}, respectively.
 #' @export
 gpa <- function(X, graph = FALSE, ...){
-  Xcat <- as.data.frame(do.call(cbind,X))
-  ret  <- FactoMineR::GPA(Xcat, group = unlist(lapply(X,ncol)), graph = graph, ...)
-  blockScores <- blockLoadings <- list()
-  for(i in 1:length(X)){
-    usv <- svd(X[[i]] - rep(colMeans(X[[i]]), each=nrow(X[[i]])))
-    blockScores[[i]]   <- usv$u * rep(usv$d, each=nrow(X[[i]]))
-    blockLoadings[[i]] <- usv$v
-    dimnames(blockScores[[i]])   <- list(rownames(X[[i]]), paste0('Comp ',1:ncol(blockScores[[i]])))
-    dimnames(blockLoadings[[i]]) <- list(colnames(X[[i]]), paste0('Comp ',1:ncol(blockScores[[i]])))
-    explvar <- 100*(usv$d^2/sum(usv$d^2)); names(explvar) <- paste0('Comp ',1:ncol(blockScores[[i]]))
-    attr(blockScores[[i]], 'explvar') <- attr(blockLoadings[[i]], 'explvar') <- explvar
+  if("FactoMineR" %in% rownames(installed.packages())){
+#    import::from(FactoMineR, GPA)
+    Xcat <- as.data.frame(do.call(cbind,X))
+    ret  <- FactoMineR::GPA(Xcat, group = unlist(lapply(X,ncol)), graph = graph, ...)
+    blockScores <- blockLoadings <- list()
+    for(i in 1:length(X)){
+      usv <- svd(X[[i]] - rep(colMeans(X[[i]]), each=nrow(X[[i]])))
+      blockScores[[i]]   <- usv$u * rep(usv$d, each=nrow(X[[i]]))
+      blockLoadings[[i]] <- usv$v
+      dimnames(blockScores[[i]])   <- list(rownames(X[[i]]), paste0('Comp ',1:ncol(blockScores[[i]])))
+      dimnames(blockLoadings[[i]]) <- list(colnames(X[[i]]), paste0('Comp ',1:ncol(blockScores[[i]])))
+      explvar <- 100*(usv$d^2/sum(usv$d^2)); names(explvar) <- paste0('Comp ',1:ncol(blockScores[[i]]))
+      attr(blockScores[[i]], 'explvar') <- attr(blockLoadings[[i]], 'explvar') <- explvar
+    }
+    names(blockScores) <- names(blockLoadings) <- names(X)
+    scores   <- ret$consensus
+    loadings <- diag(ncol(ret$consensus))
+    dimnames(scores)   <- list(rownames(X[[1]]), paste0('Comp ',1:ncol(scores)))
+    dimnames(loadings) <- list(paste0('Dummy ',1:ncol(scores)), paste0('Comp ',1:ncol(scores)))
+    info <- list(method = "Generalised Procrustes Analysis", 
+                 scores = "Consensus scores", loadings = "Not used",
+                 blockScores = "PCA scores", blockLoadings = "PCA loadings")
+    obj <- list(scores = scores, loadings = loadings, 
+                blockScores = blockScores, blockLoadings = blockLoadings, 
+                info = info, GPA = ret, call = match.call(), data = list(X = X))
+    class(obj) <- c('multiblock','list')
+  } else {
+    obj <- .missing.import(X)
+    obj$call = match.call()
+    cat("To run 'gpa', please install the 'FactoMineR' package, e.g., using\ninstall.packages('FactoMineR')\n")
   }
-  names(blockScores) <- names(blockLoadings) <- names(X)
-  scores   <- ret$consensus
-  loadings <- diag(ncol(ret$consensus))
-  dimnames(scores)   <- list(rownames(X[[1]]), paste0('Comp ',1:ncol(scores)))
-  dimnames(loadings) <- list(paste0('Dummy ',1:ncol(scores)), paste0('Comp ',1:ncol(scores)))
-  info <- list(method = "Generalised Procrustes Analysis", 
-               scores = "Consensus scores", loadings = "Not used",
-               blockScores = "PCA scores", blockLoadings = "PCA loadings")
-  obj <- list(scores = scores, loadings = loadings, 
-              blockScores = blockScores, blockLoadings = blockLoadings, 
-              info = info, GPA = ret, call = match.call(), data = list(X = X))
-  class(obj) <- c('multiblock','list')
   return(obj)
 }
 
@@ -369,29 +388,36 @@ gpa <- function(X, graph = FALSE, ...){
 #' Common functions for computation and extraction of results and plotting are found in \code{\link{multiblock_results}} and \code{\link{multiblock_plots}}, respectively.
 #' @export
 mfa <- function(X, type = rep("c", length(X)), graph = FALSE, ...){
-  ret <- FactoMineR::MFA(as.data.frame(do.call(cbind,X)), unlist(lapply(X,ncol)), type = type, graph = graph, ...)
-  info <- list(method = "Multiple Factor Analysis", 
-               scores = "Global scores", loadings = "Global loadings",
-               blockScores = "Individual PCA scores", blockLoadings = "Individual PCA loadings")
-  blockLoadings <- lapply(ret$separate.analyses, function(x)x$svd$V)
-  blockScores   <- lapply(ret$separate.analyses, function(x)x$ind$coord)
-  for(i in 1:length(X))
-    rownames(blockLoadings[[i]]) <- colnames(X[[i]])
-  names(blockLoadings) <- names(blockScores) <- names(X)
-  obj <- list(scores = ret$ind$coord, loadings = ret$global.pca$svd$V,
-              blockScores   = blockScores,
-              blockLoadings = blockLoadings,
-              info = info, MFA = ret, call = match.call())
-  colnames(obj$scores) <- colnames(obj$loadings) <- paste0('Comp ', 1:ncol(obj$scores))
-  rownames(obj$loadings) <- unlist(lapply(blockLoadings, rownames))
-  obj$explvar <- attr(obj$scores, 'explvar') <- attr(obj$loadings, 'explvar') <- 100*(ret$global.pca$svd$vs^2/sum(ret$global.pca$svd$vs))
-  for(i in 1:length(X)){
-    explvar <- 100*(ret$separate.analyses[[i]]$svd$vs^2/sum(ret$separate.analyses[[i]]$svd$vs^2))
-    attr(obj$blockScores[[i]], 'explvar') <- attr(obj$blockLoadings[[i]], 'explvar') <- explvar
-    colnames(obj$blockScores[[i]]) <- colnames(obj$blockLoadings[[i]]) <- paste0('Comp ',1:ncol(obj$blockScores[[i]]))
+  if("FactoMineR" %in% rownames(installed.packages())){
+#    import::from(FactoMineR, MFA)
+    ret <- FactoMineR::MFA(as.data.frame(do.call(cbind,X)), unlist(lapply(X,ncol)), type = type, graph = graph, ...)
+    info <- list(method = "Multiple Factor Analysis", 
+                 scores = "Global scores", loadings = "Global loadings",
+                 blockScores = "Individual PCA scores", blockLoadings = "Individual PCA loadings")
+    blockLoadings <- lapply(ret$separate.analyses, function(x)x$svd$V)
+    blockScores   <- lapply(ret$separate.analyses, function(x)x$ind$coord)
+    for(i in 1:length(X))
+      rownames(blockLoadings[[i]]) <- colnames(X[[i]])
+    names(blockLoadings) <- names(blockScores) <- names(X)
+    obj <- list(scores = ret$ind$coord, loadings = ret$global.pca$svd$V,
+                blockScores   = blockScores,
+                blockLoadings = blockLoadings,
+                info = info, MFA = ret, call = match.call())
+    colnames(obj$scores) <- colnames(obj$loadings) <- paste0('Comp ', 1:ncol(obj$scores))
+    rownames(obj$loadings) <- unlist(lapply(blockLoadings, rownames))
+    obj$explvar <- attr(obj$scores, 'explvar') <- attr(obj$loadings, 'explvar') <- 100*(ret$global.pca$svd$vs^2/sum(ret$global.pca$svd$vs))
+    for(i in 1:length(X)){
+      explvar <- 100*(ret$separate.analyses[[i]]$svd$vs^2/sum(ret$separate.analyses[[i]]$svd$vs^2))
+      attr(obj$blockScores[[i]], 'explvar') <- attr(obj$blockLoadings[[i]], 'explvar') <- explvar
+      colnames(obj$blockScores[[i]]) <- colnames(obj$blockLoadings[[i]]) <- paste0('Comp ',1:ncol(obj$blockScores[[i]]))
+    }
+    obj$data <- list(X = X)
+    class(obj) <- c('multiblock','list')
+  } else {
+    obj <- .missing.import(X)
+    obj$call = match.call()
+    cat("To run 'mfa', please install the 'FactoMineR' package, e.g., using\ninstall.packages('FactoMineR')\n")
   }
-  obj$data <- list(X = X)
-  class(obj) <- c('multiblock','list')
   return(obj)
 }
 
@@ -501,7 +527,7 @@ pcagca <- function(X, commons=2, auto=TRUE, auto.par=list(explVarLim=40, rLim=0.
       nc <- which(gcaComp$cor>auto.par$rLim & rowMeans(explVarX)>auto.par$explVarLim )
       ncommon[[i]] <- nc
     }
-
+    
     if((!length(ncommon[[i]])==0) && ncommon[[i]]>0){
       R <- c(R, gcaComp$cor[ncommon[[i]]])
       for(j in 1:length(commons[[i]])){
@@ -511,7 +537,7 @@ pcagca <- function(X, commons=2, auto=TRUE, auto.par=list(explVarLim=40, rLim=0.
         for(k in 1:length(ncommon[[i]])){
           blockLabels[[commons[[i]][j]]] <- c(blockLabels[[commons[[i]][j]]], paste("C(", commonLabels[[i]],"), Comp ",k,sep=""))
         }
-
+        
         # Deflate basis scores
         T[[commons[[i]][j]]] <- T[[commons[[i]][j]]] - u%*%solve(crossprod(u))%*%crossprod(u,T[[commons[[i]][j]]])
       }
@@ -591,47 +617,54 @@ pcagca <- function(X, commons=2, auto=TRUE, auto.par=list(explVarLim=40, rLim=0.
 #' @seealso Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 #' @export
 disco <- function(X, ncomp = 2, ...){
-  Xc <- do.call(cbind,X)
-  ret <- RegularizedSCA::DISCOsca(Xc, ncomp, unlist(lapply(X,ncol)))
-  compNames <- character(ncomp)
-  for(i in 1:ncomp){
-    if(sum(ret$comdist[[1]][,i]) == 1)
-      compNames[i] <- paste0('Comp ', i, ', D(', which(ret$comdist[[1]][,i]==1), ')')
-    else
-      compNames[i] <- paste0('Comp ', i, ', C(', paste(which(ret$comdist[[1]][,i]==1), collapse=",", sep=""), ')')
-  }
-  blockLoadings <- list(); j <- 0
-  for(i in 1:length(X)){
-    blockLoadings[[i]] <- ret$Prot_best[[1]][j+(1:ncol(X[[i]])),,drop=FALSE]
-    j <- j+ncol(X[[i]])
-  }
-  colnames(ret$Trot_best[[1]]) <- colnames(ret$Prot_best[[1]]) <- compNames
-  for(i in 1:length(X)){
-    colnames(blockLoadings[[i]]) <- compNames
-    rownames(blockLoadings[[i]]) <- colnames(X[[i]])
-  }
-  rownames(ret$Trot_best[[1]]) <- rownames(X[[1]])
-  rownames(ret$Prot_best[[1]]) <- unlist(lapply(blockLoadings, rownames))
-  names(blockLoadings) <- names(X)
-  info <- list(method = "Distinctive and Common Components with SCA",
-               scores = "Scores", loadings = "Concatenated loadings",
-               blockScores = "Not used", blockLoadings = "Block-wise loadings")
-  obj <- list(scores = ret$Trot_best[[1]], loadings = ret$Prot_best[[1]], blockLoadings = blockLoadings,
-              info = info, DISCOsca = ret, call = match.call(), data = list(X = X))
-  xFro <- unlist(lapply(X, function(x)base::norm(scale(x,scale=FALSE),type='F')^2))
-  explvar <- obj$DISCOsca$propExp_component[[1]]
-  for(j in 1:dim(explvar)[1]){
-    x <- scale(X[[j]], scale=FALSE)
+  if("RegularizedSCA" %in% rownames(installed.packages())){
+#    import::from(RegularizedSCA, DISCOsca)
+    Xc <- do.call(cbind,X)
+    ret <- RegularizedSCA::DISCOsca(Xc, ncomp, unlist(lapply(X,ncol)))
+    compNames <- character(ncomp)
     for(i in 1:ncomp){
-      explvar[j,i] <- 100-norm(x-obj$scores[,i,drop=FALSE]%*%t(obj$blockLoadings[[j]][,i,drop=FALSE]),type="F")^2/xFro[j]*100
+      if(sum(ret$comdist[[1]][,i]) == 1)
+        compNames[i] <- paste0('Comp ', i, ', D(', which(ret$comdist[[1]][,i]==1), ')')
+      else
+        compNames[i] <- paste0('Comp ', i, ', C(', paste(which(ret$comdist[[1]][,i]==1), collapse=",", sep=""), ')')
     }
+    blockLoadings <- list(); j <- 0
+    for(i in 1:length(X)){
+      blockLoadings[[i]] <- ret$Prot_best[[1]][j+(1:ncol(X[[i]])),,drop=FALSE]
+      j <- j+ncol(X[[i]])
+    }
+    colnames(ret$Trot_best[[1]]) <- colnames(ret$Prot_best[[1]]) <- compNames
+    for(i in 1:length(X)){
+      colnames(blockLoadings[[i]]) <- compNames
+      rownames(blockLoadings[[i]]) <- colnames(X[[i]])
+    }
+    rownames(ret$Trot_best[[1]]) <- rownames(X[[1]])
+    rownames(ret$Prot_best[[1]]) <- unlist(lapply(blockLoadings, rownames))
+    names(blockLoadings) <- names(X)
+    info <- list(method = "Distinctive and Common Components with SCA",
+                 scores = "Scores", loadings = "Concatenated loadings",
+                 blockScores = "Not used", blockLoadings = "Block-wise loadings")
+    obj <- list(scores = ret$Trot_best[[1]], loadings = ret$Prot_best[[1]], blockLoadings = blockLoadings,
+                info = info, DISCOsca = ret, call = match.call(), data = list(X = X))
+    xFro <- unlist(lapply(X, function(x)base::norm(scale(x,scale=FALSE),type='F')^2))
+    explvar <- obj$DISCOsca$propExp_component[[1]]
+    for(j in 1:dim(explvar)[1]){
+      x <- scale(X[[j]], scale=FALSE)
+      for(i in 1:ncomp){
+        explvar[j,i] <- 100-norm(x-obj$scores[,i,drop=FALSE]%*%t(obj$blockLoadings[[j]][,i,drop=FALSE]),type="F")^2/xFro[j]*100
+      }
+    }
+    dimnames(explvar) <- list(names(X),colnames(obj$loadings))
+    for(i in 1:length(X)){
+      attr(obj$blockLoadings[[i]], 'explvar') <- explvar[i,] # diff(c(0,obj$DISCOsca$propExp_component[[1]][i,]))/xFro[[i]]*100
+    }
+    obj$explvar <- attr(obj$scores, "explvar") <- attr(obj$loadings, "explvar") <- explvar#diff(c(0,diag(crossprod(obj$loadings))))/sum(xFro)*100
+    class(obj) <- c("multiblock","list")
+  } else {
+    obj <- .missing.import(X)
+    obj$call = match.call()
+    cat("To run 'disco', please install the 'RegularizedSCA' package, e.g., using\ninstall.packages('RegularizedSCA')\n")
   }
-  dimnames(explvar) <- list(names(X),colnames(obj$loadings))
-  for(i in 1:length(X)){
-    attr(obj$blockLoadings[[i]], 'explvar') <- explvar[i,] # diff(c(0,obj$DISCOsca$propExp_component[[1]][i,]))/xFro[[i]]*100
-  }
-  obj$explvar <- attr(obj$scores, "explvar") <- attr(obj$loadings, "explvar") <- explvar#diff(c(0,diag(crossprod(obj$loadings))))/sum(xFro)*100
-  class(obj) <- c("multiblock","list")
   return(obj)
 }
 
@@ -664,34 +697,41 @@ disco <- function(X, ncomp = 2, ...){
 #' Common functions for computation and extraction of results and plotting are found in \code{\link{multiblock_results}} and \code{\link{multiblock_plots}}, respectively.
 #' @export
 hpca <- function(X, ncomp=2, scale=FALSE, verbose=FALSE, ...){
-  n_block <- length(X)
-  if(length(ncomp)==1){ ncomp <- rep(ncomp,n_block+1) }
-  X <- lapply(X, function(i) scale(i, scale = FALSE))
-  X[[n_block+1]] <- do.call(cbind, X)
-  C <- matrix(0, n_block+1, n_block+1)
-  C[n_block+1,1:n_block] <- 1; C[1:n_block,n_block+1] <- 1
-  res <- RGCCA::rgcca(A = X, C = C, tau=c(rep(1,n_block),0), scale = scale, ncomp=ncomp, scheme = function(x) x^4, verbose = verbose, ...)
-  # A = scores and superscore (last), B = loadings and superloadings (last)
-  info <- list(method = "Hierarchical PCA",
-               scores = "Super scores", loadings = "Super loadings",
-               blockScores = "Block scores", blockLoadings = "Block loadings")
-  scores   <- X[[n_block+1]]%*%res$astar[[n_block+1]]
-  loadings <- res$astar[[n_block+1]]
-  colnames(scores) <- colnames(loadings) <- paste0('Comp ', 1:ncomp[1])
-  blockScores   <- colnamesList(lapply(1:n_block, function(i)X[[i]]%*%res$astar[[i]]), paste0('Comp ', 1:ncomp[1]))
-  blockLoadings <- colnamesList(res$astar[1:n_block], paste0('Comp ', 1:ncomp[1]))
-  for(i in 1:n_block)
-    rownames(blockLoadings[[i]]) <- colnames(X[[i]])
-  names(blockScores) <- names(blockLoadings) <- names(X[1:n_block])
-  obj <- list(scores = scores, loadings = loadings, 
-              blockScores = blockScores, blockLoadings = blockLoadings, X = X, 
-              info = info, rgcca = res, call = match.call())
-  for(i in 1:n_block){
-    attr(obj$blockScores[[i]], "explvar") <- attr(obj$blockLoadings[[i]], "explvar") <- obj$rgcca$AVE$AVE_X[[i]]
+  if("RGCCA" %in% rownames(installed.packages())){
+#    import::from(RGCCA, rgcca)
+    n_block <- length(X)
+    if(length(ncomp)==1){ ncomp <- rep(ncomp,n_block+1) }
+    X <- lapply(X, function(i) scale(i, scale = FALSE))
+    X[[n_block+1]] <- do.call(cbind, X)
+    C <- matrix(0, n_block+1, n_block+1)
+    C[n_block+1,1:n_block] <- 1; C[1:n_block,n_block+1] <- 1
+    res <- RGCCA::rgcca(blocks = X, connection = C, tau=c(rep(1,n_block),0), scale = scale, ncomp=ncomp, scheme = function(x) x^4, verbose = verbose, ...)
+    # A = scores and superscore (last), B = loadings and superloadings (last)
+    info <- list(method = "Hierarchical PCA",
+                 scores = "Super scores", loadings = "Super loadings",
+                 blockScores = "Block scores", blockLoadings = "Block loadings")
+    scores   <- X[[n_block+1]]%*%res$astar[[n_block+1]]
+    loadings <- res$astar[[n_block+1]]
+    colnames(scores) <- colnames(loadings) <- paste0('Comp ', 1:ncomp[1])
+    blockScores   <- colnamesList(lapply(1:n_block, function(i)X[[i]]%*%res$astar[[i]]), paste0('Comp ', 1:ncomp[1]))
+    blockLoadings <- colnamesList(res$astar[1:n_block], paste0('Comp ', 1:ncomp[1]))
+    for(i in 1:n_block)
+      rownames(blockLoadings[[i]]) <- colnames(X[[i]])
+    names(blockScores) <- names(blockLoadings) <- names(X[1:n_block])
+    obj <- list(scores = scores, loadings = loadings, 
+                blockScores = blockScores, blockLoadings = blockLoadings, X = X, 
+                info = info, rgcca = res, call = match.call())
+    for(i in 1:n_block){
+      attr(obj$blockScores[[i]], "explvar") <- attr(obj$blockLoadings[[i]], "explvar") <- obj$rgcca$AVE$AVE_X[[i]]
+    }
+    obj$explvar <- res$AVE_outer_model
+    obj$data <- list(X = X)
+    class(obj) <- c("multiblock","list")
+  } else {
+    obj <- .missing.import(X)
+    obj$call = match.call()
+    cat("To run 'hpca', please install the 'RGCCA' package, e.g., using\ninstall.packages('RGCCA')\n")
   }
-  obj$explvar <- res$AVE_outer_model
-  obj$data <- list(X = X)
-  class(obj) <- c("multiblock","list")
   return(obj)
 }
 
@@ -726,35 +766,42 @@ hpca <- function(X, ncomp=2, scale=FALSE, verbose=FALSE, ...){
 #' Common functions for computation and extraction of results and plotting are found in \code{\link{multiblock_results}} and \code{\link{multiblock_plots}}, respectively.
 #' @export
 mcoa <- function(X, ncomp=2, scale=FALSE, verbose=FALSE, ...){
-  n_block <- length(X)
-  if(length(ncomp)==1){ ncomp <- rep(ncomp,n_block+1) }
-  X <- lapply(X, function(i) scale(i, scale = FALSE))
-  X[[n_block+1]] <- do.call(cbind, X)
-  C <- matrix(0, n_block+1, n_block+1)
-  C[n_block+1,1:n_block] <- 1; C[1:n_block,n_block+1] <- 1
-  res <- RGCCA::rgcca(A = X, C = C, tau=c(rep(1,n_block),0), verbose = verbose, scale = scale, ncomp=ncomp, scheme = "factorial", ...)
-  # A = coefficients and global coefficients
-  # return(list(A = res$astar, B = NULL, X = X, rgcca = res))
-  info <- list(method = "Multiple Co-Inertia Analysis",
-               scores = "Super scores", loadings = "Super loadings",
-               blockScores = "Block scores", blockLoadings = "Block loadings")
-  scores   <- X[[n_block+1]]%*%res$astar[[n_block+1]]
-  loadings <- res$astar[[n_block+1]]
-  colnames(scores) <- colnames(loadings) <- paste0('Comp ', 1:ncomp[1])
-  blockScores   <- colnamesList(lapply(1:n_block, function(i)X[[i]]%*%res$astar[[i]]), paste0('Comp ', 1:ncomp[1]))
-  blockLoadings <- colnamesList(res$astar[1:n_block], paste0('Comp ', 1:ncomp[1]))
-  for(i in 1:n_block)
-    rownames(blockLoadings[[i]]) <- colnames(X[[i]])
-  names(blockScores) <- names(blockLoadings) <- names(X[1:n_block])
-  obj <- list(scores = scores, loadings = loadings, 
-              blockScores = blockScores, blockLoadings = blockLoadings, X = X, 
-              info = info, rgcca = res, call = match.call())
-  for(i in 1:n_block){
-    attr(obj$blockScores[[i]], "explvar") <- attr(obj$blockLoadings[[i]], "explvar") <- obj$rgcca$AVE$AVE_X[[i]]
+  if("RGCCA" %in% rownames(installed.packages())){
+#    import::from(RGCCA, rgcca)
+    n_block <- length(X)
+    if(length(ncomp)==1){ ncomp <- rep(ncomp,n_block+1) }
+    X <- lapply(X, function(i) scale(i, scale = FALSE))
+    X[[n_block+1]] <- do.call(cbind, X)
+    C <- matrix(0, n_block+1, n_block+1)
+    C[n_block+1,1:n_block] <- 1; C[1:n_block,n_block+1] <- 1
+    res <- RGCCA::rgcca(blocks = X, connection = C, tau=c(rep(1,n_block),0), verbose = verbose, scale = scale, ncomp=ncomp, scheme = "factorial", ...)
+    # A = coefficients and global coefficients
+    # return(list(A = res$astar, B = NULL, X = X, rgcca = res))
+    info <- list(method = "Multiple Co-Inertia Analysis",
+                 scores = "Super scores", loadings = "Super loadings",
+                 blockScores = "Block scores", blockLoadings = "Block loadings")
+    scores   <- X[[n_block+1]]%*%res$astar[[n_block+1]]
+    loadings <- res$astar[[n_block+1]]
+    colnames(scores) <- colnames(loadings) <- paste0('Comp ', 1:ncomp[1])
+    blockScores   <- colnamesList(lapply(1:n_block, function(i)X[[i]]%*%res$astar[[i]]), paste0('Comp ', 1:ncomp[1]))
+    blockLoadings <- colnamesList(res$astar[1:n_block], paste0('Comp ', 1:ncomp[1]))
+    for(i in 1:n_block)
+      rownames(blockLoadings[[i]]) <- colnames(X[[i]])
+    names(blockScores) <- names(blockLoadings) <- names(X[1:n_block])
+    obj <- list(scores = scores, loadings = loadings, 
+                blockScores = blockScores, blockLoadings = blockLoadings, X = X, 
+                info = info, rgcca = res, call = match.call())
+    for(i in 1:n_block){
+      attr(obj$blockScores[[i]], "explvar") <- attr(obj$blockLoadings[[i]], "explvar") <- obj$rgcca$AVE$AVE_X[[i]]
+    }
+    obj$explvar <- res$AVE_outer_model
+    obj$data <- list(X = X)
+    class(obj) <- c("multiblock","list")
+  } else {
+    obj <- .missing.import(X)
+    obj$call = match.call()
+    cat("To run 'mcoa', please install the 'RGCCA' package, e.g., using\ninstall.packages('RGCCA')\n")
   }
-  obj$explvar <- res$AVE_outer_model
-  obj$data <- list(X = X)
-  class(obj) <- c("multiblock","list")
   return(obj)
 }
 
@@ -774,16 +821,24 @@ mcoa <- function(X, ncomp=2, scale=FALSE, verbose=FALSE, ...){
 #' 
 #' @examples 
 #' \donttest{ # Too time consuming for testing
-#' data(candies)
-#' candyList <- lapply(1:nlevels(candies$candy),function(x)candies$assessment[candies$candy==x,])
-#' can.jive  <- jive(candyList)
-#' summary(can.jive)
+#'   data(candies)
+#'   candyList <- lapply(1:nlevels(candies$candy),function(x)candies$assessment[candies$candy==x,])
+#'   can.jive  <- jive(candyList)
+#'   summary(can.jive)
 #' }
 #' 
 #' @seealso Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 #' @export
 jive <- function(X, ...){
-  r.jive::jive(X, ...)
+  if("r.jive" %in% rownames(installed.packages())){
+#    import::from(r.jive, jive)
+    return(r.jive::jive(X, ...))
+  } else {
+    mod <- .missing.import(X)
+    mod$call = match.call()
+    cat("To run 'jive', please install the 'r.jive' package, e.g., using\ninstall.packages('r.jive')\n")
+    return(mod)
+  }
 }
 
 #' Structuration des Tableaux à Trois Indices de la Statistique - STATIS
@@ -814,25 +869,32 @@ jive <- function(X, ...){
 #' Common functions for computation and extraction of results and plotting are found in \code{\link{multiblock_results}} and \code{\link{multiblock_plots}}, respectively.
 #' @export
 statis <- function(X, ncomp = 3, scannf = FALSE, tol = 1e-07, ...){
-  X_frame  <- as.data.frame(do.call(rbind, X))
-  X_factor <- factor(unlist(lapply(1:length(X), function(x)rep(x,nrow(X[[x]])))))
-  kta <- ktab.within(withinpca(X_frame, X_factor, scannf=scannf, nf=ncomp))
-  ret <- ade4::statis(kta, scannf=scannf, nf=ncomp, tol=tol)
-  scores <- as.matrix(ret$C.Co); loadings <- as.matrix(ret$C.li)
-  blockScores <- list(); j <- 0
-  for(i in 1:length(X)){
-    blockScores[[i]] <- scores[j+(1:nrow(X[[i]])),,drop=FALSE]; j <- j+nrow(X[[i]])
-  }
-  names(blockScores) <- names(X)
-  colnames(scores) <- colnames(loadings) <- paste0('Comp ', 1:ncomp)
-  blockScores <- colnamesList(blockScores, paste0('Comp ', 1:ncomp))
-  info <- list(method = "STATIS",
-               scores = "Concatenated scores", loadings = "Loadings",
-               blockScores = "Block-wise scores", blockLoadings = "Not used")
-  obj <- list(scores = scores, loadings = loadings, blockScores = blockScores,
-              info = info, statis = ret, call = match.call())
-  obj$data <- list(X = X)
-  class(obj) <- c("multiblock","list")
+#  if("ade4" %in% rownames(installed.packages())){
+    X_frame  <- as.data.frame(do.call(rbind, X))
+    X_factor <- factor(unlist(lapply(1:length(X), function(x)rep(x,nrow(X[[x]])))))
+    kta <- ktab.within(withinpca(X_frame, X_factor, scannf=scannf, nf=ncomp))
+    ret <- ade4::statis(kta, scannf=scannf, nf=ncomp, tol=tol)
+    scores <- as.matrix(ret$C.Co); loadings <- as.matrix(ret$C.li)
+    blockScores <- list(); j <- 0
+    for(i in 1:length(X)){
+      blockScores[[i]] <- scores[j+(1:nrow(X[[i]])),,drop=FALSE]; j <- j+nrow(X[[i]])
+    }
+    names(blockScores) <- names(X)
+    colnames(scores) <- colnames(loadings) <- paste0('Comp ', 1:ncomp)
+    blockScores <- colnamesList(blockScores, paste0('Comp ', 1:ncomp))
+    info <- list(method = "STATIS",
+                 scores = "Concatenated scores", loadings = "Loadings",
+                 blockScores = "Block-wise scores", blockLoadings = "Not used")
+    obj <- list(scores = scores, loadings = loadings, blockScores = blockScores,
+                info = info, statis = ret, call = match.call())
+    obj$data <- list(X = X)
+    class(obj) <- c("multiblock","list")
+#  } else {
+#    obj <- .missing.import(X)
+#    obj$statis <- 0
+#    obj$call = match.call()
+#    cat("To run 'statis', please install the 'ade4' package, e.g., using\ninstall.packages('ade4')\n")
+#  }
   return(obj)
   # Has plot and print in ade4
   # Clustatis in https://cran.r-project.org/web/packages/ClustBlock/ClustBlock.pdf
@@ -906,3 +968,15 @@ hogsvd  <- function(X){
   class(obj) <- c("multiblock","list")
   return(obj)
 }
+
+.missing.import <- function(X){
+  mat <- structure(matrix(0,2,2), dimnames = list(1:2, 1:2))
+  blocks <- list()
+  for(i in 1:length(X))
+    blocks[[i]] <- mat
+  structure(list(loadings=mat, blockScores=blocks, scores=mat, blockScores=blocks, 
+                 info = list(method = "Nothing computed",
+                             scores = "Not used", loadings = "Not used",
+                             blockScores = "Not used", blockLoadings = "Not used")), 
+            #            call = eval.parent(match.call())), 
+            class=c("multiblock","list"))}

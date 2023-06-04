@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">multiblock</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.8.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.8.6</span>
       </span>
     </div>
 
@@ -87,6 +87,7 @@
 <span>  pch.projections <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  gr.col <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nlevels.html" class="external-link">nlevels</a></span><span class="op">(</span><span class="va">object</span><span class="op">$</span><span class="va">effects</span><span class="op">[[</span><span class="va">factor</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>,</span>
 <span>  <span class="va">ellipsoids</span>,</span>
+<span>  <span class="va">confidence</span>,</span>
 <span>  <span class="va">xlim</span>,</span>
 <span>  <span class="va">ylim</span>,</span>
 <span>  <span class="va">xlab</span>,</span>
@@ -128,6 +129,10 @@
 
 <dt>ellipsoids</dt>
 <dd><p><code>character</code> "confidence" or "data" ellipsoids for balanced fixed effect models.</p></dd>
+
+
+<dt>confidence</dt>
+<dd><p><code>numeric</code> vector of ellipsoid confidences, default = c(0.4, 0.68, 0.95).</p></dd>
 
 
 <dt>xlim</dt>

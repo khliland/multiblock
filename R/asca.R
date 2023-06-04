@@ -45,7 +45,7 @@
 #' 
 #' # Result plotting for first factor
 #' loadingplot(mod, scatter=TRUE, labels="names")
-#' scoreplot(mod)
+#' scoreplot(mod, ellipsoids = "confidence")
 #' 
 #' # ASCA model with compressed response using 5 principal components
 #' mod.pca <- asca(assessment ~ candy + assessor, data=candies, pca.in=5)
