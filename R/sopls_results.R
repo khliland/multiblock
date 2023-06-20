@@ -348,6 +348,8 @@ pcp <- function (object, ...) {
 pcp.sopls <- function(object, ncomp, ...){
   if(is.null(object$validation))
     stop("The 'sopls' object has been created without validation")
+  if(missing(ncomp))
+    stop("The argument 'ncomp' must be supplied.")
 
   compName <- paste0(ncomp, collapse = ",")
   preds <- object$validation$Ypred[,,compName,drop=FALSE]
@@ -450,4 +452,13 @@ summary.cvanova <- function(object, ...){
 #' @export
 plot.cvanova <- function(x, ...){
   plot(x$tukey)
+}
+
+#' @rdname sopls_results
+#' @export
+residuals.sopls <- function(object, ...){
+  res <- object$fitted
+  for(j in 1:dim(res)[3])
+    res[,,j] <- object$data$Y - object$fitted[,,j]
+  return(res)
 }

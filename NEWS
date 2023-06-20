@@ -5,6 +5,10 @@ This implements and imports a large collection of methods for multiblock data an
 functions, several real data sets and six vignettes covering a range different applications.
 Kristian Hovde Liland
 
+##### Version 0.8.7
+Date: ?? June 2023
+>> Added block.preprocess to perform block-wise preprocessing of data.
+
 ##### Version 0.8.6
 Date: 04 June 2023
 >> Moved several packages to Suggests and added conditional loading.

@@ -87,13 +87,11 @@ sopls <- function(formula, ncomp, max_comps = min(sum(ncomp), 20), data,
   X <- lapply(X, function(x)if(is.factor(x)){return(dummycode(x))}else{return(x)})
   Xmeans <- Xscale <- list()
   for(i in 1:length(X)){
-#   X[[i]] <- M[, blockColumns==i, drop=FALSE]
    Xmeans[[i]] <- apply(X[[i]],2,mean)
    if(scale){
      Xscale[[i]] <- apply(X[[i]],2,sd)
    }
   }
-#  names(X) <- colnames(mf)[-1]
   X.concat <- do.call(cbind,X)
   # Check for missing dimnames
   if(is.null(rownames(X.concat)))
@@ -118,7 +116,8 @@ sopls <- function(formula, ncomp, max_comps = min(sum(ncomp), 20), data,
   ## Fit the SO-PLS model
   object <- sopls_modelling(X, Y, ncomp, max_comps, Xscale)
   object$fitted <- object$decomp$Ypred; object$decomp$Ypred <- NULL
-  
+  rownames(object$fitted) <- rownames(mf[-1])
+
   ## Validation
   Xs <- X
   if(scale){

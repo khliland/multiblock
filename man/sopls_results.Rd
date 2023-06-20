@@ -19,6 +19,7 @@
 \alias{print.cvanova}
 \alias{summary.cvanova}
 \alias{plot.cvanova}
+\alias{residuals.sopls}
 \title{Result functions for SO-PLS models}
 \usage{
 \method{predict}{sopls}(
@@ -67,6 +68,8 @@ cvanova(pred, ...)
 \method{summary}{cvanova}(object, ...)
 
 \method{plot}{cvanova}(x, ...)
+
+\method{residuals}{sopls}(object, ...)
 }
 \arguments{
 \item{object}{A \code{sopls} object.}

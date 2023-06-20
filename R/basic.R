@@ -60,7 +60,8 @@ pca <- function(X, scale=FALSE, ncomp=1, ...){
   X <- as.matrix(unclass(X))
   if(!inherits(X,'matrix'))
     stop("'X' must be a matrix")
-  dat <- list(y=rnorm(nrow(X)), X = I(X))
+  y   <- structure(matrix(rnorm(nrow(X)), ncol=1), rownames = rownames(X))
+  dat <- data.frame(y=y, X = I(X))
   PCR <- pls::pcr(y ~ X, ncomp = ncomp, data = dat, scale = scale, ...)
   mod <- list(loadings=PCR$loadings, scores=PCR$scores, Xmeans=PCR$Xmeans, explvar=PCR$Xvar/PCR$Xtotvar*100, PCA = PCR)
   attr(mod$loadings, 'explvar') <- attr(mod$scores, 'explvar') <- mod$explvar
