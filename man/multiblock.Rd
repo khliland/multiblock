@@ -3,6 +3,7 @@
 \docType{package}
 \name{multiblock}
 \alias{multiblock}
+\alias{multiblock-package}
 \title{multiblock}
 \description{
 A collection of methods for analysis of data sets with more than two blocks of data.
@@ -70,3 +71,14 @@ A collection of methods for analysis of data sets with more than two blocks of d
 \seealso{
 Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 }
+\author{
+\strong{Maintainer}: Kristian Hovde Liland \email{kristian.liland@nmbu.no} (\href{https://orcid.org/0000-0001-6468-9423}{ORCID})
+
+Other contributors:
+\itemize{
+  \item Solve Sæbø [contributor]
+  \item Stefan Schrunner [reviewer]
+}
+
+}
+\keyword{internal}

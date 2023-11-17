@@ -56,6 +56,14 @@ potato <- block.preprocess(potato, block = "Sensory", "center")
 # Scale all blocks to unit Frobenius norm
 potato <- block.preprocess(potato, fun = "Fro")
 
+# Effect of SNV
+NIR <- (potato$NIRraw + rnorm(26)) * rnorm(26,1,0.2)
+NIRc <- block.preprocess(list(NIR), fun = "SNV")[[1]]
+old.par <- par(mfrow = c(2,1), mar = c(4,4,1,1))
+matplot(t(NIR), type="l", main = "uncorrected", ylab = "")
+matplot(t(NIRc), type="l", main = "corrected", ylab = "")
+par(old.par)
+
 }
 \seealso{
 Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.

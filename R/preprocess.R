@@ -74,7 +74,7 @@ block.preprocess <- function(X, block = 1:length(X),
       X[[b]] <- t(scale(t(X[[b]])))
     if(fun == "EMSC"){
         if("EMSC" %in% rownames(installed.packages())){
-          X[[b]] <- EMSC(X[[b]], ...)$corrected
+          X[[b]] <- EMSC::EMSC(X[[b]], ...)$corrected
         } else {
         stop("To preprocess with 'EMSC', please install the 'EMSC' package, e.g., using\ninstall.packages('EMSC')\nand rerun this function\n")
       }

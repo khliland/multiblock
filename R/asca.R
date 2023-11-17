@@ -141,7 +141,7 @@ asca <- function(formula, data, subset, weights, na.action, family, pca.in = FAL
   M      <- model.matrix(ano)
   effs   <- attr(terms(ano), "term.labels")
   assign <- attr(M, "assign")
-  modFra <- model.frame(ano)
+  modFra <- extended.model.frame(model.frame(ano), data)
   
   # Exclude numeric effects and their interactions
   nums   <- names(unlist(lapply(modFra, class)))[which(unlist(lapply(modFra, class)) %in% c("numeric","integer"))]

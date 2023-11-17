@@ -55,4 +55,5 @@
 #' @importFrom utils installed.packages
 #' @docType package
 #' @name multiblock
-NULL
+#' @keywords internal
+"_PACKAGE"

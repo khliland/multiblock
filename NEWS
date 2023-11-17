@@ -6,8 +6,9 @@ functions, several real data sets and six vignettes covering a range different a
 Kristian Hovde Liland
 
 ##### Version 0.8.7
-Date: ?? June 2023
+Date: 17 November 2023
 >> Added block.preprocess to perform block-wise preprocessing of data.
+>> Added _PACKAGE to conform to changed roxygen2.
 
 ##### Version 0.8.6
 Date: 04 June 2023
