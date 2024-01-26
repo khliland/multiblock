@@ -3,13 +3,15 @@
 #' @description This is a basic implementation of PO-PLS with manual and automatic component selections.
 #' 
 #' @details PO-PLS decomposes a set of input data blocks into common, local and distinct components
-#' through a process involving \code{\link{pls}} and \code{\link{gca}}.
+#' through a process involving \code{\link{pls}} and \code{\link{gca}}. The \code{rLim} parameter is 
+#' a lower bound for the GCA correlation when building common components, while explVarLim is the minimum
+#' explained variance for common components and unique components.
 #' 
 #' @param X \code{list} of input blocks
 #' @param Y \code{matrix} of response variable(s)
 #' @param commons \code{numeric} giving the highest number of blocks to combine when calculating local or common scores.
 #' @param auto \code{logical} indicating if automatic choice of complexities should be used.
-#' @param auto.par \code{named list} setting limits for automatic choice of complexities.
+#' @param auto.par \code{named list} setting limits for automatic choice of complexities. See Details.
 #' @param manual.par \code{named list} for manual choice of blocks. The list consists of \code{ncomp} which indicates the number of components to extract from each block and \code{ncommon} which is the corresponding for choosing the block combinations (local/common). For the latter, use unique_combos(n_blocks, commons) to see order of local/common blocks. Component numbers will be reduced if simpler models give better predictions. See example.
 #' 
 #' @return A \code{multiblock} object with block-wise, local and common loadings and scores. Relevant plotting functions: \code{\link{multiblock_plots}} 
@@ -49,7 +51,7 @@ popls <- function(X, Y, commons=2, auto=TRUE, auto.par=list(explVarLim=40, rLim=
   X <- lapply(X, scale, scale=FALSE)
   totVar <- lapply(X, function(x)sum(x^2))
   Scores <- Loadings <- explVar <- U <- T <- UC <- blockLabels <- list()
-  Y <- scale(as.matrix(Y), scale=FALSE)
+  Y.res <- Y <- scale(as.matrix(Y), scale=FALSE)
   
   # Check components
   if(auto){
@@ -97,7 +99,7 @@ popls <- function(X, Y, commons=2, auto=TRUE, auto.par=list(explVarLim=40, rLim=
     }
     blockLabels[[i]] <- character(0)
   }
-  
+
   # Common components from GCA
   n_common <- length(commons)
   R <- numeric(0)
@@ -134,6 +136,9 @@ popls <- function(X, Y, commons=2, auto=TRUE, auto.par=list(explVarLim=40, rLim=
         
         # Deflate basis scores
         T[[commons[[i]][j]]] <- T[[commons[[i]][j]]] - u%*%solve(crossprod(u))%*%crossprod(u,T[[commons[[i]][j]]])
+        
+        # Deflate response
+        Y.res <- Y.res - u%*%solve(crossprod(u))%*%crossprod(u,Y.res)
       }
     }
   }
@@ -141,10 +146,12 @@ popls <- function(X, Y, commons=2, auto=TRUE, auto.par=list(explVarLim=40, rLim=
   # Recompose basis into unique scores
   for(i in 1:n_block){
     x <- T[[i]]
-    pl <- plsr(Y ~ x, ncomp = ncomp[i], validation = "LOO")
+    pl <- plsr(Y.res ~ x, ncomp = ncomp[i], validation = "LOO")
     nc <- which.min(apply(RMSEP(pl)$val,3,mean))-1
-    if(nc>0)
-      Scores[[i]] <- cbind(Scores[[i]], scores(pl)[,1:nc,drop=FALSE])
+    if(nc>0){
+      uu <- scores(pl)[,1:nc,drop=FALSE]
+      Scores[[i]] <- cbind(Scores[[i]], uu/rep(sqrt(diag(crossprod(uu))), each=n))
+    }
 
     if(nc > 0){
       for(k in 1:nc){
@@ -184,7 +191,7 @@ popls <- function(X, Y, commons=2, auto=TRUE, auto.par=list(explVarLim=40, rLim=
                blockScores = "Common and distinct scores", blockLoadings = "Common and distinct loadings")
   obj <- list(blockScores=Scores, blockLoadings=Loadings, R=R, explVar=explVar, 
               ncomp=unlist(lapply(explVar, length)), ncommon=ncommon, 
-              info=info, call=match.call())
+              info=info, call=match.call(), opt.comp=ncomp)
   class(obj) <- c("multiblock","list")
   return(obj)
 }

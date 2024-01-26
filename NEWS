@@ -5,6 +5,10 @@ This implements and imports a large collection of methods for multiblock data an
 functions, several real data sets and six vignettes covering a range different applications.
 Kristian Hovde Liland
 
+##### Version 0.8.8
+Date: 26 January 2024
+>> Corrected error in POPLS leading to faulty explained variances and block scores.
+
 ##### Version 0.8.7
 Date: 17 November 2023
 >> Added block.preprocess to perform block-wise preprocessing of data.

@@ -222,7 +222,7 @@ gca.rgcca <- function(X, scale=FALSE, ncomp='max', corrs=TRUE, ...){
   C <- matrix(0, n_block+1, n_block+1)
   C[n_block+1,1:n_block] <- 1; C[1:n_block,n_block+1] <- 1
   if("RGCCA" %in% rownames(installed.packages())){
-#    import::from(RGCCA, rgcca)
+    #    import::from(RGCCA, rgcca)
     res <- RGCCA::rgcca(blocks = X, connection = C, tau=rep(0,n_block+1), verbose = FALSE, scale = FALSE, ncomp=ncomp, scheme = "factorial", ...)
     # A = coefficients and global coefficients
     if(corrs){
@@ -323,7 +323,7 @@ gca.svd <- function(X, tol=10^-12, ncomp=1){
 #' @export
 gpa <- function(X, graph = FALSE, ...){
   if("FactoMineR" %in% rownames(installed.packages())){
-#    import::from(FactoMineR, GPA)
+    #    import::from(FactoMineR, GPA)
     Xcat <- as.data.frame(do.call(cbind,X))
     ret  <- FactoMineR::GPA(Xcat, group = unlist(lapply(X,ncol)), graph = graph, ...)
     blockScores <- blockLoadings <- list()
@@ -389,7 +389,7 @@ gpa <- function(X, graph = FALSE, ...){
 #' @export
 mfa <- function(X, type = rep("c", length(X)), graph = FALSE, ...){
   if("FactoMineR" %in% rownames(installed.packages())){
-#    import::from(FactoMineR, MFA)
+    #    import::from(FactoMineR, MFA)
     ret <- FactoMineR::MFA(as.data.frame(do.call(cbind,X)), unlist(lapply(X,ncol)), type = type, graph = graph, ...)
     info <- list(method = "Multiple Factor Analysis", 
                  scores = "Global scores", loadings = "Global loadings",
@@ -597,14 +597,14 @@ pcagca <- function(X, commons=2, auto=TRUE, auto.par=list(explVarLim=40, rLim=0.
 #' @return \code{multiblock} object including relevant scores and loadings. Relevant plotting functions: \code{\link{multiblock_plots}} 
 #' and result functions: \code{\link{multiblock_results}}.
 #' 
-#' @description This is a wrapper for the \code{RegularizedSCA::DISCOsca} function for computing DISCO.
+#' @description This is a wrapper for the \code{DISCOsca} function by Zhengguo Gu for computing DISCO.
 #' 
 #' @details DISCO is a restriction of SCA where Alternating Least Squares is used for
 #' estimation of loadings and scores. The SCA solution is rotated towards loadings (in sample linked mode) which are filled with 
 #' zeros in a pattern resembling distinct, local and common components.
 #' When used in sample linked mode and only selecting distinct components, it shares a 
 #' resemblance to SO-PLS, only in an unsupervised setting. Explained variances
-#' are computed as proportion of block varation explained by scores*loadings'.
+#' are computed as proportion of block variation explained by scores*loadings'.
 #' 
 #' @references Schouteden, M., Van Deun, K., Wilderjans, T. F., & Van Mechelen, I. (2014). Performing DISCO-SCA to search for distinctive and common information in linked data. Behavior research methods, 46(2), 576-587.
 #' 
@@ -617,54 +617,54 @@ pcagca <- function(X, commons=2, auto=TRUE, auto.par=list(explVarLim=40, rLim=0.
 #' @seealso Overviews of available methods, \code{\link{multiblock}}, and methods organised by main structure: \code{\link{basic}}, \code{\link{unsupervised}}, \code{\link{asca}}, \code{\link{supervised}} and \code{\link{complex}}.
 #' @export
 disco <- function(X, ncomp = 2, ...){
-  if("RegularizedSCA" %in% rownames(installed.packages())){
-#    import::from(RegularizedSCA, DISCOsca)
-    Xc <- do.call(cbind,X)
-    ret <- RegularizedSCA::DISCOsca(Xc, ncomp, unlist(lapply(X,ncol)))
-    compNames <- character(ncomp)
-    for(i in 1:ncomp){
-      if(sum(ret$comdist[[1]][,i]) == 1)
-        compNames[i] <- paste0('Comp ', i, ', D(', which(ret$comdist[[1]][,i]==1), ')')
-      else
-        compNames[i] <- paste0('Comp ', i, ', C(', paste(which(ret$comdist[[1]][,i]==1), collapse=",", sep=""), ')')
-    }
-    blockLoadings <- list(); j <- 0
-    for(i in 1:length(X)){
-      blockLoadings[[i]] <- ret$Prot_best[[1]][j+(1:ncol(X[[i]])),,drop=FALSE]
-      j <- j+ncol(X[[i]])
-    }
-    colnames(ret$Trot_best[[1]]) <- colnames(ret$Prot_best[[1]]) <- compNames
-    for(i in 1:length(X)){
-      colnames(blockLoadings[[i]]) <- compNames
-      rownames(blockLoadings[[i]]) <- colnames(X[[i]])
-    }
-    rownames(ret$Trot_best[[1]]) <- rownames(X[[1]])
-    rownames(ret$Prot_best[[1]]) <- unlist(lapply(blockLoadings, rownames))
-    names(blockLoadings) <- names(X)
-    info <- list(method = "Distinctive and Common Components with SCA",
-                 scores = "Scores", loadings = "Concatenated loadings",
-                 blockScores = "Not used", blockLoadings = "Block-wise loadings")
-    obj <- list(scores = ret$Trot_best[[1]], loadings = ret$Prot_best[[1]], blockLoadings = blockLoadings,
-                info = info, DISCOsca = ret, call = match.call(), data = list(X = X))
-    xFro <- unlist(lapply(X, function(x)base::norm(scale(x,scale=FALSE),type='F')^2))
-    explvar <- obj$DISCOsca$propExp_component[[1]]
-    for(j in 1:dim(explvar)[1]){
-      x <- scale(X[[j]], scale=FALSE)
-      for(i in 1:ncomp){
-        explvar[j,i] <- 100-norm(x-obj$scores[,i,drop=FALSE]%*%t(obj$blockLoadings[[j]][,i,drop=FALSE]),type="F")^2/xFro[j]*100
-      }
-    }
-    dimnames(explvar) <- list(names(X),colnames(obj$loadings))
-    for(i in 1:length(X)){
-      attr(obj$blockLoadings[[i]], 'explvar') <- explvar[i,] # diff(c(0,obj$DISCOsca$propExp_component[[1]][i,]))/xFro[[i]]*100
-    }
-    obj$explvar <- attr(obj$scores, "explvar") <- attr(obj$loadings, "explvar") <- explvar#diff(c(0,diag(crossprod(obj$loadings))))/sum(xFro)*100
-    class(obj) <- c("multiblock","list")
-  } else {
-    obj <- .missing.import(X)
-    obj$call = match.call()
-    cat("To run 'disco', please install the 'RegularizedSCA' package, e.g., using\ninstall.packages('RegularizedSCA')\n")
+  #  if("RegularizedSCA" %in% rownames(installed.packages())){
+  #    import::from(RegularizedSCA, DISCOsca)
+  Xc <- do.call(cbind,X)
+  ret <- DISCOsca(Xc, ncomp, unlist(lapply(X,ncol)))
+  compNames <- character(ncomp)
+  for(i in 1:ncomp){
+    if(sum(ret$comdist[[1]][,i]) == 1)
+      compNames[i] <- paste0('Comp ', i, ', D(', which(ret$comdist[[1]][,i]==1), ')')
+    else
+      compNames[i] <- paste0('Comp ', i, ', C(', paste(which(ret$comdist[[1]][,i]==1), collapse=",", sep=""), ')')
   }
+  blockLoadings <- list(); j <- 0
+  for(i in 1:length(X)){
+    blockLoadings[[i]] <- ret$Prot_best[[1]][j+(1:ncol(X[[i]])),,drop=FALSE]
+    j <- j+ncol(X[[i]])
+  }
+  colnames(ret$Trot_best[[1]]) <- colnames(ret$Prot_best[[1]]) <- compNames
+  for(i in 1:length(X)){
+    colnames(blockLoadings[[i]]) <- compNames
+    rownames(blockLoadings[[i]]) <- colnames(X[[i]])
+  }
+  rownames(ret$Trot_best[[1]]) <- rownames(X[[1]])
+  rownames(ret$Prot_best[[1]]) <- unlist(lapply(blockLoadings, rownames))
+  names(blockLoadings) <- names(X)
+  info <- list(method = "Distinctive and Common Components with SCA",
+               scores = "Scores", loadings = "Concatenated loadings",
+               blockScores = "Not used", blockLoadings = "Block-wise loadings")
+  obj <- list(scores = ret$Trot_best[[1]], loadings = ret$Prot_best[[1]], blockLoadings = blockLoadings,
+              info = info, DISCOsca = ret, call = match.call(), data = list(X = X))
+  xFro <- unlist(lapply(X, function(x)base::norm(scale(x,scale=FALSE),type='F')^2))
+  explvar <- obj$DISCOsca$propExp_component[[1]]
+  for(j in 1:dim(explvar)[1]){
+    x <- scale(X[[j]], scale=FALSE)
+    for(i in 1:ncomp){
+      explvar[j,i] <- 100-norm(x-obj$scores[,i,drop=FALSE]%*%t(obj$blockLoadings[[j]][,i,drop=FALSE]),type="F")^2/xFro[j]*100
+    }
+  }
+  dimnames(explvar) <- list(names(X),colnames(obj$loadings))
+  for(i in 1:length(X)){
+    attr(obj$blockLoadings[[i]], 'explvar') <- explvar[i,] # diff(c(0,obj$DISCOsca$propExp_component[[1]][i,]))/xFro[[i]]*100
+  }
+  obj$explvar <- attr(obj$scores, "explvar") <- attr(obj$loadings, "explvar") <- explvar#diff(c(0,diag(crossprod(obj$loadings))))/sum(xFro)*100
+  class(obj) <- c("multiblock","list")
+  #  } else {
+  #    obj <- .missing.import(X)
+  #    obj$call = match.call()
+  #    cat("To run 'disco', please install the 'RegularizedSCA' package, e.g., using\ninstall.packages('RegularizedSCA')\n")
+  #  }
   return(obj)
 }
 
@@ -698,7 +698,7 @@ disco <- function(X, ncomp = 2, ...){
 #' @export
 hpca <- function(X, ncomp=2, scale=FALSE, verbose=FALSE, ...){
   if("RGCCA" %in% rownames(installed.packages())){
-#    import::from(RGCCA, rgcca)
+    #    import::from(RGCCA, rgcca)
     n_block <- length(X)
     if(length(ncomp)==1){ ncomp <- rep(ncomp,n_block+1) }
     X <- lapply(X, function(i) scale(i, scale = FALSE))
@@ -767,7 +767,7 @@ hpca <- function(X, ncomp=2, scale=FALSE, verbose=FALSE, ...){
 #' @export
 mcoa <- function(X, ncomp=2, scale=FALSE, verbose=FALSE, ...){
   if("RGCCA" %in% rownames(installed.packages())){
-#    import::from(RGCCA, rgcca)
+    #    import::from(RGCCA, rgcca)
     n_block <- length(X)
     if(length(ncomp)==1){ ncomp <- rep(ncomp,n_block+1) }
     X <- lapply(X, function(i) scale(i, scale = FALSE))
@@ -831,7 +831,7 @@ mcoa <- function(X, ncomp=2, scale=FALSE, verbose=FALSE, ...){
 #' @export
 jive <- function(X, ...){
   if("r.jive" %in% rownames(installed.packages())){
-#    import::from(r.jive, jive)
+    #    import::from(r.jive, jive)
     return(r.jive::jive(X, ...))
   } else {
     mod <- .missing.import(X)
@@ -869,32 +869,32 @@ jive <- function(X, ...){
 #' Common functions for computation and extraction of results and plotting are found in \code{\link{multiblock_results}} and \code{\link{multiblock_plots}}, respectively.
 #' @export
 statis <- function(X, ncomp = 3, scannf = FALSE, tol = 1e-07, ...){
-#  if("ade4" %in% rownames(installed.packages())){
-    X_frame  <- as.data.frame(do.call(rbind, X))
-    X_factor <- factor(unlist(lapply(1:length(X), function(x)rep(x,nrow(X[[x]])))))
-    kta <- ktab.within(withinpca(X_frame, X_factor, scannf=scannf, nf=ncomp))
-    ret <- ade4::statis(kta, scannf=scannf, nf=ncomp, tol=tol)
-    scores <- as.matrix(ret$C.Co); loadings <- as.matrix(ret$C.li)
-    blockScores <- list(); j <- 0
-    for(i in 1:length(X)){
-      blockScores[[i]] <- scores[j+(1:nrow(X[[i]])),,drop=FALSE]; j <- j+nrow(X[[i]])
-    }
-    names(blockScores) <- names(X)
-    colnames(scores) <- colnames(loadings) <- paste0('Comp ', 1:ncomp)
-    blockScores <- colnamesList(blockScores, paste0('Comp ', 1:ncomp))
-    info <- list(method = "STATIS",
-                 scores = "Concatenated scores", loadings = "Loadings",
-                 blockScores = "Block-wise scores", blockLoadings = "Not used")
-    obj <- list(scores = scores, loadings = loadings, blockScores = blockScores,
-                info = info, statis = ret, call = match.call())
-    obj$data <- list(X = X)
-    class(obj) <- c("multiblock","list")
-#  } else {
-#    obj <- .missing.import(X)
-#    obj$statis <- 0
-#    obj$call = match.call()
-#    cat("To run 'statis', please install the 'ade4' package, e.g., using\ninstall.packages('ade4')\n")
-#  }
+  #  if("ade4" %in% rownames(installed.packages())){
+  X_frame  <- as.data.frame(do.call(rbind, X))
+  X_factor <- factor(unlist(lapply(1:length(X), function(x)rep(x,nrow(X[[x]])))))
+  kta <- ktab.within(withinpca(X_frame, X_factor, scannf=scannf, nf=ncomp))
+  ret <- ade4::statis(kta, scannf=scannf, nf=ncomp, tol=tol)
+  scores <- as.matrix(ret$C.Co); loadings <- as.matrix(ret$C.li)
+  blockScores <- list(); j <- 0
+  for(i in 1:length(X)){
+    blockScores[[i]] <- scores[j+(1:nrow(X[[i]])),,drop=FALSE]; j <- j+nrow(X[[i]])
+  }
+  names(blockScores) <- names(X)
+  colnames(scores) <- colnames(loadings) <- paste0('Comp ', 1:ncomp)
+  blockScores <- colnamesList(blockScores, paste0('Comp ', 1:ncomp))
+  info <- list(method = "STATIS",
+               scores = "Concatenated scores", loadings = "Loadings",
+               blockScores = "Block-wise scores", blockLoadings = "Not used")
+  obj <- list(scores = scores, loadings = loadings, blockScores = blockScores,
+              info = info, statis = ret, call = match.call())
+  obj$data <- list(X = X)
+  class(obj) <- c("multiblock","list")
+  #  } else {
+  #    obj <- .missing.import(X)
+  #    obj$statis <- 0
+  #    obj$call = match.call()
+  #    cat("To run 'statis', please install the 'ade4' package, e.g., using\ninstall.packages('ade4')\n")
+  #  }
   return(obj)
   # Has plot and print in ade4
   # Clustatis in https://cran.r-project.org/web/packages/ClustBlock/ClustBlock.pdf

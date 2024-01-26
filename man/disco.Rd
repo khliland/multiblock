@@ -18,7 +18,7 @@ disco(X, ncomp = 2, ...)
 and result functions: \code{\link{multiblock_results}}.
 }
 \description{
-This is a wrapper for the \code{RegularizedSCA::DISCOsca} function for computing DISCO.
+This is a wrapper for the \code{DISCOsca} function by Zhengguo Gu for computing DISCO.
 }
 \details{
 DISCO is a restriction of SCA where Alternating Least Squares is used for
@@ -26,7 +26,7 @@ estimation of loadings and scores. The SCA solution is rotated towards loadings 
 zeros in a pattern resembling distinct, local and common components.
 When used in sample linked mode and only selecting distinct components, it shares a
 resemblance to SO-PLS, only in an unsupervised setting. Explained variances
-are computed as proportion of block varation explained by scores*loadings'.
+are computed as proportion of block variation explained by scores*loadings'.
 }
 \examples{
 data(potato)

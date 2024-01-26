@@ -22,7 +22,7 @@ popls(
 
 \item{auto}{\code{logical} indicating if automatic choice of complexities should be used.}
 
-\item{auto.par}{\code{named list} setting limits for automatic choice of complexities.}
+\item{auto.par}{\code{named list} setting limits for automatic choice of complexities. See Details.}
 
 \item{manual.par}{\code{named list} for manual choice of blocks. The list consists of \code{ncomp} which indicates the number of components to extract from each block and \code{ncommon} which is the corresponding for choosing the block combinations (local/common). For the latter, use unique_combos(n_blocks, commons) to see order of local/common blocks. Component numbers will be reduced if simpler models give better predictions. See example.}
 }
@@ -35,7 +35,9 @@ This is a basic implementation of PO-PLS with manual and automatic component sel
 }
 \details{
 PO-PLS decomposes a set of input data blocks into common, local and distinct components
-through a process involving \code{\link{pls}} and \code{\link{gca}}.
+through a process involving \code{\link{pls}} and \code{\link{gca}}. The \code{rLim} parameter is
+a lower bound for the GCA correlation when building common components, while explVarLim is the minimum
+explained variance for common components and unique components.
 }
 \examples{
 data(potato)

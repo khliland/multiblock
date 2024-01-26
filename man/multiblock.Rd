@@ -2,8 +2,8 @@
 % Please edit documentation in R/multiblock-package.R
 \docType{package}
 \name{multiblock}
-\alias{multiblock}
 \alias{multiblock-package}
+\alias{multiblock}
 \title{multiblock}
 \description{
 A collection of methods for analysis of data sets with more than two blocks of data.
