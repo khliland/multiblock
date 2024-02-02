@@ -5,6 +5,11 @@ This implements and imports a large collection of methods for multiblock data an
 functions, several real data sets and six vignettes covering a range different applications.
 Kristian Hovde Liland
 
+##### Version 0.8.8.1
+Date: 02 February 2024
+>> Corrected errors in SO-PLS's cross-validation (segment use) and faulty summary when
+only one X-block is supplied.
+
 ##### Version 0.8.8
 Date: 26 January 2024
 >> Corrected error in POPLS leading to faulty explained variances and block scores.

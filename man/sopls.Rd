@@ -37,7 +37,7 @@ sopls(
 
 \item{validation}{Optional cross-validation strategy "CV" or "LOO".}
 
-\item{sequential}{Logical indicating if optimal components are chosen sequentially or globally.}
+\item{sequential}{Logical indicating if optimal components are chosen sequentially or globally (default=FALSE).}
 
 \item{segments}{Optional number of segments or list of segments for cross-validation. (See \code{[pls::cvsegments()]}).}
 

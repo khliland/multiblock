@@ -13,7 +13,7 @@
 #' @param na.action How to handle NAs (no action implemented).
 #' @param scale Logical indicating if variables should be scaled.
 #' @param validation Optional cross-validation strategy "CV" or "LOO".
-#' @param sequential Logical indicating if optimal components are chosen sequentially or globally.
+#' @param sequential Logical indicating if optimal components are chosen sequentially or globally (default=FALSE).
 #' @param segments Optional number of segments or list of segments for cross-validation. (See \code{[pls::cvsegments()]}).
 #' @param sel.comp Character indicating if sequential optimal number of components should be chosen as minimum RMSECV ('opt', default) or by Chi-square test ('chi').
 #' @param progress Logical indicating if a progress bar should be displayed while cross-validating.
@@ -127,6 +127,12 @@ sopls <- function(formula, ncomp, max_comps = min(sum(ncomp), 20), data,
   }
   switch(match.arg(validation),
          CV = {
+           # Convert to correspondance vector
+           mfe <- match.call(expand.dots = TRUE)
+           if(length(segments)==1 || !is.null(mfe$segment.type)){
+             segments <- cvsegments(nobj, k = segments, type = ifelse(is.null(mfe$segment.type), 'random', mfe$segment.type))
+           }
+           
            if(sequential){
              val <- sopls_cv_seq(Xs, Y, ncomp, max_comps, sel.comp, segments, progress=TRUE, ...)
            } else {
@@ -453,20 +459,24 @@ pathComp <- function(comps, compList){
   }
   nblocks <- length(comps)
   mat <- matrix(0, 0, nblocks)
-  for(b in 1:nblocks){
-    if(comps[b]>0){
-      base <- 1:comps[b]
-      if(b>1){
-        for(c in seq(b-1,1)){
-          base <- cbind(comps[c],base)
+  if(nblocks == 1){
+    mat <- matrix(1:comps[1], ncol=1)
+  } else {
+    for(b in 1:nblocks){
+      if(comps[b]>0){
+        base <- 1:comps[b]
+        if(b>1){
+          for(c in seq(b-1,1)){
+            base <- cbind(comps[c],base)
+          }
         }
-      }
-      if(b<nblocks){
-        for(c in (b+1):nblocks){
-          base <- cbind(base,0)
+        if(b<nblocks){
+          for(c in (b+1):nblocks){
+            base <- cbind(base,0)
+          }
         }
+        mat <- rbind(mat,base)
       }
-      mat <- rbind(mat,base)
     }
   }
   list(path = mat, hits = match(apply(mat,1,paste0, collapse=","), apply(compList,1,paste0, collapse=",")))

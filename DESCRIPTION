@@ -2,8 +2,8 @@ Encoding: UTF-8
 Package: multiblock
 Type: Package
 Title: Multiblock Data Fusion in Statistics and Machine Learning
-Version: 0.8.8
-Date: 2024-01-26
+Version: 0.8.8.1
+Date: 2024-02-02
 Authors@R: 
     c(person(given = "Kristian Hovde",
              family = "Liland",

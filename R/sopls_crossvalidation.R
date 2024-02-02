@@ -54,11 +54,13 @@ sopls_cv <- function(X, Y, comps, max_comps, segments, progress=TRUE, ...){
   nblock <- length(X)
   
   # Convert to correspondance vector
-  mf <- match.call(expand.dots = TRUE)
-  if(length(segments)==1 || !is.null(mf$segment.type)){
-    segments <- cvsegments(n, k = segments, type = ifelse(is.null(mf$segment.type), 'random', mf$segment.type))
-  }
-  cv <- unlist(lapply(1:length(segments), function(i)rep(i,length(segments[[i]]))))
+#  mf <- match.call(expand.dots = TRUE)
+#  if(length(segments)==1 || !is.null(mf$segment.type)){
+#    segments <- cvsegments(n, k = segments, type = ifelse(is.null(mf$segment.type), 'random', mf$segment.type))
+#  }
+  cv <- 1:n # unlist(lapply(1:length(segments), function(i)rep(i,length(segments[[i]]))))
+  for(i in 1:length(segments))
+    cv[segments[[i]]] <- i
   nseg <- max(cv)
 
   # Initialize progress indicator
