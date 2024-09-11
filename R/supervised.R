@@ -157,6 +157,8 @@ mbpls <- function(formula, data, subset, na.action, X=NULL, Y=NULL, ncomp=1, sca
   mod$blockLoadings <- Pb
   mod$superWeights  <- Wt
   mod$blockScale <- blockScale
+  if(scale)
+    mod$scale <- scale
   mod$data <- list(X = X, Y = Y)
   attr(mod$scores, "explvar") <- attr(mod$loadings, "explvar") <- mod$Xvar/mod$Xtotvar*100
   mod$explvar <- mod$Xvar/mod$Xtotvar*100
@@ -172,7 +174,7 @@ mbpls <- function(formula, data, subset, na.action, X=NULL, Y=NULL, ncomp=1, sca
                    scores = "Superscores", loadings = "Superloadings",
                    blockScores = "Block scores", blockLoadings = "Block loadings")
   mod$call <- match.call()
-  class(mod) <- c('multiblock','mvr')
+  class(mod) <- c('mbpls','multiblock','mvr')
   return(mod)
 }
 

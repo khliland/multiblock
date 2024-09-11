@@ -35,6 +35,11 @@
 #'
 #' @export
 loadingplot.asca <- function(object, factor = 1, comps = 1:2, ...){
+  if((inherits(object, "scores") && ncol(object) == 1 ) ||
+     (inherits(object, "multiblock") && length(object$Xvar) == 1)){ # Check for single component in model
+    comps <- comps[1]
+    nComps <- length(comps)
+  }
   plot(loadings(object=object, factor=factor), comps=comps, ...)
 }
 

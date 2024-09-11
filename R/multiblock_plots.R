@@ -142,6 +142,11 @@ loadingplot.multiblock <- function(object, comps = 1:2, block = 0, scatter = TRU
   ## Check arguments
   nComps <- length(comps)
   if (nComps == 0) stop("At least one component must be selected.")
+  if((inherits(object, "scores") && ncol(object) == 1 ) ||
+     (inherits(object, "multiblock") && length(object$Xvar) == 1)){ # Check for single component in model
+    comps <- comps[1]
+    nComps <- length(comps)
+  }
   if (!missing(type) &&
       (length(type) != 1 || is.na(nchar(type, "c")) || nchar(type, "c") != 1))
     stop("Invalid plot type.")

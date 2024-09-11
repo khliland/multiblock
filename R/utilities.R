@@ -147,6 +147,7 @@ block.data.frame <- function(X, block_inds = NULL, to.matrix = TRUE){
   # Return as data.frame
   X <- do.call(data.frame, X)
   X <- lapply(X, function(x){rownames(x) <- rownames(X);x})
+  X <- data.frame(X)
   return(X)
 }
 

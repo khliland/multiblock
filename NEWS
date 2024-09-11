@@ -5,6 +5,10 @@ This implements and imports a large collection of methods for multiblock data an
 functions, several real data sets and six vignettes covering a range different applications.
 Kristian Hovde Liland
 
+##### Version 0.8.8.2
+Date: 11 September 2024
+>> Corrected errors in two-level ASCA modelling affecting plotting.
+
 ##### Version 0.8.8.1
 Date: 11 March 2024
 >> Corrected errors in SO-PLS's cross-validation (segment use) and faulty summary when

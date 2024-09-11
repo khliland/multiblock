@@ -158,14 +158,14 @@ asca <- function(formula, data, subset, weights, na.action, family, pca.in = FAL
   LS <- effects <- ssq <- list()
   for(i in 1:length(approved)){
     a <- approved[i]
-    LS[[effs[a]]] <- M[, assign==a, drop=FALSE] %*% coefs[assign==a,]
+    LS[[effs[a]]] <- M[, assign==a, drop=FALSE] %*% coefs[assign==a,,drop=FALSE]
     effects[[effs[a]]] <- modFra[[effs[a]]]
 
     if(i == 1){
       residuals <- Y - LS[[effs[i]]]
       ssq[[effs[a]]] <- sum(LS[[effs[a]]]^2)
     } else {
-      LSseq <- M[, assign%in%approved[1:i], drop=FALSE] %*% coefs[assign%in%approved[1:i],]
+      LSseq <- M[, assign%in%approved[1:i], drop=FALSE] %*% coefs[assign%in%approved[1:i],,drop=FALSE]
       residuals <- Y - LSseq
       ssq[[effs[a]]] <- sum(LSseq^2)
     }
