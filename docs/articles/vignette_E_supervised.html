@@ -4,104 +4,76 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>E. Supervised multiblock analysis • multiblock</title>
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
-<script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="E. Supervised multiblock analysis">
-<meta property="og:description" content="multiblock">
-<!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
-<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-<![endif]-->
+<script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="E. Supervised multiblock analysis">
 </head>
-<body data-spy="scroll" data-target="#toc">
-    
+<body>
+    <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
-    <div class="container template-article">
-      <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">multiblock</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.8.6</span>
-      </span>
-    </div>
 
-    <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
-<li>
-  <a href="../reference/index.html">Reference</a>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-<li>
-      <a href="../articles/vignette_A_data.html">A. Data handling</a>
-    </li>
-    <li>
-      <a href="../articles/vignette_B_basic.html">B. Basic analysis</a>
-    </li>
-    <li>
-      <a href="../articles/vignette_C_unsupervised.html">C. Unsupervised multiblock analysis</a>
-    </li>
-    <li>
-      <a href="../articles/vignette_D_asca.html">D. ASCA</a>
-    </li>
-    <li>
-      <a href="../articles/vignette_E_supervised.html">E. Supervised multiblock analysis</a>
-    </li>
-    <li>
-      <a href="../articles/vignette_F_complex.html">F. Complex multiblock analysis</a>
-    </li>
+    <nav class="navbar navbar-expand-lg fixed-top bg-light" data-bs-theme="light" aria-label="Site navigation"><div class="container">
+
+    <a class="navbar-brand me-2" href="../index.html">multiblock</a>
+
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.8.2</small>
+
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navbar" class="collapse navbar-collapse ms-3">
+      <ul class="navbar-nav me-auto">
+<li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
+<li class="active nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
+<li><a class="dropdown-item" href="../articles/vignette_A_data.html">A. Data handling</a></li>
+    <li><a class="dropdown-item" href="../articles/vignette_B_basic.html">B. Basic analysis</a></li>
+    <li><a class="dropdown-item" href="../articles/vignette_C_unsupervised.html">C. Unsupervised multiblock analysis</a></li>
+    <li><a class="dropdown-item" href="../articles/vignette_D_asca.html">D. ASCA</a></li>
+    <li><a class="dropdown-item" href="../articles/vignette_E_supervised.html">E. Supervised multiblock analysis</a></li>
+    <li><a class="dropdown-item" href="../articles/vignette_F_complex.html">F. Complex multiblock analysis</a></li>
   </ul>
 </li>
       </ul>
-<ul class="nav navbar-nav navbar-right">
-<li>
-  <a href="https://github.com/khliland/multiblock/" class="external-link">
-    <span class="fab fa-github fa-lg"></span>
-     
-  </a>
-</li>
+<ul class="navbar-nav">
+<li class="nav-item"><form class="form-inline" role="search">
+ <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json">
+</form></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/khliland/multiblock/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul>
 </div>
-<!--/.nav-collapse -->
+
+
   </div>
-<!--/.container -->
-</div>
-<!--/.navbar -->
+</nav><div class="container template-article">
 
-      
 
-      </header><div class="row">
-  <div class="col-md-9 contents">
-    <div class="page-header toc-ignore">
-      <h1 data-toc-skip>E. Supervised multiblock analysis</h1>
+
+
+<div class="row">
+  <main id="main" class="col-md-9"><div class="page-header">
+
+      <h1>E. Supervised multiblock analysis</h1>
             
       
       <small class="dont-index">Source: <a href="https://github.com/khliland/multiblock/blob/HEAD/vignettes/vignette_E_supervised.Rmd" class="external-link"><code>vignettes/vignette_E_supervised.Rmd</code></a></small>
-      <div class="hidden name"><code>vignette_E_supervised.Rmd</code></div>
-
+      <div class="d-none name"><code>vignette_E_supervised.Rmd</code></div>
     </div>
 
     
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://khliland.github.io/multiblock/" class="external-link">multiblock</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://khliland.github.io/multiblock/">multiblock</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; Registered S3 method overwritten by 'plsVarSel':</span></span>
+<span><span class="co">#&gt;   method       from</span></span>
+<span><span class="co">#&gt;   print.mvrVal pls</span></span>
 <span><span class="co">#&gt; Registered S3 methods overwritten by 'multiblock':</span></span>
 <span><span class="co">#&gt;   method             from</span></span>
 <span><span class="co">#&gt;   print.multiblock   ade4</span></span>
@@ -257,19 +229,19 @@ total is cross-validated with 10 random segments.</p>
 <span><span class="co">#&gt; VALIDATION: RMSEP</span></span>
 <span><span class="co">#&gt; Cross-validated using 10 random segments.</span></span>
 <span><span class="co">#&gt;    0,0     0,1     0,2     0,3     0,4     0,5     0,6     0,7     0,8     0,9  </span></span>
-<span><span class="co">#&gt; 1.1472  0.9974  1.1034  0.9942  1.0159  1.1523  1.0857  1.1834  1.2494  1.3022  </span></span>
+<span><span class="co">#&gt; 1.1158  0.9873  0.9928  0.9950  1.0357  1.2615  1.1828  1.2614  1.2782  1.2562  </span></span>
 <span><span class="co">#&gt;   0,10     1,0     1,1     1,2     1,3     1,4     1,5     1,6     1,7     1,8  </span></span>
-<span><span class="co">#&gt; 1.2690  0.9058  0.8860  0.9779  0.9029  0.8942  0.9320  0.9441  1.0542  1.1243  </span></span>
+<span><span class="co">#&gt; 1.2398  0.8544  0.8194  0.8627  0.8087  0.8705  0.9283  0.9292  1.0142  1.0404  </span></span>
 <span><span class="co">#&gt;    1,9     2,0     2,1     2,2     2,3     2,4     2,5     2,6     2,7     2,8  </span></span>
-<span><span class="co">#&gt; 1.1369  0.8077  0.7023  0.7124  0.7737  0.8072  0.8651  0.8511  0.9742  1.0048  </span></span>
+<span><span class="co">#&gt; 1.0814  0.7251  0.6321  0.6218  0.6717  0.6814  0.7237  0.7493  0.8037  0.8713  </span></span>
 <span><span class="co">#&gt;    3,0     3,1     3,2     3,3     3,4     3,5     3,6     3,7     4,0     4,1  </span></span>
-<span><span class="co">#&gt; 0.7439  0.7275  0.7111  0.7716  0.8322  0.8846  0.8893  0.9793  0.7494  0.7165  </span></span>
+<span><span class="co">#&gt; 0.6773  0.6544  0.6424  0.7171  0.7314  0.7555  0.8011  0.8634  0.6764  0.6475  </span></span>
 <span><span class="co">#&gt;    4,2     4,3     4,4     4,5     4,6     5,0     5,1     5,2     5,3     5,4  </span></span>
-<span><span class="co">#&gt; 0.7272  0.7748  0.8135  0.9157  0.9001  0.7752  0.7491  0.7593  0.8494  0.9693  </span></span>
+<span><span class="co">#&gt; 0.6430  0.6922  0.7042  0.7299  0.7479  0.6888  0.6866  0.6806  0.7391  0.7475  </span></span>
 <span><span class="co">#&gt;    5,5     6,0     6,1     6,2     6,3     6,4     7,0     7,1     7,2     7,3  </span></span>
-<span><span class="co">#&gt; 1.0306  0.8504  0.8438  0.8198  0.9304  1.0222  0.8997  0.8910  0.8418  0.9632  </span></span>
+<span><span class="co">#&gt; 0.8826  0.7014  0.7131  0.6972  0.7783  0.7960  0.7124  0.7253  0.7091  0.8079  </span></span>
 <span><span class="co">#&gt;    8,0     8,1     8,2     9,0     9,1    10,0  </span></span>
-<span><span class="co">#&gt; 1.0062  1.0033  0.9511  1.0682  1.0557  1.6371  </span></span>
+<span><span class="co">#&gt; 0.7604  0.7683  0.7434  0.7426  0.7576  1.3878  </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; TRAINING: % variance explained</span></span>
 <span><span class="co">#&gt;         0,0    0,1    0,2    0,3    0,4    0,5    0,6    0,7    0,8    0,9</span></span>
@@ -677,36 +649,37 @@ prediction.</p>
 <div class="section level3">
 <h3 id="validation">Validation<a class="anchor" aria-label="anchor" href="#validation"></a>
 </h3>
-<p>Compute validation statistics; explained variance - R<span class="math inline">\(^2\)</span>, and Root Mean Squared Error -
-RMSE(P/CV).</p>
+<p>Compute validation statistics; explained variance -
+R<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi></mi><mn>2</mn></msup><annotation encoding="application/x-tex">^2</annotation></semantics></math>,
+and Root Mean Squared Error - RMSE(P/CV).</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Cross-validation</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/pls/man/mvrVal.html" class="external-link">R2</a></span><span class="op">(</span><span class="va">so.pot</span>, ncomp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>,<span class="fl">5</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt;        1,0        2,0        3,0        4,0        5,0        5,1        5,2 </span></span>
-<span><span class="co">#&gt; 0.29491711 0.43937819 0.52443674 0.51731500 0.48356727 0.51769239 0.50453909 </span></span>
-<span><span class="co">#&gt;        5,3        5,4        5,5 </span></span>
-<span><span class="co">#&gt; 0.37995426 0.19264375 0.08718665</span></span>
+<span><span class="co">#&gt;       1,0       2,0       3,0       4,0       5,0       5,1       5,2       5,3 </span></span>
+<span><span class="co">#&gt; 0.3725766 0.5481465 0.6057872 0.6068032 0.5922717 0.5948811 0.6019672 0.5305786 </span></span>
+<span><span class="co">#&gt;       5,4       5,5 </span></span>
+<span><span class="co">#&gt; 0.5197773 0.3305448</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/pls/man/mvrVal.html" class="external-link">R2</a></span><span class="op">(</span><span class="va">so.pot</span>, ncomp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>,<span class="fl">5</span><span class="op">)</span>, individual <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="co">#&gt;                1,0         2,0         3,0          4,0         5,0        5,1</span></span>
-<span><span class="co">#&gt; ref     0.27825536  0.43256997  0.60854575  0.611650546  0.57962221  0.6410025</span></span>
-<span><span class="co">#&gt; hard   -0.01534472 -0.19976337 -0.32629673 -0.629670315 -0.73850234 -0.5385860</span></span>
-<span><span class="co">#&gt; firm    0.11456699  0.11663849  0.14175670 -0.005647699  0.07172321  0.2173452</span></span>
-<span><span class="co">#&gt; elas    0.32922325  0.39196816  0.41920590  0.347290927  0.35236475  0.3873415</span></span>
-<span><span class="co">#&gt; adhes  -0.04074410  0.02924686 -0.06114012  0.182892958  0.21626890  0.2398021</span></span>
-<span><span class="co">#&gt; grainy  0.29892446  0.57657563  0.70726840  0.720648990  0.66998154  0.6426785</span></span>
-<span><span class="co">#&gt; mealy   0.39732737  0.60662586  0.71089974  0.742956337  0.70442569  0.7074522</span></span>
-<span><span class="co">#&gt; moist   0.42596297  0.55819542  0.60651611  0.602672591  0.54129827  0.5169465</span></span>
-<span><span class="co">#&gt; chewi   0.38811017  0.58159817  0.56193588  0.643390275  0.56225915  0.5417198</span></span>
-<span><span class="co">#&gt;               5,2         5,3         5,4         5,5</span></span>
-<span><span class="co">#&gt; ref     0.6892006  0.64474046  0.66948387  0.69542145</span></span>
-<span><span class="co">#&gt; hard   -0.6078491 -1.37218409 -2.90610544 -4.13991040</span></span>
-<span><span class="co">#&gt; firm    0.2464953 -0.01322888 -0.26416572 -0.69554952</span></span>
-<span><span class="co">#&gt; elas    0.4649800  0.43158366  0.45223779  0.09663100</span></span>
-<span><span class="co">#&gt; adhes   0.1548038 -0.06098741 -0.71470005 -1.01032999</span></span>
-<span><span class="co">#&gt; grainy  0.6653825  0.67115458  0.67261140  0.75006427</span></span>
-<span><span class="co">#&gt; mealy   0.6671254  0.62578581  0.60276444  0.67661249</span></span>
-<span><span class="co">#&gt; moist   0.3843608  0.12290559 -0.34127485 -0.48130723</span></span>
-<span><span class="co">#&gt; chewi   0.4645314  0.35373420  0.06156931  0.07770671</span></span>
+<span><span class="co">#&gt;               1,0         2,0         3,0        4,0        5,0        5,1</span></span>
+<span><span class="co">#&gt; ref    0.36214407  0.56469277  0.68930955  0.6980272  0.6732567  0.7030829</span></span>
+<span><span class="co">#&gt; hard   0.01554864 -0.06554243 -0.02356978 -0.2066266 -0.3179983 -0.1581612</span></span>
+<span><span class="co">#&gt; firm   0.17665535  0.26163730  0.38041565  0.2897483  0.3544505  0.4301413</span></span>
+<span><span class="co">#&gt; elas   0.39850777  0.48863848  0.54675908  0.5277118  0.5160369  0.5020343</span></span>
+<span><span class="co">#&gt; adhes  0.07664970  0.18245255  0.09638291  0.2584602  0.3250433  0.3029435</span></span>
+<span><span class="co">#&gt; grainy 0.38583269  0.70597919  0.76691993  0.7667584  0.7786072  0.7315524</span></span>
+<span><span class="co">#&gt; mealy  0.47737188  0.70616954  0.75003068  0.7922686  0.7768048  0.7559721</span></span>
+<span><span class="co">#&gt; moist  0.49447042  0.60410772  0.59662575  0.5536880  0.5432058  0.4865251</span></span>
+<span><span class="co">#&gt; chewi  0.46983344  0.61391521  0.55336390  0.6374355  0.5546693  0.5298323</span></span>
+<span><span class="co">#&gt;               5,2         5,3         5,4        5,5</span></span>
+<span><span class="co">#&gt; ref     0.7410001  0.69827926  0.74704423  0.7648513</span></span>
+<span><span class="co">#&gt; hard   -0.1980853 -0.36660169 -0.73821865 -1.3368093</span></span>
+<span><span class="co">#&gt; firm    0.4757700  0.40266089  0.25687178 -0.1025061</span></span>
+<span><span class="co">#&gt; elas    0.5624613  0.57145052  0.54102462  0.3000614</span></span>
+<span><span class="co">#&gt; adhes   0.2322958  0.07395787  0.08853579 -1.1018881</span></span>
+<span><span class="co">#&gt; grainy  0.7676007  0.76075064  0.74369076  0.7864572</span></span>
+<span><span class="co">#&gt; mealy   0.7471824  0.68717433  0.73071507  0.6895273</span></span>
+<span><span class="co">#&gt; moist   0.4318475  0.26213711  0.26483590 -0.1588749</span></span>
+<span><span class="co">#&gt; chewi   0.5093917  0.39328706  0.36162629 -0.1487673</span></span>
 <span><span class="co"># Training</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/pls/man/mvrVal.html" class="external-link">R2</a></span><span class="op">(</span><span class="va">so.pot</span>, <span class="st">'train'</span>, ncomp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>,<span class="fl">5</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt;       1,0       2,0       3,0       4,0       5,0       5,1       5,2       5,3 </span></span>
@@ -722,30 +695,30 @@ RMSE(P/CV).</p>
 <code class="sourceCode R"><span><span class="co"># Cross-validation</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/pls/man/mvrVal.html" class="external-link">RMSEP</a></span><span class="op">(</span><span class="va">so.pot</span>, ncomp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>,<span class="fl">5</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt;       1,0       2,0       3,0       4,0       5,0       5,1       5,2       5,3 </span></span>
-<span><span class="co">#&gt; 0.9057837 0.8076801 0.7438897 0.7494390 0.7751956 0.7491460 0.7592925 0.8494079 </span></span>
+<span><span class="co">#&gt; 0.8544463 0.7251089 0.6772824 0.6764090 0.6887948 0.6865871 0.6805560 0.7390705 </span></span>
 <span><span class="co">#&gt;       5,4       5,5 </span></span>
-<span><span class="co">#&gt; 0.9692527 1.0306125</span></span>
+<span><span class="co">#&gt; 0.7475251 0.8826025</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/pls/man/mvrVal.html" class="external-link">RMSEP</a></span><span class="op">(</span><span class="va">so.pot</span>, ncomp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>,<span class="fl">5</span><span class="op">)</span>, individual <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="co">#&gt;              1,0       2,0       3,0       4,0       5,0       5,1       5,2</span></span>
-<span><span class="co">#&gt; ref    1.4521251 1.2875627 1.0694309 1.0651814 1.1082357 1.0241368 0.9529110</span></span>
-<span><span class="co">#&gt; hard   0.7409166 0.8053977 0.8468041 0.9386690 0.9695054 0.9120602 0.9323634</span></span>
-<span><span class="co">#&gt; firm   0.8153675 0.8144132 0.8027508 0.8689574 0.8348612 0.7665856 0.7521744</span></span>
-<span><span class="co">#&gt; elas   0.5987744 0.5700821 0.5571669 0.5906552 0.5883550 0.5722469 0.5347604</span></span>
-<span><span class="co">#&gt; adhes  0.6238669 0.6025240 0.6299503 0.5527890 0.5413816 0.5331916 0.5622102</span></span>
-<span><span class="co">#&gt; grainy 0.9124005 0.7090731 0.5895734 0.5759413 0.6259969 0.6513774 0.6303437</span></span>
-<span><span class="co">#&gt; mealy  1.1918516 0.9629070 0.8254784 0.7783679 0.8346700 0.8303858 0.8857717</span></span>
-<span><span class="co">#&gt; moist  0.8218611 0.7210138 0.6804434 0.6837585 0.7346723 0.7539214 0.8511216</span></span>
-<span><span class="co">#&gt; chewi  0.6207792 0.5133308 0.5252540 0.4739114 0.5250602 0.5372372 0.5807210</span></span>
+<span><span class="co">#&gt; ref    1.3651285 1.1277431 0.9527439 0.9392823 0.9770473 0.9313863 0.8698854</span></span>
+<span><span class="co">#&gt; hard   0.7295578 0.7590108 0.7439116 0.8076981 0.8441508 0.7913108 0.8048343</span></span>
+<span><span class="co">#&gt; firm   0.7862604 0.7445784 0.6820650 0.7302671 0.6962101 0.6541226 0.6273884</span></span>
+<span><span class="co">#&gt; elas   0.5670081 0.5228032 0.4921968 0.5024326 0.5086046 0.5159100 0.4835957</span></span>
+<span><span class="co">#&gt; adhes  0.5876289 0.5529380 0.5813158 0.5266077 0.5024096 0.5105684 0.5358175</span></span>
+<span><span class="co">#&gt; grainy 0.8539775 0.5908703 0.5260847 0.5262669 0.5127254 0.5645896 0.5253158</span></span>
+<span><span class="co">#&gt; mealy  1.1098846 0.8322041 0.7675820 0.6997333 0.7253103 0.7584051 0.7719428</span></span>
+<span><span class="co">#&gt; moist  0.7712617 0.6825226 0.6889419 0.7246825 0.7331432 0.7772990 0.8176378</span></span>
+<span><span class="co">#&gt; chewi  0.5778388 0.4931078 0.5303682 0.4778517 0.5295925 0.5441604 0.5558633</span></span>
 <span><span class="co">#&gt;              5,3       5,4       5,5</span></span>
-<span><span class="co">#&gt; ref    1.0187910 0.9826720 0.9433262</span></span>
-<span><span class="co">#&gt; hard   1.1324963 1.4532307 1.6670183</span></span>
-<span><span class="co">#&gt; firm   0.8722266 0.9742660 1.1283161</span></span>
-<span><span class="co">#&gt; elas   0.5511978 0.5410909 0.6948752</span></span>
-<span><span class="co">#&gt; adhes  0.6299050 0.8007815 0.8670689</span></span>
-<span><span class="co">#&gt; grainy 0.6248834 0.6234977 0.5447751</span></span>
-<span><span class="co">#&gt; mealy  0.9391643 0.9676215 0.8730579</span></span>
-<span><span class="co">#&gt; moist  1.0159016 1.2562827 1.3202345</span></span>
-<span><span class="co">#&gt; chewi  0.6379786 0.7687792 0.7621405</span></span>
+<span><span class="co">#&gt; ref    0.9388902 0.8596755 0.8288645</span></span>
+<span><span class="co">#&gt; hard   0.8595746 0.9694263 1.1240205</span></span>
+<span><span class="co">#&gt; firm   0.6697088 0.7469773 0.9098421</span></span>
+<span><span class="co">#&gt; elas   0.4786022 0.4953007 0.6116517</span></span>
+<span><span class="co">#&gt; adhes  0.5884849 0.5838345 0.8865939</span></span>
+<span><span class="co">#&gt; grainy 0.5330016 0.5516774 0.5035534</span></span>
+<span><span class="co">#&gt; mealy  0.8586826 0.7966865 0.8554471</span></span>
+<span><span class="co">#&gt; moist  0.9317863 0.9300807 1.1677417</span></span>
+<span><span class="co">#&gt; chewi  0.6181476 0.6340712 0.8505827</span></span>
 <span><span class="co"># Training</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/pls/man/mvrVal.html" class="external-link">RMSEP</a></span><span class="op">(</span><span class="va">so.pot</span>, <span class="st">'train'</span>, ncomp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>,<span class="fl">5</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt;       1,0       2,0       3,0       4,0       5,0       5,1       5,2       5,3 </span></span>
@@ -798,19 +771,19 @@ is automatically computed in this implementation.</p>
 <span><span class="co">#&gt; Analysis of Variance Table</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Response: Residual</span></span>
-<span><span class="co">#&gt;           Df  Sum Sq Mean Sq F value    Pr(&gt;F)    </span></span>
-<span><span class="co">#&gt; Model      2  1.0601 0.53007  5.0998  0.009647 ** </span></span>
-<span><span class="co">#&gt; Object    25 15.1295 0.60518  5.8225 6.511e-08 ***</span></span>
-<span><span class="co">#&gt; Residuals 50  5.1969 0.10394                      </span></span>
+<span><span class="co">#&gt;           Df  Sum Sq Mean Sq F value   Pr(&gt;F)    </span></span>
+<span><span class="co">#&gt; Model      2  0.5585 0.27925  3.7044  0.03161 *  </span></span>
+<span><span class="co">#&gt; Object    25 16.5196 0.66079  8.7657 5.89e-11 ***</span></span>
+<span><span class="co">#&gt; Residuals 50  3.7691 0.07538                     </span></span>
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">#&gt; Tukey's HSD</span></span>
 <span><span class="co">#&gt; Alpha: 0.05</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;            Mean G1 G2</span></span>
-<span><span class="co">#&gt; 2,0,0 0.9696191     B</span></span>
-<span><span class="co">#&gt; 2,1,0 0.8208381  A  B</span></span>
-<span><span class="co">#&gt; 2,1,2 0.6841366  A</span></span>
+<span><span class="co">#&gt; 2,0,0 0.8929078     B</span></span>
+<span><span class="co">#&gt; 2,1,0 0.7742818  A  B</span></span>
+<span><span class="co">#&gt; 2,1,2 0.6863993  A</span></span>
 <span><span class="va">old.par</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>,<span class="fl">6</span>,<span class="fl">4</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">cva</span><span class="op">)</span></span></code></pre></div>
 <p><img src="vignette_E_supervised_files/figure-html/unnamed-chunk-18-1.png" width="576"></p>
@@ -839,7 +812,6 @@ components.</p>
 <span><span class="va">pot.po.auto</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/popls.html">popls</a></span><span class="op">(</span><span class="va">potato</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>, <span class="va">potato</span><span class="op">[[</span><span class="st">'Sensory'</span><span class="op">]</span><span class="op">]</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span>, commons <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning in gca.svd(X = X, tol = tol, ncomp = ncomp): 'ncomp' reduced due to low</span></span>
 <span><span class="co">#&gt; singular value for block 1</span></span>
-<span></span>
 <span><span class="co">#&gt; Warning in gca.svd(X = X, tol = tol, ncomp = ncomp): 'ncomp' reduced due to low</span></span>
 <span><span class="co">#&gt; singular value for block 1</span></span>
 <span></span>
@@ -853,7 +825,8 @@ components.</p>
 <span><span class="co">#&gt;       68.14595 </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $NIRraw</span></span>
-<span><span class="co">#&gt; named numeric(0)</span></span></code></pre></div>
+<span><span class="co">#&gt; D(3), Comp 1 </span></span>
+<span><span class="co">#&gt;     42.53836</span></span></code></pre></div>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Manual choice of up to 5 components for each block and 1, 0, and 2 blocks,</span></span>
 <span><span class="co"># respectively from the (1,2), (1,3) and (2,3) combinations of blocks.</span></span>
@@ -862,22 +835,21 @@ components.</p>
 <span>                                                  ncommon<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning in gca.svd(X = X, tol = tol, ncomp = ncomp): 'ncomp' reduced due to low</span></span>
 <span><span class="co">#&gt; singular value for block 1</span></span>
-<span></span>
 <span><span class="co">#&gt; Warning in gca.svd(X = X, tol = tol, ncomp = ncomp): 'ncomp' reduced due to low</span></span>
 <span><span class="co">#&gt; singular value for block 1</span></span>
 <span><span class="co"># Explained variance</span></span>
 <span><span class="va">pot.po.man</span><span class="op">$</span><span class="va">explVar</span></span>
 <span><span class="co">#&gt; $Chemical</span></span>
 <span><span class="co">#&gt; C(1,2), Comp 1   D(1), Comp 1   D(1), Comp 2 </span></span>
-<span><span class="co">#&gt;       32.22944   -72871.76265   -49467.54832 </span></span>
+<span><span class="co">#&gt;       32.22944       20.74357       20.87956 </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $Compression</span></span>
-<span><span class="co">#&gt; C(1,2), Comp 1 C(2,3), Comp 1 C(2,3), Comp 2   D(2), Comp 1   D(2), Comp 2 </span></span>
-<span><span class="co">#&gt;      68.145954       5.504006       7.214911  -13225.718233       0.000000 </span></span>
+<span><span class="co">#&gt; C(1,2), Comp 1 C(2,3), Comp 1 C(2,3), Comp 2 </span></span>
+<span><span class="co">#&gt;      68.145954       5.504006       7.214911 </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $NIRraw</span></span>
-<span><span class="co">#&gt; C(2,3), Comp 1 C(2,3), Comp 2   D(3), Comp 1   D(3), Comp 2   D(3), Comp 3 </span></span>
-<span><span class="co">#&gt;      32.606459       5.475702    -552.399938      15.775647       3.303994</span></span></code></pre></div>
+<span><span class="co">#&gt; C(2,3), Comp 1 C(2,3), Comp 2 </span></span>
+<span><span class="co">#&gt;      32.606459       5.475702</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="scores-and-loadings">Scores and loadings<a class="anchor" aria-label="anchor" href="#scores-and-loadings"></a>
@@ -922,11 +894,11 @@ total is cross-validated with 10 random segments.</p>
 <span><span class="co">#&gt; VALIDATION: RMSEP</span></span>
 <span><span class="co">#&gt; Cross-validated using 5 random segments.</span></span>
 <span><span class="co">#&gt;        (Intercept)  1 comps  2 comps  3 comps  4 comps  5 comps  6 comps</span></span>
-<span><span class="co">#&gt; CV           1.778   1.0114   0.8923   0.6119   0.5145   0.5294   0.5156</span></span>
-<span><span class="co">#&gt; adjCV        1.778   0.9701   0.8388   0.5850   0.4809   0.4869   0.4784</span></span>
+<span><span class="co">#&gt; CV           1.778    1.381    1.239   0.9998   0.8072   0.7546   0.5884</span></span>
+<span><span class="co">#&gt; adjCV        1.778    1.284    1.136   0.9019   0.7151   0.6722   0.5356</span></span>
 <span><span class="co">#&gt;        7 comps  8 comps  9 comps  10 comps</span></span>
-<span><span class="co">#&gt; CV      0.5225   0.5353   0.5759    0.6882</span></span>
-<span><span class="co">#&gt; adjCV   0.4793   0.4894   0.5218    0.6304</span></span>
+<span><span class="co">#&gt; CV      0.5397   0.5464   0.6237    0.7192</span></span>
+<span><span class="co">#&gt; adjCV   0.4959   0.5021   0.5652    0.6547</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; TRAINING: % variance explained</span></span>
 <span><span class="co">#&gt;          1 comps  2 comps  3 comps  4 comps  5 comps  6 comps  7 comps  8 comps</span></span>
@@ -978,15 +950,16 @@ prediction.</p>
 <div class="section level3">
 <h3 id="validation-1">Validation<a class="anchor" aria-label="anchor" href="#validation-1"></a>
 </h3>
-<p>Compute validation statistics; explained variance - R<span class="math inline">\(^2\)</span> and Root Mean Squared Error -
-RMSE(P/CV).</p>
+<p>Compute validation statistics; explained variance -
+R<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi></mi><mn>2</mn></msup><annotation encoding="application/x-tex">^2</annotation></semantics></math>
+and Root Mean Squared Error - RMSE(P/CV).</p>
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Cross-validation</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/pls/man/mvrVal.html" class="external-link">R2</a></span><span class="op">(</span><span class="va">ros.pot</span><span class="op">)</span></span>
 <span><span class="co">#&gt; (Intercept)      1 comps      2 comps      3 comps      4 comps      5 comps  </span></span>
-<span><span class="co">#&gt;     -0.0816       0.6499       0.7275       0.8718       0.9094       0.9041  </span></span>
+<span><span class="co">#&gt;     -0.0816       0.3474       0.4748       0.6578       0.7770       0.8051  </span></span>
 <span><span class="co">#&gt;     6 comps      7 comps      8 comps      9 comps     10 comps  </span></span>
-<span><span class="co">#&gt;      0.9090       0.9065       0.9019       0.8865       0.8379</span></span>
+<span><span class="co">#&gt;      0.8815       0.9003       0.8978       0.8668       0.8230</span></span>
 <span><span class="co"># Training</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/pls/man/mvrVal.html" class="external-link">R2</a></span><span class="op">(</span><span class="va">ros.pot</span>, <span class="st">'train'</span><span class="op">)</span></span>
 <span><span class="co">#&gt; (Intercept)      1 comps      2 comps      3 comps      4 comps      5 comps  </span></span>
@@ -1002,11 +975,11 @@ RMSE(P/CV).</p>
 <code class="sourceCode R"><span><span class="co"># Cross-validation</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/pls/man/mvrVal.html" class="external-link">RMSEP</a></span><span class="op">(</span><span class="va">ros.pot</span><span class="op">)</span></span>
 <span><span class="co">#&gt;        (Intercept)  1 comps  2 comps  3 comps  4 comps  5 comps  6 comps</span></span>
-<span><span class="co">#&gt; CV           1.778   1.0114   0.8923   0.6119   0.5145   0.5294   0.5156</span></span>
-<span><span class="co">#&gt; adjCV        1.778   0.9701   0.8388   0.5850   0.4809   0.4869   0.4784</span></span>
+<span><span class="co">#&gt; CV           1.778    1.381    1.239   0.9998   0.8072   0.7546   0.5884</span></span>
+<span><span class="co">#&gt; adjCV        1.778    1.284    1.136   0.9019   0.7151   0.6722   0.5356</span></span>
 <span><span class="co">#&gt;        7 comps  8 comps  9 comps  10 comps</span></span>
-<span><span class="co">#&gt; CV      0.5225   0.5353   0.5759    0.6882</span></span>
-<span><span class="co">#&gt; adjCV   0.4793   0.4894   0.5218    0.6304</span></span>
+<span><span class="co">#&gt; CV      0.5397   0.5464   0.6237    0.7192</span></span>
+<span><span class="co">#&gt; adjCV   0.4959   0.5021   0.5652    0.6547</span></span>
 <span><span class="co"># Training</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/pls/man/mvrVal.html" class="external-link">RMSEP</a></span><span class="op">(</span><span class="va">ros.pot</span>, <span class="st">'train'</span><span class="op">)</span></span>
 <span><span class="co">#&gt; (Intercept)      1 comps      2 comps      3 comps      4 comps      5 comps  </span></span>
@@ -1087,35 +1060,26 @@ using the same format as the rest of this package. The full fitted
 <p><img src="vignette_E_supervised_files/figure-html/unnamed-chunk-30-1.png" width="576"></p>
 </div>
 </div>
-  </div>
-
-  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-
-        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
-    </nav>
-</div>
-
+  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
+    </nav></aside>
 </div>
 
 
 
-      <footer><div class="copyright">
-  <p></p>
-<p>Developed by Kristian Hovde Liland.</p>
+    <footer><div class="pkgdown-footer-left">
+  <p>Developed by Kristian Hovde Liland.</p>
 </div>
 
-<div class="pkgdown">
-  <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
+<div class="pkgdown-footer-right">
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
 </div>
 
-      </footer>
+    </footer>
 </div>
 
-  
 
 
-  
+
 
   </body>
 </html>

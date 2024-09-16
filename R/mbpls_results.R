@@ -35,7 +35,7 @@
 #' found have 106 rows} means that not all variables were found in the
 #' \code{newdata} data frame.  This (usually) happens if the formula contains
 #' terms like \code{yarn$NIR}.  Do not use such terms; use the \code{data}
-#' argument instead.  See \code{\link{mvr}} for details.
+#' argument instead.  See \code{\link[pls]{mvr}} for details.
 #' @author Kristian Hovde Liland
 #' @seealso \code{\link{mbpls}}
 #' @examples
@@ -142,7 +142,7 @@ predict.mbpls <- function(object, newdata, ncomp = 1:object$ncomp, comps,
 #' partial matching and no automatic choice is made.  The function simply
 #' calculates the types of estimates it knows, and leaves the other untouched.
 #'
-#' @aliases MSEP MSEP.mvr RMSEP RMSEP.mvr R2 R2.mvr mvrValstats
+#' @aliases MSEP.mbpls RMSEP.mbpls R2.mbpls mvrValstats.mbpls
 #' @param object an \code{mvr} object
 #' @param estimate a character vector.  Which estimators to use.  Should be a
 #' subset of \code{c("all", "train", "CV", "adjCV", "test")}.  \code{"adjCV"}
@@ -175,7 +175,7 @@ predict.mbpls <- function(object, newdata, ncomp = 1:object$ncomp, comps,
 #' \item{cumulative}{\code{TRUE} if \code{comps} was \code{NULL} or not
 #' specified.} \item{call}{the function call} }
 #' @author Kristian Hovde Liland
-#' @seealso \code{\link{mbps}}
+#' @seealso \code{\link{mbpls}}
 #' @references Mevik, B.-H., Cederkvist, H. R. (2004) Mean Squared Error of
 #' Prediction (MSEP) Estimates for Principal Component Regression (PCR) and
 #' Partial Least Squares Regression (PLSR).  \emph{Journal of Chemometrics},
@@ -183,14 +183,14 @@ predict.mbpls <- function(object, newdata, ncomp = 1:object$ncomp, comps,
 #' @keywords regression multivariate
 #' @examples
 #'
-#' data(oliveoil)
-#' mod <- plsr(sensory ~ chemical, ncomp = 4, data = oliveoil, validation = "LOO")
+#' data(oliveoil, package = "pls")
+#' mod <- pls::plsr(sensory ~ chemical, ncomp = 4, data = oliveoil, validation = "LOO")
 #' RMSEP(mod)
 #' \dontrun{plot(R2(mod))}
 #'
 #' @export
 R2.mbpls <- function(object, estimate, newdata, ncomp = 1:object$ncomp, comps,
-                     intercept = cumulative, se = FALSE, ...)
+                     intercept = TRUE, se = FALSE, ...)
 {
   cumulative <- missing(comps) || is.null(comps)
   class(object) <- c('multiblock','mvr')
@@ -229,7 +229,7 @@ R2.mbpls <- function(object, estimate, newdata, ncomp = 1:object$ncomp, comps,
 #' @rdname mvrVal
 #' @export
 MSEP.mbpls <- function(object, estimate, newdata, ncomp = 1:object$ncomp, comps,
-                       intercept = cumulative, se = FALSE, ...)
+                       intercept = TRUE, se = FALSE, ...)
 {
   class(object) <- c('multiblock','mvr')
   if(!missing(newdata)){

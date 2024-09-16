@@ -1,3 +1,6 @@
+url: https://khliland.github.io/multiblock/
+template:
+  bootstrap: 5
 reference:
 - title: "Multiblock object"
   desc: A common object type for many multiblock methods.
@@ -24,6 +27,7 @@ reference:
   - mfa
   - pcagca
   - disco
+  - DISCOsca
   - hpca
   - mcoa
   - jive
@@ -43,6 +47,8 @@ reference:
   - rosa_results
   - rosa_plots
   - mbrda
+  - mvrVal 
+  - predict.mbpls 
 - title: "Complex methods"
 - contents:
   - complex
@@ -64,7 +70,9 @@ reference:
   - mcolors
   - reexports
   - unique_combos
-- title : "Datasets"
+  - extended.model.frame
+  - preprocess
+- title: "Datasets"
 - contents:
   - candies
   - potato

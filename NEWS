@@ -6,8 +6,9 @@ functions, several real data sets and six vignettes covering a range different a
 Kristian Hovde Liland
 
 ##### Version 0.8.8.2
-Date: 11 September 2024
->> Corrected errors in two-level ASCA modelling affecting plotting.
+Date: 15 September 2024
+>> Corrected errors in two-level ASCA modelling affecting plotting
+>> Added R2 and MSEP for MB-PLS.
 
 ##### Version 0.8.8.1
 Date: 11 March 2024

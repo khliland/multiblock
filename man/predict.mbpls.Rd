@@ -61,7 +61,7 @@ A warning message like \samp{'newdata' had 10 rows but variable(s)
 found have 106 rows} means that not all variables were found in the
 \code{newdata} data frame.  This (usually) happens if the formula contains
 terms like \code{yarn$NIR}.  Do not use such terms; use the \code{data}
-argument instead.  See \code{\link{mvr}} for details.
+argument instead.  See \code{\link[pls]{mvr}} for details.
 }
 \examples{
 data(potato)

@@ -3,7 +3,7 @@
 #' @description This is a basic implementation of PO-PLS with manual and automatic component selections.
 #' 
 #' @details PO-PLS decomposes a set of input data blocks into common, local and distinct components
-#' through a process involving \code{\link{pls}} and \code{\link{gca}}. The \code{rLim} parameter is 
+#' through a process involving \code{pls} and \code{\link{gca}}. The \code{rLim} parameter is 
 #' a lower bound for the GCA correlation when building common components, while explVarLim is the minimum
 #' explained variance for common components and unique components.
 #' 

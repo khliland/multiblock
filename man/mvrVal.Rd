@@ -3,15 +3,9 @@
 \name{mvrVal}
 \alias{mvrVal}
 \alias{R2.mbpls}
-\alias{MSEP}
-\alias{MSEP.mvr}
-\alias{RMSEP}
-\alias{RMSEP.mvr}
-\alias{R2}
-\alias{R2.mvr}
-\alias{mvrValstats}
 \alias{MSEP.mbpls}
 \alias{RMSEP.mbpls}
+\alias{mvrValstats.mbpls}
 \title{MSEP, RMSEP and R2 of the MB-PLS model}
 \usage{
 \method{R2}{mbpls}(
@@ -20,7 +14,7 @@
   newdata,
   ncomp = 1:object$ncomp,
   comps,
-  intercept = cumulative,
+  intercept = TRUE,
   se = FALSE,
   ...
 )
@@ -31,7 +25,7 @@
   newdata,
   ncomp = 1:object$ncomp,
   comps,
-  intercept = cumulative,
+  intercept = TRUE,
   se = FALSE,
   ...
 )
@@ -132,8 +126,8 @@ specified.} \item{call}{the function call} }
 
 \examples{
 
-data(oliveoil)
-mod <- plsr(sensory ~ chemical, ncomp = 4, data = oliveoil, validation = "LOO")
+data(oliveoil, package = "pls")
+mod <- pls::plsr(sensory ~ chemical, ncomp = 4, data = oliveoil, validation = "LOO")
 RMSEP(mod)
 \dontrun{plot(R2(mod))}
 
@@ -145,7 +139,7 @@ Partial Least Squares Regression (PLSR).  \emph{Journal of Chemometrics},
 \bold{18}(9), 422--429.
 }
 \seealso{
-\code{\link{mbps}}
+\code{\link{mbpls}}
 }
 \author{
 Kristian Hovde Liland
