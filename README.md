@@ -21,7 +21,7 @@ devtools::install_github("khliland/multiblock")
 This package contains a large variety of the methods described in Age K. Smilde, Tormod Næs and Kristian Hovde Liland's book:  
 
 _Multiblock Data Fusion in Statistics and Machine Learning_  
- _- Applications in the Natural and Life Sciences_ .  
+ _- Applications in the Natural and Life Sciences_
 
 Published by Wiley in May 2022.
 

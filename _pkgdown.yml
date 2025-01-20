@@ -59,8 +59,6 @@ reference:
 - title: "ASCA"
 - contents:
   - asca
-  - asca_results
-  - asca_plots
 - title: "Utility functions"
 - contents:
   - block.data.frame

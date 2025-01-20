@@ -21,7 +21,6 @@
 <url><loc>https://khliland.github.io/multiblock/index.html</loc></url>
 <url><loc>https://khliland.github.io/multiblock/reference/DISCOsca.html</loc></url>
 <url><loc>https://khliland.github.io/multiblock/reference/SO_TDI.html</loc></url>
-<url><loc>https://khliland.github.io/multiblock/reference/asca.html</loc></url>
 <url><loc>https://khliland.github.io/multiblock/reference/asca_object.html</loc></url>
 <url><loc>https://khliland.github.io/multiblock/reference/asca_plots.html</loc></url>
 <url><loc>https://khliland.github.io/multiblock/reference/asca_results.html</loc></url>
@@ -43,6 +42,8 @@
 <url><loc>https://khliland.github.io/multiblock/reference/ifa.html</loc></url>
 <url><loc>https://khliland.github.io/multiblock/reference/index.html</loc></url>
 <url><loc>https://khliland.github.io/multiblock/reference/jive.html</loc></url>
+<url><loc>https://khliland.github.io/multiblock/reference/loadingplot.asca.html</loc></url>
+<url><loc>https://khliland.github.io/multiblock/reference/loadings.asca.html</loc></url>
 <url><loc>https://khliland.github.io/multiblock/reference/lpls.html</loc></url>
 <url><loc>https://khliland.github.io/multiblock/reference/lplsData.html</loc></url>
 <url><loc>https://khliland.github.io/multiblock/reference/lpls_object.html</loc></url>
@@ -64,7 +65,11 @@
 <url><loc>https://khliland.github.io/multiblock/reference/potato.html</loc></url>
 <url><loc>https://khliland.github.io/multiblock/reference/predict.mbpls.html</loc></url>
 <url><loc>https://khliland.github.io/multiblock/reference/preprocess.html</loc></url>
+<url><loc>https://khliland.github.io/multiblock/reference/print.asca.html</loc></url>
+<url><loc>https://khliland.github.io/multiblock/reference/print.summary.asca.html</loc></url>
 <url><loc>https://khliland.github.io/multiblock/reference/process.html</loc></url>
+<url><loc>https://khliland.github.io/multiblock/reference/projections.asca.html</loc></url>
+<url><loc>https://khliland.github.io/multiblock/reference/projections.html</loc></url>
 <url><loc>https://khliland.github.io/multiblock/reference/reexports.html</loc></url>
 <url><loc>https://khliland.github.io/multiblock/reference/rosa.html</loc></url>
 <url><loc>https://khliland.github.io/multiblock/reference/rosa_object.html</loc></url>
@@ -72,6 +77,8 @@
 <url><loc>https://khliland.github.io/multiblock/reference/rosa_plotting.html</loc></url>
 <url><loc>https://khliland.github.io/multiblock/reference/rosa_results.html</loc></url>
 <url><loc>https://khliland.github.io/multiblock/reference/sca.html</loc></url>
+<url><loc>https://khliland.github.io/multiblock/reference/scoreplot.asca.html</loc></url>
+<url><loc>https://khliland.github.io/multiblock/reference/scores.asca.html</loc></url>
 <url><loc>https://khliland.github.io/multiblock/reference/simulated.html</loc></url>
 <url><loc>https://khliland.github.io/multiblock/reference/smbpls.html</loc></url>
 <url><loc>https://khliland.github.io/multiblock/reference/sopls.html</loc></url>
@@ -80,6 +87,7 @@
 <url><loc>https://khliland.github.io/multiblock/reference/sopls_plots.html</loc></url>
 <url><loc>https://khliland.github.io/multiblock/reference/sopls_results.html</loc></url>
 <url><loc>https://khliland.github.io/multiblock/reference/statis.html</loc></url>
+<url><loc>https://khliland.github.io/multiblock/reference/summary.asca.html</loc></url>
 <url><loc>https://khliland.github.io/multiblock/reference/supervised.html</loc></url>
 <url><loc>https://khliland.github.io/multiblock/reference/unique_combos.html</loc></url>
 <url><loc>https://khliland.github.io/multiblock/reference/unsupervised.html</loc></url>

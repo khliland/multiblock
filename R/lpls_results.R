@@ -1,6 +1,7 @@
 #' @name lpls_results
 #' @title Result functions for L-PLS objects (\code{lpls})
 #' @aliases plot.lpls predict.lpls lplsCV
+#' @importFrom car ellipse
 #' 
 #' @description Correlation loading plot, prediction and cross-validation for L-PLS
 #' models with class \code{\link{lpls}}.

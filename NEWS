@@ -5,6 +5,10 @@ This implements and imports a large collection of methods for multiblock data an
 functions, several real data sets and six vignettes covering a range different applications.
 Kristian Hovde Liland
 
+##### Version 0.8.9
+Date: 20 January 2025
+>> Changed from internal ASCA methods to import from HDANOVA package.
+
 ##### Version 0.8.8.2
 Date: 15 September 2024
 >> Corrected errors in two-level ASCA modelling affecting plotting

@@ -1,3 +1,27 @@
+#' @importFrom HDANOVA asca
+#' @export
+HDANOVA::asca
+
+#' @importFrom HDANOVA asca_fit
+#' @export 
+HDANOVA::asca_fit
+
+#' @importFrom HDANOVA scoreplot
+#' @export 
+HDANOVA::scoreplot
+
+#' @importFrom HDANOVA loadingplot
+#' @export 
+HDANOVA::loadingplot
+
+#' @importFrom HDANOVA timeplot
+#' @export 
+HDANOVA::timeplot
+
+#' @importFrom HDANOVA permutationplot
+#' @export 
+HDANOVA::permutationplot
+
 #' @export
 pls::pcr
 

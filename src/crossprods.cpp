@@ -11,7 +11,7 @@ using Eigen::Lower;
 NumericMatrix crossprodnum(SEXP AA){
   
   const Map<MatrixXd> A(as<Map<MatrixXd> >(AA));
-  const int n(A.cols());
+  const long int n(A.cols());
   MatrixXd AtA(MatrixXd(n, n).setZero().selfadjointView<Lower>().rankUpdate(A.adjoint()));
   return wrap(AtA);
 }
@@ -20,7 +20,7 @@ NumericMatrix crossprodnum(SEXP AA){
 NumericMatrix tcrossprodnum(SEXP AA){
   
   const Map<MatrixXd> A(as<Map<MatrixXd> >(AA));
-  const int n(A.rows());
+  const long int n(A.rows());
   MatrixXd AAt(MatrixXd(n, n).setZero().selfadjointView<Lower>().rankUpdate(A));
   return wrap(AAt);
 }
@@ -29,7 +29,7 @@ NumericMatrix tcrossprodnum(SEXP AA){
 NumericMatrix crossprodint(SEXP AA){
   
   const Map<MatrixXi> A(as<Map<MatrixXi> >(AA));
-  const int n(A.cols());
+  const long int n(A.cols());
   MatrixXi AtA(MatrixXi(n, n).setZero().selfadjointView<Lower>().rankUpdate(A.adjoint()));
   return wrap(AtA);
 }
@@ -38,7 +38,7 @@ NumericMatrix crossprodint(SEXP AA){
 NumericMatrix tcrossprodint(SEXP AA){
   
   const Map<MatrixXi> A(as<Map<MatrixXi> >(AA));
-  const int n(A.rows());
+  const long int n(A.rows());
   MatrixXi AAt(MatrixXi(n, n).setZero().selfadjointView<Lower>().rankUpdate(A));
   return wrap(AAt);
 }
