@@ -4,7 +4,6 @@
 \name{reexports}
 \alias{reexports}
 \alias{asca}
-\alias{asca_fit}
 \alias{scoreplot}
 \alias{loadingplot}
 \alias{timeplot}
@@ -29,7 +28,7 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{HDANOVA}{\code{\link[HDANOVA]{asca}}, \code{\link[HDANOVA]{asca_fit}}, \code{\link[HDANOVA:reexports]{loadingplot}}, \code{\link[HDANOVA:asca_plots]{permutationplot}}, \code{\link[HDANOVA:reexports]{scoreplot}}, \code{\link[HDANOVA]{timeplot}}}
+  \item{HDANOVA}{\code{\link[HDANOVA]{asca}}, \code{\link[HDANOVA:reexports]{loadingplot}}, \code{\link[HDANOVA:asca_plots]{permutationplot}}, \code{\link[HDANOVA:reexports]{scoreplot}}, \code{\link[HDANOVA]{timeplot}}}
 
   \item{pls}{\code{\link[pls:mvrVal]{MSEP}}, \code{\link[pls:mvrVal]{R2}}, \code{\link[pls:mvrVal]{RMSEP}}, \code{\link[pls]{coefplot}}, \code{\link[pls]{cvsegments}}, \code{\link[pls:scores]{loading.weights}}, \code{\link[pls:scoreplot]{loadingplot}}, \code{\link[pls:scores]{loadings}}, \code{\link[pls:mvrVal]{mvrValstats}}, \code{\link[pls:mvr]{pcr}}, \code{\link[pls:mvr]{plsr}}, \code{\link[pls]{predplot}}, \code{\link[pls]{scoreplot}}, \code{\link[pls]{scores}}, \code{\link[pls]{validationplot}}}
 }}

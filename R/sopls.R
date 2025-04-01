@@ -240,6 +240,44 @@ sopls_prediction <- function(SO, Xval, comps, scores){
   Y_pred
 }
 
+# sopls_prediction2 <- function(SO, Xval, comps, max_comps, scores){
+#   X <- SO$data$X
+#   Y <- SO$data$Y
+#   n    <- dim(X[[1]])[1]
+#   nval <- dim(Xval[[1]])[1]
+#   
+#   nblock  <- length(X)
+#   nresp   <- dim(Y)[2]
+#   selComp <- pathComp(comps, SO$decomp$compList)
+#   tot_comp <- length(selComp$hits)
+#   
+#   Y_pred <- array(0, c(nval, nresp, tot_comp))  
+#   Cr <- Crval <- list()
+#   for(i in 1:nblock){
+#     if(is.character(comps) || comps[i]>0){
+#       Xval[[i]] <- as.matrix(Xval[[i]])
+#       X[[i]]    <- as.matrix(X[[i]])
+#       Xval[[i]] <- Xval[[i]] - rep(SO$Xmeans[[i]], each = nval)
+#       X[[i]]    <- X[[i]]    - rep(SO$Xmeans[[i]], each = n)
+#       if(length(SO$Xscale)>0){
+#         Xval[[i]] <- Xval[[i]]/rep(SO$Xscale[[i]], each = nval)
+#         X[[i]]    <- X[[i]]   /rep(SO$Xscale[[i]], each = n)
+#       }
+#       Cr[[i]]    <- tcrossprodQ(X[[i]], X[[i]])   # %*% SO$decomp$Ry[, selComp$hits, drop=FALSE]
+#       Crval[[i]] <- tcrossprodQ(Xval[[i]], X[[i]])# %*% SO$decomp$Ry[, selComp$hits, drop=FALSE]
+#     }
+#   }
+#   if(scores){
+#     no_Q <- Crval %*% SO$decomp$Ry[, selComp$hits, drop=FALSE] %*% solve(crossprodQ(SO$decomp$T[,selComp$hits,drop=FALSE], Cr%*% SO$decomp$Ry[, selComp$hits, drop=FALSE]))
+#     dimnames(no_Q) <- list(rownames(X),apply(selComp$path,1,paste0, collapse=","))
+#     return(no_Q)
+#   }
+#   Y_pred <- sopls_worker(Cr, Y, comps, max_comps, Crval)$Ypred
+# #  Y_pred <- Y_pred + rep(colMeans(Y), each=nval)
+# #  dimnames(Y_pred) <- list(rownames(X),colnames(Y),apply(selComp$path,1,paste0, collapse=","))
+#   Y_pred
+# }
+
 
 ############################
 # SO-PLS single prediction #  TODO: No scaling, consider trashing
@@ -284,29 +322,29 @@ sopls_worker <- function(C, Y, comps, max_comps, Cval = NULL, both = FALSE){
   tot_comps   <- length(changeBlock)
   
   # All combinations of block usage
-  sumC <- list()
-  for(i in 1:nCombos){
-    sumC[[i]] <- 0
-    for(j in 1:nblock){
-      if(blockCombo[i,j]){
-        sumC[[i]] <- sumC[[i]] + C[[j]]
-      }
-    }
-  }
+#  sumC <- list()
+#  for(i in 1:nCombos){
+#    sumC[[i]] <- 0
+#    for(j in 1:nblock){
+#      if(blockCombo[i,j]){
+#        sumC[[i]] <- sumC[[i]] + C[[j]]
+#      }
+#    }
+#  }
   
   # Check for prediction
   pred <- FALSE
   if(!is.null(Cval)){
     pred <- TRUE
-    sumCval <- list()
-    for(i in 1:nCombos){
-      sumCval[[i]] <- 0
-      for(j in 1:nblock){
-        if(blockCombo[i,j]){
-          sumCval[[i]] <- sumCval[[i]] + Cval[[j]]
-        }
-      }
-    }
+    # sumCval <- list()
+    # for(i in 1:nCombos){
+    #   sumCval[[i]] <- 0
+    #   for(j in 1:nblock){
+    #     if(blockCombo[i,j]){
+    #       sumCval[[i]] <- sumCval[[i]] + Cval[[j]]
+    #     }
+    #   }
+    # }
     Y_mean <- colMeans(Y)
     nval   <- dim(Cval[[1]])[1]
     Crval_currB <- list()
@@ -388,8 +426,21 @@ sopls_worker <- function(C, Y, comps, max_comps, Cval = NULL, both = FALSE){
       }
       
       # XW(P'W)^-1, ie. WB without Q
+      if(exists("no_Q"))
+        prev_Q <- no_Q
+      no_Q <- "A"
+      try(
       no_Q <- Crval_currB[[cb]][,1:comp_curr,drop=FALSE] %*% 
         solve(crossprodQ(T_curr[,1:comp_curr,drop=FALSE], Cr_currB[[cb]][,1:comp_curr,drop=FALSE]))
+      , silent = TRUE)
+      # Check existence of no_Q
+      if(inherits(no_Q, "character")){
+        if(!exists("prev_Q")){
+          stop("Error in prediction: Singular matrix in prediction.")
+        } else {
+          no_Q <- cbind(prev_Q, matrix(0,nval,comp_curr-ncol(prev_Q)))
+        }
+      }
       # Prediction per response
       for(r in 1:nresp){
         if(comp_curr==1){

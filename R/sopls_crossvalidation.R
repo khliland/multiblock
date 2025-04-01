@@ -111,8 +111,8 @@ sopls_cv <- function(X, Y, comps, max_comps, segments, progress=TRUE, ...){
       Ci[[blk]] <- C[[blk]] - (Xm[[blk]][,i] + matrix(Xm[[blk]][,i,drop=FALSE] - mm[[blk]][i], n,n, byrow=TRUE))
       Ci[[blk]][inds2,] <- 0
       nt <- sum(cv==i)
-      # Compute Xval*Xval' with centred X matrices excluding observation i
-      XXvt <- C[[blk]][cv==i,cv!=i] - (matrix(Xm[[blk]][cv!=i,i],nt,n-nt,byrow=TRUE) + (Xm[[blk]][i,i] - mm[[blk]][i]))
+      # Compute Xval*X' with centred X matrices excluding observation i
+      XXvt <- C[[blk]][cv==i,cv!=i] - (matrix(Xm[[blk]][cv!=i,i,drop=FALSE],nt,n-nt,byrow=TRUE) + (Xm[[blk]][cv==i,i] - mm[[blk]][i]))
       Cival[[blk]] <- matrix(0,nt,n)
       Cival[[blk]][,!inds2] <- XXvt
       Ci[[blk]][,inds2] <-  0

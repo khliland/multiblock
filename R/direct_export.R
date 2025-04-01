@@ -2,9 +2,9 @@
 #' @export
 HDANOVA::asca
 
-#' @importFrom HDANOVA asca_fit
-#' @export 
-HDANOVA::asca_fit
+# #' @importFrom HDANOVA hdanova
+# #' @export 
+# HDANOVA::hdanova
 
 #' @importFrom HDANOVA scoreplot
 #' @export 

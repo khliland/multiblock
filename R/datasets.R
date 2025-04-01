@@ -100,3 +100,30 @@ NULL
 #' 
 #' @references Escofier B, Pages L. Analyses Factorielles Simples and Multiples. Paris: Dunod; 1988.
 NULL
+
+#' @name mobile
+#' @title ECSI Mobile Mobile Phone Provider Dataset
+#'
+#' @description Mobile data questionnaire often used as an example in path modelling.
+#' All the items are scaled from 1 to 10. Score 1 expresses a very negative 
+#' point of view on the product while score 10 a very positive opinion. For details,
+#' see the original publication.
+#' 
+#' ![](mobile.png "Path-diagram for mobile data")
+#'
+#' @docType data
+#' @usage data(mobile)
+#' 
+#' @format A data.frame having 250 rows and 7 variables:
+#' \describe{
+#'   \item{A}{Image}
+#'   \item{B}{Customer expectation}
+#'   \item{C}{Perceived quality}
+#'   \item{D}{Perceived value}
+#'   \item{E}{Customer satisfaction}
+#'   \item{F}{Customer complaints}
+#'   \item{G}{Customer loyalty}
+#' }
+#' 
+#' @references Tenenhaus M, Esposito Vinzi V, Chatelin YM, Lauro C. PLS path modeling. Comput Stat Data Anal. 2005;48(1):159‐205.
+NULL
