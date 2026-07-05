@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">multiblock</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.10</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.11</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -42,7 +42,7 @@
     </div>
 
     <div class="ref-description section level2">
-    <p>This is a wrapper for the <code>FactoMineR::MFA</code> function for computing MFA.</p>
+    <p>This is a wrapper for the <code><a href="https://rdrr.io/pkg/FactoMineR/man/MFA.html" class="external-link">FactoMineR::MFA</a></code> function for computing MFA.</p>
     </div>
 
     <div class="section level2">
@@ -99,8 +99,6 @@ Common functions for computation and extraction of results and plotting are foun
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">potato</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">potList</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">as.list</a></span><span class="op">(</span><span class="va">potato</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">9</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">pot.mfa</span>    <span class="op">&lt;-</span> <span class="fu">mfa</span><span class="op">(</span><span class="va">potList</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> To run 'mfa', please install the 'FactoMineR' package, e.g., using</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> install.packages('FactoMineR')</span>
 <span class="r-in"><span><span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">pot.mfa</span><span class="op">$</span><span class="va">MFA</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>

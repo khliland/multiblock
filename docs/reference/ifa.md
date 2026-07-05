@@ -1,6 +1,8 @@
 # Inter-battery Factor Analysis - IFA
 
-This is a wrapper for the `RGCCA::rgcca` function for computing IFA.
+This is a wrapper for the
+[`RGCCA::rgcca`](https://rgcca-factory.github.io/RGCCA/reference/rgcca.html)
+function for computing IFA.
 
 ## Usage
 
@@ -29,7 +31,8 @@ ifa(X, ncomp = 1, scale = FALSE, verbose = FALSE, ...)
 
 - ...:
 
-  additional arguments to `RGCCA::rgcca`.
+  additional arguments to
+  [`RGCCA::rgcca`](https://rgcca-factory.github.io/RGCCA/reference/rgcca.html).
 
 ## Value
 
@@ -74,6 +77,4 @@ data(potato)
 X <- potato$Chemical
 
 ifa.pot  <- ifa(potato[1:2])
-#> To run 'ifa', please install the 'RGCCA' package, e.g., using
-#> install.packages('RGCCA')
 ```

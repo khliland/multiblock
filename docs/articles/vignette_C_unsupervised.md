@@ -172,16 +172,19 @@ summary(pot.sca)
 #> - Chemical (14x2), Compression (12x2), Sensory (9x2)
 # MFA stores individual PCA scores and loadings as block elements:
 names(pot.mfa)
-#> [1] "loadings"    "blockScores" "scores"      "blockScores" "info"       
-#> [6] "call"
+#> [1] "scores"        "loadings"      "blockScores"   "blockLoadings"
+#> [5] "info"          "MFA"           "call"          "explvar"      
+#> [9] "data"
 summary(pot.mfa)
-#> Nothing computed 
-#> ================ 
+#> Multiple Factor Analysis 
+#> ======================== 
 #> 
-#> $scores: Not used (2x2)
-#> $loadings: Not used (2x2)
-#> $blockScores: Not used:
-#> - (2x2), (2x2), (2x2)
+#> $scores: Global scores (26x5)
+#> $loadings: Global loadings (35x5)
+#> $blockScores: Individual PCA scores:
+#> - Chemical (26x5), Compression (26x5), Sensory (26x5)
+#> $blockLoadings: Individual PCA loadings:
+#> - Chemical (14x5), Compression (12x5), Sensory (9x5)
 ```
 
 ### Scores and loadings

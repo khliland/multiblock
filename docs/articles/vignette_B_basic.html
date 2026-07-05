@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">multiblock</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.10</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.11</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -133,13 +133,9 @@ for supervised and unsupervised analysis for details.</p>
 <span><span class="co"># Two blocks, unsupervised</span></span>
 <span><span class="va">pot.cca</span>  <span class="op">&lt;-</span> <span class="fu"><a href="../reference/cca.html">cca</a></span><span class="op">(</span><span class="va">potato</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="va">pot.ifa</span>  <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ifa.html">ifa</a></span><span class="op">(</span><span class="va">potato</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
-<span><span class="co">#&gt; To run 'ifa', please install the 'RGCCA' package, e.g., using</span></span>
-<span><span class="co">#&gt; install.packages('RGCCA')</span></span>
 <span></span>
 <span><span class="co"># Variable linked decomposition</span></span>
-<span><span class="va">pot.gsvd</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gsvd.html">gsvd</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">potato</span><span class="op">[</span><span class="fl">3</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>, <span class="va">t</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; To run 'gsvd', please install the 'geigen' package, e.g., using</span></span>
-<span><span class="co">#&gt; install.packages('geigen')</span></span></code></pre></div>
+<span><span class="va">pot.gsvd</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gsvd.html">gsvd</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">potato</span><span class="op">[</span><span class="fl">3</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>, <span class="va">t</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="common-output-elements-across-methods">Common output elements across methods<a class="anchor" aria-label="anchor" href="#common-output-elements-across-methods"></a>
@@ -164,16 +160,14 @@ summary based on the <em>info</em> list, respectively.</p>
 <span><span class="co">#&gt; $loadings: Loadings (14x2)</span></span>
 <span><span class="co"># GSVD returns block scores and common loadings:</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">pot.gsvd</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "loadings"    "blockScores" "scores"      "blockScores" "info"       </span></span>
-<span><span class="co">#&gt; [6] "call"</span></span>
+<span><span class="co">#&gt; [1] "loadings"    "blockScores" "GSVD"        "info"        "call"</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">pot.gsvd</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Nothing computed </span></span>
-<span><span class="co">#&gt; ================ </span></span>
+<span><span class="co">#&gt; Generalized Singular Value Decomposition </span></span>
+<span><span class="co">#&gt; ======================================== </span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $scores: Not used (2x2)</span></span>
-<span><span class="co">#&gt; $loadings: Not used (2x2)</span></span>
-<span><span class="co">#&gt; $blockScores: Not used:</span></span>
-<span><span class="co">#&gt; - (2x2), (2x2)</span></span></code></pre></div>
+<span><span class="co">#&gt; $loadings: Loadings (26x26)</span></span>
+<span><span class="co">#&gt; $blockScores: Block scores:</span></span>
+<span><span class="co">#&gt; - NIRraw (1050x1050), NIRcooked (1050x1050)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="scores-and-loadings">Scores and loadings<a class="anchor" aria-label="anchor" href="#scores-and-loadings"></a>

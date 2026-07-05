@@ -44,9 +44,5 @@ pcr.pot  <- pcr(y ~ X, ncomp = 2)
 pls.pot  <- plsr(y ~ X, ncomp = 2)
 cca.pot  <- cca(potato[1:2])
 ifa.pot  <- ifa(potato[1:2])
-#> To run 'ifa', please install the 'RGCCA' package, e.g., using
-#> install.packages('RGCCA')
 gsvd.pot <- gsvd(lapply(potato[3:4], t))
-#> To run 'gsvd', please install the 'geigen' package, e.g., using
-#> install.packages('geigen')
 ```

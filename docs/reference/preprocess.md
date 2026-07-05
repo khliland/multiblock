@@ -54,7 +54,7 @@ The `fun` parameter controls the type of preprocessing to be performed:
 
 - EMSC: Extended Multiplicative Signal Correction defaulting to basic
   EMSC (2nd order polynomials). Further parameters are sent to
-  `EMSC::EMSC`.
+  [`EMSC::EMSC`](https://rdrr.io/pkg/EMSC/man/EMSC.html).
 
 - Fro: Frobenius norm scaling of whole block.
 

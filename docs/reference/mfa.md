@@ -1,6 +1,8 @@
 # Multiple Factor Analysis - MFA
 
-This is a wrapper for the `FactoMineR::MFA` function for computing MFA.
+This is a wrapper for the
+[`FactoMineR::MFA`](https://rdrr.io/pkg/FactoMineR/man/MFA.html)
+function for computing MFA.
 
 ## Usage
 
@@ -76,8 +78,6 @@ respectively.
 data(potato)
 potList <- as.list(potato[c(1,2,9)])
 pot.mfa    <- mfa(potList)
-#> To run 'mfa', please install the 'FactoMineR' package, e.g., using
-#> install.packages('FactoMineR')
 if(interactive()){
   plot(pot.mfa$MFA)
 }

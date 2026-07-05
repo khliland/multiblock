@@ -1,6 +1,8 @@
 # Generalized Procrustes Analysis - GPA
 
-This is a wrapper for the `FactoMineR::GPA` function for computing GPA.
+This is a wrapper for the
+[`FactoMineR::GPA`](https://rdrr.io/pkg/FactoMineR/man/gpa.html)
+function for computing GPA.
 
 ## Usage
 
@@ -67,8 +69,6 @@ respectively.
 data(potato)
 potList <- as.list(potato[c(1,2,9)])
 pot.gpa    <- gpa(potList)
-#> To run 'gpa', please install the 'FactoMineR' package, e.g., using
-#> install.packages('FactoMineR')
 plot(scores(pot.gpa), labels="names")
 
 ```

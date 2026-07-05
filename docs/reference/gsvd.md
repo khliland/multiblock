@@ -1,6 +1,8 @@
 # Generalised Singular Value Decomposition - GSVD
 
-This is a wrapper for the `geigen::gsvd` function for computing GSVD.
+This is a wrapper for the
+[`geigen::gsvd`](https://rdrr.io/pkg/geigen/man/gsvd.html) function for
+computing GSVD.
 
 ## Usage
 
@@ -57,6 +59,4 @@ data(potato)
 X <- potato$Chemical
 
 gsvd.pot <- gsvd(lapply(potato[3:4], t))
-#> To run 'gsvd', please install the 'geigen' package, e.g., using
-#> install.packages('geigen')
 ```

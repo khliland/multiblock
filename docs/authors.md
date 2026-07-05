@@ -15,13 +15,13 @@ Source:
 [`DESCRIPTION`](https://github.com/khliland/multiblock/blob/HEAD/DESCRIPTION)
 
 Liland K (2026). *multiblock: Multiblock Data Fusion in Statistics and
-Machine Learning*. R package version 0.8.10,
+Machine Learning*. R package version 0.8.11,
 <https://khliland.github.io/multiblock/>.
 
     @Manual{,
       title = {multiblock: Multiblock Data Fusion in Statistics and Machine Learning},
       author = {Kristian Hovde Liland},
       year = {2026},
-      note = {R package version 0.8.10},
+      note = {R package version 0.8.11},
       url = {https://khliland.github.io/multiblock/},
     }

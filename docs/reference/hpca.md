@@ -1,6 +1,8 @@
 # Hierarchical Principal component analysis - HPCA
 
-This is a wrapper for the `RGCCA::rgcca` function for computing HPCA.
+This is a wrapper for the
+[`RGCCA::rgcca`](https://rgcca-factory.github.io/RGCCA/reference/rgcca.html)
+function for computing HPCA.
 
 ## Usage
 
@@ -75,8 +77,6 @@ respectively.
 data(potato)
 potList <- as.list(potato[c(1,2,9)])
 pot.hpca   <- hpca(potList)
-#> To run 'hpca', please install the 'RGCCA' package, e.g., using
-#> install.packages('RGCCA')
 plot(scores(pot.hpca), labels="names")
 
 ```

@@ -70,13 +70,9 @@ pot.pls  <- plsr(y ~ X, ncomp = 2)
 # Two blocks, unsupervised
 pot.cca  <- cca(potato[1:2])
 pot.ifa  <- ifa(potato[1:2])
-#> To run 'ifa', please install the 'RGCCA' package, e.g., using
-#> install.packages('RGCCA')
 
 # Variable linked decomposition
 pot.gsvd <- gsvd(lapply(potato[3:4], t))
-#> To run 'gsvd', please install the 'geigen' package, e.g., using
-#> install.packages('geigen')
 ```
 
 ### Common output elements across methods
@@ -102,16 +98,14 @@ summary(pot.pca)
 #> $loadings: Loadings (14x2)
 # GSVD returns block scores and common loadings:
 names(pot.gsvd)
-#> [1] "loadings"    "blockScores" "scores"      "blockScores" "info"       
-#> [6] "call"
+#> [1] "loadings"    "blockScores" "GSVD"        "info"        "call"
 summary(pot.gsvd)
-#> Nothing computed 
-#> ================ 
+#> Generalized Singular Value Decomposition 
+#> ======================================== 
 #> 
-#> $scores: Not used (2x2)
-#> $loadings: Not used (2x2)
-#> $blockScores: Not used:
-#> - (2x2), (2x2)
+#> $loadings: Loadings (26x26)
+#> $blockScores: Block scores:
+#> - NIRraw (1050x1050), NIRcooked (1050x1050)
 ```
 
 ### Scores and loadings

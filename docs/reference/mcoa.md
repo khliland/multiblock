@@ -1,6 +1,8 @@
 # Multiple Co-Inertia Analysis - MCOA
 
-This is a wrapper for the `RGCCA::rgcca` function for computing MCOA.
+This is a wrapper for the
+[`RGCCA::rgcca`](https://rgcca-factory.github.io/RGCCA/reference/rgcca.html)
+function for computing MCOA.
 
 ## Usage
 
@@ -80,8 +82,6 @@ respectively.
 data(potato)
 potList <- as.list(potato[c(1,2,9)])
 pot.mcoa   <- mcoa(potList)
-#> To run 'mcoa', please install the 'RGCCA' package, e.g., using
-#> install.packages('RGCCA')
 plot(scores(pot.mcoa), labels="names")
 
 ```

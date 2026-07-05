@@ -153,11 +153,11 @@ summary(mod)
 #> VALIDATION: RMSEP
 #> Cross-validated using 5 random segments.
 #>        (Intercept)  1 comps  2 comps  3 comps  4 comps  5 comps  6 comps
-#> CV           1.778   0.9379   0.8653   0.5689   0.5007   0.4766   0.4762
-#> adjCV        1.778   0.9152   0.8156   0.5447   0.4636   0.4440   0.4424
+#> CV           1.778    1.421    1.127   0.8676   0.7277   0.6523   0.5383
+#> adjCV        1.778    1.338    1.061   0.7969   0.6612   0.5926   0.4969
 #>        7 comps  8 comps  9 comps  10 comps
-#> CV      0.5094   0.5689   0.6386    0.6927
-#> adjCV   0.4671   0.5198   0.5818    0.6324
+#> CV      0.4826   0.4652   0.4928    0.5961
+#> adjCV   0.4482   0.4303   0.4497    0.5483
 #> 
 #> TRAINING: % variance explained
 #>               1 comps  2 comps  3 comps  4 comps  5 comps  6 comps  7 comps

@@ -1,7 +1,9 @@
 # Generalized Canonical Analysis - GCA
 
 This is an interface to both SVD-based (default) and RGCCA-based GCA
-(wrapping the `RGCCA::rgcca` function)
+(wrapping the
+[`RGCCA::rgcca`](https://rgcca-factory.github.io/RGCCA/reference/rgcca.html)
+function)
 
 ## Usage
 
