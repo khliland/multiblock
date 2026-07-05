@@ -5,3 +5,6 @@ backgr
 ^docs$
 ^pkgdown$
 ^\.github$
+^\.positai$
+^\.claude$
+.vscode

@@ -48,10 +48,10 @@
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S3 method for class 'multiblock'</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/pls/man/scores.html" class="external-link">scores</a></span><span class="op">(</span><span class="va">object</span>, block <span class="op">=</span> <span class="fl">0</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://khliland.github.io/pls/reference/scores.html" class="external-link">scores</a></span><span class="op">(</span><span class="va">object</span>, block <span class="op">=</span> <span class="fl">0</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for class 'multiblock'</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/pls/man/scores.html" class="external-link">loadings</a></span><span class="op">(</span><span class="va">object</span>, block <span class="op">=</span> <span class="fl">0</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://khliland.github.io/pls/reference/scores.html" class="external-link">loadings</a></span><span class="op">(</span><span class="va">object</span>, block <span class="op">=</span> <span class="fl">0</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for class 'multiblock'</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
@@ -89,7 +89,7 @@
     <p>Usage of the functions are shown using generics in the examples below.
 Object printing and summary are available through:
 <code>print.multiblock</code> and <code>summary.multiblock</code>.
-Scores and loadings have their own extensions of <code><a href="https://rdrr.io/pkg/pls/man/scores.html" class="external-link">scores()</a></code> and <code><a href="https://rdrr.io/pkg/pls/man/scores.html" class="external-link">loadings()</a></code> throught
+Scores and loadings have their own extensions of <code><a href="https://khliland.github.io/pls/reference/scores.html" class="external-link">scores()</a></code> and <code><a href="https://khliland.github.io/pls/reference/scores.html" class="external-link">loadings()</a></code> throught
 <code>scores.multiblock</code> and <code>loadings.multiblock</code>.</p>
     </div>
     <div class="section level2">
@@ -114,14 +114,14 @@ Common functions for plotting are found in <code><a href="multiblock_plots.html"
 <span class="r-out co"><span class="r-pr">#&gt;</span> $scores: Common scores (21x4)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $blockLoadings: Block loadings:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - Smell at rest (5x4), View (3x4), Smell after shaking (10x4)</span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/pls/man/scores.html" class="external-link">loadings</a></span><span class="op">(</span><span class="va">sc</span>, block <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="https://khliland.github.io/pls/reference/scores.html" class="external-link">loadings</a></span><span class="op">(</span><span class="va">sc</span>, block <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                   Comp 1     Comp 2      Comp 3      Comp 4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Odor Intensity before shaking 0.19548267 -0.3267557  0.50138779 -0.09348863</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Aroma quality before shaking  0.16311889  0.1296282  0.28552072  0.14894779</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Fruity before shaking         0.12978290  0.1773340  0.34890797  0.26269486</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Flower before shaking         0.05514227  0.1048857 -0.02986196 -0.47929451</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Spice before shaking          0.04176668 -0.4175496  0.07332530  0.04104202</span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/pls/man/scores.html" class="external-link">scores</a></span><span class="op">(</span><span class="va">sc</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="https://khliland.github.io/pls/reference/scores.html" class="external-link">scores</a></span><span class="op">(</span><span class="va">sc</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       Comp 1      Comp 2      Comp 3       Comp 4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1  0.4048505  0.14408310 -0.26713729 -0.221396684</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 -1.2711617  0.25270420 -0.02202010 -0.533496550</span>
@@ -141,7 +141,7 @@ Common functions for plotting are found in <code><a href="multiblock_plots.html"
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer></div>

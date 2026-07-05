@@ -42,7 +42,7 @@
     </div>
 
     <div class="ref-description section level2">
-    <p>This is a wrapper for the <code><a href="https://rdrr.io/pkg/r.jive/man/jive.html" class="external-link">r.jive::jive</a></code> function for computing JIVE.</p>
+    <p>This is a wrapper for the <code>r.jive::jive</code> function for computing JIVE.</p>
     </div>
 
     <div class="section level2">
@@ -59,7 +59,7 @@
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
-<dd><p>additional arguments for <code><a href="https://rdrr.io/pkg/r.jive/man/jive.html" class="external-link">r.jive::jive</a></code>.</p></dd>
+<dd><p>additional arguments for <code>r.jive::jive</code>.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -87,35 +87,16 @@ low-dimensional representations of individual and joint variation plus residual 
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">candies</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="va">candyList</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nlevels.html" class="external-link">nlevels</a></span><span class="op">(</span><span class="va">candies</span><span class="op">$</span><span class="va">candy</span><span class="op">)</span>,<span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="va">candies</span><span class="op">$</span><span class="va">assessment</span><span class="op">[</span><span class="va">candies</span><span class="op">$</span><span class="va">candy</span><span class="op">==</span><span class="va">x</span>,<span class="op">]</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="va">can.jive</span>  <span class="op">&lt;-</span> <span class="fu">jive</span><span class="op">(</span><span class="va">candyList</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Estimating  joint and individual ranks via permutation...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Running JIVE algorithm for ranks:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> joint rank: 1 , individual ranks: 1 1 1 1 1 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> JIVE algorithm converged after  16  iterations.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Re-estimating  joint and individual ranks via permutation...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Running JIVE algorithm for ranks:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> joint rank: 1 , individual ranks: 1 0 1 0 1 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> JIVE algorithm converged after  13  iterations.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Re-estimating  joint and individual ranks via permutation...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Final joint rank: 1 , final individual ranks: 1 0 1 0 1 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> To run 'jive', please install the 'r.jive' package, e.g., using</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> install.packages('r.jive')</span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">can.jive</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $Method</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "perm"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Nothing computed </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ================ </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $Ranks</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      Source     Rank</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] "Joint"    "1" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] "Source_1" "1" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] "Source_2" "0" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [4,] "Source_3" "1" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [5,] "Source_4" "0" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [6,] "Source_5" "1" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $Variance</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            Source_1 Source_2 Source_3 Source_4 Source_5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Joint         0.690    0.852    0.793    0.878    0.624</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Individual    0.079    0.000    0.056    0.000    0.223</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Residual      0.230    0.148    0.151    0.122    0.153</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $scores: Not used (2x2)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $loadings: Not used (2x2)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $blockScores: Not used:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - (2x2), (2x2), (2x2), (2x2), (2x2)</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
@@ -129,7 +110,7 @@ low-dimensional representations of individual and joint variation plus residual 
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer></div>

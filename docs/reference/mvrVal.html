@@ -57,7 +57,7 @@ cross-validation and calibration-set estimates are implemented.</p>
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S3 method for class 'mbpls'</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/pls/man/mvrVal.html" class="external-link">R2</a></span><span class="op">(</span></span>
+<span><span class="fu"><a href="https://khliland.github.io/pls/reference/mvrVal.html" class="external-link">R2</a></span><span class="op">(</span></span>
 <span>  <span class="va">object</span>,</span>
 <span>  <span class="va">estimate</span>,</span>
 <span>  <span class="va">newdata</span>,</span>
@@ -69,7 +69,7 @@ cross-validation and calibration-set estimates are implemented.</p>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for class 'mbpls'</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/pls/man/mvrVal.html" class="external-link">MSEP</a></span><span class="op">(</span></span>
+<span><span class="fu"><a href="https://khliland.github.io/pls/reference/mvrVal.html" class="external-link">MSEP</a></span><span class="op">(</span></span>
 <span>  <span class="va">object</span>,</span>
 <span>  <span class="va">estimate</span>,</span>
 <span>  <span class="va">newdata</span>,</span>
@@ -81,7 +81,7 @@ cross-validation and calibration-set estimates are implemented.</p>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for class 'mbpls'</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/pls/man/mvrVal.html" class="external-link">RMSEP</a></span><span class="op">(</span><span class="va">object</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://khliland.github.io/pls/reference/mvrVal.html" class="external-link">RMSEP</a></span><span class="op">(</span><span class="va">object</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -221,8 +221,8 @@ Partial Least Squares Regression (PLSR).  <em>Journal of Chemometrics</em>,
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">oliveoil</span>, package <span class="op">=</span> <span class="st">"pls"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu">pls</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pls/man/mvr.html" class="external-link">plsr</a></span><span class="op">(</span><span class="va">sensory</span> <span class="op">~</span> <span class="va">chemical</span>, ncomp <span class="op">=</span> <span class="fl">4</span>, data <span class="op">=</span> <span class="va">oliveoil</span>, validation <span class="op">=</span> <span class="st">"LOO"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/pls/man/mvrVal.html" class="external-link">RMSEP</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu">pls</span><span class="fu">::</span><span class="fu"><a href="https://khliland.github.io/pls/reference/mvr.html" class="external-link">plsr</a></span><span class="op">(</span><span class="va">sensory</span> <span class="op">~</span> <span class="va">chemical</span>, ncomp <span class="op">=</span> <span class="fl">4</span>, data <span class="op">=</span> <span class="va">oliveoil</span>, validation <span class="op">=</span> <span class="st">"LOO"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://khliland.github.io/pls/reference/mvrVal.html" class="external-link">RMSEP</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Response: yellow </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        (Intercept)  1 comps  2 comps  3 comps  4 comps</span>
@@ -253,7 +253,7 @@ Partial Least Squares Regression (PLSR).  <em>Journal of Chemometrics</em>,
 <span class="r-out co"><span class="r-pr">#&gt;</span>        (Intercept)  1 comps  2 comps  3 comps  4 comps</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> CV           3.166    2.134    2.325    2.478    2.939</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> adjCV        3.166    2.128    2.310    2.458    2.901</span>
-<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/pls/man/mvrVal.html" class="external-link">R2</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span><span class="op">)</span> <span class="co"># \dontrun{}</span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://khliland.github.io/pls/reference/mvrVal.html" class="external-link">R2</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span><span class="op">)</span> <span class="co"># \dontrun{}</span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
@@ -266,7 +266,7 @@ Partial Least Squares Regression (PLSR).  <em>Journal of Chemometrics</em>,
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer></div>

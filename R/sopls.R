@@ -430,15 +430,16 @@ sopls_worker <- function(C, Y, comps, max_comps, Cval = NULL, both = FALSE){
         prev_Q <- no_Q
       no_Q <- "A"
       try(
-      no_Q <- Crval_currB[[cb]][,1:comp_curr,drop=FALSE] %*% 
-        solve(crossprodQ(T_curr[,1:comp_curr,drop=FALSE], Cr_currB[[cb]][,1:comp_curr,drop=FALSE]))
-      , silent = TRUE)
+        no_Q <- Crval_currB[[cb]][,1:comp_curr,drop=FALSE] %*% 
+        pracma::pinv(crossprodQ(T_curr[,1:comp_curr,drop=FALSE], Cr_currB[[cb]][,1:comp_curr,drop=FALSE]))
+        , silent = TRUE)
       # Check existence of no_Q
       if(inherits(no_Q, "character")){
         if(!exists("prev_Q")){
-          stop("Error in prediction: Singular matrix in prediction.")
+#          stop("Error in prediction: Singular matrix in prediction.")
+          no_Q <- matrix(Inf,nval,comp_curr)
         } else {
-          no_Q <- cbind(prev_Q, matrix(0,nval,comp_curr-ncol(prev_Q)))
+          no_Q <- cbind(prev_Q, matrix(Inf,nval,comp_curr-ncol(prev_Q)))
         }
       }
       # Prediction per response

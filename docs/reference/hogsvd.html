@@ -83,7 +83,7 @@ Common functions for computation and extraction of results and plotting are foun
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">candies</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">candyList</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nlevels.html" class="external-link">nlevels</a></span><span class="op">(</span><span class="va">candies</span><span class="op">$</span><span class="va">candy</span><span class="op">)</span>,<span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="va">candies</span><span class="op">$</span><span class="va">assessment</span><span class="op">[</span><span class="va">candies</span><span class="op">$</span><span class="va">candy</span><span class="op">==</span><span class="va">x</span>,<span class="op">]</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">can.hogsvd</span> <span class="op">&lt;-</span> <span class="fu">hogsvd</span><span class="op">(</span><span class="va">candyList</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/pls/man/scoreplot.html" class="external-link">scoreplot</a></span><span class="op">(</span><span class="va">can.hogsvd</span>, block<span class="op">=</span><span class="fl">1</span>, labels<span class="op">=</span><span class="st">"names"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://khliland.github.io/pls/reference/scoreplot.html" class="external-link">scoreplot</a></span><span class="op">(</span><span class="va">can.hogsvd</span>, block<span class="op">=</span><span class="fl">1</span>, labels<span class="op">=</span><span class="st">"names"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="hogsvd-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
@@ -97,7 +97,7 @@ Common functions for computation and extraction of results and plotting are foun
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer></div>

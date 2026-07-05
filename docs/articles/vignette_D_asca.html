@@ -71,6 +71,9 @@
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://khliland.github.io/multiblock/">multiblock</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; Registered S3 method overwritten by 'lme4':</span></span>
+<span><span class="co">#&gt;   method           from</span></span>
+<span><span class="co">#&gt;   na.action.merMod car</span></span>
 <span><span class="co">#&gt; Registered S3 method overwritten by 'plsVarSel':</span></span>
 <span><span class="co">#&gt;   method       from</span></span>
 <span><span class="co">#&gt;   print.mvrVal pls</span></span>
@@ -143,7 +146,7 @@ follows.</p>
 <p>Scores for first factor are extracted and a scoreplot with confidence
 ellipsoids is produced.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">sc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/pls/man/scores.html" class="external-link">scores</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">sc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://khliland.github.io/pls/reference/scores.html" class="external-link">scores</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">sc</span><span class="op">)</span></span>
 <span><span class="co">#&gt;          Comp 1     Comp 2</span></span>
 <span><span class="co">#&gt; Obj 1 0.9395791 -0.1039977</span></span>
@@ -153,11 +156,11 @@ ellipsoids is produced.</p>
 <span><span class="co">#&gt; Obj 5 0.9395791 -0.1039977</span></span>
 <span><span class="co">#&gt; Obj 6 0.9395791 -0.1039977</span></span>
 <span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/pls/man/scoreplot.html" class="external-link">scoreplot</a></span><span class="op">(</span><span class="va">mod</span>, legendpos <span class="op">=</span> <span class="st">"topleft"</span>, ellipsoids <span class="op">=</span> <span class="st">"confidence"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="vignette_D_asca_files/figure-html/unnamed-chunk-3-1.png" width="576"></p>
+<span><span class="fu"><a href="https://khliland.github.io/pls/reference/scoreplot.html" class="external-link">scoreplot</a></span><span class="op">(</span><span class="va">mod</span>, legendpos <span class="op">=</span> <span class="st">"topleft"</span>, ellipsoids <span class="op">=</span> <span class="st">"confidence"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="vignette_D_asca_files/figure-html/unnamed-chunk-3-1.png" class="r-plt" alt="" width="576"></p>
 <p>This is repeated for the second factor.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">sc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/pls/man/scores.html" class="external-link">scores</a></span><span class="op">(</span><span class="va">mod</span>, factor <span class="op">=</span> <span class="st">"z"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">sc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://khliland.github.io/pls/reference/scores.html" class="external-link">scores</a></span><span class="op">(</span><span class="va">mod</span>, factor <span class="op">=</span> <span class="st">"z"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">sc</span><span class="op">)</span></span>
 <span><span class="co">#&gt;           Comp 1</span></span>
 <span><span class="co">#&gt; Obj 1 -0.3831621</span></span>
@@ -167,8 +170,8 @@ ellipsoids is produced.</p>
 <span><span class="co">#&gt; Obj 5 -0.3831621</span></span>
 <span><span class="co">#&gt; Obj 6  0.3831621</span></span>
 <span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/pls/man/scoreplot.html" class="external-link">scoreplot</a></span><span class="op">(</span><span class="va">mod</span>, factor <span class="op">=</span> <span class="st">"z"</span>, ellipsoids <span class="op">=</span> <span class="st">"confidence"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="vignette_D_asca_files/figure-html/unnamed-chunk-4-1.png" width="576"></p>
+<span><span class="fu"><a href="https://khliland.github.io/pls/reference/scoreplot.html" class="external-link">scoreplot</a></span><span class="op">(</span><span class="va">mod</span>, factor <span class="op">=</span> <span class="st">"z"</span>, ellipsoids <span class="op">=</span> <span class="st">"confidence"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="vignette_D_asca_files/figure-html/unnamed-chunk-4-1.png" class="r-plt" alt="" width="576"></p>
 </div>
 <div class="section level3">
 <h3 id="loadings">Loadings<a class="anchor" aria-label="anchor" href="#loadings"></a>
@@ -176,7 +179,7 @@ ellipsoids is produced.</p>
 <p>A basic loadingplot for the first factor is generated using graphics
 from the <em>pls</em> package.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">lo</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/pls/man/scores.html" class="external-link">loadings</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">lo</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://khliland.github.io/pls/reference/scores.html" class="external-link">loadings</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">lo</span><span class="op">)</span></span>
 <span><span class="co">#&gt;            Comp 1      Comp 2</span></span>
 <span><span class="co">#&gt; Var 1 -0.03688007 -0.15615007</span></span>
@@ -186,8 +189,8 @@ from the <em>pls</em> package.</p>
 <span><span class="co">#&gt; Var 5 -0.54263018  0.45252899</span></span>
 <span><span class="co">#&gt; Var 6  0.44399942 -0.01293480</span></span>
 <span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/pls/man/scoreplot.html" class="external-link">loadingplot</a></span><span class="op">(</span><span class="va">mod</span>, scatter <span class="op">=</span> <span class="cn">TRUE</span>, labels <span class="op">=</span> <span class="st">'names'</span><span class="op">)</span></span></code></pre></div>
-<p><img src="vignette_D_asca_files/figure-html/unnamed-chunk-5-1.png" width="576"></p>
+<span><span class="fu"><a href="https://khliland.github.io/pls/reference/scoreplot.html" class="external-link">loadingplot</a></span><span class="op">(</span><span class="va">mod</span>, scatter <span class="op">=</span> <span class="cn">TRUE</span>, labels <span class="op">=</span> <span class="st">'names'</span><span class="op">)</span></span></code></pre></div>
+<p><img src="vignette_D_asca_files/figure-html/unnamed-chunk-5-1.png" class="r-plt" alt="" width="576"></p>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
@@ -201,7 +204,7 @@ from the <em>pls</em> package.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer>

@@ -5,6 +5,14 @@ This implements and imports a large collection of methods for multiblock data an
 functions, several real data sets and six vignettes covering a range different applications.
 Kristian Hovde Liland
 
+##### Version 0.8.11
+Date: 5 July 2026
+>> New path_effects() function for estimation of local effects in path analyses.
+
+##### Version 0.8.10
+Date: 1 April 2025
+>> Minor bug fix in SO-PLS cross-validation.
+
 ##### Version 0.8.9
 Date: 20 January 2025
 >> Changed from internal ASCA methods to import from HDANOVA package.

@@ -138,8 +138,8 @@ Common functions for computation and extraction of results and plotting are foun
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'ncomp' reduced due to low singular value for block 1</span>
 <span class="r-in"><span><span class="va">pot.po.man</span><span class="op">$</span><span class="va">explVar</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Chemical</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> C(1,2), Comp 1   D(1), Comp 1   D(1), Comp 2 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       32.22944       20.74357       20.87956 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> C(1,2), Comp 1   D(1), Comp 1   D(1), Comp 2   D(1), Comp 3 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    32.22943509    20.74356738    20.87956167     0.04446336 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Compression</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> C(1,2), Comp 1 C(2,3), Comp 1 C(2,3), Comp 2 </span>
@@ -151,7 +151,7 @@ Common functions for computation and extraction of results and plotting are foun
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Score plot for local (2,3) components</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/pls/man/scores.html" class="external-link">scores</a></span><span class="op">(</span><span class="va">pot.po.man</span>,<span class="fl">3</span><span class="op">)</span>, comps<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, labels<span class="op">=</span><span class="st">"names"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://khliland.github.io/pls/reference/scores.html" class="external-link">scores</a></span><span class="op">(</span><span class="va">pot.po.man</span>,<span class="fl">3</span><span class="op">)</span>, comps<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, labels<span class="op">=</span><span class="st">"names"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="popls-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
@@ -165,7 +165,7 @@ Common functions for computation and extraction of results and plotting are foun
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer></div>

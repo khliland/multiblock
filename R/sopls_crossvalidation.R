@@ -78,10 +78,12 @@ sopls_cv <- function(X, Y, comps, max_comps, segments, progress=TRUE, ...){
     #   pb$tick(tokens = list(what = paste0("block ", i)))
     # }
     X[[i]] <- as.matrix(X[[i]])
-    if(length(segments) == n){
-      Xc[[i]]  <- (rep(colSums(X[[i]]),each=n)-X[[i]])/(n-1) # Means without i-th sample
-      Yc       <- (rep(colSums(Y),each=n)-Y)/(n-1)           # Means without i-th sample
-    } else {
+    # if(length(segments) > n){
+    #   Xc[[i]]  <- (rep(colSums(X[[i]]),each=n)-X[[i]])/(n-1) # Means without i-th sample
+    #   Xc[[i]]  <- Xc[[i]][cv,] # Reorder according to segments
+    #   Yc       <- (rep(colSums(Y),each=n)-Y)/(n-1)           # Means without i-th sample
+    #   Yc       <- Yc[cv,] # Reorder according to segments
+    # } else {
       segLength <- numeric(nseg)
       cvMat <- matrix(0,nseg,n)
       for(s in 1:nseg){
@@ -92,30 +94,31 @@ sopls_cv <- function(X, Y, comps, max_comps, segments, progress=TRUE, ...){
       sumy <- colSums(Y)
       Xc[[i]] <- (rep(sumX[[i]],each=nseg) - cvMat %*% X[[i]])/(n-segLength) # Means without i-th sample set
       Yc      <- (rep(sumy,each=nseg) - cvMat %*% Y)/(n-segLength)           # Means without i-th sample set
-    }
+    # }
     mm[[i]]  <- rowSums(Xc[[i]]^2)          # Inner products of Xc
     Xm[[i]]  <- tcrossprodQ(X[[i]],Xc[[i]]) # X*mean(X) for each sample mean
     C[[i]] <- tcrossprodQ(X[[i]])
   }
-  
+
   n2 <- rep(FALSE, n)
   for(i in 1:nseg){
     if(progress){
       pb$tick(tokens = list(what = paste0("segment ", format(i, width=nnseg, justify="right"))))
     }
+    nt <- sum(cv==i)
     inds2 <- n2
     inds2[cv==i] <- TRUE
     # Compute X*X' with centred X matrices excluding observation i
-    Ci <- Cival <- Yi <- list()
+    Ci <- Cival <- list()
     for(blk in 1:nblock){
-      Ci[[blk]] <- C[[blk]] - (Xm[[blk]][,i] + matrix(Xm[[blk]][,i,drop=FALSE] - mm[[blk]][i], n,n, byrow=TRUE))
+      Ci[[blk]] <- C[[blk]] - (Xm[[blk]][,i] + matrix(Xm[[blk]][,i] - mm[[blk]][i], n,n, byrow=TRUE))
+      XXvt <- Ci[[blk]][inds2,!inds2, drop=FALSE]
       Ci[[blk]][inds2,] <- 0
-      nt <- sum(cv==i)
+      Ci[[blk]][,inds2] <-  0
       # Compute Xval*X' with centred X matrices excluding observation i
-      XXvt <- C[[blk]][cv==i,cv!=i] - (matrix(Xm[[blk]][cv!=i,i,drop=FALSE],nt,n-nt,byrow=TRUE) + (Xm[[blk]][cv==i,i] - mm[[blk]][i]))
+#      XXvt <- C[[blk]][cv==i,cv!=i,drop=FALSE] - (matrix(Xm[[blk]][cv!=i,i],nt,n-nt,byrow=TRUE) + (Xm[[blk]][cv==i,i] - mm[[blk]][i]))
       Cival[[blk]] <- matrix(0,nt,n)
       Cival[[blk]][,!inds2] <- XXvt
-      Ci[[blk]][,inds2] <-  0
     }
     Yi <- Y-rep(Yc[i,,drop=FALSE], each=n)
     Yi[inds2,] <- 0

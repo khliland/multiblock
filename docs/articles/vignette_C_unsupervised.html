@@ -72,6 +72,9 @@
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Start the multiblock R package</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://khliland.github.io/multiblock/">multiblock</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; Registered S3 method overwritten by 'lme4':</span></span>
+<span><span class="co">#&gt;   method           from</span></span>
+<span><span class="co">#&gt;   na.action.merMod car</span></span>
 <span><span class="co">#&gt; Registered S3 method overwritten by 'plsVarSel':</span></span>
 <span><span class="co">#&gt;   method       from</span></span>
 <span><span class="co">#&gt;   print.mvrVal pls</span></span>
@@ -233,19 +236,16 @@ etc.</p>
 <span><span class="co">#&gt; - Chemical (14x2), Compression (12x2), Sensory (9x2)</span></span>
 <span><span class="co"># MFA stores individual PCA scores and loadings as block elements:</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">pot.mfa</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "scores"        "loadings"      "blockScores"   "blockLoadings"</span></span>
-<span><span class="co">#&gt; [5] "info"          "MFA"           "call"          "explvar"      </span></span>
-<span><span class="co">#&gt; [9] "data"</span></span>
+<span><span class="co">#&gt; [1] "loadings"    "blockScores" "scores"      "blockScores" "info"       </span></span>
+<span><span class="co">#&gt; [6] "call"</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">pot.mfa</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Multiple Factor Analysis </span></span>
-<span><span class="co">#&gt; ======================== </span></span>
+<span><span class="co">#&gt; Nothing computed </span></span>
+<span><span class="co">#&gt; ================ </span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $scores: Global scores (26x5)</span></span>
-<span><span class="co">#&gt; $loadings: Global loadings (35x5)</span></span>
-<span><span class="co">#&gt; $blockScores: Individual PCA scores:</span></span>
-<span><span class="co">#&gt; - Chemical (26x5), Compression (26x5), Sensory (26x5)</span></span>
-<span><span class="co">#&gt; $blockLoadings: Individual PCA loadings:</span></span>
-<span><span class="co">#&gt; - Chemical (14x5), Compression (12x5), Sensory (9x5)</span></span></code></pre></div>
+<span><span class="co">#&gt; $scores: Not used (2x2)</span></span>
+<span><span class="co">#&gt; $loadings: Not used (2x2)</span></span>
+<span><span class="co">#&gt; $blockScores: Not used:</span></span>
+<span><span class="co">#&gt; - (2x2), (2x2), (2x2)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="scores-and-loadings">Scores and loadings<a class="anchor" aria-label="anchor" href="#scores-and-loadings"></a>
@@ -258,15 +258,15 @@ common/global block. Block scores/loadings can be accessed by number or
 name.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Global scores plotted with object labels</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/pls/man/scoreplot.html" class="external-link">scoreplot</a></span><span class="op">(</span><span class="va">pot.sca</span>, labels <span class="op">=</span> <span class="st">"names"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="vignette_C_unsupervised_files/figure-html/unnamed-chunk-6-1.png" width="576"></p>
+<span><span class="fu"><a href="https://khliland.github.io/pls/reference/scoreplot.html" class="external-link">scoreplot</a></span><span class="op">(</span><span class="va">pot.sca</span>, labels <span class="op">=</span> <span class="st">"names"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="vignette_C_unsupervised_files/figure-html/unnamed-chunk-6-1.png" class="r-plt" alt="" width="576"></p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Block loadings for Sensory block with variable labels in scatter format</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/pls/man/scoreplot.html" class="external-link">loadingplot</a></span><span class="op">(</span><span class="va">pot.sca</span>, block <span class="op">=</span> <span class="st">"Sensory"</span>, labels <span class="op">=</span> <span class="st">"names"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="vignette_C_unsupervised_files/figure-html/unnamed-chunk-7-1.png" width="576"></p>
+<span><span class="fu"><a href="https://khliland.github.io/pls/reference/scoreplot.html" class="external-link">loadingplot</a></span><span class="op">(</span><span class="va">pot.sca</span>, block <span class="op">=</span> <span class="st">"Sensory"</span>, labels <span class="op">=</span> <span class="st">"names"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="vignette_C_unsupervised_files/figure-html/unnamed-chunk-7-1.png" class="r-plt" alt="" width="576"></p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Non-existing elements are swapped with existing ones with a warning.</span></span>
-<span><span class="va">sc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/pls/man/scores.html" class="external-link">scores</a></span><span class="op">(</span><span class="va">pot.sca</span>, block <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="va">sc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://khliland.github.io/pls/reference/scores.html" class="external-link">scores</a></span><span class="op">(</span><span class="va">pot.sca</span>, block <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning in scores.multiblock(pot.sca, block = 1): No block scores. Returning</span></span>
 <span><span class="co">#&gt; global/consensus scores.</span></span></code></pre></div>
 </div>
@@ -282,7 +282,7 @@ summary plot for the <em>statis</em> method in the package
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Apply a plot function from ade4 (no extra import required).</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">can.statis</span><span class="op">$</span><span class="va">statis</span><span class="op">)</span></span></code></pre></div>
-<p><img src="vignette_C_unsupervised_files/figure-html/unnamed-chunk-9-1.png" width="576"></p>
+<p><img src="vignette_C_unsupervised_files/figure-html/unnamed-chunk-9-1.png" class="r-plt" alt="" width="576"></p>
 <!-- # Simultaenous Component Analysis - SCA -->
 <!-- SCA will be demonstrated using sensory wine data. -->
 <!-- ## Modelling -->
@@ -317,7 +317,7 @@ summary plot for the <em>statis</em> method in the package
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer>

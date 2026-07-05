@@ -33,6 +33,7 @@
 <url><loc>https://khliland.github.io/multiblock/reference/compnames.html</loc></url>
 <url><loc>https://khliland.github.io/multiblock/reference/disco.html</loc></url>
 <url><loc>https://khliland.github.io/multiblock/reference/dummycode.html</loc></url>
+<url><loc>https://khliland.github.io/multiblock/reference/emulsions.html</loc></url>
 <url><loc>https://khliland.github.io/multiblock/reference/explvar.html</loc></url>
 <url><loc>https://khliland.github.io/multiblock/reference/extended.model.frame.html</loc></url>
 <url><loc>https://khliland.github.io/multiblock/reference/gca.html</loc></url>
@@ -61,13 +62,16 @@
 <url><loc>https://khliland.github.io/multiblock/reference/multiblock_plots.html</loc></url>
 <url><loc>https://khliland.github.io/multiblock/reference/multiblock_results.html</loc></url>
 <url><loc>https://khliland.github.io/multiblock/reference/mvrVal.html</loc></url>
+<url><loc>https://khliland.github.io/multiblock/reference/path_effects.html</loc></url>
 <url><loc>https://khliland.github.io/multiblock/reference/pca.html</loc></url>
 <url><loc>https://khliland.github.io/multiblock/reference/pcagca.html</loc></url>
+<url><loc>https://khliland.github.io/multiblock/reference/plot.path_effects.html</loc></url>
 <url><loc>https://khliland.github.io/multiblock/reference/popls.html</loc></url>
 <url><loc>https://khliland.github.io/multiblock/reference/potato.html</loc></url>
 <url><loc>https://khliland.github.io/multiblock/reference/predict.mbpls.html</loc></url>
 <url><loc>https://khliland.github.io/multiblock/reference/preprocess.html</loc></url>
 <url><loc>https://khliland.github.io/multiblock/reference/print.asca.html</loc></url>
+<url><loc>https://khliland.github.io/multiblock/reference/print.path_effects.html</loc></url>
 <url><loc>https://khliland.github.io/multiblock/reference/print.summary.asca.html</loc></url>
 <url><loc>https://khliland.github.io/multiblock/reference/process.html</loc></url>
 <url><loc>https://khliland.github.io/multiblock/reference/projections.asca.html</loc></url>
