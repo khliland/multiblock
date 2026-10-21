@@ -112,87 +112,105 @@ export(statis)
 export(timeplot)
 export(unique_combos)
 export(validationplot)
-importFrom(HDANOVA,asca)
-importFrom(HDANOVA,loadingplot)
-importFrom(HDANOVA,permutationplot)
-importFrom(HDANOVA,scoreplot)
-importFrom(HDANOVA,timeplot)
-importFrom(MASS,lda)
-importFrom(MASS,qda)
+importFrom(HDANOVA,
+  asca,
+  loadingplot,
+  permutationplot,
+  scoreplot,
+  timeplot
+)
+importFrom(MASS,
+  lda,
+  qda
+)
 importFrom(RSpectra,svds)
 importFrom(Rcpp,evalCpp)
 importFrom(SSBtools,RowGroups)
-importFrom(ade4,dudi.pca)
-importFrom(ade4,ktab.list.df)
-importFrom(ade4,ktab.within)
-importFrom(ade4,mbpcaiv)
-importFrom(ade4,statis)
-importFrom(ade4,withinpca)
+importFrom(ade4,
+  dudi.pca,
+  ktab.list.df,
+  ktab.within,
+  mbpcaiv,
+  statis,
+  withinpca
+)
 importFrom(car,ellipse)
 importFrom(grDevices,rgb)
-importFrom(graphics,abline)
-importFrom(graphics,arrows)
-importFrom(graphics,axTicks)
-importFrom(graphics,axis)
-importFrom(graphics,barplot)
-importFrom(graphics,box)
-importFrom(graphics,image)
-importFrom(graphics,legend)
-importFrom(graphics,lines)
-importFrom(graphics,matplot)
-importFrom(graphics,pairs)
-importFrom(graphics,par)
-importFrom(graphics,points)
-importFrom(graphics,text)
-importFrom(mixlm,cld)
-importFrom(mixlm,simple.glht)
+importFrom(graphics,
+  abline,
+  arrows,
+  axTicks,
+  axis,
+  barplot,
+  box,
+  image,
+  legend,
+  lines,
+  matplot,
+  pairs,
+  par,
+  points,
+  text
+)
+importFrom(mixlm,
+  cld,
+  simple.glht
+)
 importFrom(plotrix,color.legend)
-importFrom(pls,MSEP)
-importFrom(pls,R2)
-importFrom(pls,RMSEP)
-importFrom(pls,coefplot)
-importFrom(pls,corrplot)
-importFrom(pls,cvsegments)
-importFrom(pls,loading.weights)
-importFrom(pls,loadingplot)
-importFrom(pls,loadings)
-importFrom(pls,mvrValstats)
-importFrom(pls,pcr)
-importFrom(pls,plsr)
-importFrom(pls,predplot)
-importFrom(pls,scoreplot)
-importFrom(pls,scores)
-importFrom(pls,validationplot)
-importFrom(plsVarSel,mvrV)
-importFrom(plsVarSel,stpls)
-importFrom(plsVarSel,truncation)
-importFrom(pracma,Rank)
-importFrom(pracma,mrdivide)
+importFrom(pls,
+  MSEP,
+  R2,
+  RMSEP,
+  coefplot,
+  corrplot,
+  cvsegments,
+  loading.weights,
+  loadingplot,
+  loadings,
+  mvrValstats,
+  pcr,
+  plsr,
+  predplot,
+  scoreplot,
+  scores,
+  validationplot
+)
+importFrom(plsVarSel,
+  mvrV,
+  stpls,
+  truncation
+)
+importFrom(pracma,
+  Rank,
+  mrdivide
+)
 importFrom(progress,progress_bar)
-importFrom(stats,anova)
-importFrom(stats,approx)
-importFrom(stats,cancor)
-importFrom(stats,coef)
-importFrom(stats,coefficients)
-importFrom(stats,cor)
-importFrom(stats,drop.terms)
-importFrom(stats,fitted)
-importFrom(stats,formula)
-importFrom(stats,lm)
-importFrom(stats,median)
-importFrom(stats,model.frame)
-importFrom(stats,model.matrix)
-importFrom(stats,model.response)
-importFrom(stats,na.pass)
-importFrom(stats,napredict)
-importFrom(stats,optimize)
-importFrom(stats,pchisq)
-importFrom(stats,predict)
-importFrom(stats,qf)
-importFrom(stats,rnorm)
-importFrom(stats,sd)
-importFrom(stats,terms)
-importFrom(stats,update)
-importFrom(stats,var)
+importFrom(stats,
+  anova,
+  approx,
+  cancor,
+  coef,
+  coefficients,
+  cor,
+  drop.terms,
+  fitted,
+  formula,
+  lm,
+  median,
+  model.frame,
+  model.matrix,
+  model.response,
+  na.pass,
+  napredict,
+  optimize,
+  pchisq,
+  predict,
+  qf,
+  rnorm,
+  sd,
+  terms,
+  update,
+  var
+)
 importFrom(utils,installed.packages)
 useDynLib(multiblock)

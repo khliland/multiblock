@@ -28,8 +28,8 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{HDANOVA}{\code{\link[HDANOVA]{asca}}, \code{\link[HDANOVA:reexports]{loadingplot}}, \code{\link[HDANOVA:asca_plots]{permutationplot}}, \code{\link[HDANOVA:reexports]{scoreplot}}, \code{\link[HDANOVA]{timeplot}}}
+  \item{HDANOVA}{\code{\link[HDANOVA:asca]{asca()}}, \code{\link[HDANOVA:loadingplot]{loadingplot}}, \code{\link[HDANOVA:permutationplot]{permutationplot()}}, \code{\link[HDANOVA:scoreplot]{scoreplot}}, \code{\link[HDANOVA:timeplot]{timeplot()}}}
 
-  \item{pls}{\code{\link[pls:mvrVal]{MSEP}}, \code{\link[pls:mvrVal]{R2}}, \code{\link[pls:mvrVal]{RMSEP}}, \code{\link[pls]{coefplot}}, \code{\link[pls]{cvsegments}}, \code{\link[pls:scores]{loading.weights}}, \code{\link[pls:scoreplot]{loadingplot}}, \code{\link[pls:scores]{loadings}}, \code{\link[pls:mvrVal]{mvrValstats}}, \code{\link[pls:mvr]{pcr}}, \code{\link[pls:mvr]{plsr}}, \code{\link[pls]{predplot}}, \code{\link[pls]{scoreplot}}, \code{\link[pls]{scores}}, \code{\link[pls]{validationplot}}}
+  \item{pls}{\code{\link[pls:MSEP]{MSEP()}}, \code{\link[pls:R2]{R2()}}, \code{\link[pls:RMSEP]{RMSEP()}}, \code{\link[pls:coefplot]{coefplot()}}, \code{\link[pls:cvsegments]{cvsegments()}}, \code{\link[pls:loading.weights]{loading.weights()}}, \code{\link[pls:loadingplot]{loadingplot()}}, \code{\link[pls:loadings]{loadings()}}, \code{\link[pls:mvrValstats]{mvrValstats()}}, \code{\link[pls:pcr]{pcr()}}, \code{\link[pls:plsr]{plsr()}}, \code{\link[pls:predplot]{predplot()}}, \code{\link[pls:scoreplot]{scoreplot()}}, \code{\link[pls:scores]{scores()}}, \code{\link[pls:validationplot]{validationplot()}}}
 }}
 

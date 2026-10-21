@@ -360,6 +360,7 @@ pcp.sopls <- function(object, ncomp, ...){
   PCP$loadings <- PCP$loadings * rep(sqrt(colSums(PCP$scores^2)),each=nrow(PCP$loadings))
   PCP$scores <- PCP$scores / rep(sqrt(colSums(PCP$scores^2)),each=nrow(PCP$scores))
   PCP$blockLoadings <- lapply(lapply(object$data$X, function(x)x-rep(colMeans(x),each=nrow(x))),function(x)crossprod(x,PCP$scores))
+  PCP$blockLoadings <- lapply(PCP$blockLoadings, function(x){class(x) <- "loadings"; x})
   PCP$info <- list(method = "Principal Components of Predictions", 
                    scores = "Scores", loadings = "Loadings",
                    blockScores = "not used", blockLoadings = "Block loadings")
@@ -380,7 +381,10 @@ pcp.default <- function(object, X, ...){
                    scores = "Scores", loadings = "Loadings",
                    blockScores = "not used", blockLoadings = "not used")
   if(!missing(X)){
+    if(is.matrix(X))
+      X <- list(X)
     PCP$blockLoadings <- lapply(lapply(X, function(x)x-rep(colMeans(x),each=nrow(x))),function(x)crossprod(x,PCP$scores))
+    PCP$blockLoadings <- lapply(PCP$blockLoadings, function(x){class(x) <- "loadings"; x})
     PCP$info$blockLoadings <- "Block loadings"
     PCP$data <- X
   }

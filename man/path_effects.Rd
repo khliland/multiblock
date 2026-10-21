@@ -23,7 +23,7 @@ between blocks, with 2 columns: \code{c(from_block_index, to_block_index)}.}
 
 \item{blocks}{A multiblock data frame or list of named matrices containing the block data.}
 
-\item{validation}{Validation method passed to \code{\link[pls:mvr]{pls::plsr()}}. Common options:
+\item{validation}{Validation method passed to \code{\link[pls:plsr]{pls::plsr()}}. Common options:
 \code{"CV"} for cross-validation, "LOO" for leave-one-out validation, or \code{"none"} for fitted values.}
 
 \item{segments}{Number of segments for cross-validation. Default is 5.}

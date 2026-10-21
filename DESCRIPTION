@@ -2,8 +2,8 @@ Encoding: UTF-8
 Package: multiblock
 Type: Package
 Title: Multiblock Data Fusion in Statistics and Machine Learning
-Version: 0.8.11
-Date: 2026-07-05
+Version: 0.8.12
+Date: 2026-xx-xx
 Authors@R: 
     c(person(given = "Kristian Hovde",
              family = "Liland",
@@ -46,5 +46,5 @@ Suggests: EMSC,
   knitr
 LinkingTo: Rcpp, RcppEigen
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.3
 VignetteBuilder: knitr
+Config/roxygen2/version: 8.1.0

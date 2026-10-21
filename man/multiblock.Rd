@@ -74,6 +74,11 @@ Overviews of available methods, \code{\link{multiblock}}, and methods organised 
 \author{
 \strong{Maintainer}: Kristian Hovde Liland \email{kristian.liland@nmbu.no} (\href{https://orcid.org/0000-0001-6468-9423}{ORCID})
 
+Authors:
+\itemize{
+  \item Kristian Hovde Liland \email{kristian.liland@nmbu.no} (\href{https://orcid.org/0000-0001-6468-9423}{ORCID})
+}
+
 Other contributors:
 \itemize{
   \item Solve Sæbø [contributor]
